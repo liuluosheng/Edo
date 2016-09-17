@@ -13,16 +13,13 @@ namespace QuickZ.Repository
     /// EntityFramework的仓储实现
     /// </summary>
     /// <typeparam name="TEntity">实体类型</typeparam>
-    public class Repository<TEntity> : IRepository<TEntity>
+    public class BaseRepository<TEntity> : IBaseRepository<TEntity>
         where TEntity : EntityBase
     {
         private readonly DbSet<TEntity> _dbSet;
         private readonly DbContext _context;
 
-        /// <summary>
-        /// 初始化一个<see cref="Repository{TEntity}"/>类型的新实例
-        /// </summary>
-        public Repository(QuickZDbContext context)
+        public BaseRepository(QuickZDbContext context)
         {
             _context = context;
             _dbSet = context.Set<TEntity>();
@@ -112,7 +109,7 @@ namespace QuickZ.Repository
             return _context.SaveChanges();
         }
 
-   
+
 
 
         /// <summary>

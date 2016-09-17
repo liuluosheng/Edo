@@ -61,12 +61,16 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Ninject, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
       <HintPath>..\packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Ninject.Web.Common, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
-      <HintPath>..\packages\Ninject.Web.Common.3.2.0.0\lib\net45-full\Ninject.Web.Common.dll</HintPath>
+      <HintPath>..\packages\Ninject.Web.Common.3.2.3.0\lib\net45-full\Ninject.Web.Common.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Ninject.Web.Mvc, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
@@ -137,11 +141,6 @@
     <Reference Include="Antlr3.Runtime">
       <Private>True</Private>
       <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -1013,6 +1012,14 @@
     <ProjectReference Include="..\QuickZ.Data.Entity\QuickZ.Data.Entity.csproj">
       <Project>{88b1fe78-0126-41b7-8281-e914b676ae44}</Project>
       <Name>QuickZ.Data.Entity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\QuickZ.IRepository\QuickZ.IRepository.csproj">
+      <Project>{d4697d21-bcbf-4da1-84c6-7f61b37aeb3c}</Project>
+      <Name>QuickZ.IRepository</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\QuickZ.Repository\QuickZ.Repository.csproj">
+      <Project>{8532f0f1-385c-4f54-972b-b802ad516af7}</Project>
+      <Name>QuickZ.Repository</Name>
     </ProjectReference>
     <ProjectReference Include="..\QuickZ.Service\QuickZ.Service.csproj">
       <Project>{f376bf51-d843-41d7-8099-6a57d9c751d6}</Project>

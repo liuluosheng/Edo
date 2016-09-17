@@ -1,5 +1,8 @@
 using System.Data.Entity;
 using QuickZ.Data.Entity;
+using QuickZ.IRepository;
+using QuickZ.Repository;
+using QuickZ.Service;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(QuickZ.App_Start.NinjectWebCommon), "Start")]
 [assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(QuickZ.App_Start.NinjectWebCommon), "Stop")]
@@ -64,7 +67,8 @@ namespace QuickZ.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
-            kernel.Bind<DbContext>().To<QuickZDbContext>().InRequestScope();
+            kernel.Bind<DbContext>().To<QuickZDbContext>();
+            kernel.Bind<IBaseRepository<User>>().To <BaseRepository<User>>();
         }
     }
 }

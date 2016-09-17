@@ -3,19 +3,26 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Ninject;
 using QuickZ.Data.Entity;
+using QuickZ.Service;
 
 namespace QuickZ.Controllers
 {
     public class HomeController : Controller
     {
+
+        public  UserService UserService;
+
+        public HomeController(UserService userService)
+        {
+            UserService = userService;
+        }
+
         public ActionResult Index()
         {
-            using (QuickZDbContext db = new QuickZDbContext())
-            {
-                db.Users.Add(new Data.Entity.User {Name = "123"});
-                db.SaveChanges();
-            }
+
+            UserService.Repository.Insert(new Data.Entity.User { Name = "刘罗生" });
             return View();
 
         }

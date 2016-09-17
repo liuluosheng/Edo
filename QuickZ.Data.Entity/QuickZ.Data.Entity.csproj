@@ -73,6 +73,10 @@
     <Compile Include="Migrations\201609151722299_remove.Designer.cs">
       <DependentUpon>201609151722299_remove.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201609170753470_addRole.cs" />
+    <Compile Include="Migrations\201609170753470_addRole.Designer.cs">
+      <DependentUpon>201609170753470_addRole.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="QuickZDbContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -102,6 +106,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201609151722299_remove.resx">
       <DependentUpon>201609151722299_remove.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609170753470_addRole.resx">
+      <DependentUpon>201609170753470_addRole.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

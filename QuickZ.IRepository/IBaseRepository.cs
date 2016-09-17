@@ -11,7 +11,7 @@ namespace QuickZ.IRepository
     /// 实体仓储模型的数据标准操作
     /// </summary>
     /// <typeparam name="TEntity">实体类型</typeparam>
-    public interface IRepository<TEntity>
+    public interface IBaseRepository<TEntity>
         where TEntity : EntityBase
     {
         #region 属性
