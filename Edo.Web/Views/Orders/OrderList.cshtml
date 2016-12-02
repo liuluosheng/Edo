@@ -1,0 +1,50 @@
+﻿@{
+    ViewBag.Title = "OrderList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section Styles{
+    <link href="~/Content/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/Content/angular-material.min.css" rel="stylesheet"/>
+    <link href="~/Content/bootstrap/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Scripts/simplePagination/simplePagination.css" rel="stylesheet" />
+    <link href="~/Content/grid.min.css" rel="stylesheet" />
+
+}
+@section scripts{
+    <script src="~/Template/Grid.ColumnOption.js"></script>
+    <script src="~/Scripts/jquery-1.12.4.min.js"></script>
+    <script src="~/Scripts/angular/angular.min.js"></script>
+    <script src="~/Scripts/angular-animate/angular-animate.min.js"></script>
+    <script src="~/Scripts/angular-aria/angular-aria.min.js"></script>
+    <script src="~/Scripts/angular-route.min.js"></script>
+    <script src="~/Scripts/angular-messages.min.js"></script>
+    <script src="~/Scripts/angular-material/angular-material.min.js"></script>
+    <script src="~/Scripts/simplePagination/jquery.simplePagination.js"></script>
+    <script src="~/Scripts/grid/ngGrid.js"></script>
+    <script type="text/javascript">
+        angular.module('app', ['ngMaterial', 'ngGrid']).controller('appOrderList', function ($scope, $filter, $window) {
+            $window.formatterDate = function (value) {
+                return $filter("date")(value, "yyyy-MM-dd");
+            }
+            $scope.options = {
+                title: "Order List",
+                name: "Orders",
+                rowNumber: true,
+                pkColumn: "OrderID",
+                rowDetial: true,
+                filterRow: true,
+                columns: Grid.columnOption.order,
+                url: "/home/getpage",
+                onRowSelected: function (row) { }
+                // ,onRenderRowDetial: function (row) { }
+            };
+
+        });
+    </script>
+}
+
+<br /><br /><br /><br />
+<div ng-app="app" ng-controller="appOrderList">
+    <div grid options="options" data="data"></div>
+</div>
+

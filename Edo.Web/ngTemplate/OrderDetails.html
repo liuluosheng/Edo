@@ -1,0 +1,93 @@
+﻿<!--由模板生成，如修改代码，重新生成后将被覆盖！-->
+<div>
+    <div class="modal-header">
+        <h3 class="modal-title" id="modal-title">
+            <b>EDIT</b>
+
+            <i class="fa fa-close pull-right" ng-click="cancel()"></i>
+        </h3>
+    </div>
+    <div class="modal-body" id="modal-body">
+        <div class="modal-nav">
+  <a ng-click="scrollTo('#tolink0')">订单详情</a>
+        </div>
+        <form class="form-horizontal  modal-form" role="form" ng-style="{maxHeight:modalHeight}" name="form"
+              ng-scrollbars
+              ng-scrollbars-update="scrolls.updateScrollbar"
+              ng-scrollbars-config="scrolls.config">
+          <fieldset id="tolink0">
+                <legend><i class="fa fa-circle"></i>订单详情</legend>       
+                    <div class="form-group " ng-class="{'has-error':form.ProductsName.$invalid }">
+                    <label class="col-sm-2 control-label">产品名称</label>
+                    <div class="col-sm-10">
+                     <ui-select ng-model="item.ProductsName"
+                                   theme="bootstrap"
+                                   style="width:60%"
+                                   reset-search-input="false"
+                                   on-select="bind($item,'ProductID');">                                  
+                            <ui-select-match placeholder="键入过滤关键字...">{{$select.selected.name || $select.selected}}</ui-select-match>
+                            <ui-select-choices repeat="obj in Products track by $index"
+                             refresh="getSelect2('Products','ProductName','Id',$select.search)"
+                             refresh-delay="0">
+                            <div ng-bind-html="obj.name | highlight: $select.search"></div>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                </div>
+                    <div class="form-group " ng-class="{'has-error':form.OrderID.$invalid }">
+                    <label class="col-sm-2 control-label">订单编号</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control pull-left"  placeholder="订单编号" name="OrderID" ng-model="item.OrderID"   
+                         
+                        >                      
+                      </div>
+                </div>
+                    <div class="form-group " ng-class="{'has-error':form.ProductID.$invalid }">
+                    <label class="col-sm-2 control-label">产品编号</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control pull-left"  placeholder="产品编号" name="ProductID" ng-model="item.ProductID"   
+                         
+                        >                      
+                      </div>
+                </div>
+                    <div class="form-group " ng-class="{'has-error':form.UnitPrice.$invalid }">
+                    <label class="col-sm-2 control-label">价格</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control pull-left"  placeholder="价格" name="UnitPrice" ng-model="item.UnitPrice"   
+                         
+                        >                      
+                      </div>
+                </div>
+                    <div class="form-group " ng-class="{'has-error':form.Quantity.$invalid }">
+                    <label class="col-sm-2 control-label">数量</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control pull-left"  placeholder="数量" name="Quantity" ng-model="item.Quantity"   
+                         
+                        >                      
+                      </div>
+                </div>
+                    <div class="form-group " ng-class="{'has-error':form.Discount.$invalid }">
+                    <label class="col-sm-2 control-label">折扣</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control pull-left"  placeholder="折扣" name="Discount" ng-model="item.Discount"   
+                         
+                        >                      
+                      </div>
+                </div>
+                    <div class="form-group " ng-class="{'has-error':form.OrderDate.$invalid }">
+                    <label class="col-sm-2 control-label">订单日期</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control pull-left"  placeholder="订单日期" name="OrderDate" ng-model="item.OrderDate"   
+                        uib-datepicker-popup is-open="s" ng-click="s=!s" datepicker-options="{showWeeks:false}"
+ 
+                        >                      
+                      </div>
+                </div>
+                </fieldset>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary " type="button" ng-click="ok()">确 定</button>
+        <button class="btn btn-warning " type="button" ng-click="cancel()">取 消</button>
+    </div>
+</div>

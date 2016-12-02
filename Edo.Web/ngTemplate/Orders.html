@@ -1,0 +1,108 @@
+﻿<!--由模板生成，如修改代码，重新生成后将被覆盖！-->
+<div>
+    <div class="modal-header">
+        <h3 class="modal-title" id="modal-title">
+            <b>EDIT</b>
+
+            <i class="fa fa-close pull-right" ng-click="cancel()"></i>
+        </h3>
+    </div>
+    <div class="modal-body" id="modal-body">
+        <div class="modal-nav">
+  <a ng-click="scrollTo('#tolink0')">基本信息</a>
+  <a ng-click="scrollTo('#tolink1')">订单详情</a>
+        </div>
+        <form class="form-horizontal  modal-form" role="form" ng-style="{maxHeight:modalHeight}" name="form"
+              ng-scrollbars
+              ng-scrollbars-update="scrolls.updateScrollbar"
+              ng-scrollbars-config="scrolls.config">
+          <fieldset id="tolink0">
+                <legend><i class="fa fa-circle"></i>基本信息</legend>       
+                    <div class="form-group " ng-class="{'has-error':form.ShipName.$invalid }">
+                    <label class="col-sm-2 control-label">发货人名称</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control pull-left"  placeholder="发货人名称" name="ShipName" ng-model="item.ShipName"   
+                         
+                        >                      
+                      </div>
+                </div>
+                    <div class="form-group " ng-class="{'has-error':form.ShipAddress.$invalid }">
+                    <label class="col-sm-2 control-label">发货人地址</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control pull-left"  placeholder="发货人地址" name="ShipAddress" ng-model="item.ShipAddress"   
+                         
+                         ng-pattern="/^[a-z0-9_-]{3,16}$/">                      
+                      <div ng-messages="form.ShipAddress.$error" class="pull-left error">                       
+                                                     <div ng-message="pattern">您的输入不正确</div>                         
+                          </div>
+                     </div>
+                </div>
+                    <div class="form-group " ng-class="{'has-error':form.ShipCity.$invalid }">
+                    <label class="col-sm-2 control-label">发货人城市</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control pull-left"  placeholder="发货人城市" name="ShipCity" ng-model="item.ShipCity"   
+                         
+                         ng-maxlength="100" ng-minlength="1">                      
+                      <div ng-messages="form.ShipCity.$error" class="pull-left error">                       
+                                                     <div ng-message="maxlength">输入不能超过100个字符</div><div ng-message="minlength">输入不能小于1个字符</div>                         
+                          </div>
+                     </div>
+                </div>
+                    <div class="form-group " ng-class="{'has-error':form.OrderDate.$invalid }">
+                    <label class="col-sm-2 control-label">订单日期</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control pull-left"  placeholder="订单日期" name="OrderDate" ng-model="item.OrderDate"   
+                        uib-datepicker-popup is-open="s" ng-click="s=!s" datepicker-options="{showWeeks:false}"
+ 
+                         ng-required="true" >                      
+                      <div ng-messages="form.OrderDate.$error" class="pull-left error">                       
+                                                     <div ng-message="required">这个是个必填项！</div>                         
+                          </div>
+                     </div>
+                </div>
+                    <div class="form-group " ng-class="{'has-error':form.CustomersCompanyName.$invalid }">
+                    <label class="col-sm-2 control-label">客户名称</label>
+                    <div class="col-sm-10">
+                     <ui-select ng-model="item.CustomersCompanyName"
+                                   theme="bootstrap"
+                                   style="width:60%"
+                                   reset-search-input="false"
+                                   on-select="bind($item,'CustomerID');">                                  
+                            <ui-select-match placeholder="键入过滤关键字...">{{$select.selected.name || $select.selected}}</ui-select-match>
+                            <ui-select-choices repeat="obj in Customers track by $index"
+                             refresh="getSelect2('Customers','CompanyName','Id',$select.search)"
+                             refresh-delay="0">
+                            <div ng-bind-html="obj.name | highlight: $select.search"></div>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                </div>
+                </fieldset>
+          <fieldset id="tolink1">
+                <legend><i class="fa fa-circle"></i>订单详情</legend>       
+                    <div class="btns">
+                      <button class="btn btn-primary" ng-click="createObj('/ngTemplate/OrderDetails.html','OrderID')">
+                      <i class="glyphicon glyphicon-plus"></i><span>新 建</span>
+                     </button>
+                    </div>
+                    <div grid
+                     grid-option="gridOption"
+                     grid-pk-column="Id"
+                     grid-item-field=""
+                     grid-enable-edit="true"
+                     grid-enable-delete="true"
+                     grid-more-to-more="false"
+                     grid-template="nggrid"
+                     grid-columns="orderDetails"
+                     grid-select-url="/OrderDetails/Select2"
+                     grid-edit-template-url="/ngTemplate/OrderDetails.html"
+                     grid-url="/OrderDetails/Page">
+                    </div>
+                </fieldset>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary " type="button" ng-click="ok()">确 定</button>
+        <button class="btn btn-warning " type="button" ng-click="cancel()">取 消</button>
+    </div>
+</div>

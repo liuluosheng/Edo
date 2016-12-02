@@ -1,0 +1,470 @@
+﻿@import "bootstrap/variables";
+
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak, .ng-hide:not(.ng-hide-animate) {
+    display: none !important;
+}
+
+[ng\:form] {
+    display: block;
+}
+
+.ng-animate-shim {
+    visibility: hidden;
+}
+
+.ng-anchor {
+    position: absolute;
+}
+
+.uib-daypicker, .uib-monthpicker, .uib-yearpicker {
+    outline: none !important;
+
+    .btn {
+        border: none;
+    }
+}
+
+.grid-modal-dialog {
+    margin: auto;
+    margin-top: 30px;
+
+    .modal-header {
+        padding: 10px;
+    }
+
+    .modal-title {
+        height: 30px;
+
+        .fa:hover {
+            opacity: .8;
+            cursor: pointer;
+        }
+    }
+
+    .modal-body {
+        height: auto;
+        padding: 0;
+
+        &.grid-template {
+            padding: 20px;
+            margin: 0 auto;
+        }
+
+        .form-group input.form-control {
+            width: 60%;
+
+            &.ui-select-search {
+                width: 100%;
+            }
+        }
+
+        .modal-nav {
+            background-color: @alert-info-text;
+            padding: 0 40px;
+            height: 50px;
+
+            a {
+                outline: none;
+                text-align: center;
+                text-decoration: none !important;
+                font-size: 14px;
+                margin-right: 2px;
+                float: right;
+                padding: 0 20px;
+                border-right: solid 2px #ccc;
+                height: 20px;
+                color: white;
+                cursor: pointer;
+                margin-top: 15px;
+
+                &:first-child {
+                    border: none;
+                }
+
+                &:hover {
+                    color: @brand-warning;
+                }
+            }
+        }
+
+        .modal-form {
+            padding: 0 5px 20px 20px;
+            min-width: 1000px;
+
+            .error {
+                height: 35px;
+                line-height: 35px;
+                margin-left: 20px;
+                color: @alert-danger-text !important;
+            }
+        }
+
+        fieldset {
+            margin-bottom: 10px;
+            text-align: left;
+
+            .btns {
+                height: 0;
+                float: right;
+                margin-top: -60px;
+
+                span {
+                    vertical-align: middle;
+                }
+
+                .glyphicon, .fa {
+                    font-size: 16px;
+                    margin-right: 5px;
+                    vertical-align: middle;
+                }
+            }
+        }
+
+        legend {
+            font-size: 14px;
+            color: @alert-info-text;
+            padding-bottom: 8px;
+            height: 40px;
+            line-height: 40px;
+            display: block;
+
+            i {
+                margin-right: 5px;
+                font-size: 18px;
+                vertical-align: middle;
+            }
+        }
+
+        .control-label {
+            font-weight: normal;
+            font-size: 14px;
+        }
+    }
+
+
+
+    .modal-footer {
+        .btn {
+            padding: 8px 40px;
+            font-size: 16px;
+        }
+    }
+}
+
+.comfirm-delete {
+    width: 200px;
+    border-bottom: solid 1px #ccc;
+    text-align: center;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+
+    i {
+        vertical-align: middle;
+        margin-right: 10px;
+    }
+
+    + .btn {
+        margin-bottom: 10px;
+        width: 60px;
+    }
+}
+
+@GridRowHeight: 40px;
+
+.ng-grid {
+    min-width: 300px;
+
+    .fa-spinner {
+        font-size: 25px;
+        float: right;
+        color: @brand-warning;
+    }
+
+
+
+    .content-table {
+        table-layout: fixed !important;
+        margin-bottom: 10px;
+
+        .grid-head {
+            overflow-y: auto;
+
+            > th {
+                vertical-align: top;
+                padding: 5px;
+                border: 0;
+                border-bottom: solid 2px #eee;
+                padding-bottom: 10px;
+
+                &.row-number-cell {
+                    padding-top: 5px;
+                }
+            }
+        }
+
+        .alert {
+            margin-top: 15px !important;
+        }
+    }
+
+
+
+    .data-table {
+        table-layout: fixed !important;
+
+        .grid-head {
+
+            > th {
+                vertical-align: middle;
+                padding: 8px;
+                border: 0;
+                background-color: @breadcrumb-bg;
+
+                &.row-number-cell {
+                    padding-top: 5px;
+                }
+            }
+        }
+
+        tr.data-row > td {
+            padding: 0 5px;
+            border: 0;
+            vertical-align: middle;
+            white-space: nowrap;
+            -ms-text-overflow: ellipsis;
+            -o-text-overflow: ellipsis;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            cursor: default;
+            height: @GridRowHeight;
+        }
+
+        tr.striped {
+            background-color: @table-bg-accent;
+        }
+
+        tr.active {
+            background-color: @alert-success-bg;
+        }
+
+        .row-btn {
+            padding: 10px 20px;
+            border-bottom: dashed 1px @label-warning-bg;
+
+            .btn {
+                margin-right: 5px;
+                padding: 5px 12px;
+
+                span {
+                    vertical-align: middle;
+                }
+            }
+
+
+            .glyphicon {
+                font-size: 14px;
+                margin-right: 10px;
+                vertical-align: middle;
+            }
+        }
+
+        .row-detail-content {
+            padding: 20px;
+            padding-bottom: 0;
+
+            .table {
+                margin-top: 10px;
+
+                td {
+                    height: 25px;
+                }
+            }
+        }
+    }
+
+
+    .row-number-cell {
+        width: 50px;
+        padding: 0;
+        text-align: center;
+    }
+
+    .detail-cell {
+        padding: 0;
+        width: 22px;
+        text-align: center;
+        font-size: 16px;
+        color: @label-warning-bg;
+
+        .glyphicon, .fa {
+            cursor: pointer;
+            line-height: @GridRowHeight;
+        }
+    }
+
+    .sort-name {
+        cursor: pointer;
+    }
+
+    .sort {
+        float: right;
+
+        .fa {
+            display: block;
+            height: 1px;
+
+            &:first-child {
+                margin-top: 4px;
+            }
+        }
+    }
+
+    .page-size {
+        float: left;
+        height: 26px;
+        margin-right: 5px;
+    }
+
+    .pagination {
+        margin: 0;
+    }
+
+    .grid-pagination {
+        margin: 0 5px;
+        float: left;
+    }
+
+    .grid-pagination-size {
+        min-width: 55px !important;
+
+        a {
+            padding: 0;
+            text-align: center;
+            display: block;
+        }
+    }
+
+    .pagination-page {
+        font-weight: bold;
+    }
+
+    .static-row {
+        background-color: white;
+
+        > td {
+            padding: 0;
+
+            &:hover {
+                background-color: white;
+            }
+        }
+    }
+
+
+
+    .date-filter {
+        position: relative;
+
+        input[type='text'] {
+            width: 46%;
+            float: left;
+            padding-left: 2px;
+            padding-right: 2px;
+        }
+
+        .split {
+            float: left;
+            line-height: 35px;
+            margin: 0 2px;
+        }
+    }
+
+    .num-filter {
+        position: relative;
+        width: 100%;
+
+        select {
+            width: 40px;
+            height: 28px;
+            z-index: 1;
+            position: absolute;
+            border-color: transparent;
+            background-color: transparent;
+        }
+
+        input[type='number'] {
+            width: 100%;
+            height: 28px;
+            text-indent: 42px;
+            border-radius: 2px;
+            border: solid 1px #aaa;
+        }
+    }
+
+    .row-filter {
+        margin: 10px 0 0;
+        color: #555 !important;
+        position: relative;
+
+        .dropdown-menu {
+            max-height: 500px;
+            overflow-y: auto;
+        }
+
+        select.rowfilter-select {
+            width: 100%;
+            height: 100%;
+            border-color: transparent;
+            z-index: -1;
+            position: relative;
+        }
+
+        .filter-text {
+            padding-right: 20px;
+            padding-left: 5px !important;
+        }
+
+        .filter-clear-btn {
+            position: absolute;
+            opacity: .3;
+            height: 30px;
+            text-align: center;
+            line-height: 30px;
+            right: 4px;
+            cursor: pointer;
+            top: 2px;
+            z-index: 999;
+
+            &:hover {
+                opacity: 1;
+            }
+        }
+
+        .custom-popup-wrapper {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            z-index: 1000;
+            display: none;
+            background-color: #f9f9f9;
+            box-shadow: 0 6px 12px rgba(0,0,0,.175);
+        }
+
+        .custom-popup-wrapper > .message {
+            padding: 10px 20px;
+            border-bottom: 1px solid #ddd;
+            color: #868686;
+        }
+
+        .custom-popup-wrapper > .dropdown-menu {
+            position: static;
+            float: none;
+            display: block;
+            min-width: 160px;
+            background-color: transparent;
+            border: none;
+            border-radius: 0;
+            box-shadow: none;
+        }
+    }
+}

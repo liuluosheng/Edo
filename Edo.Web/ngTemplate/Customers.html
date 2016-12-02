@@ -1,0 +1,177 @@
+﻿<!--由模板生成，如修改代码，重新生成后将被覆盖！-->
+<div>
+    <div class="modal-header">
+        <h3 class="modal-title" id="modal-title">
+            <b>EDIT</b>
+
+            <i class="fa fa-close pull-right" ng-click="cancel()"></i>
+        </h3>
+    </div>
+    <div class="modal-body" id="modal-body">
+        <div class="modal-nav">
+  <a ng-click="scrollTo('#tolink0')">基本信息</a>
+  <a ng-click="scrollTo('#tolink1')">区域信息</a>
+  <a ng-click="scrollTo('#tolink2')">订单信息</a>
+        </div>
+        <form class="form-horizontal  modal-form" role="form" ng-style="{maxHeight:modalHeight}" name="form"
+              ng-scrollbars
+              ng-scrollbars-update="scrolls.updateScrollbar"
+              ng-scrollbars-config="scrolls.config">
+          <fieldset id="tolink0">
+                <legend><i class="fa fa-circle"></i>基本信息</legend>       
+                    <div class="form-group " ng-class="{'has-error':form.CompanyName.$invalid }">
+                    <label class="col-sm-2 control-label">公司名称</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control pull-left"  placeholder="公司名称" name="CompanyName" ng-model="item.CompanyName"   
+                         
+                        >                      
+                      </div>
+                </div>
+                    <div class="form-group " ng-class="{'has-error':form.ContactName.$invalid }">
+                    <label class="col-sm-2 control-label">联系名称</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control pull-left"  placeholder="联系名称" name="ContactName" ng-model="item.ContactName"   
+                         
+                        >                      
+                      </div>
+                </div>
+                    <div class="form-group " ng-class="{'has-error':form.ContactTitle.$invalid }">
+                    <label class="col-sm-2 control-label">标题</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control pull-left"  placeholder="标题" name="ContactTitle" ng-model="item.ContactTitle"   
+                         
+                        >                      
+                      </div>
+                </div>
+                    <div class="form-group " ng-class="{'has-error':form.Address.$invalid }">
+                    <label class="col-sm-2 control-label">地址</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control pull-left"  placeholder="地址" name="Address" ng-model="item.Address"   
+                         
+                        >                      
+                      </div>
+                </div>
+                    <div class="form-group " ng-class="{'has-error':form.City.$invalid }">
+                    <label class="col-sm-2 control-label">城市</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control pull-left"  placeholder="城市" name="City" ng-model="item.City"   
+                         
+                        >                      
+                      </div>
+                </div>
+                    <div class="form-group " ng-class="{'has-error':form.Region.$invalid }">
+                    <label class="col-sm-2 control-label">区域描述</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control pull-left"  placeholder="区域描述" name="Region" ng-model="item.Region"   
+                         
+                        >                      
+                      </div>
+                </div>
+                    <div class="form-group " ng-class="{'has-error':form.PostalCode.$invalid }">
+                    <label class="col-sm-2 control-label">邮编</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control pull-left"  placeholder="邮编" name="PostalCode" ng-model="item.PostalCode"   
+                         
+                        >                      
+                      </div>
+                </div>
+                    <div class="form-group " ng-class="{'has-error':form.Country.$invalid }">
+                    <label class="col-sm-2 control-label">国家</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control pull-left"  placeholder="国家" name="Country" ng-model="item.Country"   
+                         
+                        >                      
+                      </div>
+                </div>
+                    <div class="form-group " ng-class="{'has-error':form.Phone.$invalid }">
+                    <label class="col-sm-2 control-label">移动电话</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control pull-left"  placeholder="移动电话" name="Phone" ng-model="item.Phone"   
+                         
+                        >                      
+                      </div>
+                </div>
+                    <div class="form-group " ng-class="{'has-error':form.Fax.$invalid }">
+                    <label class="col-sm-2 control-label">传真</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control pull-left"  placeholder="传真" name="Fax" ng-model="item.Fax"   
+                         
+                        >                      
+                      </div>
+                </div>
+                </fieldset>
+          <fieldset id="tolink1">
+                <legend><i class="fa fa-circle"></i>区域信息</legend>       
+                    <div class="btns">
+                      <button class="btn btn-primary" ng-click="createObj('grid_Region.html','Id')">
+                      <i class="glyphicon glyphicon-plus"></i><span>新 建</span>
+                     </button>
+                     <!--模板BEGIN-->
+                     <script type="text/ng-template" id="grid_Region.html">
+                     <div class="modal-header">
+                         <h3 class="modal-title" id="modal-title-dt">
+                              <b>CHOOSE</b>
+                              <i class="fa fa-close pull-right" ng-click="cancel()"></i>
+                        </h3>
+                    </div>
+                    <div class="modal-body grid-template" id="modal-body-dt" >
+                         <div grid
+                            grid-option="gridOption"
+                            grid-more-to-more="true"
+                            grid-pk-column="Id"
+                            grid-template="nggrid"
+                            grid-columns="region"
+                            grid-select-url="/Region/select2"
+                            grid-edit-template-url="/ngTemplate/Region.html"
+                            grid-url="/Region/Page">
+                     </div>
+                   </div>
+                   <div class="modal-footer">
+                      <button class="btn btn-primary " type="button" ng-click="ok()">确 定</button>
+                      <button class="btn btn-warning " type="button" ng-click="cancel()">取 消</button>
+                   </div>
+                  </script>
+                  <!--模板END-->
+                    </div>
+                    <div grid
+                     grid-option="gridOption"
+                     grid-pk-column="Id"
+                     grid-item-field="Id"
+                     grid-enable-edit="true"
+                     grid-enable-delete="true"
+                     grid-more-to-more="true"
+                     grid-template="nggrid"
+                     grid-columns="region"
+                     grid-select-url="/Customers/Select2Region"
+                     grid-edit-template-url="/ngTemplate/Region.html"
+                     grid-url="/Customers/PageRegion">
+                    </div>
+                </fieldset>
+          <fieldset id="tolink2">
+                <legend><i class="fa fa-circle"></i>订单信息</legend>       
+                    <div class="btns">
+                      <button class="btn btn-primary" ng-click="createObj('/ngTemplate/Orders.html','Id')">
+                      <i class="glyphicon glyphicon-plus"></i><span>新 建</span>
+                     </button>
+                    </div>
+                    <div grid
+                     grid-option="gridOption"
+                     grid-pk-column="Id"
+                     grid-item-field="CustomerID"
+                     grid-enable-edit="true"
+                     grid-enable-delete="true"
+                     grid-more-to-more="false"
+                     grid-template="nggrid"
+                     grid-columns="orders"
+                     grid-select-url="/Orders/Select2"
+                     grid-edit-template-url="/ngTemplate/Orders.html"
+                     grid-url="/Orders/Page">
+                    </div>
+                </fieldset>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary " type="button" ng-click="ok()">确 定</button>
+        <button class="btn btn-warning " type="button" ng-click="cancel()">取 消</button>
+    </div>
+</div>

@@ -1,0 +1,119 @@
+<#@ template language="C#" debug="True" #>
+<#@ output extension="log" #>
+<#@ import namespace="System.Text" #>
+<#@ assembly name="System.Core" #>
+<#@ assembly name="System.Web" #>
+<#@ assembly name="$(TargetDir)Edo.Data.Entity.dll" #>
+<#@ assembly name="$(TargetDir)Edo.ViewModel.dll" #>
+<#@ assembly name="$(TargetDir)Newtonsoft.Json.dll" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="Edo.Data.Entity.ComponentModel" #>
+<#@ import namespace="System.ComponentModel" #>
+<#@ import namespace="System.ComponentModel.DataAnnotations" #>
+<#@ import namespace="Edo.Data.Entity" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@import namespace="System.Reflection"#>
+<#@import namespace="Newtonsoft.Json"#>
+<#@import namespace="Edo.ViewModels"#>
+<#@ include file="T4Toolbox.tt" #>
+<#
+
+    var types = Assembly.GetAssembly(typeof(EntityBaseViewModel)).GetTypes();
+    var baseType = typeof(EntityBaseViewModel);
+    foreach(var type in types){
+        var attribute = type.GetCustomAttribute<FormAttribute>();
+        if (type.BaseType != null && type.BaseType == baseType && attribute !=null){
+            Template template = new ControllerTemplate(type);
+            template.Output.Encoding = Encoding.UTF8;
+            string file=string.Format("{0}Controller.cs",type.Name.Replace("ViewModel",""));
+            template.RenderToFile(file);
+            WriteLine(string.Format("Generate file:{0}.",file));
+        }       
+    }
+   
+
+#>
+
+<#+
+    public class ControllerTemplate : CSharpTemplate
+    {
+        private Type _type;
+        private string name;
+        public ControllerTemplate(Type t){
+            _type=t;
+            name=_type.Name.Replace("ViewModel","");
+        }
+        public override string TransformText()
+        {
+            base.TransformText();
+#>
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+using System.Text;
+using System.Web;
+using System.Web.Mvc;
+using Edo.Data.Entity;
+using Edo.Data.Entity.ComponentModel;
+using Edo.ViewModels;
+using System.Linq.Dynamic.Core;
+using Edo.Service;
+using System.Threading.Tasks;
+namespace Edo.Web.Controllers
+{
+	public partial class <#=            name #>Controller : BaseController<<#=            name #>, <#=            name #>ViewModel>
+	{
+        public <#=            name #>Controller(BaseService<<#=            name #>> service)
+        :base(service)
+        {
+       
+        }
+        public ActionResult Index()
+        {
+            return View();
+        }
+       <#+
+            foreach(var prop in _type.GetProperties()){
+                if(!prop.PropertyType.IsGenericType)continue;
+                Type t=prop.PropertyType.GenericTypeArguments[0];
+                if(CheckMoreToMore(t)){
+                    string tName=t.Name.Replace("ViewModel","");
+      #>
+        public async Task<ActionResult> Page<#=                    tName #>(string itemFilter, int pageIndex, int pageSize, string sort, string filter)
+        {
+                var obj = _dbset.FirstOrDefault(itemFilter);
+                if (obj == null) return HttpNotFound();
+                return await PageData<<#=                    tName #>, <#=                    t.Name #>>(obj.<#=                    prop.Name #>.AsQueryable(), sort, filter, pageIndex, pageSize);       
+        }
+        public async Task<ActionResult> Select2<#=                    tName #>(string itemFilter, string field, string q)
+        {
+                var obj = _dbset.FirstOrDefault(itemFilter);
+                if (obj == null) return HttpNotFound();
+                return await SelectData(obj.<#=                    prop.Name #>.AsQueryable(), field, q);         
+        }       
+     <#+                }
+            }
+        #>
+	}
+}
+<#+
+            return this.GenerationEnvironment.ToString();
+        }
+        public bool CheckMoreToMore(Type t){
+            bool check=false;
+            foreach(PropertyInfo prop in  t.GetProperties()){
+                if(prop.PropertyType.GenericTypeArguments.Length==0) continue;
+                foreach(Type type in prop.PropertyType.GenericTypeArguments){
+                    if(_type==type) {
+                        check=true;
+                        break;
+                    }
+                }
+            }
+            return check;
+        }
+    }
+
+#>

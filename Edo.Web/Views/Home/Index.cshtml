@@ -1,0 +1,45 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+@section Styles{
+
+}
+
+<div ng-app="app" ng-controller="orderController">
+    <br />
+    <div class="ng-grid panel panel-default" ng-cloak ng-style="{width:gridOption.width+40}">
+        <div class="panel-heading">
+            <b>ORDERS</b>
+        </div>
+        <div class="panel-body">
+            <div grid grid-option="gridOption" data="data"></div>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script type="text/javascript">
+        angular.module("app", ['ui.bootstrap', 'app.grid', 'ngMessages', 'ngScrollbars', 'ui.select']).controller("orderController", [
+            "$scope", "$http", "$filter", "$window", function ($scope, $http, $filter, $window) {
+                $window.formatterDate = function (value) {
+                    return $filter("date")(value, "yyyy-MM-dd");
+                }
+                $scope.gridOption = {
+                    height: 'auto',
+                    rowNumber: true,
+                    pkColumn: "Id",
+                    rowDetail: true,
+                    filterRow: true,
+                    columns: Grid.columnOption.orders,
+                    url: "/home/page",
+                    selectUrl: "/home/select2",
+                    editTemplateUrl: "/ngTemplate/orders.html",
+                    btns: [
+                     { name: "detail", icon: "glyphicon glyphicon-th", onclick: function () { alert("detail") } }
+                    ],
+                    onRowSelected: function (row) { }
+                    // ,onRenderRowDetail: function (row) { }
+                };
+            }
+        ])
+    </script>
+}

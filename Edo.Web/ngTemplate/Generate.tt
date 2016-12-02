@@ -1,0 +1,273 @@
+<#@ template language="C#" debug="True" #>
+<#@ output extension="log" #>
+<#@ import namespace="System.Text" #>
+<#@ assembly name="System.Core" #>
+<#@ assembly name="System.Web" #>
+<#@ assembly name="$(TargetDir)Edo.Data.Entity.dll" #>
+<#@ assembly name="$(TargetDir)Edo.ViewModel.dll" #>
+<#@ assembly name="$(TargetDir)Newtonsoft.Json.dll" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="Edo.Data.Entity.ComponentModel" #>
+<#@ import namespace="System.ComponentModel" #>
+<#@ import namespace="System.ComponentModel.DataAnnotations" #>
+<#@ assembly name="System.ComponentModel.DataAnnotations.dll" #>
+<#@ import namespace="Edo.Data.Entity.ComponentModel" #>
+<#@ import namespace="Edo.Data.Entity" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@import namespace="System.Reflection"#>
+<#@import namespace="Newtonsoft.Json"#>
+<#@import namespace="Edo.ViewModels"#>
+<#@ include file="T4Toolbox.tt" #>
+<#
+
+
+    var types = Assembly.GetAssembly(typeof(EntityBaseViewModel)).GetTypes();
+    var baseType = typeof(EntityBaseViewModel);
+    foreach(var type in types){
+        var attribute = type.GetCustomAttribute<FormAttribute>();
+        if (type.BaseType != null && type.BaseType == baseType && attribute !=null){
+            Template template = new NgTemplate(type);
+            template.Output.Encoding = Encoding.UTF8;
+            template.RenderToFile( string.Format("{0}.html",type.Name.Replace("ViewModel","")));
+        }       
+    }
+    
+#>
+
+<#+
+    public class NgTemplate : CSharpTemplate
+    {
+        private Type _type;          
+        public NgTemplate(Type type)
+        {
+            _type=type;
+        }
+        public override string TransformText()
+        {
+#>
+<!--由模板生成，如修改代码，重新生成后将被覆盖！-->
+<div>
+    <div class="modal-header">
+        <h3 class="modal-title" id="modal-title">
+            <b>EDIT</b>
+
+            <i class="fa fa-close pull-right" ng-click="cancel()"></i>
+        </h3>
+    </div>
+    <div class="modal-body" id="modal-body">
+        <div class="modal-nav">
+<#+
+            int i =0;
+            string[] navs=GetNavTags();
+            foreach(var nav in navs)
+            {
+                var props=GetPropertyInfoByNav(nav,i==0);
+                if(props.Count==0) continue;
+#>
+  <a ng-click="scrollTo('#tolink<#=                i #>')"><#=                nav #></a>
+<#+
+                i++;
+            }
+#>
+        </div>
+        <form class="form-horizontal  modal-form" role="form" ng-style="{maxHeight:modalHeight}" name="form"
+              ng-scrollbars
+              ng-scrollbars-update="scrolls.updateScrollbar"
+              ng-scrollbars-config="scrolls.config">
+<#+
+            int ii =0;
+            foreach(var nav in navs)
+            {
+                var props=GetPropertyInfoByNav(nav,ii==0);
+                if(props.Count==0) continue;
+#>
+          <fieldset id="tolink<#=                ii #>">
+                <legend><i class="fa fa-circle"></i><#=                nav#></legend>       
+<#+
+                foreach(var prop in props)
+                {
+                    var gridAttr=  prop.GetCustomAttribute<GridAttribute>();                 
+                    if(gridAttr!=null){                
+                        if(prop.PropertyType.GenericTypeArguments.Length==0) throw new Exception("不能在非ICollection泛型集合属性上添加Gird属性！");
+                        Type t=prop.PropertyType.GenericTypeArguments[0];
+                        bool moreToMore =CheckMoreToMore(t);
+                        string shortName=t.Name.Replace("ViewModel","");
+                        string keys=GetKeyString(t);
+                        var template=moreToMore? string.Format("grid_{0}.html",shortName):string.Format("/ngTemplate/{0}.html",shortName);
+#>
+                    <div class="btns">
+                      <button class="btn btn-primary" ng-click="createObj('<#=                        template#>','<#=                        keys#>')">
+                      <i class="glyphicon glyphicon-plus"></i><span>新 建</span>
+                     </button>
+<#+
+                        if(moreToMore){
+#>
+                     <!--模板BEGIN-->
+                     <script type="text/ng-template" id="grid_<#=                            shortName#>.html">
+                     <div class="modal-header">
+                         <h3 class="modal-title" id="modal-title-dt">
+                              <b>CHOOSE</b>
+                              <i class="fa fa-close pull-right" ng-click="cancel()"></i>
+                        </h3>
+                    </div>
+                    <div class="modal-body grid-template" id="modal-body-dt" >
+                         <div grid
+                            grid-option="gridOption"
+                            grid-more-to-more="<#=                            moreToMore.ToString().ToLower() #>"
+                            grid-pk-column="<#=                            keys #>"
+                            grid-template="nggrid"
+                            grid-columns="<#=                            shortName.Substring(0, 1).ToLower() + shortName.TrimStart(shortName.Substring(0, 1).ToCharArray())#>"
+                            grid-select-url="/<#=                            shortName #>/select2"
+                            grid-edit-template-url="/ngTemplate/<#=                            shortName #>.html"
+                            grid-url="/<#=                            shortName #>/Page">
+                     </div>
+                   </div>
+                   <div class="modal-footer">
+                      <button class="btn btn-primary " type="button" ng-click="ok()">确 定</button>
+                      <button class="btn btn-warning " type="button" ng-click="cancel()">取 消</button>
+                   </div>
+                  </script>
+                  <!--模板END-->
+<#+                        }
+                        string gridUrl=moreToMore?string.Format("/{0}/Page{1}",_type.Name.Replace("ViewModel",""),shortName):string.Format("/{0}/Page",shortName);
+                        string selectUrl=moreToMore?string.Format("/{0}/Select2{1}",_type.Name.Replace("ViewModel",""),shortName):string.Format("/{0}/Select2",shortName);
+#>
+                    </div>
+                    <div grid
+                     grid-option="gridOption"
+                     grid-pk-column="<#=                        GetKeyString(_type) #>"
+                     grid-item-field="<#=                        moreToMore?keys:gridAttr.ForeignKey.ToString()#>"
+                     grid-enable-edit="<#=                        gridAttr.Edit.ToString().ToLower()  #>"
+                     grid-enable-delete="<#=                        gridAttr.Delete.ToString().ToLower()  #>"
+                     grid-more-to-more="<#=                        moreToMore.ToString().ToLower() #>"
+                     grid-template="nggrid"
+                     grid-columns="<#=                        shortName.Substring(0, 1).ToLower() + shortName.TrimStart(shortName.Substring(0, 1).ToCharArray())#>"
+                     grid-select-url="<#=                        selectUrl#>"
+                     grid-edit-template-url="/ngTemplate/<#=                        shortName #>.html"
+                     grid-url="<#=                        gridUrl#>">
+                    </div>
+<#+                        continue;
+                    }
+                    var dispalyNameAttribute = prop.GetCustomAttribute<DisplayNameAttribute>();
+                    string name=dispalyNameAttribute!=null?dispalyNameAttribute.DisplayName:prop.Name;
+#>
+                    <div class="form-group " ng-class="{'has-error':form.<#=                    prop.Name #>.$invalid }">
+                    <label class="col-sm-2 control-label"><#=                    name #></label>
+                    <div class="col-sm-10">
+<#+
+                    var selectAttribute = prop.GetCustomAttribute<SelectAttribute>();
+                    if(selectAttribute!=null){
+#>
+                     <ui-select ng-model="item.<#=                        prop.Name #>"
+                                   theme="bootstrap"
+                                   style="width:60%"
+                                   reset-search-input="false"
+                                   on-select="bind($item,'<#=                        selectAttribute.BindField #>');">                                  
+                            <ui-select-match placeholder="键入过滤关键字...">{{$select.selected.name || $select.selected}}</ui-select-match>
+                            <ui-select-choices repeat="obj in <#=                        selectAttribute.Type #> track by $index"
+                             refresh="getSelect2('<#=                        selectAttribute.Type #>','<#=                        selectAttribute.NameField #>','<#=                        selectAttribute.ValueField #>',$select.search)"
+                             refresh-delay="0">
+                            <div ng-bind-html="obj.name | highlight: $select.search"></div>
+                            </ui-select-choices>
+                        </ui-select>
+<#+                    
+                    }  
+                    else{        
+                        var requiredAttribute = prop.GetCustomAttribute<RequiredAttribute>();
+                        var maxLengthAttribute = prop.GetCustomAttribute<MaxLengthAttribute>();
+                        var minLengthAttribute = prop.GetCustomAttribute<MinLengthAttribute>();
+                        var regularExpressionAttribute=prop.GetCustomAttribute<RegularExpressionAttribute>();  
+                        bool isDate=typeof(DateTime)==prop.PropertyType.GetTypeInfo() || typeof(DateTime?)==prop.PropertyType.GetTypeInfo();      
+                              
+#>
+                        <input type="text" class="form-control pull-left"  placeholder="<#=                        name #>" name="<#=                        prop.Name #>" ng-model="item.<#=                        prop.Name #>"   
+                        <#+
+                        if(isDate){
+                            WriteLine("uib-datepicker-popup is-open=\"s\" ng-click=\"s=!s\" datepicker-options=\"{showWeeks:false}\""); 
+                        }        
+                        StringBuilder attrs= new StringBuilder();  
+                        if(requiredAttribute!=null)  attrs.Append(" ng-required=\"true\" ");
+                        if(maxLengthAttribute!=null) attrs.Append(string.Format(" ng-maxlength=\"{0}\"",maxLengthAttribute.Length)); 
+                        if(minLengthAttribute!=null) attrs.Append(string.Format(" ng-minlength=\"{0}\"",minLengthAttribute.Length));             
+                        if(regularExpressionAttribute!=null) attrs.Append(string.Format(" ng-pattern=\"{0}\"",regularExpressionAttribute.Pattern)); #> 
+                        <#=                        attrs.ToString() #>>                      
+  <#+                        if(requiredAttribute!=null || maxLengthAttribute!=null || minLengthAttribute!=null || regularExpressionAttribute!=null){
+#>                    <div ng-messages="form.<#=                            prop.Name #>.$error" class="pull-left error">                       
+                         <#+                            StringBuilder errors= new StringBuilder();                                       
+                            if(requiredAttribute!=null) errors.Append("<div ng-message=\"required\">这个是个必填项！</div>");  
+                            if(maxLengthAttribute!=null) errors.Append(string.Format("<div ng-message=\"maxlength\">输入不能超过{0}个字符</div>",maxLengthAttribute.Length)); 
+                            if(minLengthAttribute!=null) errors.Append(string.Format("<div ng-message=\"minlength\">输入不能小于{0}个字符</div>",minLengthAttribute.Length));   
+                            if(regularExpressionAttribute!=null)  errors.Append(string.Format("<div ng-message=\"pattern\">{0}</div>",regularExpressionAttribute.ErrorMessage??"输入的数据格式不匹配"));#>
+                            <#=                            errors.ToString() #>                         
+                          </div>
+ <#+                        }}   #>
+                    </div>
+                </div>
+<#+                }    #>
+                </fieldset>
+<#+                ii++; }#>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary " type="button" ng-click="ok()">确 定</button>
+        <button class="btn btn-warning " type="button" ng-click="cancel()">取 消</button>
+    </div>
+</div>
+<#+
+            return this.GenerationEnvironment.ToString();
+        }
+        // 返回所有的导航标识
+        public string[] GetNavTags(){
+            var attribute = _type.GetCustomAttribute<FormAttribute>();
+            if(attribute!=null) return attribute.NavTags;
+            return null;
+        }
+        //返回指定导航标识的所有属性
+        public List<PropertyInfo> GetPropertyInfoByNav(string nav,bool includingNull){
+            var result= new List<PropertyInfo>();
+            foreach(PropertyInfo prop in  _type.GetProperties()){
+                var formAttr = prop.GetCustomAttribute<FieldAttribute>();
+                if(formAttr!=null && (formAttr.Hidden || formAttr.Ignore)) continue;
+                var attr = prop.GetCustomAttribute<NavTagAttribute>();
+                if(includingNull && attr==null) result.Add(prop);
+                if(attr!=null && attr.Tag==nav) result.Add(prop);
+            }  
+            return result;
+        }
+        //返回类型中标识为隐藏域的属性
+        public List<PropertyInfo> GetHiddenPropertyInfo(){
+            var result= new List<PropertyInfo>();
+            foreach(PropertyInfo prop in  _type.GetProperties()){
+                var attr = prop.GetCustomAttribute<FieldAttribute>();
+                if(attr!=null && attr.Hidden ) 
+                    result.Add(prop);
+            }
+            return result;
+        }
+        //返回类型的主键字符串
+        public string GetKeyString(Type type){
+           
+            foreach(PropertyInfo prop in  type.GetProperties()){
+                var attr = prop.GetCustomAttribute<FieldAttribute>();
+                if(attr!=null && attr.Key) 
+                    return prop.Name;
+            }
+            throw new Exception(string.Format("没有为类型{0}定义KEY!",type.Name));
+        }
+        //检查是否为多对多关系
+        public bool CheckMoreToMore(Type t){
+            bool check=false;
+            foreach(PropertyInfo prop in  t.GetProperties()){
+                if(prop.PropertyType.GenericTypeArguments.Length==0) continue;
+                foreach(Type type in prop.PropertyType.GenericTypeArguments){
+                    if(_type==type) {
+                        check=true;
+                        break;
+                    }
+                }
+            }
+            return check;
+        }
+    }
+#>
