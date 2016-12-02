@@ -1,12 +1,5 @@
 ﻿
 <div class="ng-grid" ng-cloak ng-style="{width:gridOption.width}">
-    <script type="text/ng-template" id="dialogTemplate.html">
-        <table class="modal-dialog grid-modal-dialog">
-            <tr>
-                <td class="modal-content" uib-modal-transclude></td>
-            </tr>
-        </table>
-    </script>
     <table class="content-table" ng-style="{width:gridOption.width}">
         <thead>
             <tr class="grid-head">
@@ -99,7 +92,7 @@
                                             </div>
                                             <button class="btn btn-warning btn-sm pull-right">确定</button>
                                         </script>
-                                        <a class="btn btn-primary" ng-click="edit(item);" ng-if="gridOption.showBtn.edit"> <i class="glyphicon glyphicon-pencil"></i><span>编 辑</span></a>
+                                        <a class="btn btn-primary" ng-click="dialog(item);" ng-if="gridOption.showBtn.edit"> <i class="glyphicon glyphicon-pencil"></i><span>编 辑</span></a>
                                         <a class="btn btn-primary" ng-click="" uib-popover-template="'deletePopoverTemplate.html'" popover-trigger="'outsideClick'" popover-append-to-body="true" ng-if="gridOption.showBtn.del">
                                             <i class="glyphicon glyphicon-trash"></i><span>删 除</span>
                                         </a>

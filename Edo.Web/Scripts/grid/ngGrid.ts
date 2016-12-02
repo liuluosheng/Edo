@@ -18,7 +18,7 @@ angular.module("app.grid", ['ngSanitize']).directive("grid", [
         };
     }
 ]).controller("GridController", [
-    "$scope", "$sce", "$filter", "$http", "$uibModal", "$attrs", "$Common", ($scope, $sce, $filter, $http, $uibModal, $attrs, $common) => {
+    "$scope", "$sce", "$filter", "$http", "$uibModal", "$attrs", "$common", ($scope, $sce, $filter, $http, $uibModal, $attrs, $common) => {
         $scope.gridOption = angular.extend(
             {
                 height: 'auto',
@@ -159,9 +159,9 @@ angular.module("app.grid", ['ngSanitize']).directive("grid", [
         $scope.page.filter = $scope.getFilterString();
         $scope.paging($scope.page);
         $scope.formatter = (formatter, value, row) => eval(`(${formatter})`)(value, row);
-        $scope.edit = item => {
+        $scope.dialog = item => {
             $uibModal.open({
-                windowTemplateUrl: "dialogTemplate.html",
+                windowTemplateUrl: "/ngTemplate/modal-template.html",
                 ariaLabelledBy: 'modal-title',
                 ariaDescribedBy: 'modal-body',
                 templateUrl: $scope.gridOption.editTemplateUrl,
@@ -179,6 +179,7 @@ angular.module("app.grid", ['ngSanitize']).directive("grid", [
                 }
             });
         }
+        $scope.option.dialog = $scope.dialog;
         $scope.scrollbarsConfig = {
             autoHideScrollbar: false,
             theme: 'dark-3',
@@ -236,7 +237,7 @@ angular.module("app.grid", ['ngSanitize']).directive("grid", [
                 }
             };
             $uibModal.open({
-                windowTemplateUrl: "dialogTemplate.html",
+                windowTemplateUrl: "/ngTemplate/modal-template.html",
                 ariaLabelledBy: 'modal-title-dt',
                 ariaDescribedBy: 'modal-body-dt',
                 templateUrl: template,

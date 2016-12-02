@@ -3,11 +3,7 @@
 }
 @section Styles{
 
-    <link href="~/Content/select.min.css" rel="stylesheet" />
-    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
-    <link href="~/Content/ng-scrollbars/jquery.mCustomScrollbar.css" rel="stylesheet" />
-    <link href="~/Content/font-awesome.min.css" rel="stylesheet" />
-    <link href="~/Content/grid.min.css" rel="stylesheet" />
+
 }
 
 
@@ -28,29 +24,29 @@
 
     <script type="text/javascript">
 
-        angular.module("app", ['ui.bootstrap', 'app.grid', 'ngMessages', 'ngScrollbars', 'ui.select']).controller("appOrder", [
-            "$scope", "$http", "$filter", "$window", function ($scope, $http, $filter, $window) {
-                $window.formatterDate = function (value) {
-                    return $filter("date")(value, "yyyy-MM-dd");
-                }
+        app.controller("orderController", [
+         "$scope", "$http", "$filter", "$window", "$common", function ($scope, $http, $filter, $window, $common) {
+             $window.formatterDate = function (value) {
+                 return $filter("date")(value, "yyyy-MM-dd");
+             }
 
-                $scope.gridOption = {
-                    height: 'auto',
-                    rowNumber: true,
-                    pkColumn: "Id",
-                    rowDetail: true,
-                    filterRow: true,
-                    columns: Grid.columnOption.customers,
-                    url: "/Customers/page",
-                    selectUrl: "/Customers/select2",
-                    editTemplateUrl: "/ngTemplate/Customers.html",
-                    btns: [
-                { name: "detail", icon: "glyphicon glyphicon-th", onclick: function () { alert("detail") } }
-                    ],
-                    onRowSelected: function (row) { }
-                    // ,onRenderRowDetail: function (row) { }
-                };
-            }
+             $scope.gridOption = {
+                 height: 'auto',
+                 rowNumber: true,
+                 pkColumn: "Id",
+                 rowDetail: true,
+                 filterRow: true,
+                 columns: $common.columnOption.customers,
+                 url: "/Customers/page",
+                 selectUrl: "/Customers/select2",
+                 editTemplateUrl: "/ngTemplate/Customers.html",
+                 btns: [
+             { name: "detail", icon: "glyphicon glyphicon-th", onclick: function () { alert("detail") } }
+                 ],
+                 onRowSelected: function (row) { }
+                 // ,onRenderRowDetail: function (row) { }
+             };
+         }
         ])
     </script>
 }

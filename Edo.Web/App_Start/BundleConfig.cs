@@ -23,6 +23,7 @@ namespace Edo.Web
              "~/Scripts/ng-scrollbars/*.js",
              "~/Scripts/ng-scrollbars/jquery.mCustomScrollbar.concat.min.js",
              "~/Scripts/angular-ui/ui-bootstrap-tpls.min.js",
+             "~/Scripts/angular-toastr.tpls.min.js",
              "~/Scripts/select.min.js",
              "~/Scripts/grid/ngGrid.js"
              ));
@@ -36,8 +37,9 @@ namespace Edo.Web
 
             bundles.Add(new StyleBundle("~/Content/angularjsui").Include(
                 "~/Content/ng-scrollbars/jquery.mCustomScrollbar.css",
-                     "~/Content/select.css",
-                     "~/Content/grid.css"
+                "~/Content/select.css",
+                "~/Content/angular-toastr.min.css",
+                "~/Content/grid.css"
                      ));
 
             bundles.Add(new StyleBundle("~/Content/styles").Include(

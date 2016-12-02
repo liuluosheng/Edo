@@ -202,6 +202,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\angular-toastr.css" />
+    <Content Include="Content\angular-toastr.min.css" />
     <Content Include="Content\bootstrap-datetimepicker.css" />
     <Content Include="Content\bootstrap-datetimepicker.min.css" />
     <Content Include="Content\bootstrap-theme.css" />
@@ -270,6 +272,7 @@
     <Content Include="ngTemplate\Customers.html">
       <DependentUpon>Generate.tt</DependentUpon>
     </Content>
+    <Content Include="ngTemplate\modal-template.html" />
     <Content Include="ngTemplate\OrderDetails.html">
       <DependentUpon>Generate.tt</DependentUpon>
     </Content>
@@ -302,6 +305,10 @@
     <Content Include="Scripts\angular-sanitize.js" />
     <Content Include="Scripts\angular-sanitize.min.js" />
     <Content Include="Scripts\angular-scenario.js" />
+    <Content Include="Scripts\angular-toastr.js" />
+    <Content Include="Scripts\angular-toastr.min.js" />
+    <Content Include="Scripts\angular-toastr.tpls.js" />
+    <Content Include="Scripts\angular-toastr.tpls.min.js" />
     <Content Include="Scripts\angular-touch.js" />
     <Content Include="Scripts\angular-touch.min.js" />
     <Content Include="Scripts\angular-ui\ui-bootstrap-tpls.js" />
@@ -314,6 +321,11 @@
     <Content Include="Scripts\bootstrap-datetimepicker.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\common\grid-option.js">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>grid-option.tt</DependentUpon>
+    </Content>
     <Content Include="Scripts\errors.json" />
     <Content Include="Scripts\angular-touch.min.js.map" />
     <Content Include="Scripts\angular-sanitize.min.js.map" />
@@ -1284,11 +1296,6 @@
     <Content Include="Scripts\template\order.html" />
     <Content Include="ngTemplate\ngGrid.html" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Scripts\common\app.js">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>app.tt</DependentUpon>
-    </Content>
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -1304,9 +1311,9 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Scripts\version.json" />
-    <Content Include="Scripts\common\app.tt">
+    <Content Include="Scripts\common\grid-option.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>app.js</LastGenOutput>
+      <LastGenOutput>grid-option.js</LastGenOutput>
     </Content>
     <Content Include="Views\Orders\Create.cshtml" />
     <Content Include="Views\Orders\Delete.cshtml" />
@@ -1329,9 +1336,11 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
+    <TypeScriptCompile Include="Scripts\common\app.ts" />
     <TypeScriptCompile Include="Scripts\common\Q.ts" />
     <TypeScriptCompile Include="Scripts\linq.d.ts" />
     <TypeScriptCompile Include="Scripts\grid\ngGrid.ts" />
+    <TypeScriptCompile Include="Scripts\typings\angular-toastr\angular-toastr.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\angularjs\angular-animate.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\angularjs\angular-component-router.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\angularjs\angular-cookies.d.ts" />
