@@ -314,7 +314,6 @@
     <Content Include="Scripts\bootstrap-datetimepicker.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Scripts\common\app.js" />
     <Content Include="Scripts\errors.json" />
     <Content Include="Scripts\angular-touch.min.js.map" />
     <Content Include="Scripts\angular-sanitize.min.js.map" />
@@ -1285,10 +1284,10 @@
     <Content Include="Scripts\template\order.html" />
     <Content Include="ngTemplate\ngGrid.html" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Scripts\common\Grid.ColumnOption.js">
+    <Content Include="Scripts\common\app.js">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Grid.ColumnOption.tt</DependentUpon>
+      <DependentUpon>app.tt</DependentUpon>
     </Content>
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -1305,9 +1304,9 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Scripts\version.json" />
-    <Content Include="Scripts\common\Grid.ColumnOption.tt">
+    <Content Include="Scripts\common\app.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Grid.ColumnOption.js</LastGenOutput>
+      <LastGenOutput>app.js</LastGenOutput>
     </Content>
     <Content Include="Views\Orders\Create.cshtml" />
     <Content Include="Views\Orders\Delete.cshtml" />

@@ -18,7 +18,7 @@ angular.module("app.grid", ['ngSanitize']).directive("grid", [
         };
     }
 ]).controller("GridController", [
-    "$scope", "$sce", "$filter", "$http", "$uibModal", "$attrs", "$window", ($scope, $sce, $filter, $http, $uibModal, $attrs, $window) => {
+    "$scope", "$sce", "$filter", "$http", "$uibModal", "$attrs", "$Common", ($scope, $sce, $filter, $http, $uibModal, $attrs, $common) => {
         $scope.gridOption = angular.extend(
             {
                 height: 'auto',
@@ -35,7 +35,7 @@ angular.module("app.grid", ['ngSanitize']).directive("grid", [
                 pkColumn: $attrs.gridPkColumn || $scope.option.pkColumn || "Id", //必须项
                 itemFilterField: $attrs.gridItemField || null,
                 moreToMore: $attrs.gridMoreToMore === "true" || false, // 多对多关系
-                columns: $window.Grid.columnOption[$attrs.gridColumns] || $scope.option.columns, //必须项
+                columns: $common.columnOption[$attrs.gridColumns] || $scope.option.columns, //必须项
                 url: $attrs.gridUrl || $scope.option.url, //必须项
                 selectUrl: $attrs.gridSelectUrl || $scope.option.selectUrl, //必须项
                 editTemplateUrl: $attrs.gridEditTemplateUrl || $scope.option.editTemplateUrl,//必须项

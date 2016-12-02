@@ -15,8 +15,12 @@
 <#@import namespace="Newtonsoft.Json"#>
 <#@import namespace="Edo.ViewModels"#>
 <#@ output extension=".js" #>
-var Grid={};
-Grid.columnOption=<#=        GetScript() #>
+var app = angular.module("app", ['ui.bootstrap', 'app.grid', 'ngMessages', 'ngScrollbars', 'ui.select'])
+    .service("$common", [
+        "$filter", function ($filter) {
+        this.columnOption=<#=        GetScript() #>
+        }
+    ]);
 <#+
     public string GetScript(){
         var types = Assembly.GetAssembly(typeof(EntityBaseViewModel)).GetTypes();
