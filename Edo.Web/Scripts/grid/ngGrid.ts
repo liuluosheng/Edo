@@ -159,6 +159,13 @@ angular.module("app.grid", ['ngSanitize']).directive("grid", [
         $scope.page.filter = $scope.getFilterString();
         $scope.paging($scope.page);
         $scope.formatter = (formatter, value, row) => eval(`(${formatter})`)(value, row);
+        $scope.delete = item => {
+            $common.$alert.confirm("确定删除？", {title:""}).then(function (isConfirm) {
+                if (isConfirm) {
+                    // do delete
+                }
+            });
+        }
         $scope.dialog = item => {
             $uibModal.open({
                 windowTemplateUrl: "/ngTemplate/modal-template.html",

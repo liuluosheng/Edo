@@ -34,7 +34,16 @@
                     selectUrl: "/home/select2",
                     editTemplateUrl: "/ngTemplate/orders.html",
                     btns: [
-                        { name: "detail", icon: "glyphicon glyphicon-th", onclick: function () { $common.success("YOU,GOOD!") } }
+                        { name: "detail", icon: "glyphicon glyphicon-th", onclick: function () { $common.message("warning", "YOU,GOOD!") } },
+                        {
+                            name: "detail",
+                            icon: "glyphicon glyphicon-th",
+                            onclick: function () {
+                                $common.$alert.confirm("Are you Sure?", { type: "input" }).then(function (isConfirm) {
+                                    setTimeout(function () { $common.$alert.success("You have successfully completed!", { title: "Good job!" }); }, 500);
+                                });
+                            }
+                        }
                     ],
                     onRowSelected: function (row) { }
                     // ,onRenderRowDetail: function (row) { }
