@@ -14,7 +14,7 @@ namespace Edo.Web
             AutoMapper.Mapper.Initialize(cfg =>
             {
                 cfg.CreateMap<OrderDetailsViewModel, OrderDetails>().ReverseMap()
-                    .ForMember(v => v.ProductsName, opt => opt.MapFrom(t => t.Products.ProductName))
+                    .ForMember(v => v.ProductName, opt => opt.MapFrom(t => t.Products.ProductName))
                     .ForMember(v => v.OrderDate, opt => opt.MapFrom(t => t.Orders.OrderDate));
 
                 cfg.CreateMap<OrdersViewModel, Orders>()

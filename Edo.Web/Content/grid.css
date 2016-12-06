@@ -80,7 +80,7 @@
   color: #f0ad4e;
 }
 .grid-modal-dialog .modal-body .modal-form {
-  padding: 0 20px 40px 20px;
+  padding: 0 20px 20px 20px;
   min-width: 1000px;
 }
 .grid-modal-dialog .modal-body .modal-form .error {
@@ -92,6 +92,7 @@
 .grid-modal-dialog .modal-body fieldset {
   margin-bottom: 10px;
   text-align: left;
+  position: relative;
 }
 .grid-modal-dialog .modal-body fieldset .btns {
   height: 0;

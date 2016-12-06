@@ -17,12 +17,13 @@
               ng-scrollbars-config="scrolls.config">
           <fieldset id="tolink0">
                 <legend><i class="fa fa-circle"></i>订单详情</legend>       
-                    <div class="form-group " ng-class="{'has-error':form.ProductsName.$invalid }">
+                    <div class="form-group " ng-class="{'has-error':form.ProductName.$invalid }">
                     <label class="col-sm-2 control-label">产品名称</label>
                     <div class="col-sm-10">
-                     <ui-select ng-model="item.ProductsName"
+                     <ui-select ng-model="item.ProductName"
                                    theme="bootstrap"
-                                   style="width:60%"
+                                   style="width:60%;float:left"
+                                  ng-class="{'has-error':form.ProductID.$invalid }"
                                    reset-search-input="false"
                                    on-select="bind($item,'ProductID');">                                  
                             <ui-select-match placeholder="键入过滤关键字...">{{$select.selected.name || $select.selected}}</ui-select-match>
@@ -32,23 +33,11 @@
                             <div ng-bind-html="obj.name | highlight: $select.search"></div>
                             </ui-select-choices>
                         </ui-select>
-                    </div>
-                </div>
-                    <div class="form-group " ng-class="{'has-error':form.OrderID.$invalid }">
-                    <label class="col-sm-2 control-label">订单编号</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control pull-left"  placeholder="订单编号" name="OrderID" ng-model="item.OrderID"   
-                         
-                        >                      
-                      </div>
-                </div>
-                    <div class="form-group " ng-class="{'has-error':form.ProductID.$invalid }">
-                    <label class="col-sm-2 control-label">产品编号</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control pull-left"  placeholder="产品编号" name="ProductID" ng-model="item.ProductID"   
-                         
-                        >                      
-                      </div>
+                        <input  type="hidden" name="ProductID" ng-model="item.ProductID" required/>
+                                            <div ng-messages="form.ProductID.$error" class="pull-left error">                       
+                                                     <div ng-message="required">这是个必填项</div>                         
+                          </div>
+                     </div>
                 </div>
                     <div class="form-group " ng-class="{'has-error':form.UnitPrice.$invalid }">
                     <label class="col-sm-2 control-label">价格</label>
@@ -87,7 +76,7 @@
         </form>
     </div>
     <div class="modal-footer">
-        <button class="btn btn-primary " type="button" ng-click="ok()">确 定</button>
+        <button class="btn btn-primary " type="button" ng-click="ok(form)">确 定</button>
         <button class="btn btn-warning " type="button" ng-click="cancel()">取 消</button>
     </div>
 </div>

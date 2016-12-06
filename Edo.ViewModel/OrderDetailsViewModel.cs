@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using Edo.Data.Entity;
@@ -15,17 +16,18 @@ namespace Edo.ViewModels
     {
         [DisplayName("产品名称")]
         [GirdColumn(Sortable = true, Field = "Products.ProductName")]
+        [Required]
         [Select("Products", "ProductName", "Id", "ProductID")]
-        public string ProductsName { get; set; }
+        public string ProductName { get; set; }
 
-        [Field(Key = true)]
+        [Field(Key = true, Hidden = true)]
         [DisplayName("订单编号")]
-        public int OrderID { get; set; }
+        public Guid OrderID { get; set; }
 
-        [Field(Key = true)]
+        [Field(Key = true, Hidden = true)]
         [GirdColumn(Sortable = true, Type = ColumnType.Number)]
         [DisplayName("产品编号")]
-        public int ProductID { get; set; }
+        public Guid ProductID { get; set; }
 
         [DisplayName("价格")]
         [GirdColumn(Sortable = true, Type = ColumnType.Number)]

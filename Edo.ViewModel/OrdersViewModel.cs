@@ -7,6 +7,7 @@ using System.Web;
 using Edo.Data.Entity;
 using Edo.Data.Entity.ComponentModel;
 using Edo.Data.Entity.Enum;
+using Newtonsoft.Json;
 
 
 namespace Edo.ViewModels
@@ -47,6 +48,7 @@ namespace Edo.ViewModels
         public DateTime? OrderDate { get; set; }
 
         [DisplayName("客户名称")]
+        [Required]
         [GirdColumn(Field = "Customers.CompanyName", Sortable = true)]
         [Select("Customers", "CompanyName", "Id", "CustomerID")]
         public string CustomersCompanyName { get; set; }
@@ -58,6 +60,7 @@ namespace Edo.ViewModels
         public string CustomerID { get; set; }
 
         [NavTag("订单详情")]
+        [JsonIgnore]
         [Grid]
         public ICollection<OrderDetailsViewModel> OrderDetails { get; set; }
     }

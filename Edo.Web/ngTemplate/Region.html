@@ -30,7 +30,7 @@
           <fieldset id="tolink1">
                 <legend><i class="fa fa-circle"></i>客户信息</legend>       
                     <div class="btns">
-                      <button class="btn btn-primary" ng-click="createObj('grid_Customers.html','Id')">
+                      <button class="btn btn-primary" ng-click="createObj('grid_Customers.html','Id',item.Id)">
                       <i class="glyphicon glyphicon-plus"></i><span>新 建</span>
                      </button>
                      <!--模板BEGIN-->
@@ -61,6 +61,7 @@
                   <!--模板END-->
                     </div>
                     <div grid
+                    ng-model="item.Customers"
                      grid-option="gridOption"
                      grid-pk-column="Id"
                      grid-item-field="Id"
@@ -77,7 +78,7 @@
         </form>
     </div>
     <div class="modal-footer">
-        <button class="btn btn-primary " type="button" ng-click="ok()">确 定</button>
+        <button class="btn btn-primary " type="button" ng-click="ok(form)">确 定</button>
         <button class="btn btn-warning " type="button" ng-click="cancel()">取 消</button>
     </div>
 </div>

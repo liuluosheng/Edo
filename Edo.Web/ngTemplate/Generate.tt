@@ -97,7 +97,7 @@
                         var template=moreToMore? string.Format("grid_{0}.html",shortName):string.Format("/ngTemplate/{0}.html",shortName);
 #>
                     <div class="btns">
-                      <button class="btn btn-primary" ng-click="createObj('<#=                        template#>','<#=                        keys#>')">
+                      <button class="btn btn-primary" ng-click="createObj('<#=                        template#>','<#=                        keys#>',item.<#=                        GetKeyString(_type)#>)">
                       <i class="glyphicon glyphicon-plus"></i><span>新 建</span>
                      </button>
 <#+
@@ -135,6 +135,7 @@
 #>
                     </div>
                     <div grid
+                    ng-model="item.<#=                        prop.Name #>"
                      grid-option="gridOption"
                      grid-pk-column="<#=                        GetKeyString(_type) #>"
                      grid-item-field="<#=                        moreToMore?keys:gridAttr.ForeignKey.ToString()#>"
@@ -157,11 +158,17 @@
                     <div class="col-sm-10">
 <#+
                     var selectAttribute = prop.GetCustomAttribute<SelectAttribute>();
+                    var requiredAttribute = prop.GetCustomAttribute<RequiredAttribute>();
+                    var maxLengthAttribute = prop.GetCustomAttribute<MaxLengthAttribute>();
+                    var minLengthAttribute = prop.GetCustomAttribute<MinLengthAttribute>();
+                    var regularExpressionAttribute=prop.GetCustomAttribute<RegularExpressionAttribute>();  
+                    bool isDate=typeof(DateTime)==prop.PropertyType.GetTypeInfo() || typeof(DateTime?)==prop.PropertyType.GetTypeInfo();  
                     if(selectAttribute!=null){
 #>
                      <ui-select ng-model="item.<#=                        prop.Name #>"
                                    theme="bootstrap"
-                                   style="width:60%"
+                                   style="width:60%;float:left"
+                                  ng-class="{'has-error':form.<#=                        selectAttribute.BindField #>.$invalid }"
                                    reset-search-input="false"
                                    on-select="bind($item,'<#=                        selectAttribute.BindField #>');">                                  
                             <ui-select-match placeholder="键入过滤关键字...">{{$select.selected.name || $select.selected}}</ui-select-match>
@@ -171,15 +178,14 @@
                             <div ng-bind-html="obj.name | highlight: $select.search"></div>
                             </ui-select-choices>
                         </ui-select>
-<#+                    
+<#+             
+                        if(requiredAttribute!=null){
+                        #>
+                        <input  type="hidden" name="<#=                            selectAttribute.BindField #>" ng-model="item.<#=                            selectAttribute.BindField #>" required/>
+                        <#+  
+                        }       
                     }  
-                    else{        
-                        var requiredAttribute = prop.GetCustomAttribute<RequiredAttribute>();
-                        var maxLengthAttribute = prop.GetCustomAttribute<MaxLengthAttribute>();
-                        var minLengthAttribute = prop.GetCustomAttribute<MinLengthAttribute>();
-                        var regularExpressionAttribute=prop.GetCustomAttribute<RegularExpressionAttribute>();  
-                        bool isDate=typeof(DateTime)==prop.PropertyType.GetTypeInfo() || typeof(DateTime?)==prop.PropertyType.GetTypeInfo();      
-                              
+                    else{                          
 #>
                         <input type="text" class="form-control pull-left"  placeholder="<#=                        name #>" name="<#=                        prop.Name #>" ng-model="item.<#=                        prop.Name #>"   
                         <#+
@@ -192,16 +198,16 @@
                         if(minLengthAttribute!=null) attrs.Append(string.Format(" ng-minlength=\"{0}\"",minLengthAttribute.Length));             
                         if(regularExpressionAttribute!=null) attrs.Append(string.Format(" ng-pattern=\"{0}\"",regularExpressionAttribute.Pattern)); #> 
                         <#=                        attrs.ToString() #>>                      
-  <#+                        if(requiredAttribute!=null || maxLengthAttribute!=null || minLengthAttribute!=null || regularExpressionAttribute!=null){
-#>                    <div ng-messages="form.<#=                            prop.Name #>.$error" class="pull-left error">                       
-                         <#+                            StringBuilder errors= new StringBuilder();                                       
-                            if(requiredAttribute!=null) errors.Append("<div ng-message=\"required\">这个是个必填项！</div>");  
-                            if(maxLengthAttribute!=null) errors.Append(string.Format("<div ng-message=\"maxlength\">输入不能超过{0}个字符</div>",maxLengthAttribute.Length)); 
-                            if(minLengthAttribute!=null) errors.Append(string.Format("<div ng-message=\"minlength\">输入不能小于{0}个字符</div>",minLengthAttribute.Length));   
-                            if(regularExpressionAttribute!=null)  errors.Append(string.Format("<div ng-message=\"pattern\">{0}</div>",regularExpressionAttribute.ErrorMessage??"输入的数据格式不匹配"));#>
-                            <#=                            errors.ToString() #>                         
+  <#+                        } if(requiredAttribute!=null || maxLengthAttribute!=null || minLengthAttribute!=null || regularExpressionAttribute!=null){
+#>                    <div ng-messages="form.<#=                        selectAttribute==null? prop.Name:selectAttribute.BindField #>.$error" class="pull-left error">                       
+                         <#+                        StringBuilder errors= new StringBuilder();                                       
+                        if(requiredAttribute!=null) errors.Append("<div ng-message=\"required\">这是个必填项</div>");  
+                        if(maxLengthAttribute!=null) errors.Append(string.Format("<div ng-message=\"maxlength\">输入不能超过{0}个字符</div>",maxLengthAttribute.Length)); 
+                        if(minLengthAttribute!=null) errors.Append(string.Format("<div ng-message=\"minlength\">输入不能小于{0}个字符</div>",minLengthAttribute.Length));   
+                        if(regularExpressionAttribute!=null)  errors.Append(string.Format("<div ng-message=\"pattern\">{0}</div>",regularExpressionAttribute.ErrorMessage??"输入的数据格式不匹配"));#>
+                            <#=                        errors.ToString() #>                         
                           </div>
- <#+                        }}   #>
+ <#+                    }#>
                     </div>
                 </div>
 <#+                }    #>
@@ -210,7 +216,7 @@
         </form>
     </div>
     <div class="modal-footer">
-        <button class="btn btn-primary " type="button" ng-click="ok()">确 定</button>
+        <button class="btn btn-primary " type="button" ng-click="ok(form)">确 定</button>
         <button class="btn btn-warning " type="button" ng-click="cancel()">取 消</button>
     </div>
 </div>

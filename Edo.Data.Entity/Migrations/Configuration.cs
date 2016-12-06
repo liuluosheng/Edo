@@ -79,7 +79,7 @@ namespace Edo.Data.Entity.Migrations
                 Country = "CN",
                 Phone = "12345678"
             });
-            
+
             context.Shippers.AddOrUpdate(new Shippers
             {
                 Id = Guid.Parse("8545EC3E-F158-4962-AC6C-A6CC00F2E5E9"),
@@ -129,16 +129,27 @@ namespace Edo.Data.Entity.Migrations
                 OrderDate = DateTime.Parse("2016-03-11"),
             }, new Orders
             {
-                Id = Guid.Parse("DDAEC801-80C9-4CD0-9886-A6CC00F643DF"),
+                Id = Guid.Parse("DDAEC801-80C9-4CD0-9886-A6CC00F644DF"),
                 ShipperID = Guid.Parse("8545EC3E-F158-4962-AC6C-A6CC00F2E5E9"),
                 CustomerID = Guid.Parse("8547EC3E-F158-4962-AC6C-A6CC00F2E6E8"),
                 EmployeeID = Guid.Parse("8547EC3E-F158-4962-AC6C-A6CC00F2E6E8"),
                 Freight = 1000,
-                ShipCountry = "shengZhen",
-                ShipAddress = "ShenZhen YangLing Road.1123",
-                ShipCity = "ShenZhen PuDong",
-                ShipName = "lucas",
-                OrderDate = DateTime.Parse("2016-03-12"),
+                ShipCountry = "shengZhenChengDe",
+                ShipAddress = "shengZhenChengDe YangLing Road.1123",
+                ShipCity = "shengZhenChengDe PuDong",
+                ShipName = "Nacl",
+                OrderDate = DateTime.Parse("2016-04-12"),
+                OrderDetails = new List<OrderDetails>
+                {
+                    new OrderDetails{ 
+                        Discount=122, 
+                        OrderID=Guid.Parse("DDAEC801-80C9-4CD0-9886-A6CC00F643DF"), 
+                        ProductID= Guid.Parse("29CC3051-E2ED-46A7-9351-A6CC00FB5F92"),
+                       Quantity=12,
+                       UnitPrice=33,
+                       CreatedDate=DateTime.Now                  
+                    }
+                }
             });
         }
     }

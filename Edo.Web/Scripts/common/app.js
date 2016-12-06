@@ -13,12 +13,10 @@ var app = angular.module("app", ['ui.bootstrap', 'app.grid', 'ngMessages', 'ngSc
         target: 'body'
     });
 }).service("$common", [
-    "$filter", "toastr", "SweetAlert", function ($filter, toastr, $sweetAlert) {
+    "$filter", "toastr", "SweetAlert", function ($filter, $toast, $sweetAlert) {
         this.columnOption = window["columnOption"];
-        this.message = function (t, msg) {
-            var toast = toastr[t] || toastr["info"];
-            toast(msg);
-        };
+        //提示框服务
+        this.$toast = $toast;
         this.$alert = $sweetAlert;
     }
 ]);

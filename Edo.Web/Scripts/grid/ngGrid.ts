@@ -18,7 +18,7 @@ angular.module("app.grid", ['ngSanitize']).directive("grid", [
         };
     }
 ]).controller("GridController", [
-    "$scope", "$sce", "$filter", "$http", "$uibModal", "$attrs", "$common", ($scope, $sce, $filter, $http, $uibModal, $attrs, $common) => {
+    "$scope", "$sce", "$filter", "$http", "$uibModal", "$attrs", "$common", "$parse", ($scope, $sce, $filter, $http, $uibModal, $attrs, $common, $parse) => {
         $scope.gridOption = angular.extend(
             {
                 height: 'auto',
@@ -44,7 +44,12 @@ angular.module("app.grid", ['ngSanitize']).directive("grid", [
                     del: $attrs.gridEnableDelete != "false"
                 }
             }, $scope.option);
-
+        $scope.bindModel = (value) => {
+            let modelAttr = $attrs.ngModel;
+            if (modelAttr) {
+                $parse(modelAttr).assign($scope.$parent, value);
+            }
+        }
         $scope.psArray = [10, 20, 50, 100],
             $scope.page = {
                 pageIndex: 1,
@@ -69,6 +74,7 @@ angular.module("app.grid", ['ngSanitize']).directive("grid", [
                 $scope.lastPageFilter = p.filter;
                 p.total = result.total;
                 $scope.data = result.data;
+                $scope.bindModel($scope.data);
                 $scope.dataLoading = false;
                 if (p.pageSize >= p.total) {
                     $scope.gridOption.filterRow = false;
@@ -160,7 +166,7 @@ angular.module("app.grid", ['ngSanitize']).directive("grid", [
         $scope.paging($scope.page);
         $scope.formatter = (formatter, value, row) => eval(`(${formatter})`)(value, row);
         $scope.delete = item => {
-            $common.$alert.confirm("确定删除？", {title:""}).then(function (isConfirm) {
+            $common.$alert.confirm("确定删除？", { title: "" }).then(function (isConfirm) {
                 if (isConfirm) {
                     // do delete
                 }
@@ -202,12 +208,19 @@ angular.module("app.grid", ['ngSanitize']).directive("grid", [
         }
     }
 ]).controller("editInstanceCtrl", [
-    "$scope", "$http", "$uibModalInstance", "$uibModal", ($scope, $http, $uibModalInstance, $uibModal) => {
+    "$scope", "$http", "$uibModalInstance", "$uibModal", "$common", ($scope, $http, $uibModalInstance, $uibModal, $common) => {
         $scope.modalHeight = angular.element(window).height() - 230;
         $scope.item = angular.copy($scope.$resolve.resolveObj.item) || {};
         $scope.gridOption = angular.extend({}, $scope.$resolve.resolveObj.gridOption);
-        $scope.ok = () => {
-            $uibModalInstance.close($scope.$resolve.item);
+        $scope.ok = (form, api) => {
+            if (form.$invalid) {
+                $common.$toast.error("好像还有错误喔~");
+                return;
+            }
+            $http.post(api, $scope.item).success(function (result) {
+                if (result)
+                    $uibModalInstance.close($scope.$resolve.item);
+            })
         };
         $scope.scrollTo = targetSelection => {
             let top = angular.element(targetSelection).position().top;
@@ -234,15 +247,17 @@ angular.module("app.grid", ['ngSanitize']).directive("grid", [
         $scope.cancel = () => {
             $uibModalInstance.dismiss('cancel');
         };
-        $scope.createObj = (template, pk) => {
+        $scope.createObj = (template, pkName, pkValue) => {
             let resolve = {
+                item: {},
                 gridOption: {
                     showBtn: false,
                     rowDetail: false,
-                    pkColumn: pk,
+                    pkColumn: pkName,
                     height: 'auto'
                 }
             };
+            resolve.item[pkName] = pkValue;
             $uibModal.open({
                 windowTemplateUrl: "/ngTemplate/modal-template.html",
                 ariaLabelledBy: 'modal-title-dt',
