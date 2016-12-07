@@ -9,7 +9,7 @@
 
 
 
-<div ng-app="app" ng-controller="appOrder">
+<div ng-app="app" ng-controller="customersController">
     <br />
     <div class="ng-grid panel panel-default" ng-cloak ng-style="{width:gridOption.width+40}">
         <div class="panel-heading">
@@ -24,7 +24,7 @@
 
     <script type="text/javascript">
 
-        app.controller("orderController", [
+        app.controller("customersController", [
          "$scope", "$http", "$filter", "$window", "$common", function ($scope, $http, $filter, $window, $common) {
              $window.formatterDate = function (value) {
                  return $filter("date")(value, "yyyy-MM-dd");

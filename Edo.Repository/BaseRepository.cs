@@ -57,6 +57,7 @@ namespace Edo.Repository
         /// <returns>操作影响的行数</returns>
         public int Insert(TEntity entity)
         {
+            entity.Id = EntityBase.NewId();
             _dbSet.Add(entity);
             return _context.SaveChanges();
         }
@@ -206,6 +207,7 @@ namespace Edo.Repository
         /// <returns>操作影响的行数</returns>
         public async Task<int> InsertAsync(TEntity entity)
         {
+            entity.Id = EntityBase.NewId();
             _dbSet.Add(entity);
             return await _context.SaveChangesAsync();
         }

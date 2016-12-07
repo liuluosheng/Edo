@@ -24,7 +24,6 @@ namespace Edo.Web
             AutoFacRegister.Register();
             AutoMapperConfig.Initialize();
             Database.SetInitializer(new CreateDatabaseIfNotExists<EdoDbContext>());
-
             if (!Dependency.HasResolver)
             {
                 var container = new MunqContainer();

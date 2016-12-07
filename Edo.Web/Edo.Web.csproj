@@ -194,10 +194,10 @@
       <DependentUpon>Generate.tt</DependentUpon>
     </Compile>
     <Compile Include="Controllers\RegionController.cs" />
-    <Compile Include="Extension\HtmlHelp.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Model\Result.cs" />
     <Compile Include="MVC\HttpRuntimeCache.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -1331,6 +1331,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Extension\" />
     <Folder Include="Scripts\typings\angular-material\" />
     <Folder Include="Views\OrderDetails\" />
     <Folder Include="Views\Products\" />

@@ -18,7 +18,7 @@ namespace Edo.Data.Entity
         protected EntityBase()
         {
             if (Guid.Empty == Id)
-                Id = CombHelper.NewComb();
+                Id = NewId();
             IsDeleted = false;
             CreatedDate = DateTime.Now;
 
@@ -51,5 +51,31 @@ namespace Edo.Data.Entity
         public byte[] Timestamp { get; set; }
         #endregion
 
+        /// <summary>
+        /// 返回Guid用于数据库操作，特定的时间代码可以提高检索效率
+        /// </summary>
+        /// <returns>COMB类型 Guid 数据</returns>
+        public static Guid NewId()
+        {
+            byte[] guidArray = Guid.NewGuid().ToByteArray();
+            DateTime dtBase = new DateTime(1900, 1, 1);
+            DateTime dtNow = DateTime.Now;
+            //获取用于生成byte字符串的天数与毫秒数
+            TimeSpan days = new TimeSpan(dtNow.Ticks - dtBase.Ticks);
+            TimeSpan msecs = new TimeSpan(dtNow.Ticks - (new DateTime(dtNow.Year, dtNow.Month, dtNow.Day).Ticks));
+            //转换成byte数组
+            //注意SqlServer的时间计数只能精确到1/300秒
+            byte[] daysArray = BitConverter.GetBytes(days.Days);
+            byte[] msecsArray = BitConverter.GetBytes((long)(msecs.TotalMilliseconds / 3.333333));
+
+            //反转字节以符合SqlServer的排序
+            Array.Reverse(daysArray);
+            Array.Reverse(msecsArray);
+
+            //把字节复制到Guid中
+            Array.Copy(daysArray, daysArray.Length - 2, guidArray, guidArray.Length - 6, 2);
+            Array.Copy(msecsArray, msecsArray.Length - 4, guidArray, guidArray.Length - 4, 4);
+            return new Guid(guidArray);
+        }
     }
 }

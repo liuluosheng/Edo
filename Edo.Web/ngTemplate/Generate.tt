@@ -85,7 +85,7 @@
           <fieldset id="tolink<#=                ii #>">
                 <legend><i class="fa fa-circle"></i><#=                nav#></legend>       
 <#+
-                foreach(var prop in props)
+                foreach( var prop in props)
                 {
                     var gridAttr=  prop.GetCustomAttribute<GridAttribute>();                 
                     if(gridAttr!=null){                
@@ -130,6 +130,9 @@
                   </script>
                   <!--模板END-->
 <#+                        }
+                        else if(string.IsNullOrEmpty(gridAttr.ForeignKey)){
+                            throw new Exception(string.Format("类型：{0}的集合属性{1}为一对多属性，必须设置Grid属性的ForeigKey值。",_type.Name,prop.Name));
+                        }
                         string gridUrl=moreToMore?string.Format("/{0}/Page{1}",_type.Name.Replace("ViewModel",""),shortName):string.Format("/{0}/Page",shortName);
                         string selectUrl=moreToMore?string.Format("/{0}/Select2{1}",_type.Name.Replace("ViewModel",""),shortName):string.Format("/{0}/Select2",shortName);
 #>
@@ -162,6 +165,24 @@
                     var maxLengthAttribute = prop.GetCustomAttribute<MaxLengthAttribute>();
                     var minLengthAttribute = prop.GetCustomAttribute<MinLengthAttribute>();
                     var regularExpressionAttribute=prop.GetCustomAttribute<RegularExpressionAttribute>();  
+                    if(regularExpressionAttribute==null){
+                        if(typeof(int?)==prop.PropertyType.GetTypeInfo() || typeof(int)==prop.PropertyType.GetTypeInfo()){
+                            regularExpressionAttribute=  new RegularExpressionAttribute("/^[1-9]d*|0$/");//正整数
+                            regularExpressionAttribute.ErrorMessage="请输入正整数";
+                        }
+                        if(typeof(decimal?)==prop.PropertyType.GetTypeInfo()
+                            ||typeof(decimal)==prop.PropertyType.GetTypeInfo()
+                            ||typeof(float?)==prop.PropertyType.GetTypeInfo()
+                            ||typeof(float)==prop.PropertyType.GetTypeInfo()
+                            ||typeof(double?)==prop.PropertyType.GetTypeInfo()
+                            ||typeof(double)==prop.PropertyType.GetTypeInfo()
+                            ||typeof(short?)==prop.PropertyType.GetTypeInfo()
+                            ||typeof(short)==prop.PropertyType.GetTypeInfo())
+                        {
+                            regularExpressionAttribute=  new RegularExpressionAttribute("/^[1-9]d*.d*|0.d*[1-9]d*|0?.0+|0$/"); //正数
+                            regularExpressionAttribute.ErrorMessage="请输入正数";
+                        }
+                    }
                     bool isDate=typeof(DateTime)==prop.PropertyType.GetTypeInfo() || typeof(DateTime?)==prop.PropertyType.GetTypeInfo();  
                     if(selectAttribute!=null){
 #>
@@ -196,7 +217,7 @@
                         if(requiredAttribute!=null)  attrs.Append(" ng-required=\"true\" ");
                         if(maxLengthAttribute!=null) attrs.Append(string.Format(" ng-maxlength=\"{0}\"",maxLengthAttribute.Length)); 
                         if(minLengthAttribute!=null) attrs.Append(string.Format(" ng-minlength=\"{0}\"",minLengthAttribute.Length));             
-                        if(regularExpressionAttribute!=null) attrs.Append(string.Format(" ng-pattern=\"{0}\"",regularExpressionAttribute.Pattern)); #> 
+                        if(regularExpressionAttribute!=null) {attrs.Append(string.Format(" ng-pattern=\"{0}\"",regularExpressionAttribute.Pattern));} #> 
                         <#=                        attrs.ToString() #>>                      
   <#+                        } if(requiredAttribute!=null || maxLengthAttribute!=null || minLengthAttribute!=null || regularExpressionAttribute!=null){
 #>                    <div ng-messages="form.<#=                        selectAttribute==null? prop.Name:selectAttribute.BindField #>.$error" class="pull-left error">                       
@@ -216,7 +237,7 @@
         </form>
     </div>
     <div class="modal-footer">
-        <button class="btn btn-primary " type="button" ng-click="ok(form)">确 定</button>
+        <button class="btn btn-primary " type="button" ng-click="ok(form,'/<#=            _type.Name.Replace("ViewModel","").ToLower()#>/create')">确 定</button>
         <button class="btn btn-warning " type="button" ng-click="cancel()">取 消</button>
     </div>
 </div>

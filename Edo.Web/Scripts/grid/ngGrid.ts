@@ -56,8 +56,8 @@ angular.module("app.grid", ['ngSanitize']).directive("grid", [
                 pageSize: $scope.psArray[0],
                 sort: `${$scope.gridOption.pkColumn} ascending`
             }
-        if ($scope.gridOption.itemFilterField && $scope.gridOption.itemFilterValue) {
-            $scope.gridOption.itemFilter = `${$scope.gridOption.itemFilterField} = "${$scope.gridOption.itemFilterValue}"`;
+        if ($scope.gridOption.itemFilterField) {
+            $scope.gridOption.itemFilter = `${$scope.gridOption.itemFilterField} = "${$scope.gridOption.itemFilterValue || $common.emptyGuid}"`;
         }
         $scope.gridSort = {};
         $scope.gridOption.width = 100 + $scope.gridOption.columns.length * 10;

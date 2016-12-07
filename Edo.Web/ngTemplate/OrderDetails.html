@@ -44,24 +44,33 @@
                     <div class="col-sm-10">
                         <input type="text" class="form-control pull-left"  placeholder="价格" name="UnitPrice" ng-model="item.UnitPrice"   
                          
-                        >                      
-                      </div>
+                         ng-pattern="/^[1-9]d*.d*|0.d*[1-9]d*|0?.0+|0$/">                      
+                      <div ng-messages="form.UnitPrice.$error" class="pull-left error">                       
+                                                     <div ng-message="pattern">请输入正数</div>                         
+                          </div>
+                     </div>
                 </div>
                     <div class="form-group " ng-class="{'has-error':form.Quantity.$invalid }">
                     <label class="col-sm-2 control-label">数量</label>
                     <div class="col-sm-10">
                         <input type="text" class="form-control pull-left"  placeholder="数量" name="Quantity" ng-model="item.Quantity"   
                          
-                        >                      
-                      </div>
+                         ng-pattern="/^[1-9]d*|0$/">                      
+                      <div ng-messages="form.Quantity.$error" class="pull-left error">                       
+                                                     <div ng-message="pattern">请输入正整数</div>                         
+                          </div>
+                     </div>
                 </div>
                     <div class="form-group " ng-class="{'has-error':form.Discount.$invalid }">
                     <label class="col-sm-2 control-label">折扣</label>
                     <div class="col-sm-10">
                         <input type="text" class="form-control pull-left"  placeholder="折扣" name="Discount" ng-model="item.Discount"   
                          
-                        >                      
-                      </div>
+                         ng-pattern="/^[1-9]d*.d*|0.d*[1-9]d*|0?.0+|0$/">                      
+                      <div ng-messages="form.Discount.$error" class="pull-left error">                       
+                                                     <div ng-message="pattern">请输入正数</div>                         
+                          </div>
+                     </div>
                 </div>
                     <div class="form-group " ng-class="{'has-error':form.OrderDate.$invalid }">
                     <label class="col-sm-2 control-label">订单日期</label>
@@ -76,7 +85,7 @@
         </form>
     </div>
     <div class="modal-footer">
-        <button class="btn btn-primary " type="button" ng-click="ok(form)">确 定</button>
+        <button class="btn btn-primary " type="button" ng-click="ok(form,'/orderdetails/create')">确 定</button>
         <button class="btn btn-warning " type="button" ng-click="cancel()">取 消</button>
     </div>
 </div>

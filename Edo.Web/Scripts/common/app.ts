@@ -18,5 +18,6 @@ var app = angular.module("app", ['ui.bootstrap', 'app.grid', 'ngMessages', 'ngSc
             //提示框服务
             this.$toast = $toast;
             this.$alert = $sweetAlert;
+            this.emptyGuid = "00000000-0000-0000-0000-000000000000";
         }
     ]);

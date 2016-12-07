@@ -48,6 +48,42 @@
   <ItemGroup>
     <Compile Include="CustomersViewModel.cs" />
     <Compile Include="EntityBaseViewModel.cs" />
+    <Compile Include="Generate\CategoriesViewModel.cs">
+      <DependentUpon>Generate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generate\CustomersViewModel.cs">
+      <DependentUpon>Generate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generate\EmployeesViewModel.cs">
+      <DependentUpon>Generate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generate\OrderDetailsViewModel.cs">
+      <DependentUpon>Generate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generate\OrdersViewModel.cs">
+      <DependentUpon>Generate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generate\ProductsViewModel.cs">
+      <DependentUpon>Generate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generate\RegionViewModel.cs">
+      <DependentUpon>Generate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generate\RoleViewModel.cs">
+      <DependentUpon>Generate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generate\ShippersViewModel.cs">
+      <DependentUpon>Generate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generate\SuppliersViewModel.cs">
+      <DependentUpon>Generate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generate\UserRoleViewModel.cs">
+      <DependentUpon>Generate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generate\UserViewModel.cs">
+      <DependentUpon>Generate.tt</DependentUpon>
+    </Compile>
     <Compile Include="OrderDetailsViewModel.cs" />
     <Compile Include="OrdersViewModel.cs" />
     <Compile Include="ProductsViewModel.cs" />
@@ -63,7 +99,34 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Generate\Generate.log">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Generate.tt</DependentUpon>
+    </None>
+    <None Include="Generate\Generate.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastOutputs>
+.\CategoriesViewModel.cs
+.\CustomersViewModel.cs
+.\EmployeesViewModel.cs
+.\Generate.log
+.\OrderDetailsViewModel.cs
+.\OrdersViewModel.cs
+.\ProductsViewModel.cs
+.\RegionViewModel.cs
+.\RoleViewModel.cs
+.\ShippersViewModel.cs
+.\SuppliersViewModel.cs
+.\UserRoleViewModel.cs
+.\UserViewModel.cs
+</LastOutputs>
+      <LastGenOutput>Generate.log</LastGenOutput>
+    </None>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

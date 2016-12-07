@@ -1,0 +1,138 @@
+<#@ template language="C#" debug="True" #>
+<#@ output extension="log" #>
+<#@ import namespace="System.Text" #>
+<#@ assembly name="System.Core" #>
+<#@ assembly name="System.Web" #>
+<#@ assembly name="$(TargetDir)Edo.Data.Entity.dll" #>
+<#@ assembly name="$(TargetDir)Edo.ViewModel.dll" #>
+<#@ assembly name="$(TargetDir)Newtonsoft.Json.dll" #>
+<#@ assembly name="System.ComponentModel.DataAnnotations.dll" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="Edo.Data.Entity.ComponentModel" #>
+<#@ import namespace="System.ComponentModel" #>
+<#@ import namespace="System.ComponentModel.DataAnnotations" #>
+<#@ import namespace="System.ComponentModel.DataAnnotations.Schema" #>
+<#@ import namespace="Edo.Data.Entity" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@import namespace="System.Reflection"#>
+<#@import namespace="Newtonsoft.Json"#>
+<#@import namespace="Edo.ViewModels"#>
+<#@ include file="T4Toolbox.tt" #>
+<#
+
+    var types = Assembly.GetAssembly(typeof(EntityBase)).GetTypes();
+    var baseType = typeof(EntityBase);
+    foreach(var type in types){
+        if (type.BaseType != null && type.BaseType == baseType){
+            Template template = new ControllerTemplate(type);
+            template.Output.Encoding = Encoding.UTF8;
+            string file=string.Format("{0}ViewModel.cs",type.Name);
+            template.RenderToFile(file);
+            WriteLine(string.Format("Generate file:{0}.",file));
+        }       
+    }
+   
+
+#>
+
+<#+
+    public class ControllerTemplate : CSharpTemplate
+    {
+        private Type _type;
+        private string name;
+        public ControllerTemplate(Type t){
+            _type=t;
+            name=_type.Name.Replace("ViewModel","");
+        }
+        public override string TransformText()
+        {
+            base.TransformText();
+#>
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
+using System.Web;
+using Edo.Data.Entity.ComponentModel;
+using Newtonsoft.Json;
+using Edo.Data.Entity;
+namespace Edo.ViewModels
+{
+    [Form("基本信息")]
+    public partial class <#=            _type.Name #>ViewModel : EntityBaseViewModel
+    {
+       
+        <#+
+            var fks =GetForeignKeyProp();
+            foreach(PropertyInfo prop in _type.GetProperties()){
+                var p=prop.GetCustomAttribute<ForeignKeyAttribute>();
+                var genericTypes=prop.PropertyType.GenericTypeArguments;
+                if(p!=null || new []{"Id","IsDeleted","Timestamp"}.Contains(prop.Name) || fks.Contains(prop.Name) ) continue;
+              #>   
+               <#+
+                if(genericTypes.Length!=0 && genericTypes[0].BaseType==typeof(EntityBase)){
+                #>
+                 [JsonIgnore]
+                 [Grid(ForeignKey ="<#=                    CheckMoreToMore(genericTypes[0] )?"": GetGridForeignKey(genericTypes[0])#>")]
+               <#+
+                }
+               #>
+               [GirdColumn(Sortable = true, Width = 100)]        
+               [DisplayName("<#=                prop.Name #>")]
+               public virtual <#=                genericTypes.Length==0  ?prop.PropertyType.Name:(genericTypes[0].BaseType!=typeof(EntityBase)?string.Format("{0}?",genericTypes[0].Name):string.Format(" ICollection<{0}>",genericTypes[0].Name)) #> <#=                prop.Name #> { get; set; }
+              <#+
+            }
+         #>
+    }
+}
+<#+
+            return this.GenerationEnvironment.ToString();
+        }
+        public bool CheckMoreToMore(Type t){
+            bool check=false;
+            foreach(PropertyInfo prop in  t.GetProperties()){
+                if(prop.PropertyType.GenericTypeArguments.Length==0) continue;
+                foreach(Type type in prop.PropertyType.GenericTypeArguments){
+                    if(_type==type) {
+                        check=true;
+                        break;
+                    }
+                }
+            }
+            return check;
+        }
+        public IEnumerable<string> GetForeignKeyProp(){
+            foreach(PropertyInfo prop in  _type.GetProperties()){
+                var p=prop.GetCustomAttribute<ForeignKeyAttribute>();
+                if(p!=null){
+                    yield return p.Name;
+                }
+            }
+        }
+
+        public string GetGridForeignKey(Type type){
+            foreach(PropertyInfo prop in  type.GetProperties()){
+                if(prop.PropertyType==_type)
+                {
+                    var p=prop.GetCustomAttribute<ForeignKeyAttribute>();
+                    if(p!=null)
+                        return p.Name;    
+                    throw new Exception(string.Format("实体{0}的属性{1}没有添加ForeignKey的属性!",type.Name,prop.Name));    
+                }
+                    
+            }
+            return null;
+        }
+        //返回类型的主键字符串
+        public string GetKeyString(Type type){
+           
+            foreach(PropertyInfo prop in  type.GetProperties()){
+                var attr = prop.GetCustomAttribute<FieldAttribute>();
+                if(attr!=null && attr.Key) 
+                    return prop.Name;
+            }
+            throw new Exception(string.Format("没有为类型{0}定义KEY!",type.Name));
+        }
+    }
+#>

@@ -12,7 +12,7 @@ using Newtonsoft.Json;
 namespace Edo.ViewModels
 {
     [Form("订单详情")]
-    public class OrderDetailsViewModel : EntityBaseViewModel
+    public class OrderDetailsViewModel1 : EntityBaseViewModel
     {
         [DisplayName("产品名称")]
         [GirdColumn(Sortable = true, Field = "Products.ProductName")]
@@ -35,7 +35,7 @@ namespace Edo.ViewModels
 
         [DisplayName("数量")]
         [GirdColumn(Sortable = true, Type = ColumnType.Number)]
-        public short Quantity { get; set; }
+        public int Quantity { get; set; }
 
         [DisplayName("折扣")]
         [GirdColumn(Sortable = true, Type = ColumnType.Number)]

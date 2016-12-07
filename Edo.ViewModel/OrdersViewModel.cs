@@ -13,7 +13,7 @@ using Newtonsoft.Json;
 namespace Edo.ViewModels
 {
     [Form("基本信息", "发货人信息", "订单详情")]
-    public class OrdersViewModel : EntityBaseViewModel
+    public  class OrdersViewModel1 : EntityBaseViewModel
     {
         /// <summary>
         /// 发货人名称
@@ -27,7 +27,6 @@ namespace Edo.ViewModels
         /// </summary>
         [DisplayName("发货人地址")]
         [GirdColumn]
-        [RegularExpression("/^[a-z0-9_-]{3,16}$/", ErrorMessage = "您的输入不正确")]
         public string ShipAddress { get; set; }
 
         /// <summary>
@@ -61,7 +60,7 @@ namespace Edo.ViewModels
 
         [NavTag("订单详情")]
         [JsonIgnore]
-        [Grid]
+        [Grid(ForeignKey = "OrderID")]
         public ICollection<OrderDetailsViewModel> OrderDetails { get; set; }
     }
 }

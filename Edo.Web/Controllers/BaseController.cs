@@ -13,6 +13,8 @@ using System.Reflection;
 using System.Threading.Tasks;
 using Edo.Service;
 using Edo.ViewModels;
+using Edo.Web.Model;
+
 namespace Edo.Web.Controllers
 {
     public abstract class BaseController<T, TK> : AsyncController
@@ -29,15 +31,15 @@ namespace Edo.Web.Controllers
 
         public virtual async Task<ActionResult> Edit(TK entity)
         {
-            return Content(JsonConvert.SerializeObject(await _service.Repository.UpdateAsync(Mapper.Map<TK, T>(entity)) > 0));
+            return Content(JsonConvert.SerializeObject(new Result { Success = await _service.Repository.UpdateAsync(Mapper.Map<TK, T>(entity)) > 0, Obj = entity }));
         }
         public virtual async Task<ActionResult> Create(TK entity)
         {
-            return Content(JsonConvert.SerializeObject(await _service.Repository.InsertAsync(Mapper.Map<TK, T>(entity)) > 0));
+            return Content(JsonConvert.SerializeObject(new Result { Success = await _service.Repository.InsertAsync(Mapper.Map<TK, T>(entity)) > 0, Obj = entity }));
         }
         public virtual async Task<ActionResult> Delete(TK entity)
         {
-            return Content(JsonConvert.SerializeObject(await _service.Repository.DeleteAsync(entity.Id) > 0));
+            return Content(JsonConvert.SerializeObject(new Result { Success = await _service.Repository.DeleteAsync(entity.Id) > 0 }));
         }
         public virtual Task<ActionResult> Select2(string field, string q)
         {
