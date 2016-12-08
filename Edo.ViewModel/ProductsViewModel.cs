@@ -7,7 +7,7 @@ using Edo.Data.Entity;
 
 namespace Edo.ViewModels
 {
-    public class ProductsViewModel : EntityBaseViewModel
+    public class ProductsViewModel1 
     {
         [DisplayName("产品名称")]
         public string ProductName { get; set; }

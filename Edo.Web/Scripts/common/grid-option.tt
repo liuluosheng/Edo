@@ -17,6 +17,7 @@
 <#@ output extension=".js" #>
   window.columnOption=<#=        GetScript() #>
   
+
 <#+
     public string GetScript(){
         var types = Assembly.GetAssembly(typeof(EntityBaseViewModel)).GetTypes();
@@ -31,7 +32,7 @@
                 foreach (var propertyInfo in type.GetProperties())
                 {
                     var data = propertyInfo.GetCustomAttributes<GirdColumnAttribute>().FirstOrDefault();
-                    if (data != null)
+                    if (data != null && !data.Hide)
                     {
                         data.Field = data.Field ?? propertyInfo.Name;
                         if (propertyInfo.PropertyType == typeof(DateTime) || propertyInfo.PropertyType == typeof(DateTime?))

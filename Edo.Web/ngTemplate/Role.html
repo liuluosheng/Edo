@@ -10,7 +10,7 @@
     <div class="modal-body" id="modal-body">
         <div class="modal-nav">
   <a ng-click="scrollTo('#tolink0')">基本信息</a>
-  <a ng-click="scrollTo('#tolink1')">Customers</a>
+  <a ng-click="scrollTo('#tolink1')">User</a>
         </div>
         <form class="form-horizontal  modal-form" role="form" ng-style="{maxHeight:modalHeight}" name="form"
               ng-scrollbars
@@ -18,23 +18,23 @@
               ng-scrollbars-config="scrolls.config">
           <fieldset id="tolink0">
                 <legend><i class="fa fa-circle"></i>基本信息</legend>       
-                    <div class="form-group " ng-class="{'has-error':form.RegionDescription.$invalid }">
-                    <label class="col-sm-2 control-label">RegionDescription</label>
+                    <div class="form-group " ng-class="{'has-error':form.Name.$invalid }">
+                    <label class="col-sm-2 control-label">Name</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control pull-left"  placeholder="RegionDescription" name="RegionDescription" ng-model="item.RegionDescription"   
+                        <input type="text" class="form-control pull-left"  placeholder="Name" name="Name" ng-model="item.Name"   
                          
                         >                      
                       </div>
                 </div>
                 </fieldset>
           <fieldset id="tolink1">
-                <legend><i class="fa fa-circle"></i>Customers</legend>       
+                <legend><i class="fa fa-circle"></i>User</legend>       
                     <div class="btns">
-                      <button class="btn btn-primary" ng-click="createObj('grid_Customers.html','Id',item.Id)">
+                      <button class="btn btn-primary" ng-click="createObj('grid_User.html','Id',item.Id)">
                       <i class="glyphicon glyphicon-plus"></i><span>新 建</span>
                      </button>
                      <!--模板BEGIN-->
-                     <script type="text/ng-template" id="grid_Customers.html">
+                     <script type="text/ng-template" id="grid_User.html">
                      <div class="modal-header">
                          <h3 class="modal-title" id="modal-title-dt">
                               <b>CHOOSE</b>
@@ -47,10 +47,10 @@
                             grid-more-to-more="true"
                             grid-pk-column="Id"
                             grid-template="nggrid"
-                            grid-columns="customers"
-                            grid-select-url="/Customers/select2"
-                            grid-edit-template-url="/ngTemplate/Customers.html"
-                            grid-url="/Customers/Page">
+                            grid-columns="user"
+                            grid-select-url="/User/select2"
+                            grid-edit-template-url="/ngTemplate/User.html"
+                            grid-url="/User/Page">
                      </div>
                    </div>
                    <div class="modal-footer">
@@ -61,7 +61,7 @@
                   <!--模板END-->
                     </div>
                     <div grid
-                    ng-model="item.Customers"
+                    ng-model="item.Users"
                      grid-option="gridOption"
                      grid-pk-column="Id"
                      grid-item-field="Id"
@@ -69,16 +69,16 @@
                      grid-enable-delete="true"
                      grid-more-to-more="true"
                      grid-template="nggrid"
-                     grid-columns="customers"
-                     grid-select-url="/Region/Select2Customers"
-                     grid-edit-template-url="/ngTemplate/Customers.html"
-                     grid-url="/Region/PageCustomers">
+                     grid-columns="user"
+                     grid-select-url="/Role/Select2User"
+                     grid-edit-template-url="/ngTemplate/User.html"
+                     grid-url="/Role/PageUser">
                     </div>
                 </fieldset>
         </form>
     </div>
     <div class="modal-footer">
-        <button class="btn btn-primary " type="button" ng-click="ok(form,'/region/create')">确 定</button>
+        <button class="btn btn-primary " type="button" ng-click="ok(form,'/role/create')">确 定</button>
         <button class="btn btn-warning " type="button" ng-click="cancel()">取 消</button>
     </div>
 </div>

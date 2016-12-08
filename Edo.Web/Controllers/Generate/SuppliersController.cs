@@ -18,9 +18,9 @@ using Edo.Service;
 using System.Threading.Tasks;
 namespace Edo.Web.Controllers
 {
-	public partial class OrdersController : BaseController<Orders, OrdersViewModel>
+	public partial class SuppliersController : BaseController<Suppliers, SuppliersViewModel>
 	{
-        public OrdersController(BaseService<Orders> service)
+        public SuppliersController(BaseService<Suppliers> service)
         :base(service)
         {
        

@@ -177,21 +177,45 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CustomersController.cs" />
+    <Compile Include="Controllers\Generate\CategoriesController.cs">
+      <DependentUpon>GenerateController.tt</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\Generate\CustomersController.cs">
-      <DependentUpon>Generate.tt</DependentUpon>
+      <DependentUpon>GenerateController.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\Generate\EmployeesController.cs">
+      <DependentUpon>GenerateController.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\Generate\ProductsController.cs">
+      <DependentUpon>GenerateController.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\Generate\RoleController.cs">
+      <DependentUpon>GenerateController.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\Generate\ShippersController.cs">
+      <DependentUpon>GenerateController.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\Generate\SuppliersController.cs">
+      <DependentUpon>GenerateController.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\Generate\UserController.cs">
+      <DependentUpon>GenerateController.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\Generate\UserRoleController.cs">
+      <DependentUpon>GenerateController.tt</DependentUpon>
     </Compile>
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\Generate\OrderDetailsController.cs">
-      <DependentUpon>Generate.tt</DependentUpon>
+      <DependentUpon>GenerateController.tt</DependentUpon>
     </Compile>
     <Compile Include="Controllers\Generate\OrdersController.cs">
-      <DependentUpon>Generate.tt</DependentUpon>
+      <DependentUpon>GenerateController.tt</DependentUpon>
     </Compile>
     <Compile Include="Controllers\OrderDetailsController.cs" />
     <Compile Include="Controllers\OrdersController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\Generate\RegionController.cs">
-      <DependentUpon>Generate.tt</DependentUpon>
+      <DependentUpon>GenerateController.tt</DependentUpon>
     </Compile>
     <Compile Include="Controllers\RegionController.cs" />
     <Compile Include="Global.asax.cs">
@@ -269,18 +293,42 @@
     <Content Include="images\tick.png" />
     <Content Include="images\user_identity.gif" />
     <Content Include="images\user_identity_plus.gif" />
+    <Content Include="ngTemplate\Categories.html">
+      <DependentUpon>GenerateNgTemplate.tt</DependentUpon>
+    </Content>
     <Content Include="ngTemplate\Customers.html">
-      <DependentUpon>Generate.tt</DependentUpon>
+      <DependentUpon>GenerateNgTemplate.tt</DependentUpon>
+    </Content>
+    <Content Include="ngTemplate\Employees.html">
+      <DependentUpon>GenerateNgTemplate.tt</DependentUpon>
     </Content>
     <Content Include="ngTemplate\modal-template.html" />
     <Content Include="ngTemplate\OrderDetails.html">
-      <DependentUpon>Generate.tt</DependentUpon>
+      <DependentUpon>GenerateNgTemplate.tt</DependentUpon>
     </Content>
     <Content Include="ngTemplate\Orders.html">
-      <DependentUpon>Generate.tt</DependentUpon>
+      <DependentUpon>GenerateNgTemplate.tt</DependentUpon>
+    </Content>
+    <Content Include="ngTemplate\Products.html">
+      <DependentUpon>GenerateNgTemplate.tt</DependentUpon>
     </Content>
     <Content Include="ngTemplate\Region.html">
-      <DependentUpon>Generate.tt</DependentUpon>
+      <DependentUpon>GenerateNgTemplate.tt</DependentUpon>
+    </Content>
+    <Content Include="ngTemplate\Role.html">
+      <DependentUpon>GenerateNgTemplate.tt</DependentUpon>
+    </Content>
+    <Content Include="ngTemplate\Shippers.html">
+      <DependentUpon>GenerateNgTemplate.tt</DependentUpon>
+    </Content>
+    <Content Include="ngTemplate\Suppliers.html">
+      <DependentUpon>GenerateNgTemplate.tt</DependentUpon>
+    </Content>
+    <Content Include="ngTemplate\User.html">
+      <DependentUpon>GenerateNgTemplate.tt</DependentUpon>
+    </Content>
+    <Content Include="ngTemplate\UserRole.html">
+      <DependentUpon>GenerateNgTemplate.tt</DependentUpon>
     </Content>
     <Content Include="Scripts\angular-animate.js" />
     <Content Include="Scripts\angular-animate.min.js" />
@@ -1179,21 +1227,29 @@
     <Content Include="Content\bootstrap-datetimepicker-build.less" />
     <Content Include="Content\_bootstrap-datetimepicker.less" />
     <Content Include="Content\select.min.css.map" />
-    <Content Include="ngTemplate\Generate.tt">
+    <Content Include="ngTemplate\GenerateNgTemplate.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastOutputs>
+.\Categories.html
 .\Customers.html
-.\Generate.log
+.\Employees.html
+.\GenerateNgTemplate.log
 .\OrderDetails.html
 .\Orders.html
+.\Products.html
 .\Region.html
+.\Role.html
+.\Shippers.html
+.\Suppliers.html
+.\User.html
+.\UserRole.html
 </LastOutputs>
-      <LastGenOutput>Generate.log</LastGenOutput>
+      <LastGenOutput>GenerateNgTemplate.log</LastGenOutput>
     </Content>
-    <Content Include="ngTemplate\Generate.log">
+    <Content Include="ngTemplate\GenerateNgTemplate.log">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Generate.tt</DependentUpon>
+      <DependentUpon>GenerateNgTemplate.tt</DependentUpon>
     </Content>
     <None Include="compilerconfig.json" />
     <None Include="compilerconfig.json.defaults">
@@ -1202,21 +1258,29 @@
     <Content Include="Content\grid.css.map">
       <DependentUpon>grid.css</DependentUpon>
     </Content>
-    <Content Include="Controllers\Generate\Generate.tt">
+    <Content Include="Controllers\Generate\GenerateController.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastOutputs>
+.\CategoriesController.cs
 .\CustomersController.cs
-.\Generate.log
+.\EmployeesController.cs
+.\GenerateController.log
 .\OrderDetailsController.cs
 .\OrdersController.cs
+.\ProductsController.cs
 .\RegionController.cs
+.\RoleController.cs
+.\ShippersController.cs
+.\SuppliersController.cs
+.\UserController.cs
+.\UserRoleController.cs
 </LastOutputs>
-      <LastGenOutput>Generate.log</LastGenOutput>
+      <LastGenOutput>GenerateController.log</LastGenOutput>
     </Content>
-    <Content Include="Controllers\Generate\Generate.log">
+    <Content Include="Controllers\Generate\GenerateController.log">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Generate.tt</DependentUpon>
+      <DependentUpon>GenerateController.tt</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-1.12.4.intellisense.js" />
     <Content Include="Scripts\i18n\ar.js" />

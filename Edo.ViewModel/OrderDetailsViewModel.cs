@@ -11,8 +11,8 @@ using Newtonsoft.Json;
 
 namespace Edo.ViewModels
 {
-    [Form("订单详情")]
-    public class OrderDetailsViewModel1 : EntityBaseViewModel
+    [Form]
+    public class OrderDetailsViewModel1
     {
         [DisplayName("产品名称")]
         [GirdColumn(Sortable = true, Field = "Products.ProductName")]

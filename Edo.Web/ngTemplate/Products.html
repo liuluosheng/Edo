@@ -1,0 +1,162 @@
+﻿<!--由模板生成，如修改代码，重新生成后将被覆盖！-->
+<div>
+    <div class="modal-header">
+        <h3 class="modal-title" id="modal-title">
+            <b>{{item.Id?"EDIT":"CREATE"}}</b>
+
+            <i class="fa fa-close pull-right" ng-click="cancel()"></i>
+        </h3>
+    </div>
+    <div class="modal-body" id="modal-body">
+        <div class="modal-nav">
+  <a ng-click="scrollTo('#tolink0')">基本信息</a>
+  <a ng-click="scrollTo('#tolink1')">OrderDetails</a>
+        </div>
+        <form class="form-horizontal  modal-form" role="form" ng-style="{maxHeight:modalHeight}" name="form"
+              ng-scrollbars
+              ng-scrollbars-update="scrolls.updateScrollbar"
+              ng-scrollbars-config="scrolls.config">
+          <fieldset id="tolink0">
+                <legend><i class="fa fa-circle"></i>基本信息</legend>       
+                    <div class="form-group " ng-class="{'has-error':form.ProductName.$invalid }">
+                    <label class="col-sm-2 control-label">ProductName</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control pull-left"  placeholder="ProductName" name="ProductName" ng-model="item.ProductName"   
+                         
+                        >                      
+                      </div>
+                </div>
+                    <div class="form-group " ng-class="{'has-error':form.SupplierID.$invalid }">
+                    <label class="col-sm-2 control-label">Suppliers</label>
+                    <div class="col-sm-10">
+                     <ui-select ng-model="item.SupplierID"
+                                   theme="bootstrap"
+                                   style="width:60%;float:left"
+                                  ng-class="{'has-error':form.SupplierID.$invalid }"
+                                   reset-search-input="false"
+                                   on-select="bind($item,'SupplierID');">                                  
+                            <ui-select-match placeholder="键入过滤关键字...">{{$select.selected.name || $select.selected}}</ui-select-match>
+                            <ui-select-choices repeat="obj in Suppliers track by $index"
+                             refresh="getSelect2('Suppliers','Id','Id',$select.search)"
+                             refresh-delay="0">
+                            <div ng-bind-html="obj.name | highlight: $select.search"></div>
+                            </ui-select-choices>
+                        </ui-select>
+                        <input  type="hidden" name="SupplierID" ng-model="item.SupplierID" required/>
+                                            <div ng-messages="form.SupplierID.$error" class="pull-left error">                       
+                                                     <div ng-message="required">这是个必填项</div>                         
+                          </div>
+                     </div>
+                </div>
+                    <div class="form-group " ng-class="{'has-error':form.CategoryID.$invalid }">
+                    <label class="col-sm-2 control-label">Categories</label>
+                    <div class="col-sm-10">
+                     <ui-select ng-model="item.CategoryID"
+                                   theme="bootstrap"
+                                   style="width:60%;float:left"
+                                  ng-class="{'has-error':form.CategoryID.$invalid }"
+                                   reset-search-input="false"
+                                   on-select="bind($item,'CategoryID');">                                  
+                            <ui-select-match placeholder="键入过滤关键字...">{{$select.selected.name || $select.selected}}</ui-select-match>
+                            <ui-select-choices repeat="obj in Categories track by $index"
+                             refresh="getSelect2('Categories','Id','Id',$select.search)"
+                             refresh-delay="0">
+                            <div ng-bind-html="obj.name | highlight: $select.search"></div>
+                            </ui-select-choices>
+                        </ui-select>
+                        <input  type="hidden" name="CategoryID" ng-model="item.CategoryID" required/>
+                                            <div ng-messages="form.CategoryID.$error" class="pull-left error">                       
+                                                     <div ng-message="required">这是个必填项</div>                         
+                          </div>
+                     </div>
+                </div>
+                    <div class="form-group " ng-class="{'has-error':form.QuantityPerUnit.$invalid }">
+                    <label class="col-sm-2 control-label">QuantityPerUnit</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control pull-left"  placeholder="QuantityPerUnit" name="QuantityPerUnit" ng-model="item.QuantityPerUnit"   
+                         
+                        >                      
+                      </div>
+                </div>
+                    <div class="form-group " ng-class="{'has-error':form.UnitPrice.$invalid }">
+                    <label class="col-sm-2 control-label">UnitPrice</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control pull-left"  placeholder="UnitPrice" name="UnitPrice" ng-model="item.UnitPrice"   
+                         
+                         ng-pattern="/^[1-9]d*.d*|0.d*[1-9]d*|0?.0+|0$/">                      
+                      <div ng-messages="form.UnitPrice.$error" class="pull-left error">                       
+                                                     <div ng-message="pattern">请输入正数</div>                         
+                          </div>
+                     </div>
+                </div>
+                    <div class="form-group " ng-class="{'has-error':form.UnitsInStock.$invalid }">
+                    <label class="col-sm-2 control-label">UnitsInStock</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control pull-left"  placeholder="UnitsInStock" name="UnitsInStock" ng-model="item.UnitsInStock"   
+                         
+                         ng-pattern="/^[1-9]d*.d*|0.d*[1-9]d*|0?.0+|0$/">                      
+                      <div ng-messages="form.UnitsInStock.$error" class="pull-left error">                       
+                                                     <div ng-message="pattern">请输入正数</div>                         
+                          </div>
+                     </div>
+                </div>
+                    <div class="form-group " ng-class="{'has-error':form.UnitsOnOrder.$invalid }">
+                    <label class="col-sm-2 control-label">UnitsOnOrder</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control pull-left"  placeholder="UnitsOnOrder" name="UnitsOnOrder" ng-model="item.UnitsOnOrder"   
+                         
+                         ng-pattern="/^[1-9]d*.d*|0.d*[1-9]d*|0?.0+|0$/">                      
+                      <div ng-messages="form.UnitsOnOrder.$error" class="pull-left error">                       
+                                                     <div ng-message="pattern">请输入正数</div>                         
+                          </div>
+                     </div>
+                </div>
+                    <div class="form-group " ng-class="{'has-error':form.ReorderLevel.$invalid }">
+                    <label class="col-sm-2 control-label">ReorderLevel</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control pull-left"  placeholder="ReorderLevel" name="ReorderLevel" ng-model="item.ReorderLevel"   
+                         
+                         ng-pattern="/^[1-9]d*.d*|0.d*[1-9]d*|0?.0+|0$/">                      
+                      <div ng-messages="form.ReorderLevel.$error" class="pull-left error">                       
+                                                     <div ng-message="pattern">请输入正数</div>                         
+                          </div>
+                     </div>
+                </div>
+                    <div class="form-group " ng-class="{'has-error':form.Discontinued.$invalid }">
+                    <label class="col-sm-2 control-label">Discontinued</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control pull-left"  placeholder="Discontinued" name="Discontinued" ng-model="item.Discontinued"   
+                         
+                        >                      
+                      </div>
+                </div>
+                </fieldset>
+          <fieldset id="tolink1">
+                <legend><i class="fa fa-circle"></i>OrderDetails</legend>       
+                    <div class="btns">
+                      <button class="btn btn-primary" ng-click="createObj('/ngTemplate/OrderDetails.html','Id',item.Id)">
+                      <i class="glyphicon glyphicon-plus"></i><span>新 建</span>
+                     </button>
+                    </div>
+                    <div grid
+                    ng-model="item.OrderDetails"
+                     grid-option="gridOption"
+                     grid-pk-column="Id"
+                     grid-item-field="ProductID"
+                     grid-enable-edit="true"
+                     grid-enable-delete="true"
+                     grid-more-to-more="false"
+                     grid-template="nggrid"
+                     grid-columns="orderDetails"
+                     grid-select-url="/OrderDetails/Select2"
+                     grid-edit-template-url="/ngTemplate/OrderDetails.html"
+                     grid-url="/OrderDetails/Page">
+                    </div>
+                </fieldset>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary " type="button" ng-click="ok(form,'/products/create')">确 定</button>
+        <button class="btn btn-warning " type="button" ng-click="cancel()">取 消</button>
+    </div>
+</div>

@@ -9,12 +9,9 @@ using Edo.ViewModels;
 
 namespace Edo.Web.Controllers
 {
-    public class ProductsController : BaseController<Products, ProductsViewModel>
+    public partial class ProductsController : BaseController<Products, ProductsViewModel>
     {
         // GET: Products
-        public ProductsController(BaseService<Products> service)
-            : base(service)
-        {
-        }
+
     }
 }

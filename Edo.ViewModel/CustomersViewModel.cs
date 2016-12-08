@@ -9,8 +9,8 @@ using Newtonsoft.Json;
 
 namespace Edo.ViewModels
 {
-    [Form("基本信息", "区域信息", "订单信息")]
-    public class CustomersViewModel : EntityBaseViewModel
+    [Form]
+    public class CustomersViewModel1
     {
         [GirdColumn(Sortable = true)]
         [DisplayName("公司名称")]

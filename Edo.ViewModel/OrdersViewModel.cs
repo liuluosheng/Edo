@@ -12,8 +12,8 @@ using Newtonsoft.Json;
 
 namespace Edo.ViewModels
 {
-    [Form("基本信息", "发货人信息", "订单详情")]
-    public  class OrdersViewModel1 : EntityBaseViewModel
+    [Form]
+    public  class OrdersViewModel1
     {
         /// <summary>
         /// 发货人名称

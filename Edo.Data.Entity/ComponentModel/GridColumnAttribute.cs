@@ -16,6 +16,8 @@ namespace Edo.Data.Entity.ComponentModel
         {
             Type = ColumnType.Text;
             Width = 150;
+            Hide = false;
+            Sortable = true;
         }
         /// <summary>
         /// 类型
@@ -46,7 +48,10 @@ namespace Edo.Data.Entity.ComponentModel
         ///宽度
         /// </summary>
         public int Width { get; set; }
-
+        /// <summary>
+        /// 是否隐藏
+        /// </summary>
+        public bool Hide { get; set; }
         [JsonIgnore]
         public override object TypeId
         {

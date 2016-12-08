@@ -8,8 +8,8 @@ using Newtonsoft.Json;
 
 namespace Edo.ViewModels
 {
-    [Form("基本信息", "客户信息")]
-    public class RegionViewModel : EntityBaseViewModel
+    [Form]
+    public class RegionViewModel1
     {
         [GirdColumn(Sortable = true, Width = 500)]
         [DisplayName("区域描述")]

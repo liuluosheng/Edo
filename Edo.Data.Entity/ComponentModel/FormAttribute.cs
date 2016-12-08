@@ -8,11 +8,5 @@ namespace Edo.Data.Entity.ComponentModel
 {
     public class FormAttribute : Attribute
     {
-        public FormAttribute(params string[] navTags)
-        {
-            NavTags = navTags;
-
-        }
-        public string[] NavTags { get; set; }
     }
 }

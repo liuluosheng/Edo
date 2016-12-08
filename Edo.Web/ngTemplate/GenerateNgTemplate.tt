@@ -59,7 +59,7 @@
         <div class="modal-nav">
 <#+
             int i =0;
-            string[] navs=GetNavTags();
+            var navs=GetNavTags();
             foreach(var nav in navs)
             {
                 var props=GetPropertyInfoByNav(nav,i==0);
@@ -210,9 +210,9 @@
 #>
                         <input type="text" class="form-control pull-left"  placeholder="<#=                        name #>" name="<#=                        prop.Name #>" ng-model="item.<#=                        prop.Name #>"   
                         <#+
-                        if(isDate){
-                            WriteLine("uib-datepicker-popup is-open=\"s\" ng-click=\"s=!s\" datepicker-options=\"{showWeeks:false}\""); 
-                        }        
+                        if(isDate){#>
+                        uib-datepicker-popup is-open="<#=                            prop.Name #>" ng-click="<#=                            prop.Name #>=!<#=                            prop.Name #>" datepicker-options="{showWeeks:false}"
+                        <#+                        }        
                         StringBuilder attrs= new StringBuilder();  
                         if(requiredAttribute!=null)  attrs.Append(" ng-required=\"true\" ");
                         if(maxLengthAttribute!=null) attrs.Append(string.Format(" ng-maxlength=\"{0}\"",maxLengthAttribute.Length)); 
@@ -245,10 +245,15 @@
             return this.GenerationEnvironment.ToString();
         }
         // 返回所有的导航标识
-        public string[] GetNavTags(){
-            var attribute = _type.GetCustomAttribute<FormAttribute>();
-            if(attribute!=null) return attribute.NavTags;
-            return null;
+        public List<string> GetNavTags(){
+            List<string> result =new List<string>{"基本信息"};
+            foreach(PropertyInfo prop in  _type.GetProperties()){
+                var p=prop.GetCustomAttribute<NavTagAttribute>();
+                if(p!=null && !result.Contains(p.Tag)){
+                    result.Add(p.Tag);
+                }
+            }
+            return result;
         }
         //返回指定导航标识的所有属性
         public List<PropertyInfo> GetPropertyInfoByNav(string nav,bool includingNull){

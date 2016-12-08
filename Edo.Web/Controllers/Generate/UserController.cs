@@ -18,9 +18,9 @@ using Edo.Service;
 using System.Threading.Tasks;
 namespace Edo.Web.Controllers
 {
-	public partial class CustomersController : BaseController<Customers, CustomersViewModel>
+	public partial class UserController : BaseController<User, UserViewModel>
 	{
-        public CustomersController(BaseService<Customers> service)
+        public UserController(BaseService<User> service)
         :base(service)
         {
        
@@ -29,17 +29,17 @@ namespace Edo.Web.Controllers
         {
             return View();
         }
-               public async Task<ActionResult> PageRegion(string itemFilter, int pageIndex, int pageSize, string sort, string filter)
+               public async Task<ActionResult> PageRole(string itemFilter, int pageIndex, int pageSize, string sort, string filter)
         {
                 var obj = _dbset.FirstOrDefault(itemFilter);
                 if (obj == null) return HttpNotFound();
-                return await PageData<Region, RegionViewModel>(obj.Regions.AsQueryable(), sort, filter, pageIndex, pageSize);       
+                return await PageData<Role, RoleViewModel>(obj.Roles.AsQueryable(), sort, filter, pageIndex, pageSize);       
         }
-        public async Task<ActionResult> Select2Region(string itemFilter, string field, string q)
+        public async Task<ActionResult> Select2Role(string itemFilter, string field, string q)
         {
                 var obj = _dbset.FirstOrDefault(itemFilter);
                 if (obj == null) return HttpNotFound();
-                return await SelectData(obj.Regions.AsQueryable(), field, q);         
+                return await SelectData(obj.Roles.AsQueryable(), field, q);         
         }       
      	}
 }

@@ -49,40 +49,40 @@
     <Compile Include="CustomersViewModel.cs" />
     <Compile Include="EntityBaseViewModel.cs" />
     <Compile Include="Generate\CategoriesViewModel.cs">
-      <DependentUpon>Generate.tt</DependentUpon>
+      <DependentUpon>GenerateViewModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Generate\CustomersViewModel.cs">
-      <DependentUpon>Generate.tt</DependentUpon>
+      <DependentUpon>GenerateViewModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Generate\EmployeesViewModel.cs">
-      <DependentUpon>Generate.tt</DependentUpon>
+      <DependentUpon>GenerateViewModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Generate\OrderDetailsViewModel.cs">
-      <DependentUpon>Generate.tt</DependentUpon>
+      <DependentUpon>GenerateViewModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Generate\OrdersViewModel.cs">
-      <DependentUpon>Generate.tt</DependentUpon>
+      <DependentUpon>GenerateViewModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Generate\ProductsViewModel.cs">
-      <DependentUpon>Generate.tt</DependentUpon>
+      <DependentUpon>GenerateViewModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Generate\RegionViewModel.cs">
-      <DependentUpon>Generate.tt</DependentUpon>
+      <DependentUpon>GenerateViewModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Generate\RoleViewModel.cs">
-      <DependentUpon>Generate.tt</DependentUpon>
+      <DependentUpon>GenerateViewModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Generate\ShippersViewModel.cs">
-      <DependentUpon>Generate.tt</DependentUpon>
+      <DependentUpon>GenerateViewModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Generate\SuppliersViewModel.cs">
-      <DependentUpon>Generate.tt</DependentUpon>
+      <DependentUpon>GenerateViewModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Generate\UserRoleViewModel.cs">
-      <DependentUpon>Generate.tt</DependentUpon>
+      <DependentUpon>GenerateViewModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Generate\UserViewModel.cs">
-      <DependentUpon>Generate.tt</DependentUpon>
+      <DependentUpon>GenerateViewModel.tt</DependentUpon>
     </Compile>
     <Compile Include="OrderDetailsViewModel.cs" />
     <Compile Include="OrdersViewModel.cs" />
@@ -99,18 +99,18 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Generate\Generate.log">
+    <None Include="Generate\GenerateViewModel.log">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Generate.tt</DependentUpon>
+      <DependentUpon>GenerateViewModel.tt</DependentUpon>
     </None>
-    <None Include="Generate\Generate.tt">
+    <None Include="Generate\GenerateViewModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastOutputs>
 .\CategoriesViewModel.cs
 .\CustomersViewModel.cs
 .\EmployeesViewModel.cs
-.\Generate.log
+.\GenerateViewModel.log
 .\OrderDetailsViewModel.cs
 .\OrdersViewModel.cs
 .\ProductsViewModel.cs
@@ -121,7 +121,7 @@
 .\UserRoleViewModel.cs
 .\UserViewModel.cs
 </LastOutputs>
-      <LastGenOutput>Generate.log</LastGenOutput>
+      <LastGenOutput>GenerateViewModel.log</LastGenOutput>
     </None>
     <None Include="packages.config" />
   </ItemGroup>

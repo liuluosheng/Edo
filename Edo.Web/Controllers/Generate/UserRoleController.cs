@@ -18,9 +18,9 @@ using Edo.Service;
 using System.Threading.Tasks;
 namespace Edo.Web.Controllers
 {
-	public partial class OrdersController : BaseController<Orders, OrdersViewModel>
+	public partial class UserRoleController : BaseController<UserRole, UserRoleViewModel>
 	{
-        public OrdersController(BaseService<Orders> service)
+        public UserRoleController(BaseService<UserRole> service)
         :base(service)
         {
        

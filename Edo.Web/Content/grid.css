@@ -80,7 +80,7 @@
   color: #f0ad4e;
 }
 .grid-modal-dialog .modal-body .modal-form {
-  padding: 0 20px 20px 20px;
+  padding: 0 20px;
   min-width: 1000px;
 }
 .grid-modal-dialog .modal-body .modal-form .error {
@@ -146,6 +146,11 @@
 }
 .ng-grid {
   min-width: 300px;
+  overflow: hidden;
+}
+.ng-grid .grid-body {
+  max-width: 1200px;
+  overflow: auto;
 }
 .ng-grid .panel-heading {
   height: 34px;

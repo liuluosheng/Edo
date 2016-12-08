@@ -3,7 +3,7 @@
 }
 <div ng-app="app" ng-controller="regionController">
     <br />
-    <div class="ng-grid panel panel-default" ng-cloak ng-style="{width:gridOption.width+40}" ng-cloak style="min-width:600px">
+    <div class="ng-grid panel panel-default pull-left" ng-cloak ng-cloak>
         <div class="panel-heading">
             <b>REGION</b>
         </div>
@@ -11,6 +11,7 @@
             <div grid grid-option="gridOption" data="data"></div>
         </div>
     </div>
+    <div class="clearfix"></div>
 </div>
 @section scripts{
 

@@ -24,7 +24,6 @@ angular.module("app.grid", ['ngSanitize']).directive("grid", [
                 height: 'auto',
                 rowNumber: false,
                 rowDetail: true,
-                filterRow: true,
                 showBtn: {
                     edit: true,
                     del: true
@@ -44,6 +43,7 @@ angular.module("app.grid", ['ngSanitize']).directive("grid", [
                     del: $attrs.gridEnableDelete != "false"
                 }
             }, $scope.option);
+        $scope.gridOption.filterRow = false;
         $scope.bindModel = (value) => {
             let modelAttr = $attrs.ngModel;
             if (modelAttr) {
@@ -76,9 +76,7 @@ angular.module("app.grid", ['ngSanitize']).directive("grid", [
                 $scope.data = result.data;
                 $scope.bindModel($scope.data);
                 $scope.dataLoading = false;
-                if (p.pageSize >= p.total) {
-                    $scope.gridOption.filterRow = false;
-                }
+                $scope.gridOption.filterRow = p.pageSize >= p.total ? false : $scope.option.filterRow
             });
         }
 
@@ -135,7 +133,7 @@ angular.module("app.grid", ['ngSanitize']).directive("grid", [
                     if (v != null || v !== "") {
                         switch (col[0].type) {
                             case "Text":
-                                values.push(`${k}.Contains(\"${v}\")`);
+                                values.push(`${k}.ToString().Contains(\"${v}\")`);
                                 break;
                             case "Number":
                                 values.push(v.value);
@@ -231,7 +229,7 @@ angular.module("app.grid", ['ngSanitize']).directive("grid", [
         }
         $scope.getSelect2 = (t, name, value, q) => $http.post(
             `/${t}/select`,
-            { field: name, value: value, q: `${name}.Contains("${q}")` }
+            { field: name, value: value, q: `${name}.ToString().Contains("${q}")` }
         ).then(response => {
             $scope[t] = response.data.items;
         });
