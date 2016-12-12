@@ -13,6 +13,7 @@ namespace Edo.Data.Entity.Migrations
         {
             AutomaticMigrationsEnabled = true;
             ContextKey = "Edo.Data.Entity.EdoDbContext";
+            AutomaticMigrationDataLossAllowed = true;
         }
 
         protected override void Seed(Edo.Data.Entity.EdoDbContext context)

@@ -10,9 +10,9 @@ using Newtonsoft.Json;
 namespace Edo.Data.Entity.ComponentModel
 {
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
-    public class GirdColumnAttribute : Attribute
+    public class GridColumnAttribute : Attribute
     {
-        public GirdColumnAttribute()
+        public GridColumnAttribute()
         {
             Type = ColumnType.Text;
             Width = 150;

@@ -10,6 +10,7 @@
 <#@ import namespace="Edo.Data.Entity.ComponentModel" #>
 <#@ import namespace="System.ComponentModel" #>
 <#@ import namespace="System.ComponentModel.DataAnnotations" #>
+<#@ import namespace="System.ComponentModel.DataAnnotations.Schema" #>
 <#@ assembly name="System.ComponentModel.DataAnnotations.dll" #>
 <#@ import namespace="Edo.Data.Entity.ComponentModel" #>
 <#@ import namespace="Edo.Data.Entity" #>
@@ -22,14 +23,14 @@
 <#
 
 
-    var types = Assembly.GetAssembly(typeof(EntityBaseViewModel)).GetTypes();
-    var baseType = typeof(EntityBaseViewModel);
+    var types = Assembly.GetAssembly(typeof(EntityBase)).GetTypes();
+    var baseType = typeof(EntityBase);
     foreach(var type in types){
-        var attribute = type.GetCustomAttribute<FormAttribute>();
+        var attribute = type.GetCustomAttribute<NgTemplateAttribute>();
         if (type.BaseType != null && type.BaseType == baseType && attribute !=null){
             Template template = new NgTemplate(type);
             template.Output.Encoding = Encoding.UTF8;
-            template.RenderToFile( string.Format("{0}.html",type.Name.Replace("ViewModel","")));
+            template.RenderToFile( string.Format("{0}.html",type.Name));
         }       
     }
     
@@ -59,11 +60,12 @@
         <div class="modal-nav">
 <#+
             int i =0;
-            var navs=GetNavTags();
-            foreach(var nav in navs)
+          
+            Dictionary<string,List<PropertyInfo>> props= GetNavPropertyInfo();
+            foreach(var nav in props.Keys)
             {
-                var props=GetPropertyInfoByNav(nav,i==0);
-                if(props.Count==0) continue;
+                //var props=GetPropertyInfoByNav(nav,i==0);
+                //if(props.Count==0) continue;
 #>
   <a ng-click="scrollTo('#tolink<#=                i #>')"><#=                nav #></a>
 <#+
@@ -77,22 +79,23 @@
               ng-scrollbars-config="scrolls.config">
 <#+
             int ii =0;
-            foreach(var nav in navs)
+            foreach(var nav in props.Keys)
             {
-                var props=GetPropertyInfoByNav(nav,ii==0);
-                if(props.Count==0) continue;
+                List<PropertyInfo>ps = new List<PropertyInfo>();
+                props.TryGetValue(nav,out ps);
+                if(ps.Count==0) continue;
 #>
           <fieldset id="tolink<#=                ii #>">
                 <legend><i class="fa fa-circle"></i><#=                nav#></legend>       
 <#+
-                foreach( var prop in props)
+                foreach( PropertyInfo prop in ps)
                 {
-                    var gridAttr=  prop.GetCustomAttribute<GridAttribute>();                 
-                    if(gridAttr!=null){                
-                        if(prop.PropertyType.GenericTypeArguments.Length==0) throw new Exception("不能在非ICollection泛型集合属性上添加Gird属性！");
+                    var gridAttr=  prop.GetCustomAttribute<GridAttribute>() ?? new GridAttribute();   
+                    var isGrid=prop.PropertyType.GenericTypeArguments.Length!=0 && prop.PropertyType.GenericTypeArguments[0].BaseType==typeof(EntityBase);
+                    if(isGrid){                
                         Type t=prop.PropertyType.GenericTypeArguments[0];
                         bool moreToMore =CheckMoreToMore(t);
-                        string shortName=t.Name.Replace("ViewModel","");
+                        string shortName=t.Name;
                         string keys=GetKeyString(t);
                         var template=moreToMore? string.Format("grid_{0}.html",shortName):string.Format("/ngTemplate/{0}.html",shortName);
 #>
@@ -130,9 +133,7 @@
                   </script>
                   <!--模板END-->
 <#+                        }
-                        else if(string.IsNullOrEmpty(gridAttr.ForeignKey)){
-                            throw new Exception(string.Format("类型：{0}的集合属性{1}为一对多属性，必须设置Grid属性的ForeigKey值。",_type.Name,prop.Name));
-                        }
+                        string foreignKey=GetGridForeignKey(t);
                         string gridUrl=moreToMore?string.Format("/{0}/Page{1}",_type.Name.Replace("ViewModel",""),shortName):string.Format("/{0}/Page",shortName);
                         string selectUrl=moreToMore?string.Format("/{0}/Select2{1}",_type.Name.Replace("ViewModel",""),shortName):string.Format("/{0}/Select2",shortName);
 #>
@@ -141,7 +142,7 @@
                     ng-model="item.<#=                        prop.Name #>"
                      grid-option="gridOption"
                      grid-pk-column="<#=                        GetKeyString(_type) #>"
-                     grid-item-field="<#=                        moreToMore?keys:gridAttr.ForeignKey.ToString()#>"
+                     grid-item-field="<#=                        moreToMore?keys:foreignKey#>"
                      grid-enable-edit="<#=                        gridAttr.Edit.ToString().ToLower()  #>"
                      grid-enable-delete="<#=                        gridAttr.Delete.ToString().ToLower()  #>"
                      grid-more-to-more="<#=                        moreToMore.ToString().ToLower() #>"
@@ -160,7 +161,8 @@
                     <label class="col-sm-2 control-label"><#=                    name #></label>
                     <div class="col-sm-10">
 <#+
-                    var selectAttribute = prop.GetCustomAttribute<SelectAttribute>();
+                    bool isSelect =prop.PropertyType.BaseType==typeof(EntityBase);
+                
                     var requiredAttribute = prop.GetCustomAttribute<RequiredAttribute>();
                     var maxLengthAttribute = prop.GetCustomAttribute<MaxLengthAttribute>();
                     var minLengthAttribute = prop.GetCustomAttribute<MinLengthAttribute>();
@@ -184,44 +186,50 @@
                         }
                     }
                     bool isDate=typeof(DateTime)==prop.PropertyType.GetTypeInfo() || typeof(DateTime?)==prop.PropertyType.GetTypeInfo();  
-                    if(selectAttribute!=null){
+                    if(isSelect){
+                        var selectAttribute = prop.GetCustomAttribute<SelectAttribute>() ?? new SelectAttribute();
+                        var foreignKeyAttribute=prop.GetCustomAttribute<ForeignKeyAttribute>();
+                        if(foreignKeyAttribute==null)
+                        {
+                            throw new Exception(string.Format("实体{0}的属性{1}没有添加ForeignKey的属性!",_type.Name,prop.Name));    
+                        }
 #>
                      <ui-select ng-model="item.<#=                        prop.Name #>"
                                    theme="bootstrap"
                                    style="width:60%;float:left"
-                                  ng-class="{'has-error':form.<#=                        selectAttribute.BindField #>.$invalid }"
+                                  ng-class="{'has-error':form.<#=                        foreignKeyAttribute.Name #>.$invalid }"
                                    reset-search-input="false"
-                                   on-select="bind($item,'<#=                        selectAttribute.BindField #>');">                                  
+                                   on-select="bind($item,'<#=                        foreignKeyAttribute.Name#>');">                                  
                             <ui-select-match placeholder="键入过滤关键字...">{{$select.selected.name || $select.selected}}</ui-select-match>
-                            <ui-select-choices repeat="obj in <#=                        selectAttribute.Type #> track by $index"
-                             refresh="getSelect2('<#=                        selectAttribute.Type #>','<#=                        selectAttribute.NameField #>','<#=                        selectAttribute.ValueField #>',$select.search)"
+                            <ui-select-choices repeat="obj in <#=                        prop.PropertyType.Name #> track by $index"
+                             refresh="getSelect2('<#=                        prop.PropertyType.Name #>','<#=                        selectAttribute.NameField??"Id" #>','Id',$select.search)"
                              refresh-delay="0">
                             <div ng-bind-html="obj.name | highlight: $select.search"></div>
                             </ui-select-choices>
                         </ui-select>
-<#+             
-                        if(requiredAttribute!=null){
-                        #>
-                        <input  type="hidden" name="<#=                            selectAttribute.BindField #>" ng-model="item.<#=                            selectAttribute.BindField #>" required/>
-                        <#+  
-                        }       
-                    }  
+<#+                    }  
                     else{                          
 #>
                         <input type="text" class="form-control pull-left"  placeholder="<#=                        name #>" name="<#=                        prop.Name #>" ng-model="item.<#=                        prop.Name #>"   
-                        <#+
+<#+
                         if(isDate){#>
                         uib-datepicker-popup is-open="<#=                            prop.Name #>" ng-click="<#=                            prop.Name #>=!<#=                            prop.Name #>" datepicker-options="{showWeeks:false}"
                         <#+                        }        
                         StringBuilder attrs= new StringBuilder();  
-                        if(requiredAttribute!=null)  attrs.Append(" ng-required=\"true\" ");
-                        if(maxLengthAttribute!=null) attrs.Append(string.Format(" ng-maxlength=\"{0}\"",maxLengthAttribute.Length)); 
-                        if(minLengthAttribute!=null) attrs.Append(string.Format(" ng-minlength=\"{0}\"",minLengthAttribute.Length));             
-                        if(regularExpressionAttribute!=null) {attrs.Append(string.Format(" ng-pattern=\"{0}\"",regularExpressionAttribute.Pattern));} #> 
-                        <#=                        attrs.ToString() #>>                      
-  <#+                        } if(requiredAttribute!=null || maxLengthAttribute!=null || minLengthAttribute!=null || regularExpressionAttribute!=null){
-#>                    <div ng-messages="form.<#=                        selectAttribute==null? prop.Name:selectAttribute.BindField #>.$error" class="pull-left error">                       
-                         <#+                        StringBuilder errors= new StringBuilder();                                       
+                        if(requiredAttribute!=null)  
+                            attrs.Append(" ng-required=                            \"true\" ");
+                        if(maxLengthAttribute!=null) 
+                            attrs.Append(string.Format(" ng-maxlength=\"{0}\"",maxLengthAttribute.Length)); 
+                        if(minLengthAttribute!=null)
+                            attrs.Append(string.Format(" ng-minlength=\"{0}\"",minLengthAttribute.Length));             
+                        if(regularExpressionAttribute!=null)
+                            attrs.Append(string.Format(" ng-pattern=\"{0}\"",regularExpressionAttribute.Pattern));
+                        WriteLine(attrs.ToString()+">");            
+                    }
+    
+                    if(requiredAttribute!=null || maxLengthAttribute!=null || minLengthAttribute!=null || regularExpressionAttribute!=null){
+#>                    <div ng-messages="form.<#=                        prop.Name  #>.$error" class="pull-left error">                       
+<#+                        StringBuilder errors= new StringBuilder();                                       
                         if(requiredAttribute!=null) errors.Append("<div ng-message=\"required\">这是个必填项</div>");  
                         if(maxLengthAttribute!=null) errors.Append(string.Format("<div ng-message=\"maxlength\">输入不能超过{0}个字符</div>",maxLengthAttribute.Length)); 
                         if(minLengthAttribute!=null) errors.Append(string.Format("<div ng-message=\"minlength\">输入不能小于{0}个字符</div>",minLengthAttribute.Length));   
@@ -237,43 +245,33 @@
         </form>
     </div>
     <div class="modal-footer">
-        <button class="btn btn-primary " type="button" ng-click="ok(form,'/<#=            _type.Name.Replace("ViewModel","").ToLower()#>/create')">确 定</button>
+        <button class="btn btn-primary " type="button" ng-click="ok(form,'/<#=            _type.Name.ToLower()#>/create')">确 定</button>
         <button class="btn btn-warning " type="button" ng-click="cancel()">取 消</button>
     </div>
 </div>
 <#+
             return this.GenerationEnvironment.ToString();
         }
-        // 返回所有的导航标识
-        public List<string> GetNavTags(){
-            List<string> result =new List<string>{"基本信息"};
+        public Dictionary<string,List<PropertyInfo>> GetNavPropertyInfo(){
+            Dictionary<string,List<PropertyInfo>> result= new Dictionary<string,List<PropertyInfo>> {
+                    {"基本信息", new List<PropertyInfo>()}
+                    };
             foreach(PropertyInfo prop in  _type.GetProperties()){
+                if(new []{"Id","IsDeleted","Timestamp","CreatedDate"}.Contains(prop.Name) || prop.PropertyType==typeof(Guid) ) continue;
                 var p=prop.GetCustomAttribute<NavTagAttribute>();
-                if(p!=null && !result.Contains(p.Tag)){
-                    result.Add(p.Tag);
+                string tag="基本信息";
+                if(p!=null) {
+                    tag=p.Tag;
                 }
-            }
-            return result;
-        }
-        //返回指定导航标识的所有属性
-        public List<PropertyInfo> GetPropertyInfoByNav(string nav,bool includingNull){
-            var result= new List<PropertyInfo>();
-            foreach(PropertyInfo prop in  _type.GetProperties()){
-                var formAttr = prop.GetCustomAttribute<FieldAttribute>();
-                if(formAttr!=null && (formAttr.Hidden || formAttr.Ignore)) continue;
-                var attr = prop.GetCustomAttribute<NavTagAttribute>();
-                if(includingNull && attr==null) result.Add(prop);
-                if(attr!=null && attr.Tag==nav) result.Add(prop);
-            }  
-            return result;
-        }
-        //返回类型中标识为隐藏域的属性
-        public List<PropertyInfo> GetHiddenPropertyInfo(){
-            var result= new List<PropertyInfo>();
-            foreach(PropertyInfo prop in  _type.GetProperties()){
-                var attr = prop.GetCustomAttribute<FieldAttribute>();
-                if(attr!=null && attr.Hidden ) 
-                    result.Add(prop);
+                else if (prop.PropertyType.GenericTypeArguments.Length!=0 && prop.PropertyType.GenericTypeArguments[0].BaseType==typeof(EntityBase)){
+                    tag=prop.Name;
+                }
+                if(result.ContainsKey(tag)){
+                    result.FirstOrDefault(q=>q.Key==tag).Value.Add(prop);
+                }
+                else{
+                    result.Add(tag,new List<PropertyInfo>{prop});
+                    };
             }
             return result;
         }
@@ -281,8 +279,8 @@
         public string GetKeyString(Type type){
            
             foreach(PropertyInfo prop in  type.GetProperties()){
-                var attr = prop.GetCustomAttribute<FieldAttribute>();
-                if(attr!=null && attr.Key) 
+                var attr = prop.GetCustomAttribute<KeyAttribute>();
+                if(attr!=null) 
                     return prop.Name;
             }
             throw new Exception(string.Format("没有为类型{0}定义KEY!",type.Name));
@@ -300,6 +298,20 @@
                 }
             }
             return check;
+        }
+        public string GetGridForeignKey(Type type)
+        {
+            foreach(PropertyInfo prop in  type.GetProperties()){
+                if(prop.PropertyType==_type)
+                {
+                    var p=prop.GetCustomAttribute<ForeignKeyAttribute>();
+                    if(p!=null)
+                        return p.Name;    
+                    throw new Exception(string.Format("实体{0}的属性{1}没有添加ForeignKey的属性!",type.Name,prop.Name));    
+                }
+                    
+            }
+            return null;
         }
     }
 #>

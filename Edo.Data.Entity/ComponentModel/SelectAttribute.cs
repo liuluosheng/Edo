@@ -9,17 +9,10 @@ namespace Edo.Data.Entity.ComponentModel
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
     public class SelectAttribute : Attribute
     {
-        public SelectAttribute(string typeName, string nameField, string valueField, string bindField)
+        public SelectAttribute()
         {
-            NameField = nameField;
-            ValueField = valueField;
-            Type = typeName;
-            BindField = bindField;
-
+            NameField = "Id";
         }
-        public string Type { get; set; }
         public string NameField { get; set; }
-        public string ValueField { get; set; }
-        public string BindField { get; set; }
     }
 }

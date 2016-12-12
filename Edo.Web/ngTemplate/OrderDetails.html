@@ -17,10 +17,47 @@
               ng-scrollbars-config="scrolls.config">
           <fieldset id="tolink0">
                 <legend><i class="fa fa-circle"></i>基本信息</legend>       
-                    <div class="form-group " ng-class="{'has-error':form.OrderID.$invalid }">
+                    <div class="form-group " ng-class="{'has-error':form.ProductName.$invalid }">
+                    <label class="col-sm-2 control-label">ProductName</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control pull-left"  placeholder="ProductName" name="ProductName" ng-model="item.ProductName"   
+>
+                    </div>
+                </div>
+                    <div class="form-group " ng-class="{'has-error':form.UnitPrice.$invalid }">
+                    <label class="col-sm-2 control-label">UnitPrice</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control pull-left"  placeholder="UnitPrice" name="UnitPrice" ng-model="item.UnitPrice"   
+ ng-pattern="/^[1-9]d*.d*|0.d*[1-9]d*|0?.0+|0$/">
+                    <div ng-messages="form.UnitPrice.$error" class="pull-left error">                       
+                            <div ng-message="pattern">请输入正数</div>                         
+                          </div>
+                     </div>
+                </div>
+                    <div class="form-group " ng-class="{'has-error':form.Quantity.$invalid }">
+                    <label class="col-sm-2 control-label">Quantity</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control pull-left"  placeholder="Quantity" name="Quantity" ng-model="item.Quantity"   
+ ng-pattern="/^[1-9]d*.d*|0.d*[1-9]d*|0?.0+|0$/">
+                    <div ng-messages="form.Quantity.$error" class="pull-left error">                       
+                            <div ng-message="pattern">请输入正数</div>                         
+                          </div>
+                     </div>
+                </div>
+                    <div class="form-group " ng-class="{'has-error':form.Discount.$invalid }">
+                    <label class="col-sm-2 control-label">Discount</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control pull-left"  placeholder="Discount" name="Discount" ng-model="item.Discount"   
+ ng-pattern="/^[1-9]d*.d*|0.d*[1-9]d*|0?.0+|0$/">
+                    <div ng-messages="form.Discount.$error" class="pull-left error">                       
+                            <div ng-message="pattern">请输入正数</div>                         
+                          </div>
+                     </div>
+                </div>
+                    <div class="form-group " ng-class="{'has-error':form.Orders.$invalid }">
                     <label class="col-sm-2 control-label">Orders</label>
                     <div class="col-sm-10">
-                     <ui-select ng-model="item.OrderID"
+                     <ui-select ng-model="item.Orders"
                                    theme="bootstrap"
                                    style="width:60%;float:left"
                                   ng-class="{'has-error':form.OrderID.$invalid }"
@@ -33,24 +70,12 @@
                             <div ng-bind-html="obj.name | highlight: $select.search"></div>
                             </ui-select-choices>
                         </ui-select>
-                        <input  type="hidden" name="OrderID" ng-model="item.OrderID" required/>
-                                            <div ng-messages="form.OrderID.$error" class="pull-left error">                       
-                                                     <div ng-message="required">这是个必填项</div>                         
-                          </div>
-                     </div>
+                    </div>
                 </div>
-                    <div class="form-group " ng-class="{'has-error':form.ProductName.$invalid }">
-                    <label class="col-sm-2 control-label">ProductName</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control pull-left"  placeholder="ProductName" name="ProductName" ng-model="item.ProductName"   
-                         
-                        >                      
-                      </div>
-                </div>
-                    <div class="form-group " ng-class="{'has-error':form.ProductID.$invalid }">
+                    <div class="form-group " ng-class="{'has-error':form.Products.$invalid }">
                     <label class="col-sm-2 control-label">Products</label>
                     <div class="col-sm-10">
-                     <ui-select ng-model="item.ProductID"
+                     <ui-select ng-model="item.Products"
                                    theme="bootstrap"
                                    style="width:60%;float:left"
                                   ng-class="{'has-error':form.ProductID.$invalid }"
@@ -63,44 +88,7 @@
                             <div ng-bind-html="obj.name | highlight: $select.search"></div>
                             </ui-select-choices>
                         </ui-select>
-                        <input  type="hidden" name="ProductID" ng-model="item.ProductID" required/>
-                                            <div ng-messages="form.ProductID.$error" class="pull-left error">                       
-                                                     <div ng-message="required">这是个必填项</div>                         
-                          </div>
-                     </div>
-                </div>
-                    <div class="form-group " ng-class="{'has-error':form.UnitPrice.$invalid }">
-                    <label class="col-sm-2 control-label">UnitPrice</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control pull-left"  placeholder="UnitPrice" name="UnitPrice" ng-model="item.UnitPrice"   
-                         
-                         ng-pattern="/^[1-9]d*.d*|0.d*[1-9]d*|0?.0+|0$/">                      
-                      <div ng-messages="form.UnitPrice.$error" class="pull-left error">                       
-                                                     <div ng-message="pattern">请输入正数</div>                         
-                          </div>
-                     </div>
-                </div>
-                    <div class="form-group " ng-class="{'has-error':form.Quantity.$invalid }">
-                    <label class="col-sm-2 control-label">Quantity</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control pull-left"  placeholder="Quantity" name="Quantity" ng-model="item.Quantity"   
-                         
-                         ng-pattern="/^[1-9]d*.d*|0.d*[1-9]d*|0?.0+|0$/">                      
-                      <div ng-messages="form.Quantity.$error" class="pull-left error">                       
-                                                     <div ng-message="pattern">请输入正数</div>                         
-                          </div>
-                     </div>
-                </div>
-                    <div class="form-group " ng-class="{'has-error':form.Discount.$invalid }">
-                    <label class="col-sm-2 control-label">Discount</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control pull-left"  placeholder="Discount" name="Discount" ng-model="item.Discount"   
-                         
-                         ng-pattern="/^[1-9]d*.d*|0.d*[1-9]d*|0?.0+|0$/">                      
-                      <div ng-messages="form.Discount.$error" class="pull-left error">                       
-                                                     <div ng-message="pattern">请输入正数</div>                         
-                          </div>
-                     </div>
+                    </div>
                 </div>
                 </fieldset>
         </form>

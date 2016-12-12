@@ -7,13 +7,7 @@ using System.Threading.Tasks;
 namespace Edo.Data.Entity.ComponentModel
 {
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = false)]
-    public class NavAttribute : Attribute
+    public class NgTemplateAttribute : Attribute
     {
-        public NavAttribute(params string[] tags)
-        {
-            Tags = tags;
-
-        }
-        public string[] Tags { get; set; }
     }
 }

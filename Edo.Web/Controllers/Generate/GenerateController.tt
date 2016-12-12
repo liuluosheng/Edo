@@ -19,14 +19,14 @@
 <#@ include file="T4Toolbox.tt" #>
 <#
 
-    var types = Assembly.GetAssembly(typeof(EntityBaseViewModel)).GetTypes();
-    var baseType = typeof(EntityBaseViewModel);
+    var types = Assembly.GetAssembly(typeof(EntityBase)).GetTypes();
+    var baseType = typeof(EntityBase);
     foreach(var type in types){
-        var attribute = type.GetCustomAttribute<FormAttribute>();
+        var attribute = type.GetCustomAttribute<NgTemplateAttribute>();
         if (type.BaseType != null && type.BaseType == baseType && attribute !=null){
             Template template = new ControllerTemplate(type);
             template.Output.Encoding = Encoding.UTF8;
-            string file=string.Format("{0}Controller.cs",type.Name.Replace("ViewModel",""));
+            string file=string.Format("{0}Controller.cs",type.Name);
             template.RenderToFile(file);
             WriteLine(string.Format("Generate file:{0}.",file));
         }       
@@ -42,7 +42,7 @@
         private string name;
         public ControllerTemplate(Type t){
             _type=t;
-            name=_type.Name.Replace("ViewModel","");
+            name=_type.Name;
         }
         public override string TransformText()
         {
@@ -79,7 +79,7 @@ namespace Edo.Web.Controllers
                 if(!prop.PropertyType.IsGenericType)continue;
                 Type t=prop.PropertyType.GenericTypeArguments[0];
                 if(CheckMoreToMore(t)){
-                    string tName=t.Name.Replace("ViewModel","");
+                    string tName=t.Name;
       #>
         public async Task<ActionResult> Page<#=                    tName #>(string itemFilter, int pageIndex, int pageSize, string sort, string filter)
         {

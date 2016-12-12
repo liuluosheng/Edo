@@ -48,6 +48,10 @@ namespace Edo.Web.Controllers
             //  string content = template.TransformText();
             //如果有汉字，需要设置编码格式
             //System.IO.File.WriteAllText(Server.MapPath("~/scripts/common/Q.LT.ts"), content, Encoding.UTF8);
+            Dictionary<string, List<PropertyInfo>> props = new Dictionary<string, List<PropertyInfo>>
+            {
+                {"", new List<PropertyInfo> {}}
+            };
             return View();
         }
 
@@ -57,15 +61,15 @@ namespace Edo.Web.Controllers
             var types = Assembly.GetAssembly(typeof(EntityBaseViewModel)).GetTypes();
             var baseType = typeof(EntityBaseViewModel);
 
-            Dictionary<string, List<GirdColumnAttribute>> results = new Dictionary<string, List<GirdColumnAttribute>>();
+            Dictionary<string, List<GridColumnAttribute>> results = new Dictionary<string, List<GridColumnAttribute>>();
             foreach (var type in types)
             {
-                var options = new List<GirdColumnAttribute>();
+                var options = new List<GridColumnAttribute>();
                 if (type.BaseType != null && type.BaseType == baseType)
                 {
                     foreach (var propertyInfo in type.GetProperties())
                     {
-                        var data = propertyInfo.GetCustomAttributes<GirdColumnAttribute>().FirstOrDefault();
+                        var data = propertyInfo.GetCustomAttributes<GridColumnAttribute>().FirstOrDefault();
                         if (data != null)
                         {
                             data.Field = data.Field ?? propertyInfo.Name;

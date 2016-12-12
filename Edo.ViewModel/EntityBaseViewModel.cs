@@ -8,7 +8,6 @@ namespace Edo.ViewModels
 {
     public abstract class EntityBaseViewModel
     {
-        [Field(Hidden = true, Key = true)]
         public Guid Id { get; set; }
     }
 }

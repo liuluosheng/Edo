@@ -33,7 +33,7 @@ namespace Edo.Web.Controllers
         {
                 var obj = _dbset.FirstOrDefault(itemFilter);
                 if (obj == null) return HttpNotFound();
-                return await PageData<Customers, CustomersViewModel>(obj.Customers.AsQueryable(), sort, filter, pageIndex, pageSize);       
+                return await PageData<Customers, Customers>(obj.Customers.AsQueryable(), sort, filter, pageIndex, pageSize);       
         }
         public async Task<ActionResult> Select2Customers(string itemFilter, string field, string q)
         {

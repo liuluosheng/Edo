@@ -18,10 +18,106 @@
               ng-scrollbars-config="scrolls.config">
           <fieldset id="tolink0">
                 <legend><i class="fa fa-circle"></i>基本信息</legend>       
-                    <div class="form-group " ng-class="{'has-error':form.CustomerID.$invalid }">
+                    <div class="form-group " ng-class="{'has-error':form.CustomerName.$invalid }">
+                    <label class="col-sm-2 control-label">CustomerName</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control pull-left"  placeholder="CustomerName" name="CustomerName" ng-model="item.CustomerName"   
+>
+                    </div>
+                </div>
+                    <div class="form-group " ng-class="{'has-error':form.ShipVia.$invalid }">
+                    <label class="col-sm-2 control-label">ShipVia</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control pull-left"  placeholder="ShipVia" name="ShipVia" ng-model="item.ShipVia"   
+ ng-pattern="/^[1-9]d*|0$/">
+                    <div ng-messages="form.ShipVia.$error" class="pull-left error">                       
+                            <div ng-message="pattern">请输入正整数</div>                         
+                          </div>
+                     </div>
+                </div>
+                    <div class="form-group " ng-class="{'has-error':form.Freight.$invalid }">
+                    <label class="col-sm-2 control-label">Freight</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control pull-left"  placeholder="Freight" name="Freight" ng-model="item.Freight"   
+ ng-pattern="/^[1-9]d*.d*|0.d*[1-9]d*|0?.0+|0$/">
+                    <div ng-messages="form.Freight.$error" class="pull-left error">                       
+                            <div ng-message="pattern">请输入正数</div>                         
+                          </div>
+                     </div>
+                </div>
+                    <div class="form-group " ng-class="{'has-error':form.ShipName.$invalid }">
+                    <label class="col-sm-2 control-label">ShipName</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control pull-left"  placeholder="ShipName" name="ShipName" ng-model="item.ShipName"   
+>
+                    </div>
+                </div>
+                    <div class="form-group " ng-class="{'has-error':form.ShipAddress.$invalid }">
+                    <label class="col-sm-2 control-label">ShipAddress</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control pull-left"  placeholder="ShipAddress" name="ShipAddress" ng-model="item.ShipAddress"   
+>
+                    </div>
+                </div>
+                    <div class="form-group " ng-class="{'has-error':form.ShipCity.$invalid }">
+                    <label class="col-sm-2 control-label">ShipCity</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control pull-left"  placeholder="ShipCity" name="ShipCity" ng-model="item.ShipCity"   
+>
+                    </div>
+                </div>
+                    <div class="form-group " ng-class="{'has-error':form.ShipRegion.$invalid }">
+                    <label class="col-sm-2 control-label">ShipRegion</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control pull-left"  placeholder="ShipRegion" name="ShipRegion" ng-model="item.ShipRegion"   
+>
+                    </div>
+                </div>
+                    <div class="form-group " ng-class="{'has-error':form.ShipPostalCode.$invalid }">
+                    <label class="col-sm-2 control-label">ShipPostalCode</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control pull-left"  placeholder="ShipPostalCode" name="ShipPostalCode" ng-model="item.ShipPostalCode"   
+>
+                    </div>
+                </div>
+                    <div class="form-group " ng-class="{'has-error':form.ShipCountry.$invalid }">
+                    <label class="col-sm-2 control-label">ShipCountry</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control pull-left"  placeholder="ShipCountry" name="ShipCountry" ng-model="item.ShipCountry"   
+>
+                    </div>
+                </div>
+                    <div class="form-group " ng-class="{'has-error':form.OrderDate.$invalid }">
+                    <label class="col-sm-2 control-label">OrderDate</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control pull-left"  placeholder="OrderDate" name="OrderDate" ng-model="item.OrderDate"   
+                        uib-datepicker-popup is-open="OrderDate" ng-click="OrderDate=!OrderDate" datepicker-options="{showWeeks:false}"
+                         ng-required=                            "true" >
+                    <div ng-messages="form.OrderDate.$error" class="pull-left error">                       
+                            <div ng-message="required">这是个必填项</div>                         
+                          </div>
+                     </div>
+                </div>
+                    <div class="form-group " ng-class="{'has-error':form.RequiredDate.$invalid }">
+                    <label class="col-sm-2 control-label">RequiredDate</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control pull-left"  placeholder="RequiredDate" name="RequiredDate" ng-model="item.RequiredDate"   
+                        uib-datepicker-popup is-open="RequiredDate" ng-click="RequiredDate=!RequiredDate" datepicker-options="{showWeeks:false}"
+                        >
+                    </div>
+                </div>
+                    <div class="form-group " ng-class="{'has-error':form.ShippedDate.$invalid }">
+                    <label class="col-sm-2 control-label">ShippedDate</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control pull-left"  placeholder="ShippedDate" name="ShippedDate" ng-model="item.ShippedDate"   
+                        uib-datepicker-popup is-open="ShippedDate" ng-click="ShippedDate=!ShippedDate" datepicker-options="{showWeeks:false}"
+                        >
+                    </div>
+                </div>
+                    <div class="form-group " ng-class="{'has-error':form.Customers.$invalid }">
                     <label class="col-sm-2 control-label">Customers</label>
                     <div class="col-sm-10">
-                     <ui-select ng-model="item.CustomerID"
+                     <ui-select ng-model="item.Customers"
                                    theme="bootstrap"
                                    style="width:60%;float:left"
                                   ng-class="{'has-error':form.CustomerID.$invalid }"
@@ -34,16 +130,12 @@
                             <div ng-bind-html="obj.name | highlight: $select.search"></div>
                             </ui-select-choices>
                         </ui-select>
-                        <input  type="hidden" name="CustomerID" ng-model="item.CustomerID" required/>
-                                            <div ng-messages="form.CustomerID.$error" class="pull-left error">                       
-                                                     <div ng-message="required">这是个必填项</div>                         
-                          </div>
-                     </div>
+                    </div>
                 </div>
-                    <div class="form-group " ng-class="{'has-error':form.EmployeeID.$invalid }">
+                    <div class="form-group " ng-class="{'has-error':form.Employees.$invalid }">
                     <label class="col-sm-2 control-label">Employees</label>
                     <div class="col-sm-10">
-                     <ui-select ng-model="item.EmployeeID"
+                     <ui-select ng-model="item.Employees"
                                    theme="bootstrap"
                                    style="width:60%;float:left"
                                   ng-class="{'has-error':form.EmployeeID.$invalid }"
@@ -56,16 +148,12 @@
                             <div ng-bind-html="obj.name | highlight: $select.search"></div>
                             </ui-select-choices>
                         </ui-select>
-                        <input  type="hidden" name="EmployeeID" ng-model="item.EmployeeID" required/>
-                                            <div ng-messages="form.EmployeeID.$error" class="pull-left error">                       
-                                                     <div ng-message="required">这是个必填项</div>                         
-                          </div>
-                     </div>
+                    </div>
                 </div>
-                    <div class="form-group " ng-class="{'has-error':form.ShipperID.$invalid }">
+                    <div class="form-group " ng-class="{'has-error':form.Shippers.$invalid }">
                     <label class="col-sm-2 control-label">Shippers</label>
                     <div class="col-sm-10">
-                     <ui-select ng-model="item.ShipperID"
+                     <ui-select ng-model="item.Shippers"
                                    theme="bootstrap"
                                    style="width:60%;float:left"
                                   ng-class="{'has-error':form.ShipperID.$invalid }"
@@ -78,108 +166,7 @@
                             <div ng-bind-html="obj.name | highlight: $select.search"></div>
                             </ui-select-choices>
                         </ui-select>
-                        <input  type="hidden" name="ShipperID" ng-model="item.ShipperID" required/>
-                                            <div ng-messages="form.ShipperID.$error" class="pull-left error">                       
-                                                     <div ng-message="required">这是个必填项</div>                         
-                          </div>
-                     </div>
-                </div>
-                    <div class="form-group " ng-class="{'has-error':form.ShipVia.$invalid }">
-                    <label class="col-sm-2 control-label">ShipVia</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control pull-left"  placeholder="ShipVia" name="ShipVia" ng-model="item.ShipVia"   
-                         
-                         ng-pattern="/^[1-9]d*|0$/">                      
-                      <div ng-messages="form.ShipVia.$error" class="pull-left error">                       
-                                                     <div ng-message="pattern">请输入正整数</div>                         
-                          </div>
-                     </div>
-                </div>
-                    <div class="form-group " ng-class="{'has-error':form.Freight.$invalid }">
-                    <label class="col-sm-2 control-label">Freight</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control pull-left"  placeholder="Freight" name="Freight" ng-model="item.Freight"   
-                         
-                         ng-pattern="/^[1-9]d*.d*|0.d*[1-9]d*|0?.0+|0$/">                      
-                      <div ng-messages="form.Freight.$error" class="pull-left error">                       
-                                                     <div ng-message="pattern">请输入正数</div>                         
-                          </div>
-                     </div>
-                </div>
-                    <div class="form-group " ng-class="{'has-error':form.ShipName.$invalid }">
-                    <label class="col-sm-2 control-label">ShipName</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control pull-left"  placeholder="ShipName" name="ShipName" ng-model="item.ShipName"   
-                         
-                        >                      
-                      </div>
-                </div>
-                    <div class="form-group " ng-class="{'has-error':form.ShipAddress.$invalid }">
-                    <label class="col-sm-2 control-label">ShipAddress</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control pull-left"  placeholder="ShipAddress" name="ShipAddress" ng-model="item.ShipAddress"   
-                         
-                        >                      
-                      </div>
-                </div>
-                    <div class="form-group " ng-class="{'has-error':form.ShipCity.$invalid }">
-                    <label class="col-sm-2 control-label">ShipCity</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control pull-left"  placeholder="ShipCity" name="ShipCity" ng-model="item.ShipCity"   
-                         
-                        >                      
-                      </div>
-                </div>
-                    <div class="form-group " ng-class="{'has-error':form.ShipRegion.$invalid }">
-                    <label class="col-sm-2 control-label">ShipRegion</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control pull-left"  placeholder="ShipRegion" name="ShipRegion" ng-model="item.ShipRegion"   
-                         
-                        >                      
-                      </div>
-                </div>
-                    <div class="form-group " ng-class="{'has-error':form.ShipPostalCode.$invalid }">
-                    <label class="col-sm-2 control-label">ShipPostalCode</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control pull-left"  placeholder="ShipPostalCode" name="ShipPostalCode" ng-model="item.ShipPostalCode"   
-                         
-                        >                      
-                      </div>
-                </div>
-                    <div class="form-group " ng-class="{'has-error':form.ShipCountry.$invalid }">
-                    <label class="col-sm-2 control-label">ShipCountry</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control pull-left"  placeholder="ShipCountry" name="ShipCountry" ng-model="item.ShipCountry"   
-                         
-                        >                      
-                      </div>
-                </div>
-                    <div class="form-group " ng-class="{'has-error':form.OrderDate.$invalid }">
-                    <label class="col-sm-2 control-label">OrderDate</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control pull-left"  placeholder="OrderDate" name="OrderDate" ng-model="item.OrderDate"   
-                                                uib-datepicker-popup is-open="OrderDate" ng-click="OrderDate=!OrderDate" datepicker-options="{showWeeks:false}"
-                         
-                        >                      
-                      </div>
-                </div>
-                    <div class="form-group " ng-class="{'has-error':form.RequiredDate.$invalid }">
-                    <label class="col-sm-2 control-label">RequiredDate</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control pull-left"  placeholder="RequiredDate" name="RequiredDate" ng-model="item.RequiredDate"   
-                                                uib-datepicker-popup is-open="RequiredDate" ng-click="RequiredDate=!RequiredDate" datepicker-options="{showWeeks:false}"
-                         
-                        >                      
-                      </div>
-                </div>
-                    <div class="form-group " ng-class="{'has-error':form.ShippedDate.$invalid }">
-                    <label class="col-sm-2 control-label">ShippedDate</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control pull-left"  placeholder="ShippedDate" name="ShippedDate" ng-model="item.ShippedDate"   
-                                                uib-datepicker-popup is-open="ShippedDate" ng-click="ShippedDate=!ShippedDate" datepicker-options="{showWeeks:false}"
-                         
-                        >                      
-                      </div>
+                    </div>
                 </div>
                 </fieldset>
           <fieldset id="tolink1">

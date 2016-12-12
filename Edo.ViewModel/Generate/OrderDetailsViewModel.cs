@@ -14,37 +14,34 @@ using Newtonsoft.Json;
 using Edo.Data.Entity;
 namespace Edo.ViewModels
 {
-    [Form]
     public partial class OrderDetailsViewModel : EntityBaseViewModel
-    {
-       
-                [GirdColumn(Hide=true, Field = "Orders.Id")]        
-                [Required]
-                [Select("Orders", "Id", "Id", "OrderID")]                  
-                [DisplayName("Orders")]
+    {     
+                  
+                [DisplayName("OrderID")]
                 public virtual Guid OrderID { get; set; }
-
-                [GirdColumn]                  
+          
                 [DisplayName("ProductName")]
                 public virtual String ProductName { get; set; }
-
-                [GirdColumn(Hide=true, Field = "Products.Id")]        
-                [Required]
-                [Select("Products", "Id", "Id", "ProductID")]                  
-                [DisplayName("Products")]
+          
+                [DisplayName("ProductID")]
                 public virtual Guid ProductID { get; set; }
-
-                [GirdColumn]                  
+          
                 [DisplayName("UnitPrice")]
                 public virtual Decimal UnitPrice { get; set; }
-
-                [GirdColumn]                  
+          
                 [DisplayName("Quantity")]
                 public virtual Int16 Quantity { get; set; }
-
-                [GirdColumn]                  
+          
                 [DisplayName("Discount")]
                 public virtual Single Discount { get; set; }
-
-            }
+  
+                [JsonIgnore]          
+                [DisplayName("Orders")]
+                public virtual Orders Orders { get; set; }
+  
+                [JsonIgnore]          
+                [DisplayName("Products")]
+                public virtual Products Products { get; set; }
+   }
 }
+ 

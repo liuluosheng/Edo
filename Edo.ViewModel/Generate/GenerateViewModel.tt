@@ -60,50 +60,22 @@ using Newtonsoft.Json;
 using Edo.Data.Entity;
 namespace Edo.ViewModels
 {
-    [Form]
     public partial class <#=            _type.Name #>ViewModel : EntityBaseViewModel
-    {
-       
+    {     
         <#+            
-            var fks =GetForeignKeyProp();
             foreach(PropertyInfo prop in _type.GetProperties()){
                 var p=prop.GetCustomAttribute<ForeignKeyAttribute>();
                 var genericTypes=prop.PropertyType.GenericTypeArguments;
-                if(p!=null || new []{"Id","IsDeleted","Timestamp","CreatedDate"}.Contains(prop.Name) ) continue;
-                PropertyInfo fk=fks.Contains(prop.Name)?GetPropByForeignKey(prop.Name):null;
-                if(genericTypes.Length!=0 && genericTypes[0].BaseType==typeof(EntityBase)){ 
-        #>   
-                [JsonIgnore]
-                [NavTag("<#=                    genericTypes[0].Name #>")]
-        <#+                    if(CheckMoreToMore(genericTypes[0] )){#>
-        [Grid]<#+                    }else{#>
-        [Grid(ForeignKey ="<#=                        GetGridForeignKey(genericTypes[0])#>")]<#+                    }} else { #>
-        [<#=                    fk==null?"GirdColumn":string.Format("GirdColumn(Hide=true, Field = \"{0}.Id\")", fk.PropertyType.Name) #>]<#+                    }if(fks.Contains(prop.Name)){ #>        
-                [Required]
-                [Select("<#=                    fk.PropertyType.Name #>", "Id", "Id", "<#=                    prop.Name #>")]<#+                }#>                  
-                [DisplayName("<#=                fk!=null?fk.PropertyType.Name:   prop.Name #>")]
+                if( new []{"Id","IsDeleted","Timestamp","CreatedDate"}.Contains(prop.Name) ) continue;
+                if(p!=null || genericTypes.Length!=0 && genericTypes[0].BaseType==typeof(EntityBase)){ 
+        #>  
+                [JsonIgnore]<#+                }     #>          
+                [DisplayName("<#= prop.Name #>")]
                 public virtual <#=                genericTypes.Length==0  ?prop.PropertyType.Name:(genericTypes[0].BaseType!=typeof(EntityBase)?string.Format("{0}?",genericTypes[0].Name):string.Format(" ICollection<{0}ViewModel>",genericTypes[0].Name)) #> <#=                prop.Name #> { get; set; }
-
-        <#+
-            }
-       #>
-    }
+<#+            }#>   }
 }
-<#+
+ <#+    
             return this.GenerationEnvironment.ToString();
-        }
-        public bool CheckMoreToMore(Type t){
-            bool check=false;
-            foreach(PropertyInfo prop in  t.GetProperties()){
-                if(prop.PropertyType.GenericTypeArguments.Length==0) continue;
-                foreach(Type type in prop.PropertyType.GenericTypeArguments){
-                    if(_type==type) {
-                        check=true;
-                        break;
-                    }
-                }
-            }
-            return check;
         }
         public IEnumerable<string> GetForeignKeyProp(){
             foreach(PropertyInfo prop in  _type.GetProperties()){
@@ -119,29 +91,6 @@ namespace Edo.ViewModels
                 if(p!=null && p.Name==key) return prop;
             }
             return null;
-        }
-        public string GetGridForeignKey(Type type){
-            foreach(PropertyInfo prop in  type.GetProperties()){
-                if(prop.PropertyType==_type)
-                {
-                    var p=prop.GetCustomAttribute<ForeignKeyAttribute>();
-                    if(p!=null)
-                        return p.Name;    
-                    throw new Exception(string.Format("实体{0}的属性{1}没有添加ForeignKey的属性!",type.Name,prop.Name));    
-                }
-                    
-            }
-            return null;
-        }
-        //返回类型的主键字符串
-        public string GetKeyString(Type type){
-           
-            foreach(PropertyInfo prop in  type.GetProperties()){
-                var attr = prop.GetCustomAttribute<FieldAttribute>();
-                if(attr!=null && attr.Key) 
-                    return prop.Name;
-            }
-            throw new Exception(string.Format("没有为类型{0}定义KEY!",type.Name));
         }
     }
 #>

@@ -14,28 +14,21 @@ using Newtonsoft.Json;
 using Edo.Data.Entity;
 namespace Edo.ViewModels
 {
-    [Form]
     public partial class CategoriesViewModel : EntityBaseViewModel
-    {
-       
-                [GirdColumn]                  
+    {     
+                  
                 [DisplayName("CategoryName")]
                 public virtual String CategoryName { get; set; }
-
-                [GirdColumn]                  
+          
                 [DisplayName("Description")]
                 public virtual String Description { get; set; }
-
-                [GirdColumn]                  
+          
                 [DisplayName("Picture")]
                 public virtual String Picture { get; set; }
-
-           
-                [JsonIgnore]
-                [NavTag("Products")]
-                [Grid(ForeignKey ="CategoryID")]                  
+  
+                [JsonIgnore]          
                 [DisplayName("Products")]
                 public virtual  ICollection<ProductsViewModel> Products { get; set; }
-
-            }
+   }
 }
+ 

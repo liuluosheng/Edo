@@ -33,7 +33,7 @@ namespace Edo.Web.Controllers
         {
                 var obj = _dbset.FirstOrDefault(itemFilter);
                 if (obj == null) return HttpNotFound();
-                return await PageData<Region, RegionViewModel>(obj.Regions.AsQueryable(), sort, filter, pageIndex, pageSize);       
+                return await PageData<Region, Region>(obj.Regions.AsQueryable(), sort, filter, pageIndex, pageSize);       
         }
         public async Task<ActionResult> Select2Region(string itemFilter, string field, string q)
         {

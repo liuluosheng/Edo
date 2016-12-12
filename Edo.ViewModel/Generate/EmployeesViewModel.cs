@@ -14,84 +14,63 @@ using Newtonsoft.Json;
 using Edo.Data.Entity;
 namespace Edo.ViewModels
 {
-    [Form]
     public partial class EmployeesViewModel : EntityBaseViewModel
-    {
-       
-                [GirdColumn]                  
+    {     
+                  
                 [DisplayName("LastName")]
                 public virtual String LastName { get; set; }
-
-                [GirdColumn]                  
+          
                 [DisplayName("FirstName")]
                 public virtual String FirstName { get; set; }
-
-                [GirdColumn]                  
+          
                 [DisplayName("Title")]
                 public virtual String Title { get; set; }
-
-                [GirdColumn]                  
+          
                 [DisplayName("TitleOfCourtesy")]
                 public virtual String TitleOfCourtesy { get; set; }
-
-                [GirdColumn]                  
+          
                 [DisplayName("BirthDate")]
                 public virtual DateTime? BirthDate { get; set; }
-
-                [GirdColumn]                  
+          
                 [DisplayName("HireDate")]
                 public virtual DateTime? HireDate { get; set; }
-
-                [GirdColumn]                  
+          
                 [DisplayName("Address")]
                 public virtual String Address { get; set; }
-
-                [GirdColumn]                  
+          
                 [DisplayName("City")]
                 public virtual String City { get; set; }
-
-                [GirdColumn]                  
+          
                 [DisplayName("Region")]
                 public virtual String Region { get; set; }
-
-                [GirdColumn]                  
+          
                 [DisplayName("PostalCode")]
                 public virtual String PostalCode { get; set; }
-
-                [GirdColumn]                  
+          
                 [DisplayName("Country")]
                 public virtual String Country { get; set; }
-
-                [GirdColumn]                  
+          
                 [DisplayName("HomePhone")]
                 public virtual String HomePhone { get; set; }
-
-                [GirdColumn]                  
+          
                 [DisplayName("Extension")]
                 public virtual String Extension { get; set; }
-
-                [GirdColumn]                  
+          
                 [DisplayName("Photo")]
                 public virtual Byte[] Photo { get; set; }
-
-                [GirdColumn]                  
+          
                 [DisplayName("Notes")]
                 public virtual String Notes { get; set; }
-
-                [GirdColumn]                  
+          
                 [DisplayName("ReportsTo")]
                 public virtual Int32? ReportsTo { get; set; }
-
-                [GirdColumn]                  
+          
                 [DisplayName("PhotoPath")]
                 public virtual String PhotoPath { get; set; }
-
-           
-                [JsonIgnore]
-                [NavTag("Orders")]
-                [Grid(ForeignKey ="EmployeeID")]                  
+  
+                [JsonIgnore]          
                 [DisplayName("Orders")]
                 public virtual  ICollection<OrdersViewModel> Orders { get; set; }
-
-            }
+   }
 }
+ 

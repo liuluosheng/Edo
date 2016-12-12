@@ -54,11 +54,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ComponentModel\FieldAttribute.cs" />
+    <Compile Include="ComponentModel\NgTemplateAttribute.cs" />
     <Compile Include="ComponentModel\FormAttribute.cs" />
     <Compile Include="ComponentModel\GridAttribute.cs" />
     <Compile Include="ComponentModel\GridColumnAttribute.cs" />
-    <Compile Include="ComponentModel\NavAttribute.cs" />
     <Compile Include="ComponentModel\NavTagAttribute.cs" />
     <Compile Include="ComponentModel\SelectAttribute.cs" />
     <Compile Include="EntityBase.cs" />

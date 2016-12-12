@@ -20,18 +20,19 @@
 
 <#+
     public string GetScript(){
-        var types = Assembly.GetAssembly(typeof(EntityBaseViewModel)).GetTypes();
-        var baseType = typeof(EntityBaseViewModel);
+        var types = Assembly.GetAssembly(typeof(EntityBase)).GetTypes();
+        var baseType = typeof(EntityBase);
 
-        Dictionary<string, List<GirdColumnAttribute>> results = new Dictionary<string, List<GirdColumnAttribute>>();
+        Dictionary<string, List<GridColumnAttribute>> results = new Dictionary<string, List<GridColumnAttribute>>();
         foreach (var type in types)
         {
-            var options = new List<GirdColumnAttribute>();
+            if( type.GetCustomAttribute<NgTemplateAttribute>()==null){continue;}
+            var options = new List<GridColumnAttribute>();
             if (type.BaseType != null && type.BaseType == baseType)
             {
                 foreach (var propertyInfo in type.GetProperties())
                 {
-                    var data = propertyInfo.GetCustomAttributes<GirdColumnAttribute>().FirstOrDefault();
+                    var data = propertyInfo.GetCustomAttribute<GridColumnAttribute>();
                     if (data != null && !data.Hide)
                     {
                         data.Field = data.Field ?? propertyInfo.Name;
@@ -45,14 +46,14 @@
                         }
                         if (string.IsNullOrEmpty(data.Name))
                         {
-                            var displayName = propertyInfo.GetCustomAttributes<DisplayNameAttribute>().FirstOrDefault();
+                            var displayName = propertyInfo.GetCustomAttribute<DisplayNameAttribute>();
                             data.Name = displayName != null ? displayName.DisplayName : propertyInfo.Name;
                         }
                         data.Id = propertyInfo.Name;
                         options.Add(data);
                     }
                 }
-                results.Add(type.Name.Replace("ViewModel",""), options);
+                results.Add(type.Name, options);
             }
         }
         JsonSerializerSettings settings = new JsonSerializerSettings

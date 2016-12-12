@@ -46,7 +46,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CustomersViewModel.cs" />
     <Compile Include="EntityBaseViewModel.cs" />
     <Compile Include="Generate\CategoriesViewModel.cs">
       <DependentUpon>GenerateViewModel.tt</DependentUpon>
@@ -84,12 +83,6 @@
     <Compile Include="Generate\UserViewModel.cs">
       <DependentUpon>GenerateViewModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="OrderDetailsViewModel.cs" />
-    <Compile Include="OrdersViewModel.cs" />
-    <Compile Include="ProductsViewModel.cs" />
-    <Compile Include="RegionViewModel.cs" />
-    <Compile Include="UserModel.cs" />
-    <Compile Include="UserViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

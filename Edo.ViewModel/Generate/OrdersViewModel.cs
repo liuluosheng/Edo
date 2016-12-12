@@ -14,78 +14,69 @@ using Newtonsoft.Json;
 using Edo.Data.Entity;
 namespace Edo.ViewModels
 {
-    [Form]
     public partial class OrdersViewModel : EntityBaseViewModel
-    {
-       
-                [GirdColumn(Hide=true, Field = "Customers.Id")]        
-                [Required]
-                [Select("Customers", "Id", "Id", "CustomerID")]                  
-                [DisplayName("Customers")]
+    {     
+                  
+                [DisplayName("CustomerID")]
                 public virtual Guid CustomerID { get; set; }
-
-                [GirdColumn(Hide=true, Field = "Employees.Id")]        
-                [Required]
-                [Select("Employees", "Id", "Id", "EmployeeID")]                  
-                [DisplayName("Employees")]
+          
+                [DisplayName("CustomerName")]
+                public virtual String CustomerName { get; set; }
+          
+                [DisplayName("EmployeeID")]
                 public virtual Guid EmployeeID { get; set; }
-
-                [GirdColumn(Hide=true, Field = "Shippers.Id")]        
-                [Required]
-                [Select("Shippers", "Id", "Id", "ShipperID")]                  
-                [DisplayName("Shippers")]
+          
+                [DisplayName("ShipperID")]
                 public virtual Guid ShipperID { get; set; }
-
-                [GirdColumn]                  
+          
                 [DisplayName("ShipVia")]
                 public virtual Int32? ShipVia { get; set; }
-
-                [GirdColumn]                  
+          
                 [DisplayName("Freight")]
                 public virtual Decimal? Freight { get; set; }
-
-                [GirdColumn]                  
+          
                 [DisplayName("ShipName")]
                 public virtual String ShipName { get; set; }
-
-                [GirdColumn]                  
+          
                 [DisplayName("ShipAddress")]
                 public virtual String ShipAddress { get; set; }
-
-                [GirdColumn]                  
+          
                 [DisplayName("ShipCity")]
                 public virtual String ShipCity { get; set; }
-
-                [GirdColumn]                  
+          
                 [DisplayName("ShipRegion")]
                 public virtual String ShipRegion { get; set; }
-
-                [GirdColumn]                  
+          
                 [DisplayName("ShipPostalCode")]
                 public virtual String ShipPostalCode { get; set; }
-
-                [GirdColumn]                  
+          
                 [DisplayName("ShipCountry")]
                 public virtual String ShipCountry { get; set; }
-
-                [GirdColumn]                  
+          
                 [DisplayName("OrderDate")]
                 public virtual DateTime? OrderDate { get; set; }
-
-                [GirdColumn]                  
+          
                 [DisplayName("RequiredDate")]
                 public virtual DateTime? RequiredDate { get; set; }
-
-                [GirdColumn]                  
+          
                 [DisplayName("ShippedDate")]
                 public virtual DateTime? ShippedDate { get; set; }
-
-           
-                [JsonIgnore]
-                [NavTag("OrderDetails")]
-                [Grid(ForeignKey ="OrderID")]                  
+  
+                [JsonIgnore]          
+                [DisplayName("Customers")]
+                public virtual Customers Customers { get; set; }
+  
+                [JsonIgnore]          
+                [DisplayName("Employees")]
+                public virtual Employees Employees { get; set; }
+  
+                [JsonIgnore]          
                 [DisplayName("OrderDetails")]
                 public virtual  ICollection<OrderDetailsViewModel> OrderDetails { get; set; }
-
-            }
+  
+                [JsonIgnore]          
+                [DisplayName("Shippers")]
+                public virtual Shippers Shippers { get; set; }
+   }
 }
+ 

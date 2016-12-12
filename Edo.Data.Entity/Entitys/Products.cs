@@ -1,19 +1,29 @@
 
 using System.ComponentModel.DataAnnotations.Schema;
+using Edo.Data.Entity.ComponentModel;
 
 namespace Edo.Data.Entity
 {
     using System;
     using System.Collections.Generic;
-
+    [NgTemplate]
     public partial class Products : EntityBase
     {
+        [GridColumn]
         public string ProductName { get; set; }
+        [NotMapped, GridColumn(Field = "Suppliers.CompanyName")]
+        public string SupplierName
+        {
+            get { return Suppliers.CompanyName; }
+        }
         public Guid SupplierID { get; set; }
         public Guid CategoryID { get; set; }
         public string QuantityPerUnit { get; set; }
+        [GridColumn]
         public short? UnitPrice { get; set; }
+        [GridColumn]
         public short? UnitsInStock { get; set; }
+        [GridColumn]
         public short? UnitsOnOrder { get; set; }
         public short? ReorderLevel { get; set; }
         public bool Discontinued { get; set; }

@@ -14,24 +14,18 @@ using Newtonsoft.Json;
 using Edo.Data.Entity;
 namespace Edo.ViewModels
 {
-    [Form]
     public partial class ShippersViewModel : EntityBaseViewModel
-    {
-       
-                [GirdColumn]                  
+    {     
+                  
                 [DisplayName("CompanyName")]
                 public virtual String CompanyName { get; set; }
-
-                [GirdColumn]                  
+          
                 [DisplayName("Phone")]
                 public virtual String Phone { get; set; }
-
-           
-                [JsonIgnore]
-                [NavTag("Orders")]
-                [Grid(ForeignKey ="ShipperID")]                  
+  
+                [JsonIgnore]          
                 [DisplayName("Orders")]
                 public virtual  ICollection<OrdersViewModel> Orders { get; set; }
-
-            }
+   }
 }
+ 

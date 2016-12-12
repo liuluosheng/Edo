@@ -13,12 +13,11 @@ namespace Edo.Data.Entity.ComponentModel
         {
             Edit = true;
             Delete = true;
-            ForeignKey = "";
+        
         }
         public bool Edit { get; set; }
 
         public bool Delete { get; set; }
 
-        public string ForeignKey { get; set; }
     }
 }

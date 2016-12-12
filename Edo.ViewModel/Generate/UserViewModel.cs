@@ -14,28 +14,21 @@ using Newtonsoft.Json;
 using Edo.Data.Entity;
 namespace Edo.ViewModels
 {
-    [Form]
     public partial class UserViewModel : EntityBaseViewModel
-    {
-       
-                [GirdColumn]                  
+    {     
+                  
                 [DisplayName("Name")]
                 public virtual String Name { get; set; }
-
-                [GirdColumn]                  
+          
                 [DisplayName("Password")]
                 public virtual String Password { get; set; }
-
-                [GirdColumn]                  
+          
                 [DisplayName("Address")]
                 public virtual String Address { get; set; }
-
-           
-                [JsonIgnore]
-                [NavTag("Role")]
-                [Grid]                  
+  
+                [JsonIgnore]          
                 [DisplayName("Roles")]
                 public virtual  ICollection<RoleViewModel> Roles { get; set; }
-
-            }
+   }
 }
+ 

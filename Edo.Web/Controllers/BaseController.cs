@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 using Edo.Service;
 using Edo.ViewModels;
 using Edo.Web.Model;
+using Newtonsoft.Json.Converters;
 
 namespace Edo.Web.Controllers
 {
@@ -65,7 +66,7 @@ namespace Edo.Web.Controllers
             if (!string.IsNullOrEmpty(sort))
                 sources = sources.OrderBy(sort);
             var data = Mapper.Map<List<F>, List<TF>>(await sources.Page(pageIndex, pageSize).ToListAsync());
-            return Content(JsonConvert.SerializeObject(new { data, total = sources.Count() }, new JsonSerializerSettings { DateFormatHandling = DateFormatHandling.IsoDateFormat }));
+            return Content(JsonConvert.SerializeObject(new { data, total = sources.Count() }, new IsoDateTimeConverter { DateTimeFormat = "yyyy-MM-dd" }));
         }
         protected async Task<ActionResult> SelectData<F>(IQueryable<F> sources, string select, string q)
         {
@@ -73,7 +74,7 @@ namespace Edo.Web.Controllers
                 sources = sources.Where(q);
             var items = await sources.Select(select).Distinct().ToListAsync();
             return Content(JsonConvert.SerializeObject(new { items, total = items.Count },
-                new JsonSerializerSettings { DateFormatHandling = DateFormatHandling.IsoDateFormat }));
+                new IsoDateTimeConverter { DateTimeFormat = "yyyy-MM-dd" }));
         }
     }
 }

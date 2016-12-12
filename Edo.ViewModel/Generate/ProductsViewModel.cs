@@ -14,56 +14,50 @@ using Newtonsoft.Json;
 using Edo.Data.Entity;
 namespace Edo.ViewModels
 {
-    [Form]
     public partial class ProductsViewModel : EntityBaseViewModel
-    {
-       
-                [GirdColumn]                  
+    {     
+                  
                 [DisplayName("ProductName")]
                 public virtual String ProductName { get; set; }
-
-                [GirdColumn(Hide=true, Field = "Suppliers.Id")]        
-                [Required]
-                [Select("Suppliers", "Id", "Id", "SupplierID")]                  
-                [DisplayName("Suppliers")]
+          
+                [DisplayName("SupplierName")]
+                public virtual String SupplierName { get; set; }
+          
+                [DisplayName("SupplierID")]
                 public virtual Guid SupplierID { get; set; }
-
-                [GirdColumn(Hide=true, Field = "Categories.Id")]        
-                [Required]
-                [Select("Categories", "Id", "Id", "CategoryID")]                  
-                [DisplayName("Categories")]
+          
+                [DisplayName("CategoryID")]
                 public virtual Guid CategoryID { get; set; }
-
-                [GirdColumn]                  
+          
                 [DisplayName("QuantityPerUnit")]
                 public virtual String QuantityPerUnit { get; set; }
-
-                [GirdColumn]                  
+          
                 [DisplayName("UnitPrice")]
                 public virtual Int16? UnitPrice { get; set; }
-
-                [GirdColumn]                  
+          
                 [DisplayName("UnitsInStock")]
                 public virtual Int16? UnitsInStock { get; set; }
-
-                [GirdColumn]                  
+          
                 [DisplayName("UnitsOnOrder")]
                 public virtual Int16? UnitsOnOrder { get; set; }
-
-                [GirdColumn]                  
+          
                 [DisplayName("ReorderLevel")]
                 public virtual Int16? ReorderLevel { get; set; }
-
-                [GirdColumn]                  
+          
                 [DisplayName("Discontinued")]
                 public virtual Boolean Discontinued { get; set; }
-
-           
-                [JsonIgnore]
-                [NavTag("OrderDetails")]
-                [Grid(ForeignKey ="ProductID")]                  
+  
+                [JsonIgnore]          
+                [DisplayName("Categories")]
+                public virtual Categories Categories { get; set; }
+  
+                [JsonIgnore]          
                 [DisplayName("OrderDetails")]
                 public virtual  ICollection<OrderDetailsViewModel> OrderDetails { get; set; }
-
-            }
+  
+                [JsonIgnore]          
+                [DisplayName("Suppliers")]
+                public virtual Suppliers Suppliers { get; set; }
+   }
 }
+ 

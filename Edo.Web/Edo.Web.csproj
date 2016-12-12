@@ -186,10 +186,16 @@
     <Compile Include="Controllers\Generate\EmployeesController.cs">
       <DependentUpon>GenerateController.tt</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\Generate\OrderDetailsController.cs">
+      <DependentUpon>GenerateController.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\Generate\OrdersController.cs">
+      <DependentUpon>GenerateController.tt</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\Generate\ProductsController.cs">
       <DependentUpon>GenerateController.tt</DependentUpon>
     </Compile>
-    <Compile Include="Controllers\Generate\RoleController.cs">
+    <Compile Include="Controllers\Generate\RegionController.cs">
       <DependentUpon>GenerateController.tt</DependentUpon>
     </Compile>
     <Compile Include="Controllers\Generate\ShippersController.cs">
@@ -198,25 +204,9 @@
     <Compile Include="Controllers\Generate\SuppliersController.cs">
       <DependentUpon>GenerateController.tt</DependentUpon>
     </Compile>
-    <Compile Include="Controllers\Generate\UserController.cs">
-      <DependentUpon>GenerateController.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Controllers\Generate\UserRoleController.cs">
-      <DependentUpon>GenerateController.tt</DependentUpon>
-    </Compile>
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\Generate\OrderDetailsController.cs">
-      <DependentUpon>GenerateController.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Controllers\Generate\OrdersController.cs">
-      <DependentUpon>GenerateController.tt</DependentUpon>
-    </Compile>
     <Compile Include="Controllers\OrderDetailsController.cs" />
     <Compile Include="Controllers\OrdersController.cs" />
-    <Compile Include="Controllers\ProductsController.cs" />
-    <Compile Include="Controllers\Generate\RegionController.cs">
-      <DependentUpon>GenerateController.tt</DependentUpon>
-    </Compile>
     <Compile Include="Controllers\RegionController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -315,19 +305,10 @@
     <Content Include="ngTemplate\Region.html">
       <DependentUpon>GenerateNgTemplate.tt</DependentUpon>
     </Content>
-    <Content Include="ngTemplate\Role.html">
-      <DependentUpon>GenerateNgTemplate.tt</DependentUpon>
-    </Content>
     <Content Include="ngTemplate\Shippers.html">
       <DependentUpon>GenerateNgTemplate.tt</DependentUpon>
     </Content>
     <Content Include="ngTemplate\Suppliers.html">
-      <DependentUpon>GenerateNgTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ngTemplate\User.html">
-      <DependentUpon>GenerateNgTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ngTemplate\UserRole.html">
       <DependentUpon>GenerateNgTemplate.tt</DependentUpon>
     </Content>
     <Content Include="Scripts\angular-animate.js" />
@@ -1238,11 +1219,8 @@
 .\Orders.html
 .\Products.html
 .\Region.html
-.\Role.html
 .\Shippers.html
 .\Suppliers.html
-.\User.html
-.\UserRole.html
 </LastOutputs>
       <LastGenOutput>GenerateNgTemplate.log</LastGenOutput>
     </Content>
@@ -1269,11 +1247,8 @@
 .\OrdersController.cs
 .\ProductsController.cs
 .\RegionController.cs
-.\RoleController.cs
 .\ShippersController.cs
 .\SuppliersController.cs
-.\UserController.cs
-.\UserRoleController.cs
 </LastOutputs>
       <LastGenOutput>GenerateController.log</LastGenOutput>
     </Content>

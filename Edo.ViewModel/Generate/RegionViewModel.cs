@@ -14,20 +14,15 @@ using Newtonsoft.Json;
 using Edo.Data.Entity;
 namespace Edo.ViewModels
 {
-    [Form]
     public partial class RegionViewModel : EntityBaseViewModel
-    {
-       
-                [GirdColumn]                  
+    {     
+                  
                 [DisplayName("RegionDescription")]
                 public virtual String RegionDescription { get; set; }
-
-           
-                [JsonIgnore]
-                [NavTag("Customers")]
-                [Grid]                  
+  
+                [JsonIgnore]          
                 [DisplayName("Customers")]
                 public virtual  ICollection<CustomersViewModel> Customers { get; set; }
-
-            }
+   }
 }
+ 
