@@ -26,6 +26,9 @@
 .uib-yearpicker .btn {
   border: none;
 }
+[readonly] {
+  background-color: white!important;
+}
 .grid-modal-dialog {
   margin: auto;
   margin-top: 30px;
@@ -47,12 +50,6 @@
 .grid-modal-dialog .modal-body.grid-template {
   padding: 20px;
   margin: 0 auto;
-}
-.grid-modal-dialog .modal-body .form-group input.form-control {
-  width: 60%;
-}
-.grid-modal-dialog .modal-body .form-group input.form-control.ui-select-search {
-  width: 100%;
 }
 .grid-modal-dialog .modal-body .modal-nav {
   background-color: #31708f;
@@ -84,10 +81,11 @@
   min-width: 1000px;
 }
 .grid-modal-dialog .modal-body .modal-form .error {
-  height: 35px;
-  line-height: 35px;
-  margin-left: 20px;
+  height: auto;
   color: #a94442 !important;
+}
+.grid-modal-dialog .modal-body .modal-form .error [ng-message] {
+  margin-top: 5px;
 }
 .grid-modal-dialog .modal-body fieldset {
   margin-bottom: 10px;

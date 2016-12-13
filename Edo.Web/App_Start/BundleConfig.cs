@@ -27,6 +27,9 @@ namespace Edo.Web
              "~/Scripts/sweetalert-angular.js",
              "~/Scripts/angular-toastr.tpls.min.js",
              "~/Scripts/select.min.js",
+             "~/Scripts/moment.min.js",
+             "~/Scripts/angular-datetimepicker/datetimepicker.js",
+             "~/Scripts/angular-datetimepicker/datetimepicker.templates.js",
              "~/Scripts/grid/ngGrid.js"
              ));
 
@@ -34,14 +37,14 @@ namespace Edo.Web
 
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                      "~/Scripts/bootstrap.js",
-                      "~/Scripts/respond.js"));
+                      "~/Scripts/bootstrap.js"));
 
             bundles.Add(new StyleBundle("~/Content/angularjsui").Include(
                 "~/Content/angular-csp.css",
                 "~/Content/ng-scrollbars/jquery.mCustomScrollbar.css",
                 "~/Styles/sweetalert.css",
                 "~/Content/select.css",
+                "~/Content/angular-datetimepicker/datetimepicker.css",
                 "~/Content/angular-toastr.min.css",
                 "~/Content/grid.css"
                      ));

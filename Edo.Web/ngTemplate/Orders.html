@@ -18,20 +18,13 @@
               ng-scrollbars-config="scrolls.config">
           <fieldset id="tolink0">
                 <legend><i class="fa fa-circle"></i>基本信息</legend>       
-                    <div class="form-group " ng-class="{'has-error':form.CustomerName.$invalid }">
-                    <label class="col-sm-2 control-label">CustomerName</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control pull-left"  placeholder="CustomerName" name="CustomerName" ng-model="item.CustomerName"   
->
-                    </div>
-                </div>
                     <div class="form-group " ng-class="{'has-error':form.ShipVia.$invalid }">
                     <label class="col-sm-2 control-label">ShipVia</label>
                     <div class="col-sm-10">
                         <input type="text" class="form-control pull-left"  placeholder="ShipVia" name="ShipVia" ng-model="item.ShipVia"   
- ng-pattern="/^[1-9]d*|0$/">
+ ng-pattern="/^([1-9][0-9]*){1,3}$/">
                     <div ng-messages="form.ShipVia.$error" class="pull-left error">                       
-                            <div ng-message="pattern">请输入正整数</div>                         
+                            <div ng-message="pattern">请输入大于零的整数</div>                         
                           </div>
                      </div>
                 </div>
@@ -39,9 +32,9 @@
                     <label class="col-sm-2 control-label">Freight</label>
                     <div class="col-sm-10">
                         <input type="text" class="form-control pull-left"  placeholder="Freight" name="Freight" ng-model="item.Freight"   
- ng-pattern="/^[1-9]d*.d*|0.d*[1-9]d*|0?.0+|0$/">
+ ng-pattern="/^(([0-9]+\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\.[0-9]+)|([0-9]*[1-9][0-9]*))$/">
                     <div ng-messages="form.Freight.$error" class="pull-left error">                       
-                            <div ng-message="pattern">请输入正数</div>                         
+                            <div ng-message="pattern">请输入大于零的数</div>                         
                           </div>
                      </div>
                 </div>
@@ -90,9 +83,21 @@
                     <div class="form-group " ng-class="{'has-error':form.OrderDate.$invalid }">
                     <label class="col-sm-2 control-label">OrderDate</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control pull-left"  placeholder="OrderDate" name="OrderDate" ng-model="item.OrderDate"   
-                        uib-datepicker-popup is-open="OrderDate" ng-click="OrderDate=!OrderDate" datepicker-options="{showWeeks:false}"
-                         ng-required=                            "true" >
+                  <div class="dropdown">
+                        <a class="dropdown-toggle" id="OrderDate" role="button" data-toggle="dropdown" data-target="#" href="#">
+                        <div class="input-group">
+                           <input type="text"
+                                 name="OrderDate" 
+                                 readonly="readonly"
+                                 class="form-control"
+                                 ng-value="item.OrderDate  | date:'yyyy-MM-dd HH:mm a'">
+                               <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                        </div>
+                        </a>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                            <datetimepicker ng-model="item.OrderDate" data-datetimepicker-config="{ dropdownSelector: '#OrderDate' }"></datetimepicker>
+                        </ul>
+               </div>
                     <div ng-messages="form.OrderDate.$error" class="pull-left error">                       
                             <div ng-message="required">这是个必填项</div>                         
                           </div>
@@ -101,72 +106,108 @@
                     <div class="form-group " ng-class="{'has-error':form.RequiredDate.$invalid }">
                     <label class="col-sm-2 control-label">RequiredDate</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control pull-left"  placeholder="RequiredDate" name="RequiredDate" ng-model="item.RequiredDate"   
-                        uib-datepicker-popup is-open="RequiredDate" ng-click="RequiredDate=!RequiredDate" datepicker-options="{showWeeks:false}"
-                        >
+                  <div class="dropdown">
+                        <a class="dropdown-toggle" id="RequiredDate" role="button" data-toggle="dropdown" data-target="#" href="#">
+                        <div class="input-group">
+                           <input type="text"
+                                 name="RequiredDate" 
+                                 readonly="readonly"
+                                 class="form-control"
+                                 ng-value="item.RequiredDate  | date:'yyyy-MM-dd HH:mm a'">
+                               <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                        </div>
+                        </a>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                            <datetimepicker ng-model="item.RequiredDate" data-datetimepicker-config="{ dropdownSelector: '#RequiredDate' }"></datetimepicker>
+                        </ul>
+               </div>
                     </div>
                 </div>
                     <div class="form-group " ng-class="{'has-error':form.ShippedDate.$invalid }">
                     <label class="col-sm-2 control-label">ShippedDate</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control pull-left"  placeholder="ShippedDate" name="ShippedDate" ng-model="item.ShippedDate"   
-                        uib-datepicker-popup is-open="ShippedDate" ng-click="ShippedDate=!ShippedDate" datepicker-options="{showWeeks:false}"
-                        >
+                  <div class="dropdown">
+                        <a class="dropdown-toggle" id="ShippedDate" role="button" data-toggle="dropdown" data-target="#" href="#">
+                        <div class="input-group">
+                           <input type="text"
+                                 name="ShippedDate" 
+                                 readonly="readonly"
+                                 class="form-control"
+                                 ng-value="item.ShippedDate  | date:'yyyy-MM-dd HH:mm a'">
+                               <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                        </div>
+                        </a>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                            <datetimepicker ng-model="item.ShippedDate" data-datetimepicker-config="{ dropdownSelector: '#ShippedDate' }"></datetimepicker>
+                        </ul>
+               </div>
                     </div>
                 </div>
                     <div class="form-group " ng-class="{'has-error':form.Customers.$invalid }">
                     <label class="col-sm-2 control-label">Customers</label>
                     <div class="col-sm-10">
-                     <ui-select ng-model="item.Customers"
-                                   theme="bootstrap"
-                                   style="width:60%;float:left"
-                                  ng-class="{'has-error':form.CustomerID.$invalid }"
-                                   reset-search-input="false"
-                                   on-select="bind($item,'CustomerID');">                                  
-                            <ui-select-match placeholder="键入过滤关键字...">{{$select.selected.name || $select.selected}}</ui-select-match>
+                     <input type="hidden" name="CustomerID" ng-model="item.CustomerID" required />
+                     <ui-select 
+                               ng-model="item.CustomerID"
+                               theme="bootstrap"
+                               ng-class="{'has-error':form.CustomerID.$invalid }"
+                              reset-search-input="false"
+                             on-select="item.CustomerID=$item.code;">                                  
+                            <ui-select-match placeholder="键入过滤关键字...">{{select(item.CustomerID,Customers)}}</ui-select-match>
                             <ui-select-choices repeat="obj in Customers track by $index"
-                             refresh="getSelect2('Customers','Id','Id',$select.search)"
+                             refresh="getSelect2('Customers','CompanyName','Id',$select.search)"
                              refresh-delay="0">
                             <div ng-bind-html="obj.name | highlight: $select.search"></div>
                             </ui-select-choices>
                         </ui-select>
-                    </div>
+                    <div ng-messages="form.CustomerID.$error" class="pull-left error">                       
+                            <div ng-message="required">这是个必填项</div>                         
+                          </div>
+                     </div>
                 </div>
                     <div class="form-group " ng-class="{'has-error':form.Employees.$invalid }">
                     <label class="col-sm-2 control-label">Employees</label>
                     <div class="col-sm-10">
-                     <ui-select ng-model="item.Employees"
-                                   theme="bootstrap"
-                                   style="width:60%;float:left"
-                                  ng-class="{'has-error':form.EmployeeID.$invalid }"
-                                   reset-search-input="false"
-                                   on-select="bind($item,'EmployeeID');">                                  
-                            <ui-select-match placeholder="键入过滤关键字...">{{$select.selected.name || $select.selected}}</ui-select-match>
+                     <input type="hidden" name="EmployeeID" ng-model="item.EmployeeID" required />
+                     <ui-select 
+                               ng-model="item.EmployeeID"
+                               theme="bootstrap"
+                               ng-class="{'has-error':form.EmployeeID.$invalid }"
+                              reset-search-input="false"
+                             on-select="item.EmployeeID=$item.code;">                                  
+                            <ui-select-match placeholder="键入过滤关键字...">{{select(item.EmployeeID,Employees)}}</ui-select-match>
                             <ui-select-choices repeat="obj in Employees track by $index"
-                             refresh="getSelect2('Employees','Id','Id',$select.search)"
+                             refresh="getSelect2('Employees','HomePhone','Id',$select.search)"
                              refresh-delay="0">
                             <div ng-bind-html="obj.name | highlight: $select.search"></div>
                             </ui-select-choices>
                         </ui-select>
-                    </div>
+                    <div ng-messages="form.EmployeeID.$error" class="pull-left error">                       
+                            <div ng-message="required">这是个必填项</div>                         
+                          </div>
+                     </div>
                 </div>
                     <div class="form-group " ng-class="{'has-error':form.Shippers.$invalid }">
                     <label class="col-sm-2 control-label">Shippers</label>
                     <div class="col-sm-10">
-                     <ui-select ng-model="item.Shippers"
-                                   theme="bootstrap"
-                                   style="width:60%;float:left"
-                                  ng-class="{'has-error':form.ShipperID.$invalid }"
-                                   reset-search-input="false"
-                                   on-select="bind($item,'ShipperID');">                                  
-                            <ui-select-match placeholder="键入过滤关键字...">{{$select.selected.name || $select.selected}}</ui-select-match>
+                     <input type="hidden" name="ShipperID" ng-model="item.ShipperID" required />
+                     <ui-select 
+                               ng-model="item.ShipperID"
+                               theme="bootstrap"
+                               ng-class="{'has-error':form.ShipperID.$invalid }"
+                              reset-search-input="false"
+                             on-select="item.ShipperID=$item.code;">                                  
+                            <ui-select-match placeholder="键入过滤关键字...">{{select(item.ShipperID,Shippers)}}</ui-select-match>
                             <ui-select-choices repeat="obj in Shippers track by $index"
-                             refresh="getSelect2('Shippers','Id','Id',$select.search)"
+                             refresh="getSelect2('Shippers','CompanyName','Id',$select.search)"
                              refresh-delay="0">
                             <div ng-bind-html="obj.name | highlight: $select.search"></div>
                             </ui-select-choices>
                         </ui-select>
-                    </div>
+                    <div ng-messages="form.ShipperID.$error" class="pull-left error">                       
+                            <div ng-message="required">这是个必填项</div>                         
+                          </div>
+                     </div>
                 </div>
                 </fieldset>
           <fieldset id="tolink1">
@@ -194,7 +235,7 @@
         </form>
     </div>
     <div class="modal-footer">
-        <button class="btn btn-primary " type="button" ng-click="ok(form,'/orders/create')">确 定</button>
+        <button class="btn btn-primary " type="button" ng-click="ok(form,'/orders/')">确 定</button>
         <button class="btn btn-warning " type="button" ng-click="cancel()">取 消</button>
     </div>
 </div>

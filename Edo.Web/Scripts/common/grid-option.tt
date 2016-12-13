@@ -15,19 +15,21 @@
 <#@import namespace="Newtonsoft.Json"#>
 <#@import namespace="Edo.ViewModels"#>
 <#@ output extension=".js" #>
-  window.columnOption=<#=        GetScript() #>
-  
+  window.gridOptions=<#=        GetScript() #>
+
 
 <#+
     public string GetScript(){
         var types = Assembly.GetAssembly(typeof(EntityBase)).GetTypes();
         var baseType = typeof(EntityBase);
-
-        Dictionary<string, List<GridColumnAttribute>> results = new Dictionary<string, List<GridColumnAttribute>>();
+        Dictionary<string,Dictionary<string, List<object>>> obj = new Dictionary<string,Dictionary<string, List<object>>>();
+      
         foreach (var type in types)
         {
             if( type.GetCustomAttribute<NgTemplateAttribute>()==null){continue;}
-            var options = new List<GridColumnAttribute>();
+            Dictionary<string, List<object>> results = new Dictionary<string, List<object>>();
+            var options = new List<object>();
+            List<object> btns =new  List<object>();
             if (type.BaseType != null && type.BaseType == baseType)
             {
                 foreach (var propertyInfo in type.GetProperties())
@@ -52,9 +54,15 @@
                         data.Id = propertyInfo.Name;
                         options.Add(data);
                     }
+                    if(propertyInfo.PropertyType.BaseType==typeof(EntityBase))
+                    {
+                        btns.Add(propertyInfo.PropertyType.Name);
+                    }
                 }
-                results.Add(type.Name, options);
+                results.Add("columns", options);
+                results.Add("btns",btns);
             }
+            obj.Add(type.Name,results);
         }
         JsonSerializerSettings settings = new JsonSerializerSettings
             {
@@ -63,8 +71,9 @@
                 DefaultValueHandling = DefaultValueHandling.Ignore
                 };
         settings.Converters.Add(new Newtonsoft.Json.Converters.StringEnumConverter());
-        return Newtonsoft.Json.JsonConvert.SerializeObject(  results , settings);
+        return Newtonsoft.Json.JsonConvert.SerializeObject(  obj , settings);
     }
+
  #>
 
 

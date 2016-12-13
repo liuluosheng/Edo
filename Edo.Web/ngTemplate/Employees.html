@@ -49,17 +49,41 @@
                     <div class="form-group " ng-class="{'has-error':form.BirthDate.$invalid }">
                     <label class="col-sm-2 control-label">BirthDate</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control pull-left"  placeholder="BirthDate" name="BirthDate" ng-model="item.BirthDate"   
-                        uib-datepicker-popup is-open="BirthDate" ng-click="BirthDate=!BirthDate" datepicker-options="{showWeeks:false}"
-                        >
+                  <div class="dropdown">
+                        <a class="dropdown-toggle" id="BirthDate" role="button" data-toggle="dropdown" data-target="#" href="#">
+                        <div class="input-group">
+                           <input type="text"
+                                 name="BirthDate" 
+                                 readonly="readonly"
+                                 class="form-control"
+                                 ng-value="item.BirthDate  | date:'yyyy-MM-dd HH:mm a'">
+                               <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                        </div>
+                        </a>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                            <datetimepicker ng-model="item.BirthDate" data-datetimepicker-config="{ dropdownSelector: '#BirthDate' }"></datetimepicker>
+                        </ul>
+               </div>
                     </div>
                 </div>
                     <div class="form-group " ng-class="{'has-error':form.HireDate.$invalid }">
                     <label class="col-sm-2 control-label">HireDate</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control pull-left"  placeholder="HireDate" name="HireDate" ng-model="item.HireDate"   
-                        uib-datepicker-popup is-open="HireDate" ng-click="HireDate=!HireDate" datepicker-options="{showWeeks:false}"
-                        >
+                  <div class="dropdown">
+                        <a class="dropdown-toggle" id="HireDate" role="button" data-toggle="dropdown" data-target="#" href="#">
+                        <div class="input-group">
+                           <input type="text"
+                                 name="HireDate" 
+                                 readonly="readonly"
+                                 class="form-control"
+                                 ng-value="item.HireDate  | date:'yyyy-MM-dd HH:mm a'">
+                               <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                        </div>
+                        </a>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                            <datetimepicker ng-model="item.HireDate" data-datetimepicker-config="{ dropdownSelector: '#HireDate' }"></datetimepicker>
+                        </ul>
+               </div>
                     </div>
                 </div>
                     <div class="form-group " ng-class="{'has-error':form.Address.$invalid }">
@@ -129,9 +153,9 @@
                     <label class="col-sm-2 control-label">ReportsTo</label>
                     <div class="col-sm-10">
                         <input type="text" class="form-control pull-left"  placeholder="ReportsTo" name="ReportsTo" ng-model="item.ReportsTo"   
- ng-pattern="/^[1-9]d*|0$/">
+ ng-pattern="/^([1-9][0-9]*){1,3}$/">
                     <div ng-messages="form.ReportsTo.$error" class="pull-left error">                       
-                            <div ng-message="pattern">请输入正整数</div>                         
+                            <div ng-message="pattern">请输入大于零的整数</div>                         
                           </div>
                      </div>
                 </div>
@@ -168,7 +192,7 @@
         </form>
     </div>
     <div class="modal-footer">
-        <button class="btn btn-primary " type="button" ng-click="ok(form,'/employees/create')">确 定</button>
+        <button class="btn btn-primary " type="button" ng-click="ok(form,'/employees/')">确 定</button>
         <button class="btn btn-warning " type="button" ng-click="cancel()">取 消</button>
     </div>
 </div>

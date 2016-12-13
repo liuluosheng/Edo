@@ -23,7 +23,9 @@
         border: none;
     }
 }
-
+[readonly]{
+    background-color:white!important;
+}
 .grid-modal-dialog {
     margin: auto;
     margin-top: 30px;
@@ -48,14 +50,6 @@
         &.grid-template {
             padding: 20px;
             margin: 0 auto;
-        }
-
-        .form-group input.form-control {
-            width: 60%;
-
-            &.ui-select-search {
-                width: 100%;
-            }
         }
 
         .modal-nav {
@@ -92,10 +86,12 @@
             min-width: 1000px;
 
             .error {
-                height: 35px;
-                line-height: 35px;
-                margin-left: 20px;
+                height: auto;
                 color: @alert-danger-text !important;
+
+                [ng-message] {
+                    margin-top: 5px;
+                }
             }
         }
 
@@ -198,8 +194,8 @@
     .fa-spinner {
         font-size: 25px;
         color: @brand-warning;
-        margin-top:20px;
-        margin-left:10px;
+        margin-top: 20px;
+        margin-left: 10px;
     }
 
 

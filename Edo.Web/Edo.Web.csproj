@@ -216,6 +216,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\angular-datetimepicker\datetimepicker.css" />
     <Content Include="Content\angular-toastr.css" />
     <Content Include="Content\angular-toastr.min.css" />
     <Content Include="Content\bootstrap-datetimepicker.css" />
@@ -289,6 +290,7 @@
     <Content Include="ngTemplate\Customers.html">
       <DependentUpon>GenerateNgTemplate.tt</DependentUpon>
     </Content>
+    <Content Include="ngTemplate\datetimepicker.html" />
     <Content Include="ngTemplate\Employees.html">
       <DependentUpon>GenerateNgTemplate.tt</DependentUpon>
     </Content>
@@ -318,6 +320,8 @@
     <Content Include="Scripts\angular-cookies.js" />
     <Content Include="Scripts\angular-cookies.min.js" />
     <Content Include="Scripts\angular-csp.css" />
+    <Content Include="Scripts\angular-datetimepicker\datetimepicker.js" />
+    <Content Include="Scripts\angular-datetimepicker\datetimepicker.templates.js" />
     <Content Include="Scripts\angular-loader.js" />
     <Content Include="Scripts\angular-loader.min.js" />
     <Content Include="Scripts\angular-message-format.js" />
@@ -1257,6 +1261,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>GenerateController.tt</DependentUpon>
     </Content>
+    <Content Include="Content\angular-datetimepicker\datetimepicker.scss" />
+    <Content Include="Content\angular-datetimepicker\_core.scss" />
+    <Content Include="Content\angular-datetimepicker\_variables.scss" />
     <None Include="Scripts\jquery-1.12.4.intellisense.js" />
     <Content Include="Scripts\i18n\ar.js" />
     <Content Include="Scripts\i18n\az.js" />
@@ -1335,7 +1342,6 @@
     <Content Include="Scripts\select2.min.js" />
     <Content Include="Scripts\sweetalert-dev.js" />
     <Content Include="Scripts\sweetalert.min.js" />
-    <Content Include="Scripts\template\order.html" />
     <Content Include="ngTemplate\ngGrid.html" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Styles\sweetalert.css" />

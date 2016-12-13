@@ -34,7 +34,7 @@ angular.module("app.grid", ['ngSanitize']).directive("grid", [
                 pkColumn: $attrs.gridPkColumn || $scope.option.pkColumn || "Id", //必须项
                 itemFilterField: $attrs.gridItemField || null,
                 moreToMore: $attrs.gridMoreToMore === "true" || false, // 多对多关系
-                columns: $common.columnOption[$attrs.gridColumns] || $scope.option.columns, //必须项
+                columns: $common.gridOptions[$attrs.gridColumns]["columns"] || $scope.option.columns, //必须项
                 url: $attrs.gridUrl || $scope.option.url, //必须项
                 selectUrl: $attrs.gridSelectUrl || $scope.option.selectUrl, //必须项
                 editTemplateUrl: $attrs.gridEditTemplateUrl || $scope.option.editTemplateUrl,//必须项
@@ -215,7 +215,8 @@ angular.module("app.grid", ['ngSanitize']).directive("grid", [
                 $common.$toast.error("好像还有错误喔~");
                 return;
             }
-            $http.post(api, $scope.item).success(function (result) {
+            let method = $scope.gridOption.itemFilterValue ? "edit" : "create";
+            $http.post(api + method, $scope.item).success(function (result) {
                 if (result)
                     $uibModalInstance.close($scope.$resolve.item);
             })
@@ -223,10 +224,16 @@ angular.module("app.grid", ['ngSanitize']).directive("grid", [
         $scope.scrollTo = targetSelection => {
             let top = angular.element(targetSelection).position().top;
             $scope.scrolls.updateScrollbar('scrollTo', top);
-        }
+        };
         $scope.bind = ($item, tobindValue) => {
             $scope.item[tobindValue] = $item.code;
-        }
+        };
+        $scope.select = (value, options) => {
+            if (options) {
+                var selected = $.grep(options, (t) => { return t["code"] == value });
+                return selected.length != 0 ? selected[0]["name"] : "";
+            }
+        };
         $scope.getSelect2 = (t, name, value, q) => $http.post(
             `/${t}/select`,
             { field: name, value: value, q: `${name}.ToString().Contains("${q}")` }

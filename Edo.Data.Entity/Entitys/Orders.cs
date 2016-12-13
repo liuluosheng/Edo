@@ -34,11 +34,14 @@ namespace Edo.Data.Entity
         public DateTime? RequiredDate { get; set; }
         [GridColumn(Width = 200)]
         public DateTime? ShippedDate { get; set; }
+        [Select(NameField = "CompanyName")]
         [ForeignKey("CustomerID")]
         public virtual Customers Customers { get; set; }
+        [Select(NameField = "HomePhone")]
         [ForeignKey("EmployeeID")]
         public virtual Employees Employees { get; set; }
         public virtual ICollection<OrderDetails> OrderDetails { get; set; }
+        [Select(NameField = "CompanyName")]
         [ForeignKey("ShipperID")]
         public virtual Shippers Shippers { get; set; }
     }

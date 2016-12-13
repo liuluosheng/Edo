@@ -57,7 +57,7 @@ namespace Edo.Repository
         /// <returns>操作影响的行数</returns>
         public int Insert(TEntity entity)
         {
-            entity.Id = EntityBase.NewId();
+            entity.Id = entity.Id == Guid.Empty ? EntityBase.NewId() : entity.Id;
             _dbSet.Add(entity);
             return _context.SaveChanges();
         }

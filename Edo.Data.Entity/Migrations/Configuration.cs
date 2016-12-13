@@ -132,7 +132,7 @@ namespace Edo.Data.Entity.Migrations
             {
                 Id = Guid.Parse("DDAEC801-80C9-4CD0-9886-A6CC00F644DF"),
                 ShipperID = Guid.Parse("8545EC3E-F158-4962-AC6C-A6CC00F2E5E9"),
-                CustomerID = Guid.Parse("8547EC3E-F158-4962-AC6C-A6CC00F2E6E8"),
+                CustomerID = Guid.Parse("8547EC3E-F158-4962-AC6C-A6CC10F2E6E8"),
                 EmployeeID = Guid.Parse("8547EC3E-F158-4962-AC6C-A6CC00F2E6E8"),
                 Freight = 1000,
                 ShipCountry = "shengZhenChengDe",
