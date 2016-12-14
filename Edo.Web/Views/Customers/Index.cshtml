@@ -16,7 +16,7 @@
             <b>COUSTOMERS</b>
         </div>
         <div class="panel-body">
-            <div grid grid-option="gridOption" data="data"></div>
+            <div grid grid-option="gridOption" data="data" grid-name="customers"></div>
         </div>
     </div>
 </div>
@@ -36,7 +36,6 @@
                  pkColumn: "Id",
                  rowDetail: true,
                  filterRow: true,
-                 columns: $common.columnOption.customers,
                  url: "/Customers/page",
                  selectUrl: "/Customers/select2",
                  editTemplateUrl: "/ngTemplate/Customers.html",

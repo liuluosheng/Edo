@@ -21,35 +21,32 @@
                     <div class="form-group " ng-class="{'has-error':form.CompanyName.$invalid }">
                     <label class="col-sm-2 control-label">CompanyName</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control pull-left"  placeholder="CompanyName" name="CompanyName" ng-model="item.CompanyName"   
+                        <input type="text" autocomplete="off"  class="form-control pull-left"  placeholder="CompanyName" name="CompanyName" ng-model="item.CompanyName"   
 >
                     </div>
                 </div>
                     <div class="form-group " ng-class="{'has-error':form.Phone.$invalid }">
                     <label class="col-sm-2 control-label">Phone</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control pull-left"  placeholder="Phone" name="Phone" ng-model="item.Phone"   
+                        <input type="text" autocomplete="off"  class="form-control pull-left"  placeholder="Phone" name="Phone" ng-model="item.Phone"   
 >
                     </div>
                 </div>
                 </fieldset>
           <fieldset id="tolink1">
                 <legend><i class="fa fa-circle"></i>Orders</legend>       
-                    <div class="btns">
-                      <button class="btn btn-primary" ng-click="createObj('/ngTemplate/Orders.html','Id',item.Id)">
-                      <i class="glyphicon glyphicon-plus"></i><span>新 建</span>
-                     </button>
-                    </div>
+                  
                     <div grid
                     ng-model="item.Orders"
                      grid-option="gridOption"
+                     grid-detail="true"
                      grid-pk-column="Id"
                      grid-item-field="ShipperID"
                      grid-enable-edit="true"
                      grid-enable-delete="true"
                      grid-more-to-more="false"
                      grid-template="nggrid"
-                     grid-columns="orders"
+                     grid-name="orders"
                      grid-select-url="/Orders/Select2"
                      grid-edit-template-url="/ngTemplate/Orders.html"
                      grid-url="/Orders/Page">

@@ -29,17 +29,16 @@ namespace Edo.Web.Controllers
         {
             return View();
         }
-               public async Task<ActionResult> PageRegion(string itemFilter, int pageIndex, int pageSize, string sort, string filter)
+           
+        public async Task<ActionResult> PageRegion(string itemFilter, int pageIndex, int pageSize, string sort, string filter)
         {
-                var obj = _dbset.FirstOrDefault(itemFilter);
-                if (obj == null) return HttpNotFound();
-                return await PageData<Region, Region>(obj.Regions.AsQueryable(), sort, filter, pageIndex, pageSize);       
+           var obj = _dbset.Where(itemFilter).SelectMany(p => p.Regions);
+            return await PageData<Region, RegionViewModel>(obj, sort, filter, pageIndex, pageSize);    
         }
         public async Task<ActionResult> Select2Region(string itemFilter, string field, string q)
         {
-                var obj = _dbset.FirstOrDefault(itemFilter);
-                if (obj == null) return HttpNotFound();
-                return await SelectData(obj.Regions.AsQueryable(), field, q);         
+            var obj = _dbset.Where(itemFilter).SelectMany(p => p.Regions);
+            return await SelectData(obj, field, q);       
         }       
      	}
 }

@@ -22,91 +22,88 @@
                     <div class="form-group " ng-class="{'has-error':form.CompanyName.$invalid }">
                     <label class="col-sm-2 control-label">CompanyName</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control pull-left"  placeholder="CompanyName" name="CompanyName" ng-model="item.CompanyName"   
+                        <input type="text" autocomplete="off"  class="form-control pull-left"  placeholder="CompanyName" name="CompanyName" ng-model="item.CompanyName"   
 >
                     </div>
                 </div>
                     <div class="form-group " ng-class="{'has-error':form.ContactName.$invalid }">
                     <label class="col-sm-2 control-label">ContactName</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control pull-left"  placeholder="ContactName" name="ContactName" ng-model="item.ContactName"   
+                        <input type="text" autocomplete="off"  class="form-control pull-left"  placeholder="ContactName" name="ContactName" ng-model="item.ContactName"   
 >
                     </div>
                 </div>
                     <div class="form-group " ng-class="{'has-error':form.ContactTitle.$invalid }">
                     <label class="col-sm-2 control-label">ContactTitle</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control pull-left"  placeholder="ContactTitle" name="ContactTitle" ng-model="item.ContactTitle"   
+                        <input type="text" autocomplete="off"  class="form-control pull-left"  placeholder="ContactTitle" name="ContactTitle" ng-model="item.ContactTitle"   
 >
                     </div>
                 </div>
                     <div class="form-group " ng-class="{'has-error':form.Address.$invalid }">
                     <label class="col-sm-2 control-label">Address</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control pull-left"  placeholder="Address" name="Address" ng-model="item.Address"   
+                        <input type="text" autocomplete="off"  class="form-control pull-left"  placeholder="Address" name="Address" ng-model="item.Address"   
 >
                     </div>
                 </div>
                     <div class="form-group " ng-class="{'has-error':form.City.$invalid }">
                     <label class="col-sm-2 control-label">City</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control pull-left"  placeholder="City" name="City" ng-model="item.City"   
+                        <input type="text" autocomplete="off"  class="form-control pull-left"  placeholder="City" name="City" ng-model="item.City"   
 >
                     </div>
                 </div>
                     <div class="form-group " ng-class="{'has-error':form.Region.$invalid }">
                     <label class="col-sm-2 control-label">Region</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control pull-left"  placeholder="Region" name="Region" ng-model="item.Region"   
+                        <input type="text" autocomplete="off"  class="form-control pull-left"  placeholder="Region" name="Region" ng-model="item.Region"   
 >
                     </div>
                 </div>
                     <div class="form-group " ng-class="{'has-error':form.PostalCode.$invalid }">
                     <label class="col-sm-2 control-label">PostalCode</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control pull-left"  placeholder="PostalCode" name="PostalCode" ng-model="item.PostalCode"   
+                        <input type="text" autocomplete="off"  class="form-control pull-left"  placeholder="PostalCode" name="PostalCode" ng-model="item.PostalCode"   
 >
                     </div>
                 </div>
                     <div class="form-group " ng-class="{'has-error':form.Country.$invalid }">
                     <label class="col-sm-2 control-label">Country</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control pull-left"  placeholder="Country" name="Country" ng-model="item.Country"   
+                        <input type="text" autocomplete="off"  class="form-control pull-left"  placeholder="Country" name="Country" ng-model="item.Country"   
 >
                     </div>
                 </div>
                     <div class="form-group " ng-class="{'has-error':form.Phone.$invalid }">
                     <label class="col-sm-2 control-label">Phone</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control pull-left"  placeholder="Phone" name="Phone" ng-model="item.Phone"   
+                        <input type="text" autocomplete="off"  class="form-control pull-left"  placeholder="Phone" name="Phone" ng-model="item.Phone"   
 >
                     </div>
                 </div>
                     <div class="form-group " ng-class="{'has-error':form.Fax.$invalid }">
                     <label class="col-sm-2 control-label">Fax</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control pull-left"  placeholder="Fax" name="Fax" ng-model="item.Fax"   
+                        <input type="text" autocomplete="off"  class="form-control pull-left"  placeholder="Fax" name="Fax" ng-model="item.Fax"   
 >
                     </div>
                 </div>
                 </fieldset>
           <fieldset id="tolink1">
                 <legend><i class="fa fa-circle"></i>Orders</legend>       
-                    <div class="btns">
-                      <button class="btn btn-primary" ng-click="createObj('/ngTemplate/Orders.html','Id',item.Id)">
-                      <i class="glyphicon glyphicon-plus"></i><span>新 建</span>
-                     </button>
-                    </div>
+                  
                     <div grid
                     ng-model="item.Orders"
                      grid-option="gridOption"
+                     grid-detail="true"
                      grid-pk-column="Id"
                      grid-item-field="CustomerID"
                      grid-enable-edit="true"
                      grid-enable-delete="true"
                      grid-more-to-more="false"
                      grid-template="nggrid"
-                     grid-columns="orders"
+                     grid-name="orders"
                      grid-select-url="/Orders/Select2"
                      grid-edit-template-url="/ngTemplate/Orders.html"
                      grid-url="/Orders/Page">
@@ -114,47 +111,18 @@
                 </fieldset>
           <fieldset id="tolink2">
                 <legend><i class="fa fa-circle"></i>Regions</legend>       
-                    <div class="btns">
-                      <button class="btn btn-primary" ng-click="createObj('grid_Region.html','Id',item.Id)">
-                      <i class="glyphicon glyphicon-plus"></i><span>新 建</span>
-                     </button>
-                     <!--模板BEGIN-->
-                     <script type="text/ng-template" id="grid_Region.html">
-                     <div class="modal-header">
-                         <h3 class="modal-title" id="modal-title-dt">
-                              <b>CHOOSE</b>
-                              <i class="fa fa-close pull-right" ng-click="cancel()"></i>
-                        </h3>
-                    </div>
-                    <div class="modal-body grid-template" id="modal-body-dt" >
-                         <div grid
-                            grid-option="gridOption"
-                            grid-more-to-more="true"
-                            grid-pk-column="Id"
-                            grid-template="nggrid"
-                            grid-columns="region"
-                            grid-select-url="/Region/select2"
-                            grid-edit-template-url="/ngTemplate/Region.html"
-                            grid-url="/Region/Page">
-                     </div>
-                   </div>
-                   <div class="modal-footer">
-                      <button class="btn btn-primary " type="button" ng-click="ok()">确 定</button>
-                      <button class="btn btn-warning " type="button" ng-click="cancel()">取 消</button>
-                   </div>
-                  </script>
-                  <!--模板END-->
-                    </div>
+                  
                     <div grid
                     ng-model="item.Regions"
                      grid-option="gridOption"
+                     grid-detail="true"
                      grid-pk-column="Id"
                      grid-item-field="Id"
                      grid-enable-edit="true"
                      grid-enable-delete="true"
                      grid-more-to-more="true"
                      grid-template="nggrid"
-                     grid-columns="region"
+                     grid-name="region"
                      grid-select-url="/Customers/Select2Region"
                      grid-edit-template-url="/ngTemplate/Region.html"
                      grid-url="/Customers/PageRegion">

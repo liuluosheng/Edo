@@ -23,9 +23,11 @@
         border: none;
     }
 }
-[readonly]{
-    background-color:white!important;
+
+[readonly] {
+    background-color: white !important;
 }
+
 .grid-modal-dialog {
     margin: auto;
     margin-top: 30px;
@@ -82,8 +84,8 @@
         }
 
         .modal-form {
-            padding: 0 20px;
-            min-width: 1000px;
+            padding: 0 50px 0 60px;
+            width: 100%;
 
             .error {
                 height: auto;
@@ -203,10 +205,8 @@
     .content-table {
         table-layout: fixed !important;
         margin-bottom: 10px;
-
+        min-height:50px;
         .grid-head {
-            overflow-y: auto;
-
             > th {
                 vertical-align: top;
                 padding: 5px;
@@ -222,26 +222,6 @@
 
         .alert {
             margin-top: 15px !important;
-        }
-    }
-
-
-
-    .data-table {
-        table-layout: fixed !important;
-
-        .grid-head {
-
-            > th {
-                vertical-align: middle;
-                padding: 8px;
-                border: 0;
-                background-color: @breadcrumb-bg;
-
-                &.row-number-cell {
-                    padding-top: 5px;
-                }
-            }
         }
 
         tr.data-row > td {
@@ -279,7 +259,7 @@
             }
 
 
-            .glyphicon {
+            .glyphicon,.fa {
                 font-size: 14px;
                 margin-right: 10px;
                 vertical-align: middle;
@@ -309,7 +289,7 @@
 
     .detail-cell {
         padding: 0;
-        width: 22px;
+        width: 25px;
         text-align: center;
         font-size: 16px;
         color: @label-warning-bg;

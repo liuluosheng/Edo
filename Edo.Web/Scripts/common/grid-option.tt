@@ -35,6 +35,7 @@
                 foreach (var propertyInfo in type.GetProperties())
                 {
                     var data = propertyInfo.GetCustomAttribute<GridColumnAttribute>();
+                    var displayName = propertyInfo.GetCustomAttribute<DisplayNameAttribute>();
                     if (data != null && !data.Hide)
                     {
                         data.Field = data.Field ?? propertyInfo.Name;
@@ -47,16 +48,21 @@
                             data.Type = Edo.Data.Entity.Enum.ColumnType.Bool;
                         }
                         if (string.IsNullOrEmpty(data.Name))
-                        {
-                            var displayName = propertyInfo.GetCustomAttribute<DisplayNameAttribute>();
+                        { 
                             data.Name = displayName != null ? displayName.DisplayName : propertyInfo.Name;
                         }
                         data.Id = propertyInfo.Name;
                         options.Add(data);
                     }
-                    if(propertyInfo.PropertyType.BaseType==typeof(EntityBase))
-                    {
-                        btns.Add(propertyInfo.PropertyType.Name);
+                    if (propertyInfo.PropertyType.GenericTypeArguments.Length!=0 && propertyInfo.PropertyType.GenericTypeArguments[0].BaseType==typeof(EntityBase))
+                    {                
+                        string name =propertyInfo.Name;
+                        var mtm=CheckMoreToMore(propertyInfo.PropertyType.GenericTypeArguments[0],type);
+                        if(displayName!=null)
+                        {
+                            name=displayName.DisplayName;
+                        }
+                        btns.Add(new{name,type=propertyInfo.Name, template=mtm?"Grid_"+propertyInfo.Name:propertyInfo.Name});                   
                     }
                 }
                 results.Add("columns", options);
@@ -73,7 +79,19 @@
         settings.Converters.Add(new Newtonsoft.Json.Converters.StringEnumConverter());
         return Newtonsoft.Json.JsonConvert.SerializeObject(  obj , settings);
     }
-
+    public static bool CheckMoreToMore(Type t,Type ct){
+        bool check=false;
+        foreach(PropertyInfo prop in  t.GetProperties()){
+            if(prop.PropertyType.GenericTypeArguments.Length==0) continue;
+            foreach(Type type in prop.PropertyType.GenericTypeArguments){
+                if(ct==type) {
+                    check=true;
+                    break;
+                }
+            } 
+        }
+        return  check; 
+    }
  #>
 
 

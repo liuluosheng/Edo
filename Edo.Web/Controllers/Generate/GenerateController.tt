@@ -79,19 +79,16 @@ namespace Edo.Web.Controllers
                 if(!prop.PropertyType.IsGenericType)continue;
                 Type t=prop.PropertyType.GenericTypeArguments[0];
                 if(CheckMoreToMore(t)){
-                    string tName=t.Name;
-      #>
+                    string tName=t.Name;#>    
         public async Task<ActionResult> Page<#=                    tName #>(string itemFilter, int pageIndex, int pageSize, string sort, string filter)
         {
-                var obj = _dbset.FirstOrDefault(itemFilter);
-                if (obj == null) return HttpNotFound();
-                return await PageData<<#=                    tName #>, <#=                    t.Name #>>(obj.<#=                    prop.Name #>.AsQueryable(), sort, filter, pageIndex, pageSize);       
+           var obj = _dbset.Where(itemFilter).SelectMany(p => p.<#=                    prop.Name #>);
+            return await PageData<<#=                    t.Name #>, <#=                    t.Name #>ViewModel>(obj, sort, filter, pageIndex, pageSize);    
         }
         public async Task<ActionResult> Select2<#=                    tName #>(string itemFilter, string field, string q)
         {
-                var obj = _dbset.FirstOrDefault(itemFilter);
-                if (obj == null) return HttpNotFound();
-                return await SelectData(obj.<#=                    prop.Name #>.AsQueryable(), field, q);         
+            var obj = _dbset.Where(itemFilter).SelectMany(p => p.<#=                    prop.Name #>);
+            return await SelectData(obj, field, q);       
         }       
      <#+                }
             }

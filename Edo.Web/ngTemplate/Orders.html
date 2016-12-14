@@ -21,7 +21,7 @@
                     <div class="form-group " ng-class="{'has-error':form.ShipVia.$invalid }">
                     <label class="col-sm-2 control-label">ShipVia</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control pull-left"  placeholder="ShipVia" name="ShipVia" ng-model="item.ShipVia"   
+                        <input type="text" autocomplete="off"  class="form-control pull-left"  placeholder="ShipVia" name="ShipVia" ng-model="item.ShipVia"   
  ng-pattern="/^([1-9][0-9]*){1,3}$/">
                     <div ng-messages="form.ShipVia.$error" class="pull-left error">                       
                             <div ng-message="pattern">请输入大于零的整数</div>                         
@@ -31,7 +31,7 @@
                     <div class="form-group " ng-class="{'has-error':form.Freight.$invalid }">
                     <label class="col-sm-2 control-label">Freight</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control pull-left"  placeholder="Freight" name="Freight" ng-model="item.Freight"   
+                        <input type="text" autocomplete="off"  class="form-control pull-left"  placeholder="Freight" name="Freight" ng-model="item.Freight"   
  ng-pattern="/^(([0-9]+\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\.[0-9]+)|([0-9]*[1-9][0-9]*))$/">
                     <div ng-messages="form.Freight.$error" class="pull-left error">                       
                             <div ng-message="pattern">请输入大于零的数</div>                         
@@ -41,42 +41,42 @@
                     <div class="form-group " ng-class="{'has-error':form.ShipName.$invalid }">
                     <label class="col-sm-2 control-label">ShipName</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control pull-left"  placeholder="ShipName" name="ShipName" ng-model="item.ShipName"   
+                        <input type="text" autocomplete="off"  class="form-control pull-left"  placeholder="ShipName" name="ShipName" ng-model="item.ShipName"   
 >
                     </div>
                 </div>
                     <div class="form-group " ng-class="{'has-error':form.ShipAddress.$invalid }">
                     <label class="col-sm-2 control-label">ShipAddress</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control pull-left"  placeholder="ShipAddress" name="ShipAddress" ng-model="item.ShipAddress"   
+                        <input type="text" autocomplete="off"  class="form-control pull-left"  placeholder="ShipAddress" name="ShipAddress" ng-model="item.ShipAddress"   
 >
                     </div>
                 </div>
                     <div class="form-group " ng-class="{'has-error':form.ShipCity.$invalid }">
                     <label class="col-sm-2 control-label">ShipCity</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control pull-left"  placeholder="ShipCity" name="ShipCity" ng-model="item.ShipCity"   
+                        <input type="text" autocomplete="off"  class="form-control pull-left"  placeholder="ShipCity" name="ShipCity" ng-model="item.ShipCity"   
 >
                     </div>
                 </div>
                     <div class="form-group " ng-class="{'has-error':form.ShipRegion.$invalid }">
                     <label class="col-sm-2 control-label">ShipRegion</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control pull-left"  placeholder="ShipRegion" name="ShipRegion" ng-model="item.ShipRegion"   
+                        <input type="text" autocomplete="off"  class="form-control pull-left"  placeholder="ShipRegion" name="ShipRegion" ng-model="item.ShipRegion"   
 >
                     </div>
                 </div>
                     <div class="form-group " ng-class="{'has-error':form.ShipPostalCode.$invalid }">
                     <label class="col-sm-2 control-label">ShipPostalCode</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control pull-left"  placeholder="ShipPostalCode" name="ShipPostalCode" ng-model="item.ShipPostalCode"   
+                        <input type="text" autocomplete="off"  class="form-control pull-left"  placeholder="ShipPostalCode" name="ShipPostalCode" ng-model="item.ShipPostalCode"   
 >
                     </div>
                 </div>
                     <div class="form-group " ng-class="{'has-error':form.ShipCountry.$invalid }">
                     <label class="col-sm-2 control-label">ShipCountry</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control pull-left"  placeholder="ShipCountry" name="ShipCountry" ng-model="item.ShipCountry"   
+                        <input type="text" autocomplete="off"  class="form-control pull-left"  placeholder="ShipCountry" name="ShipCountry" ng-model="item.ShipCountry"   
 >
                     </div>
                 </div>
@@ -212,21 +212,18 @@
                 </fieldset>
           <fieldset id="tolink1">
                 <legend><i class="fa fa-circle"></i>OrderDetails</legend>       
-                    <div class="btns">
-                      <button class="btn btn-primary" ng-click="createObj('/ngTemplate/OrderDetails.html','Id',item.Id)">
-                      <i class="glyphicon glyphicon-plus"></i><span>新 建</span>
-                     </button>
-                    </div>
+                  
                     <div grid
                     ng-model="item.OrderDetails"
                      grid-option="gridOption"
+                     grid-detail="true"
                      grid-pk-column="Id"
                      grid-item-field="OrderID"
                      grid-enable-edit="true"
                      grid-enable-delete="true"
                      grid-more-to-more="false"
                      grid-template="nggrid"
-                     grid-columns="orderDetails"
+                     grid-name="orderDetails"
                      grid-select-url="/OrderDetails/Select2"
                      grid-edit-template-url="/ngTemplate/OrderDetails.html"
                      grid-url="/OrderDetails/Page">

@@ -98,6 +98,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.Entity" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.IO.Compression" />
     <Reference Include="System.Linq.Dynamic.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=0f07ec44de6ac832, processorArchitecture=MSIL">
@@ -292,6 +293,12 @@
     </Content>
     <Content Include="ngTemplate\datetimepicker.html" />
     <Content Include="ngTemplate\Employees.html">
+      <DependentUpon>GenerateNgTemplate.tt</DependentUpon>
+    </Content>
+    <Content Include="ngTemplate\Grid_Customers.html">
+      <DependentUpon>GenerateNgTemplate.tt</DependentUpon>
+    </Content>
+    <Content Include="ngTemplate\Grid_Regions.html">
       <DependentUpon>GenerateNgTemplate.tt</DependentUpon>
     </Content>
     <Content Include="ngTemplate\modal-template.html" />
@@ -1219,6 +1226,8 @@
 .\Customers.html
 .\Employees.html
 .\GenerateNgTemplate.log
+.\Grid_Customers.html
+.\Grid_Regions.html
 .\OrderDetails.html
 .\Orders.html
 .\Products.html

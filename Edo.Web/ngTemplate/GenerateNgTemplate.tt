@@ -31,6 +31,22 @@
             Template template = new NgTemplate(type);
             template.Output.Encoding = Encoding.UTF8;
             template.RenderToFile( string.Format("{0}.html",type.Name));
+            
+            foreach( PropertyInfo prop in type.GetProperties())
+            {
+                var isGrid=prop.PropertyType.GenericTypeArguments.Length!=0 && prop.PropertyType.GenericTypeArguments[0].BaseType==typeof(EntityBase);
+                if(!isGrid)
+                {       
+                    continue;
+                }         
+                Type t=prop.PropertyType.GenericTypeArguments[0];   
+                if(Methods.CheckMoreToMore(t,type))
+                {                
+                    Template templates = new NgTemplateForMoretoMore(t); 
+                    templates.Output.Encoding = Encoding.UTF8;
+                    templates.RenderToFile( string.Format("Grid_{0}.html",prop.Name));
+                }         
+            }       
         }       
     }
     
@@ -61,11 +77,9 @@
 <#+
             int i =0;
           
-            Dictionary<string,List<PropertyInfo>> props= GetNavPropertyInfo();
+            Dictionary<string,List<PropertyInfo>> props=Methods.GetNavPropertyInfo(_type);
             foreach(var nav in props.Keys)
             {
-                //var props=GetPropertyInfoByNav(nav,i==0);
-                //if(props.Count==0) continue;
 #>
   <a ng-click="scrollTo('#tolink<#=                i #>')"><#=                nav #></a>
 <#+
@@ -94,60 +108,26 @@
                     var isGrid=prop.PropertyType.GenericTypeArguments.Length!=0 && prop.PropertyType.GenericTypeArguments[0].BaseType==typeof(EntityBase);
                     if(isGrid){                
                         Type t=prop.PropertyType.GenericTypeArguments[0];
-                        bool moreToMore =CheckMoreToMore(t);
+                        bool moreToMore =Methods.CheckMoreToMore(t,_type);
                         string shortName=t.Name;
-                        string keys=GetKeyString(t);
+                        string keys=Methods.GetKeyString(t);
                         var template=moreToMore? string.Format("grid_{0}.html",shortName):string.Format("/ngTemplate/{0}.html",shortName);
-#>
-                    <div class="btns">
-                      <button class="btn btn-primary" ng-click="createObj('<#=                        template#>','<#=                        keys#>',item.<#=                        GetKeyString(_type)#>)">
-                      <i class="glyphicon glyphicon-plus"></i><span>新 建</span>
-                     </button>
-<#+
-                        if(moreToMore){
-#>
-                     <!--模板BEGIN-->
-                     <script type="text/ng-template" id="grid_<#=                            shortName#>.html">
-                     <div class="modal-header">
-                         <h3 class="modal-title" id="modal-title-dt">
-                              <b>CHOOSE</b>
-                              <i class="fa fa-close pull-right" ng-click="cancel()"></i>
-                        </h3>
-                    </div>
-                    <div class="modal-body grid-template" id="modal-body-dt" >
-                         <div grid
-                            grid-option="gridOption"
-                            grid-more-to-more="<#=                            moreToMore.ToString().ToLower() #>"
-                            grid-pk-column="<#=                            keys #>"
-                            grid-template="nggrid"
-                            grid-columns="<#=                            shortName.Substring(0, 1).ToLower() + shortName.TrimStart(shortName.Substring(0, 1).ToCharArray())#>"
-                            grid-select-url="/<#=                            shortName #>/select2"
-                            grid-edit-template-url="/ngTemplate/<#=                            shortName #>.html"
-                            grid-url="/<#=                            shortName #>/Page">
-                     </div>
-                   </div>
-                   <div class="modal-footer">
-                      <button class="btn btn-primary " type="button" ng-click="ok()">确 定</button>
-                      <button class="btn btn-warning " type="button" ng-click="cancel()">取 消</button>
-                   </div>
-                  </script>
-                  <!--模板END-->
-<#+                        }
-                        string foreignKey=GetGridForeignKey(t);
+                        string foreignKey=Methods.GetGridForeignKey(t,_type);
                         string gridUrl=moreToMore?string.Format("/{0}/Page{1}",_type.Name.Replace("ViewModel",""),shortName):string.Format("/{0}/Page",shortName);
                         string selectUrl=moreToMore?string.Format("/{0}/Select2{1}",_type.Name.Replace("ViewModel",""),shortName):string.Format("/{0}/Select2",shortName);
 #>
-                    </div>
+                  
                     <div grid
                     ng-model="item.<#=                        prop.Name #>"
                      grid-option="gridOption"
-                     grid-pk-column="<#=                        GetKeyString(_type) #>"
+                     grid-detail="true"
+                     grid-pk-column="<#=                        Methods.GetKeyString(_type) #>"
                      grid-item-field="<#=                        moreToMore?keys:foreignKey#>"
-                     grid-enable-edit="<#=                        gridAttr.Edit.ToString().ToLower()  #>"
-                     grid-enable-delete="<#=                        gridAttr.Delete.ToString().ToLower()  #>"
+                     grid-enable-edit="<#=                        gridAttr.RowEdit.ToString().ToLower()  #>"
+                     grid-enable-delete="<#=                        gridAttr.RowDelete.ToString().ToLower()  #>"
                      grid-more-to-more="<#=                        moreToMore.ToString().ToLower() #>"
                      grid-template="nggrid"
-                     grid-columns="<#=                        shortName.Substring(0, 1).ToLower() + shortName.TrimStart(shortName.Substring(0, 1).ToCharArray())#>"
+                     grid-name="<#=                        shortName.Substring(0, 1).ToLower() + shortName.TrimStart(shortName.Substring(0, 1).ToCharArray())#>"
                      grid-select-url="<#=                        selectUrl#>"
                      grid-edit-template-url="/ngTemplate/<#=                        shortName #>.html"
                      grid-url="<#=                        gridUrl#>">
@@ -230,11 +210,11 @@
                     }  
                     else{                          
 #>
-                        <input type="text" class="form-control pull-left"  placeholder="<#=                        name #>" name="<#=                        prop.Name #>" ng-model="item.<#=                        prop.Name #>"   
+                        <input type="text" autocomplete="off"  class="form-control pull-left"  placeholder="<#=                        name #>" name="<#=                        prop.Name #>" ng-model="item.<#=                        prop.Name #>"   
 <#+   
                         StringBuilder attrs= new StringBuilder();  
                         if(requiredAttribute!=null)  
-                            attrs.Append(" ng-required=                            \"true\" ");
+                            attrs.Append(" ng-required=\"true\" ");
                         if(maxLengthAttribute!=null) 
                             attrs.Append(string.Format(" ng-maxlength=\"{0}\"",maxLengthAttribute.Length)); 
                         if(minLengthAttribute!=null)
@@ -268,8 +248,88 @@
 </div>
 <#+
             return this.GenerationEnvironment.ToString();
+        }    
+    }
+#>
+
+<#+
+    public class NgTemplateForMoretoMore : CSharpTemplate
+    {
+        private Type t;          
+        public NgTemplateForMoretoMore(Type type)
+        {
+            t=type;
         }
-        public Dictionary<string,List<PropertyInfo>> GetNavPropertyInfo(){
+        public override string TransformText()
+        {                            
+#>
+               <div>
+                    <div class="modal-header">
+                         <h3 class="modal-title" id="modal-title-dt">
+                              <b>CHOOSE</b>
+                              <i class="fa fa-close pull-right" ng-click="cancel()"></i>
+                        </h3>
+                    </div>
+                    <div class="modal-body grid-template" id="modal-body-dt" >
+                         <div grid
+                            grid-detail="true"
+                            grid-option="gridOption"
+                            grid-more-to-more="true"
+                            grid-pk-column="<#=            Methods.GetKeyString(t) #>"
+                            grid-template="nggrid"
+                            grid-name="<#=            t.Name.Substring(0, 1).ToLower() + t.Name.TrimStart(t.Name.Substring(0, 1).ToCharArray())#>"
+                            grid-select-url="/<#=            t.Name #>/select2"
+                            grid-edit-template-url="/ngTemplate/<#=            t.Name #>.html"
+                            grid-url="/<#=            t.Name #>/Page">
+                     </div>
+                   </div>
+                   <div class="modal-footer">
+                      <button class="btn btn-primary " type="button" ng-click="ok()">确 定</button>
+                      <button class="btn btn-warning " type="button" ng-click="cancel()">取 消</button>
+                   </div>
+             </div>
+<#+                         
+            return this.GenerationEnvironment.ToString();
+        }
+    }
+    public static class Methods {
+        public static bool CheckMoreToMore(Type t,Type ct){
+            bool check=false;
+            foreach(PropertyInfo prop in  t.GetProperties()){
+                if(prop.PropertyType.GenericTypeArguments.Length==0) continue;
+                foreach(Type type in prop.PropertyType.GenericTypeArguments){
+                    if(ct==type) {
+                        check=true;
+                        break;
+                    }
+                }
+            }
+            return check;
+        }
+        public static string GetKeyString(Type type){
+           
+            foreach(PropertyInfo prop in  type.GetProperties()){
+                var attr = prop.GetCustomAttribute<KeyAttribute>();
+                if(attr!=null) 
+                    return prop.Name;
+            }
+            throw new Exception(string.Format("没有为类型{0}定义KEY!",type.Name));
+        }
+        public static string GetGridForeignKey(Type type,Type ct)
+        {
+            foreach(PropertyInfo prop in  type.GetProperties()){
+                if(prop.PropertyType==ct)
+                {
+                    var p=prop.GetCustomAttribute<ForeignKeyAttribute>();
+                    if(p!=null)
+                        return p.Name;    
+                    throw new Exception(string.Format("实体{0}的属性{1}没有添加ForeignKey的属性!",type.Name,prop.Name));    
+                }
+                    
+            }
+            return null;
+        }
+        public static Dictionary<string,List<PropertyInfo>> GetNavPropertyInfo(Type _type){
             Dictionary<string,List<PropertyInfo>> result= new Dictionary<string,List<PropertyInfo>> {
                     {"基本信息", new List<PropertyInfo>()}
                     };
@@ -292,44 +352,6 @@
                     };
             }
             return result;
-        }
-        //返回类型的主键字符串
-        public string GetKeyString(Type type){
-           
-            foreach(PropertyInfo prop in  type.GetProperties()){
-                var attr = prop.GetCustomAttribute<KeyAttribute>();
-                if(attr!=null) 
-                    return prop.Name;
-            }
-            throw new Exception(string.Format("没有为类型{0}定义KEY!",type.Name));
-        }
-        //检查是否为多对多关系
-        public bool CheckMoreToMore(Type t){
-            bool check=false;
-            foreach(PropertyInfo prop in  t.GetProperties()){
-                if(prop.PropertyType.GenericTypeArguments.Length==0) continue;
-                foreach(Type type in prop.PropertyType.GenericTypeArguments){
-                    if(_type==type) {
-                        check=true;
-                        break;
-                    }
-                }
-            }
-            return check;
-        }
-        public string GetGridForeignKey(Type type)
-        {
-            foreach(PropertyInfo prop in  type.GetProperties()){
-                if(prop.PropertyType==_type)
-                {
-                    var p=prop.GetCustomAttribute<ForeignKeyAttribute>();
-                    if(p!=null)
-                        return p.Name;    
-                    throw new Exception(string.Format("实体{0}的属性{1}没有添加ForeignKey的属性!",type.Name,prop.Name));    
-                }
-                    
-            }
-            return null;
-        }
+        } 
     }
 #>

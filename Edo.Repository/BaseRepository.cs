@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Core.Objects;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
@@ -279,8 +281,25 @@ namespace Edo.Repository
         /// <returns>操作影响的行数</returns>
         public async Task<int> UpdateAsync(TEntity entity)
         {
-            _context.Entry(entity).State = EntityState.Modified;
-            return await _context.SaveChangesAsync();
+            try
+            {
+                var objContext = ((IObjectContextAdapter)_context).ObjectContext;
+                objContext.ObjectStateManager.ChangeObjectState(entity, EntityState.Detached);
+                _context.Set<TEntity>().Attach(entity);
+                _context.Entry(entity).State = EntityState.Unchanged;
+                foreach (var name in _context.Entry(entity).OriginalValues.PropertyNames)
+                {
+                    if (new[] { "Timestamp", "Id" }.Contains(name))
+                        _context.Entry(entity).Property(name).IsModified = false;
+                    _context.Entry(entity).Property(name).IsModified = true;
+                }
+                return await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
         }
 
 

@@ -8,7 +8,7 @@
             <b>REGION</b>
         </div>
         <div class="panel-body">
-            <div grid grid-option="gridOption" data="data"></div>
+            <div grid grid-option="gridOption" data="data" grid-name="region"></div>
         </div>
     </div>
     <div class="clearfix"></div>
@@ -29,7 +29,6 @@
                  pkColumn: "Id",
                  rowDetail: true,
                  filterRow: true,
-                 columns: $common.columnOption.region,
                  url: "/region/page",
                  selectUrl: "/region/select2",
                  editTemplateUrl: "/ngTemplate/region.html",

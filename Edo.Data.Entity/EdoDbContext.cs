@@ -13,7 +13,6 @@ namespace Edo.Data.Entity
         public EdoDbContext()
             : base("name=EdoDbContext")
         {
-
         }
         public virtual DbSet<Categories> Categories { get; set; }
         public virtual DbSet<Customers> Customers { get; set; }

@@ -11,7 +11,8 @@ angular.module("app.grid", ['ngSanitize']).directive("grid", [
             },
             scope:
             {
-                "option": "=gridOption"
+                "option": "=gridOption",
+                "gridName": "@gridName"
             },
             replace: true,
             controller: "GridController"
@@ -34,10 +35,12 @@ angular.module("app.grid", ['ngSanitize']).directive("grid", [
                 pkColumn: $attrs.gridPkColumn || $scope.option.pkColumn || "Id", //必须项
                 itemFilterField: $attrs.gridItemField || null,
                 moreToMore: $attrs.gridMoreToMore === "true" || false, // 多对多关系
-                columns: $common.gridOptions[$attrs.gridColumns]["columns"] || $scope.option.columns, //必须项
+                columns: $common.gridOptions[$scope.gridName]["columns"],
+                propbtns: $common.gridOptions[$scope.gridName]["btns"],
                 url: $attrs.gridUrl || $scope.option.url, //必须项
                 selectUrl: $attrs.gridSelectUrl || $scope.option.selectUrl, //必须项
                 editTemplateUrl: $attrs.gridEditTemplateUrl || $scope.option.editTemplateUrl,//必须项
+                isDetail: $attrs.gridDetail || false,
                 showBtn: {
                     edit: $attrs.gridEnableEdit != "false",
                     del: $attrs.gridEnableDelete != "false"
@@ -60,12 +63,9 @@ angular.module("app.grid", ['ngSanitize']).directive("grid", [
             $scope.gridOption.itemFilter = `${$scope.gridOption.itemFilterField} = "${$scope.gridOption.itemFilterValue || $common.emptyGuid}"`;
         }
         $scope.gridSort = {};
-        $scope.gridOption.width = 100 + $scope.gridOption.columns.length * 10;
         $scope.columnfields = $.map($scope.gridOption.columns, (v) => {
-            $scope.gridOption.width += v.width;
             return v.id;
         });
-        $scope.option.width = $scope.gridOption.width;
         $scope.dataLoading = true;
         $scope.paging = (p, isfilter = false) => {
             if (isfilter && $scope.lastPageFilter != null && $scope.lastPageFilter == p.filter) return;
@@ -204,6 +204,31 @@ angular.module("app.grid", ['ngSanitize']).directive("grid", [
         $scope.isArray = (value) => {
             return angular.isArray(value);
         }
+        $scope.createObj = (template, pkName, pkValue) => {
+            let resolve = {
+                item: {},
+                gridOption: {
+                    showBtn: false,
+                    rowDetail: false,
+                    pkColumn: pkName,
+                    height: 'auto'
+                }
+            };
+            resolve.item[pkName] = pkValue;
+            $uibModal.open({
+                windowTemplateUrl: "/ngTemplate/modal-template.html",
+                ariaLabelledBy: 'modal-title-dt',
+                ariaDescribedBy: 'modal-body-dt',
+                templateUrl: template,
+                controller: 'editInstanceCtrl',
+                backdrop: false,
+                resolve: {
+                    resolveObj() {
+                        return resolve;
+                    }
+                }
+            });
+        };
     }
 ]).controller("editInstanceCtrl", [
     "$scope", "$http", "$uibModalInstance", "$uibModal", "$common", ($scope, $http, $uibModalInstance, $uibModal, $common) => {
@@ -252,31 +277,7 @@ angular.module("app.grid", ['ngSanitize']).directive("grid", [
         $scope.cancel = () => {
             $uibModalInstance.dismiss('cancel');
         };
-        $scope.createObj = (template, pkName, pkValue) => {
-            let resolve = {
-                item: {},
-                gridOption: {
-                    showBtn: false,
-                    rowDetail: false,
-                    pkColumn: pkName,
-                    height: 'auto'
-                }
-            };
-            resolve.item[pkName] = pkValue;
-            $uibModal.open({
-                windowTemplateUrl: "/ngTemplate/modal-template.html",
-                ariaLabelledBy: 'modal-title-dt',
-                ariaDescribedBy: 'modal-body-dt',
-                templateUrl: template,
-                controller: 'editInstanceCtrl',
-                backdrop: false,
-                resolve: {
-                    resolveObj() {
-                        return resolve;
-                    }
-                }
-            });
-        };
+
     }
 ]).filter("filterColunm", () => (item, arrays) => {
     var obj = {};

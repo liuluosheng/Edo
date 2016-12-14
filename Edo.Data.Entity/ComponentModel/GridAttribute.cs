@@ -11,13 +11,13 @@ namespace Edo.Data.Entity.ComponentModel
     {
         public GridAttribute()
         {
-            Edit = true;
-            Delete = true;
-        
+            RowEdit = true;
+            RowDelete = true;
         }
-        public bool Edit { get; set; }
+        public bool RowEdit { get; set; }
 
-        public bool Delete { get; set; }
+        public bool RowDelete { get; set; }
+
 
     }
 }
