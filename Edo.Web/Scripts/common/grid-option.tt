@@ -7,6 +7,10 @@
 <#@ assembly name="$(TargetDir)Newtonsoft.Json.dll" #>
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="Edo.Data.Entity.ComponentModel" #>
+<#@ assembly name="System.ComponentModel.DataAnnotations.dll" #>
+<#@ import namespace="System.ComponentModel" #>
+<#@ import namespace="System.ComponentModel.DataAnnotations" #>
+<#@ import namespace="System.ComponentModel.DataAnnotations.Schema" #>
 <#@ import namespace="System.ComponentModel" #>
 <#@ import namespace="Edo.Data.Entity" #>
 <#@ import namespace="System.Text" #>
@@ -62,7 +66,10 @@
                         {
                             name=displayName.DisplayName;
                         }
-                        btns.Add(new{name,type=propertyInfo.Name, template=mtm?"Grid_"+propertyInfo.Name:propertyInfo.Name});                   
+                        btns.Add(new{
+                                name,
+                                template=mtm?"Grid_"+propertyInfo.Name:propertyInfo.Name,
+                                pk=mtm?"Id":GetGridForeignKey(propertyInfo.PropertyType.GenericTypeArguments[0],type)});                   
                     }
                 }
                 results.Add("columns", options);
@@ -91,6 +98,23 @@
             } 
         }
         return  check; 
+    }
+
+    public static string GetGridForeignKey(Type type,Type ct)
+    {
+        foreach(PropertyInfo prop in  type.GetProperties())
+        {
+            if (prop.PropertyType==ct)
+            {
+                var p=prop.GetCustomAttribute<ForeignKeyAttribute>();
+                if(p!=null)
+                {
+                    return p.Name;  
+                }  
+                throw new Exception(string.Format("实体{0}的属性{1}没有添加ForeignKey的属性!",type.Name,prop.Name));    
+            }                   
+        }
+        return null;
     }
  #>
 

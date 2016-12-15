@@ -130,6 +130,7 @@ namespace Edo.Repository
         /// <returns>操作影响的行数</returns>
         public int Update(TEntity entity)
         {
+            CheckObjectEntry(entity);
             _context.Entry(entity).State = EntityState.Modified;
             return _context.SaveChanges();
         }
@@ -283,16 +284,9 @@ namespace Edo.Repository
         {
             try
             {
-                var objContext = ((IObjectContextAdapter)_context).ObjectContext;
-                objContext.ObjectStateManager.ChangeObjectState(entity, EntityState.Detached);
-                _context.Set<TEntity>().Attach(entity);
-                _context.Entry(entity).State = EntityState.Unchanged;
-                foreach (var name in _context.Entry(entity).OriginalValues.PropertyNames)
-                {
-                    if (new[] { "Timestamp", "Id" }.Contains(name))
-                        _context.Entry(entity).Property(name).IsModified = false;
-                    _context.Entry(entity).Property(name).IsModified = true;
-                }
+
+                CheckObjectEntry(entity);
+                _context.Entry(entity).State = EntityState.Modified;
                 return await _context.SaveChangesAsync();
             }
             catch (Exception ex)
@@ -302,6 +296,19 @@ namespace Edo.Repository
 
         }
 
+        private void CheckObjectEntry(TEntity entity)
+        {
+            var objContext = ((IObjectContextAdapter)_context).ObjectContext;
+            var objSet = objContext.CreateObjectSet<TEntity>();
+            var entityKey = objContext.CreateEntityKey(objSet.EntitySet.Name, entity);
+            Object foundEntity;
+            if (objContext.TryGetObjectByKey(entityKey, out foundEntity))
+            {
+                entity.Timestamp = ((TEntity)foundEntity).Timestamp;
+                entity.CreatedDate = ((TEntity)foundEntity).CreatedDate;
+                objContext.ObjectStateManager.ChangeObjectState(foundEntity, EntityState.Detached);
+            }
+        }
 
 
         /// <summary>
@@ -313,6 +320,7 @@ namespace Edo.Repository
         {
             await _dbSet.Where(predicate).ForEachAsync(p =>
             {
+                CheckObjectEntry(p);
                 _context.Entry(p).State = EntityState.Modified;
             });
             return await _context.SaveChangesAsync();

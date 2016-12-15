@@ -88,7 +88,7 @@
                             <i class="glyphicon glyphicon-trash"></i><span>删 除</span>
                         </a>
                         <a class="btn btn-primary" ng-repeat="btn in gridOption.btns" ng-click="btn.onclick(item);"><i ng-class="btn.icon"></i><span>{{btn.name}}</span>  </a>
-                        <a ng-if="!gridOption.isDetail" class="btn btn-primary" ng-repeat="btn in gridOption.propbtns" ng-click="createObj('/ngTemplate/'+btn.template+'.html','Id',item.Id)"><i class="fa fa-plus"></i><span>{{btn.name}}</span>  </a>
+                        <a ng-if="!gridOption.isDetail" class="btn btn-primary" ng-repeat="btn in gridOption.propbtns" ng-click="createObj('/ngTemplate/'+btn.template+'.html',btn.pk,item.Id)"><i class="fa fa-plus"></i><span>{{btn.name}}</span>  </a>
                     </div>
                 </td>
             </tr>

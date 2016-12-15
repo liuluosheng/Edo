@@ -32,16 +32,18 @@ namespace Edo.Web.Controllers
 
         public virtual async Task<ActionResult> Edit(TK entity)
         {
-            return Content(JsonConvert.SerializeObject(new Result { Success = await _service.Repository.UpdateAsync(Mapper.Map<TK, T>(entity)) > 0, Obj = entity }));
+            return Content(GetJsonString(new Result { Success = await _service.Repository.UpdateAsync(Mapper.Map<TK, T>(entity)) > 0, Obj = entity }));
         }
         public virtual async Task<ActionResult> Create(TK entity)
         {
-            return Content(JsonConvert.SerializeObject(new Result { Success = await _service.Repository.InsertAsync(Mapper.Map<TK, T>(entity)) > 0, Obj = entity }));
+            return Content(GetJsonString(new Result { Success = await _service.Repository.InsertAsync(Mapper.Map<TK, T>(entity)) > 0, Obj = entity }));
         }
         public virtual async Task<ActionResult> Delete(TK entity)
         {
-            return Content(JsonConvert.SerializeObject(new Result { Success = await _service.Repository.DeleteAsync(entity.Id) > 0 }));
+            return Content(GetJsonString(new Result { Success = await _service.Repository.DeleteAsync(entity.Id) > 0 }));
         }
+
+
         public virtual Task<ActionResult> Select2(string field, string q)
         {
             return SelectData(_dbset, field, q);
@@ -66,15 +68,24 @@ namespace Edo.Web.Controllers
             if (!string.IsNullOrEmpty(sort))
                 sources = sources.OrderBy(sort);
             var data = Mapper.Map<List<F>, List<TF>>(await sources.Page(pageIndex, pageSize).ToListAsync());
-            return Content(JsonConvert.SerializeObject(new { data, total = sources.Count() }, new IsoDateTimeConverter { DateTimeFormat = "yyyy-MM-dd" }));
+            return Content(GetJsonString(new { data, total = sources.Count() }));
         }
         protected async Task<ActionResult> SelectData<F>(IQueryable<F> sources, string select, string q)
         {
             if (!string.IsNullOrEmpty(q))
                 sources = sources.Where(q);
             var items = await sources.Select(select).Distinct().ToListAsync();
-            return Content(JsonConvert.SerializeObject(new { items, total = items.Count },
-                new IsoDateTimeConverter { DateTimeFormat = "yyyy-MM-dd" }));
+            return Content(GetJsonString(new { items, total = items.Count }));
+        }
+
+        private string GetJsonString(object obj)
+        {
+            return JsonConvert.SerializeObject(obj, new JsonSerializerSettings
+            {
+                Converters = new List<JsonConverter> { new IsoDateTimeConverter { DateTimeFormat = "yyyy-MM-dd" } },
+                NullValueHandling = NullValueHandling.Ignore,
+                DefaultValueHandling = DefaultValueHandling.Ignore
+            });
         }
     }
 }

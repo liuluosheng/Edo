@@ -53,12 +53,12 @@ angular.module("app.grid", ['ngSanitize']).directive("grid", [
                 $parse(modelAttr).assign($scope.$parent, value);
             }
         }
-        $scope.psArray = [10, 20, 50, 100],
-            $scope.page = {
-                pageIndex: 1,
-                pageSize: $scope.psArray[0],
-                sort: `${$scope.gridOption.pkColumn} ascending`
-            }
+        $scope.psArray = $scope.gridOption.isDetail ? [15] : [10, 20, 50, 100];
+        $scope.page = {
+            pageIndex: 1,
+            pageSize: $scope.psArray[0],
+            sort: `${$scope.gridOption.itemFilterField || $scope.gridOption.pkColumn} ascending`
+        }
         if ($scope.gridOption.itemFilterField) {
             $scope.gridOption.itemFilter = `${$scope.gridOption.itemFilterField} = "${$scope.gridOption.itemFilterValue || $common.emptyGuid}"`;
         }
@@ -170,37 +170,37 @@ angular.module("app.grid", ['ngSanitize']).directive("grid", [
                 }
             });
         }
-        $scope.dialog = item => {
-            $uibModal.open({
+        let dialog = (resolveObj, resultFn, template) => {
+            let modalInstance = $uibModal.open({
                 windowTemplateUrl: "/ngTemplate/modal-template.html",
                 ariaLabelledBy: 'modal-title',
                 ariaDescribedBy: 'modal-body',
-                templateUrl: $scope.gridOption.editTemplateUrl,
+                templateUrl: template,
                 controller: 'editInstanceCtrl',
                 backdrop: "static",
                 resolve: {
                     resolveObj() {
-                        return {
-                            item: item,
-                            gridOption: {
-                                itemFilterValue: item[$scope.gridOption.pkColumn]
-                            }
-                        };
+                        return resolveObj;
                     }
                 }
-            });
+            }).result.then(resultFn);
+        };
+        $scope.dialog = item => {
+            var resolve = {
+                item: item,
+                gridOption: {
+                    itemFilterValue: item[$scope.gridOption.pkColumn]
+                }
+            };
+            dialog(resolve, function (result) {
+                if (result.Success) {
+                    $common.$alert.success("操作成功啦！");
+                    item = angular.extend(item, result.Obj);
+                } else
+                    $common.$alert.error("出错了~");
+            }, $scope.gridOption.editTemplateUrl)
         }
         $scope.option.dialog = $scope.dialog;
-        $scope.scrollbarsConfig = {
-            autoHideScrollbar: false,
-            theme: 'dark-3',
-            scrollInertia: 0,
-            setHeight: $scope.gridOption.height,
-            axis: 'y',
-            advanced: {
-                updateOnContentResize: angular.isNumber($scope.gridOption.height) ? true : false
-            }
-        }
         $scope.isArray = (value) => {
             return angular.isArray(value);
         }
@@ -215,19 +215,9 @@ angular.module("app.grid", ['ngSanitize']).directive("grid", [
                 }
             };
             resolve.item[pkName] = pkValue;
-            $uibModal.open({
-                windowTemplateUrl: "/ngTemplate/modal-template.html",
-                ariaLabelledBy: 'modal-title-dt',
-                ariaDescribedBy: 'modal-body-dt',
-                templateUrl: template,
-                controller: 'editInstanceCtrl',
-                backdrop: false,
-                resolve: {
-                    resolveObj() {
-                        return resolve;
-                    }
-                }
-            });
+            dialog(resolve, function (result) {
+
+            }, template)
         };
     }
 ]).controller("editInstanceCtrl", [
@@ -242,8 +232,7 @@ angular.module("app.grid", ['ngSanitize']).directive("grid", [
             }
             let method = $scope.gridOption.itemFilterValue ? "edit" : "create";
             $http.post(api + method, $scope.item).success(function (result) {
-                if (result)
-                    $uibModalInstance.close($scope.$resolve.item);
+                $uibModalInstance.close(result);
             })
         };
         $scope.scrollTo = targetSelection => {
