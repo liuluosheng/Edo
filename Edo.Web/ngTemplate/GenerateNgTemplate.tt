@@ -42,7 +42,7 @@
                 Type t=prop.PropertyType.GenericTypeArguments[0];   
                 if(Methods.CheckMoreToMore(t,type))
                 {                
-                    Template templates = new NgTemplateForMoretoMore(t); 
+                    Template templates = new NgTemplateForMoretoMore(t,type.Name,prop.Name); 
                     templates.Output.Encoding = Encoding.UTF8;
                     templates.RenderToFile( string.Format("Grid_{0}.html",prop.Name));
                 }         
@@ -110,7 +110,7 @@
                         Type t=prop.PropertyType.GenericTypeArguments[0];
                         bool moreToMore =Methods.CheckMoreToMore(t,_type);
                         string shortName=t.Name;
-                        string keys=Methods.GetKeyString(t);
+                        string keys="Id";
                         var template=moreToMore? string.Format("grid_{0}.html",shortName):string.Format("/ngTemplate/{0}.html",shortName);
                         string foreignKey=Methods.GetGridForeignKey(t,_type);
                         string gridUrl=moreToMore?string.Format("/{0}/Page{1}",_type.Name.Replace("ViewModel",""),shortName):string.Format("/{0}/Page",shortName);
@@ -121,7 +121,6 @@
                     ng-model="item.<#=                        prop.Name #>"
                      grid-option="gridOption"
                      grid-detail="true"
-                     grid-pk-column="<#=                        Methods.GetKeyString(_type) #>"
                      grid-item-field="<#=                        moreToMore?keys:foreignKey#>"
                      grid-enable-edit="<#=                        gridAttr.RowEdit.ToString().ToLower()  #>"
                      grid-enable-delete="<#=                        gridAttr.RowDelete.ToString().ToLower()  #>"
@@ -136,13 +135,21 @@
                     }
                     var dispalyNameAttribute = prop.GetCustomAttribute<DisplayNameAttribute>();
                     string name=dispalyNameAttribute!=null?dispalyNameAttribute.DisplayName:prop.Name;
-#>
-                    <div class="form-group " ng-class="{'has-error':form.<#=                    prop.Name #>.$invalid }">
-                    <label class="col-sm-2 control-label"><#=                    name #></label>
-                    <div class="col-sm-10">
-<#+
-                    bool isSelect =prop.PropertyType.BaseType==typeof(EntityBase);
                     var foreignKeyAttribute=prop.GetCustomAttribute<ForeignKeyAttribute>();
+                    bool isSelect =prop.PropertyType.BaseType==typeof(EntityBase);
+#>
+                    <div class="form-group " ng-class="{'has-error':form.<#=                    prop.Name #>.$invalid }" 
+<#+
+                    if(isSelect)
+                    {
+ #>
+                      ng-if="'<#=                        foreignKeyAttribute.Name#>'!=fkName"
+<#+
+                    }
+ #>
+                    ><label class="col-sm-2 control-label"><#=                    name #></label>
+                    <div class="col-sm-10">
+<#+                             
                     var requiredAttribute = prop.GetCustomAttribute<RequiredAttribute>();
                     var maxLengthAttribute = prop.GetCustomAttribute<MaxLengthAttribute>();
                     var minLengthAttribute = prop.GetCustomAttribute<MinLengthAttribute>();
@@ -177,7 +184,7 @@
                      <input type="hidden" name="<#=                        foreignKeyAttribute.Name#>" ng-model="item.<#=                        foreignKeyAttribute.Name#>" required />
                      <ui-select 
                                ng-model="item.<#=                        foreignKeyAttribute.Name#>"
-                               theme="bootstrap"
+                               theme="bootstrap"                               
                                ng-class="{'has-error':form.<#=                        foreignKeyAttribute.Name #>.$invalid }"
                               reset-search-input="false"
                              on-select="item.<#=                        foreignKeyAttribute.Name#>=$item.code;">                                  
@@ -211,7 +218,7 @@
                     else{                          
 #>
                         <input type="text" autocomplete="off"  class="form-control pull-left"  placeholder="<#=                        name #>" name="<#=                        prop.Name #>" ng-model="item.<#=                        prop.Name #>"   
-<#+   
+                       <#+   
                         StringBuilder attrs= new StringBuilder();  
                         if(requiredAttribute!=null)  
                             attrs.Append(" ng-required=\"true\" ");
@@ -255,10 +262,14 @@
 <#+
     public class NgTemplateForMoretoMore : CSharpTemplate
     {
-        private Type t;          
-        public NgTemplateForMoretoMore(Type type)
+        private Type t; 
+        private string api;   
+        private string prop;
+        public NgTemplateForMoretoMore(Type type,string apiName,string propName)
         {
             t=type;
+            api=apiName;
+            prop=propName;
         }
         public override string TransformText()
         {                            
@@ -275,7 +286,6 @@
                             grid-detail="true"
                             grid-option="gridOption"
                             grid-more-to-more="true"
-                            grid-pk-column="<#=            Methods.GetKeyString(t) #>"
                             grid-template="nggrid"
                             grid-name="<#=            t.Name.Substring(0, 1).ToLower() + t.Name.TrimStart(t.Name.Substring(0, 1).ToCharArray())#>"
                             grid-select-url="/<#=            t.Name #>/select2"
@@ -284,7 +294,7 @@
                      </div>
                    </div>
                    <div class="modal-footer">
-                      <button class="btn btn-primary " type="button" ng-click="ok()">确 定</button>
+                      <button class="btn btn-primary " type="button" ng-click="choose('/<#=            api.ToLower()#>/edit','<#=prop #>')">确 定</button>
                       <button class="btn btn-warning " type="button" ng-click="cancel()">取 消</button>
                    </div>
              </div>

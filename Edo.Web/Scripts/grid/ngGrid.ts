@@ -92,6 +92,7 @@ angular.module("app.grid", ['ngSanitize']).directive("grid", [
         $scope.rowSelected = (row) => {
             if (row.$selected) return;
             $scope.gridOption.selectedRow = row;
+            $scope.option.selectedRow = row;
             angular.forEach($scope.data, (v) => { delete v.$selected });
             row.$selected = true;
             if (angular.isFunction($scope.gridOption.onRowSelected))
@@ -192,31 +193,44 @@ angular.module("app.grid", ['ngSanitize']).directive("grid", [
                     itemFilterValue: item[$scope.gridOption.pkColumn]
                 }
             };
+            if ($scope.gridOption.itemFilterField)
+                resolve["fkName"] = $scope.gridOption.itemFilterField;
             dialog(resolve, function (result) {
                 if (result.Success) {
                     $common.$alert.success("操作成功啦！");
                     item = angular.extend(item, result.Obj);
                 } else
-                    $common.$alert.error("出错了~");
+                    $common.$alert.error(result.Message || "出错了~");
             }, $scope.gridOption.editTemplateUrl)
         }
         $scope.option.dialog = $scope.dialog;
         $scope.isArray = (value) => {
             return angular.isArray(value);
         }
-        $scope.createObj = (template, pkName, pkValue) => {
+        $scope.createObj = (template, fkName, fkValue) => {
             let resolve = {
+                fkName: fkName,
                 item: {},
                 gridOption: {
                     showBtn: false,
                     rowDetail: false,
-                    pkColumn: pkName,
                     height: 'auto'
                 }
             };
-            resolve.item[pkName] = pkValue;
+            if (fkName)
+                resolve.item[fkName] = fkValue;
             dialog(resolve, function (result) {
-
+                if (result) {
+                    if (!$scope.gridOption.selectedRow[result.prop])
+                        $scope.gridOption.selectedRow[result.prop] = [];
+                    $scope.gridOption.selectedRow[result.prop].push(result.selected);
+                    $http.post(result.api, $scope.gridOption.selectedRow).success(function (data) {
+                        if (data.Success) {
+                            $common.$alert.success("操作成功啦！");
+                        } else
+                            $common.$alert.error(data.Message || "出错了~");
+                    })
+                }
             }, template)
         };
     }
@@ -224,7 +238,18 @@ angular.module("app.grid", ['ngSanitize']).directive("grid", [
     "$scope", "$http", "$uibModalInstance", "$uibModal", "$common", ($scope, $http, $uibModalInstance, $uibModal, $common) => {
         $scope.modalHeight = angular.element(window).height() - 230;
         $scope.item = angular.copy($scope.$resolve.resolveObj.item) || {};
+        $scope.fkName = $scope.$resolve.resolveObj.fkName;
         $scope.gridOption = angular.extend({}, $scope.$resolve.resolveObj.gridOption);
+        $scope.choose = (api, prop) => {
+            if ($scope.gridOption.selectedRow) {
+                $uibModalInstance.close({
+                    selected: $scope.gridOption.selectedRow,
+                    api,
+                    prop
+                });
+            } else
+                $common.$toast.error("还没有选择行~");
+        }
         $scope.ok = (form, api) => {
             if (form.$invalid) {
                 $common.$toast.error("好像还有错误喔~");

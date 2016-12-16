@@ -14,19 +14,21 @@ namespace Edo.Web
             AutoMapper.Mapper.Initialize(cfg =>
             {
                 cfg.CreateMap<OrderDetailsViewModel, OrderDetails>().ReverseMap();
-                  //  .ForMember(v => v.ProductName, opt => opt.MapFrom(t => t.Products.ProductName))
-                   // .ForMember(v => v.OrderDate, opt => opt.MapFrom(t => t.Orders.OrderDate));
+                //  .ForMember(v => v.ProductName, opt => opt.MapFrom(t => t.Products.ProductName))
+                // .ForMember(v => v.OrderDate, opt => opt.MapFrom(t => t.Orders.OrderDate));
 
                 cfg.CreateMap<OrdersViewModel, Orders>()
                     .ReverseMap();
-                   // .ForMember(v => v.CustomersCompanyAddress, opt => opt.MapFrom(t => t.Customers.Address))
-                   // .ForMember(v => v.CustomersCompanyName, opt => opt.MapFrom(t => t.Customers.CompanyName));
+                // .ForMember(v => v.CustomersCompanyAddress, opt => opt.MapFrom(t => t.Customers.Address))
+                // .ForMember(v => v.CustomersCompanyName, opt => opt.MapFrom(t => t.Customers.CompanyName));
 
                 cfg.CreateMap<RegionViewModel, Region>().ReverseMap()
                     .ForMember(v => v.Customers, opt => opt.Ignore());
 
                 cfg.CreateMap<CustomersViewModel, Customers>().ReverseMap()
                     .ForMember(v => v.Regions, opt => opt.Ignore());
+
+                cfg.CreateMap<ProductsViewModel, Products>().ReverseMap();
             });
         }
     }

@@ -18,11 +18,11 @@
               ng-scrollbars-config="scrolls.config">
           <fieldset id="tolink0">
                 <legend><i class="fa fa-circle"></i>基本信息</legend>       
-                    <div class="form-group " ng-class="{'has-error':form.RegionDescription.$invalid }">
-                    <label class="col-sm-2 control-label">RegionDescription</label>
+                    <div class="form-group " ng-class="{'has-error':form.RegionDescription.$invalid }" 
+                    ><label class="col-sm-2 control-label">RegionDescription</label>
                     <div class="col-sm-10">
                         <input type="text" autocomplete="off"  class="form-control pull-left"  placeholder="RegionDescription" name="RegionDescription" ng-model="item.RegionDescription"   
->
+                       >
                     </div>
                 </div>
                 </fieldset>
@@ -33,7 +33,6 @@
                     ng-model="item.Customers"
                      grid-option="gridOption"
                      grid-detail="true"
-                     grid-pk-column="Id"
                      grid-item-field="Id"
                      grid-enable-edit="true"
                      grid-enable-delete="true"

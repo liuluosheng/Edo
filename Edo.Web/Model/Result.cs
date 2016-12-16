@@ -16,5 +16,7 @@ namespace Edo.Web.Model
         }
         public bool Success { get; set; }
         public object Obj { get; set; }
+
+        public string Message { get; set; }
     }
 }

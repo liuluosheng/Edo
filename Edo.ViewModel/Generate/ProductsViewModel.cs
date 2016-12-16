@@ -12,6 +12,7 @@ using System.Web;
 using Edo.Data.Entity.ComponentModel;
 using Newtonsoft.Json;
 using Edo.Data.Entity;
+using AutoMapper;
 namespace Edo.ViewModels
 {
     public partial class ProductsViewModel : EntityBaseViewModel
@@ -47,15 +48,15 @@ namespace Edo.ViewModels
                 [DisplayName("Discontinued")]
                 public virtual Boolean Discontinued { get; set; }
   
-                [JsonIgnore]          
+                [JsonIgnore,IgnoreMap]          
                 [DisplayName("Categories")]
                 public virtual Categories Categories { get; set; }
   
-                [JsonIgnore]          
+                [JsonIgnore,IgnoreMap]          
                 [DisplayName("OrderDetails")]
                 public virtual  ICollection<OrderDetailsViewModel> OrderDetails { get; set; }
   
-                [JsonIgnore]          
+                [JsonIgnore,IgnoreMap]          
                 [DisplayName("Suppliers")]
                 public virtual Suppliers Suppliers { get; set; }
    }

@@ -1,5 +1,6 @@
 
 
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Edo.Data.Entity.ComponentModel;
 
@@ -17,17 +18,16 @@ namespace Edo.Data.Entity
         {
             get { return Products.ProductName; }
         }
-
         public Guid ProductID { get; set; }
-        [GridColumn]
+        [GridColumn, Required]
         public decimal UnitPrice { get; set; }
-        [GridColumn]
+        [GridColumn, Required]
         public short Quantity { get; set; }
         [GridColumn]
         public float Discount { get; set; }
         [ForeignKey("OrderID")]
         public virtual Orders Orders { get; set; }
-        [ForeignKey("ProductID")]
+        [ForeignKey("ProductID"), Select(NameField = "ProductName")]
         public virtual Products Products { get; set; }
 
 

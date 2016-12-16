@@ -74,15 +74,15 @@
             </tr>
             <tr ng-repeat-end class="static-row" ng-cloak ng-show="row.show">
                 <td colspan={{getconspan()}}>
-                    <div ng-if="gridOption.rowDetail" class="row-detail-content">
+                    <div ng-if="gridOption.rowDetail" class="row-detail-content clearfix">
                         <div ng-if="gridOption.onRenderRowDetail" ng-bind-html="renderRowDetail(item)"></div>
-                        <div ng-if="!gridOption.onRenderRowDetail" ng-repeat="(key,value) in item | filterColunm:columnfields">
-                            <p ng-if="!isArray(value)">
+                        <div ng-if="!gridOption.onRenderRowDetail" ng-repeat="(key,value) in item | filterColunm:columnfields" class="row-detail-item">
+                            <div ng-if="!isArray(value)">
                                 <b>{{key}}</b> ： {{value}}
-                            </p>
+                            </div>
                         </div>
                     </div>
-                    <div class="row-btn text-left" ng-if="gridOption.showBtn">
+                    <div class="row-btn text-left clearfix" ng-if="gridOption.showBtn">
                         <a class="btn btn-primary" ng-click="dialog(item);" ng-if="gridOption.showBtn.edit"> <i class="glyphicon glyphicon-pencil"></i><span>编 辑</span></a>
                         <a class="btn btn-primary" ng-click="delete(item)" ng-if="gridOption.showBtn.del">
                             <i class="glyphicon glyphicon-trash"></i><span>删 除</span>

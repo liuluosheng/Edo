@@ -225,6 +225,9 @@
   padding: 20px;
   padding-bottom: 0;
 }
+.ng-grid .content-table .row-detail-content .row-detail-item {
+  margin-bottom: 4px;
+}
 .ng-grid .content-table .row-detail-content .table {
   margin-top: 10px;
 }

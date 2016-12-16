@@ -17,43 +17,44 @@
               ng-scrollbars-config="scrolls.config">
           <fieldset id="tolink0">
                 <legend><i class="fa fa-circle"></i>基本信息</legend>       
-                    <div class="form-group " ng-class="{'has-error':form.UnitPrice.$invalid }">
-                    <label class="col-sm-2 control-label">UnitPrice</label>
+                    <div class="form-group " ng-class="{'has-error':form.UnitPrice.$invalid }" 
+                    ><label class="col-sm-2 control-label">UnitPrice</label>
                     <div class="col-sm-10">
                         <input type="text" autocomplete="off"  class="form-control pull-left"  placeholder="UnitPrice" name="UnitPrice" ng-model="item.UnitPrice"   
- ng-pattern="/^(([0-9]+\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\.[0-9]+)|([0-9]*[1-9][0-9]*))$/">
+                        ng-required="true"  ng-pattern="/^(([0-9]+\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\.[0-9]+)|([0-9]*[1-9][0-9]*))$/">
                     <div ng-messages="form.UnitPrice.$error" class="pull-left error">                       
-                            <div ng-message="pattern">请输入大于零的数</div>                         
+                            <div ng-message="required">这是个必填项</div><div ng-message="pattern">请输入大于零的数</div>                         
                           </div>
                      </div>
                 </div>
-                    <div class="form-group " ng-class="{'has-error':form.Quantity.$invalid }">
-                    <label class="col-sm-2 control-label">Quantity</label>
+                    <div class="form-group " ng-class="{'has-error':form.Quantity.$invalid }" 
+                    ><label class="col-sm-2 control-label">Quantity</label>
                     <div class="col-sm-10">
                         <input type="text" autocomplete="off"  class="form-control pull-left"  placeholder="Quantity" name="Quantity" ng-model="item.Quantity"   
- ng-pattern="/^(([0-9]+\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\.[0-9]+)|([0-9]*[1-9][0-9]*))$/">
+                        ng-required="true"  ng-pattern="/^(([0-9]+\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\.[0-9]+)|([0-9]*[1-9][0-9]*))$/">
                     <div ng-messages="form.Quantity.$error" class="pull-left error">                       
-                            <div ng-message="pattern">请输入大于零的数</div>                         
+                            <div ng-message="required">这是个必填项</div><div ng-message="pattern">请输入大于零的数</div>                         
                           </div>
                      </div>
                 </div>
-                    <div class="form-group " ng-class="{'has-error':form.Discount.$invalid }">
-                    <label class="col-sm-2 control-label">Discount</label>
+                    <div class="form-group " ng-class="{'has-error':form.Discount.$invalid }" 
+                    ><label class="col-sm-2 control-label">Discount</label>
                     <div class="col-sm-10">
                         <input type="text" autocomplete="off"  class="form-control pull-left"  placeholder="Discount" name="Discount" ng-model="item.Discount"   
- ng-pattern="/^(([0-9]+\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\.[0-9]+)|([0-9]*[1-9][0-9]*))$/">
+                        ng-pattern="/^(([0-9]+\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\.[0-9]+)|([0-9]*[1-9][0-9]*))$/">
                     <div ng-messages="form.Discount.$error" class="pull-left error">                       
                             <div ng-message="pattern">请输入大于零的数</div>                         
                           </div>
                      </div>
                 </div>
-                    <div class="form-group " ng-class="{'has-error':form.Orders.$invalid }">
-                    <label class="col-sm-2 control-label">Orders</label>
+                    <div class="form-group " ng-class="{'has-error':form.Orders.$invalid }" 
+                      ng-if="'OrderID'!=fkName"
+                    ><label class="col-sm-2 control-label">Orders</label>
                     <div class="col-sm-10">
                      <input type="hidden" name="OrderID" ng-model="item.OrderID" required />
                      <ui-select 
                                ng-model="item.OrderID"
-                               theme="bootstrap"
+                               theme="bootstrap"                               
                                ng-class="{'has-error':form.OrderID.$invalid }"
                               reset-search-input="false"
                              on-select="item.OrderID=$item.code;">                                  
@@ -69,19 +70,20 @@
                           </div>
                      </div>
                 </div>
-                    <div class="form-group " ng-class="{'has-error':form.Products.$invalid }">
-                    <label class="col-sm-2 control-label">Products</label>
+                    <div class="form-group " ng-class="{'has-error':form.Products.$invalid }" 
+                      ng-if="'ProductID'!=fkName"
+                    ><label class="col-sm-2 control-label">Products</label>
                     <div class="col-sm-10">
                      <input type="hidden" name="ProductID" ng-model="item.ProductID" required />
                      <ui-select 
                                ng-model="item.ProductID"
-                               theme="bootstrap"
+                               theme="bootstrap"                               
                                ng-class="{'has-error':form.ProductID.$invalid }"
                               reset-search-input="false"
                              on-select="item.ProductID=$item.code;">                                  
                             <ui-select-match placeholder="键入过滤关键字...">{{select(item.ProductID,Products)}}</ui-select-match>
                             <ui-select-choices repeat="obj in Products track by $index"
-                             refresh="getSelect2('Products','Id','Id',$select.search)"
+                             refresh="getSelect2('Products','ProductName','Id',$select.search)"
                              refresh-delay="0">
                             <div ng-bind-html="obj.name | highlight: $select.search"></div>
                             </ui-select-choices>

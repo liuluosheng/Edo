@@ -78,7 +78,7 @@ namespace Edo.Web.Controllers
             return Content(GetJsonString(new { items, total = items.Count }));
         }
 
-        private string GetJsonString(object obj)
+        protected string GetJsonString(object obj)
         {
             return JsonConvert.SerializeObject(obj, new JsonSerializerSettings
             {

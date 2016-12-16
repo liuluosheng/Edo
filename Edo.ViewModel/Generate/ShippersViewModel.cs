@@ -12,6 +12,7 @@ using System.Web;
 using Edo.Data.Entity.ComponentModel;
 using Newtonsoft.Json;
 using Edo.Data.Entity;
+using AutoMapper;
 namespace Edo.ViewModels
 {
     public partial class ShippersViewModel : EntityBaseViewModel
@@ -23,7 +24,7 @@ namespace Edo.ViewModels
                 [DisplayName("Phone")]
                 public virtual String Phone { get; set; }
   
-                [JsonIgnore]          
+                [JsonIgnore,IgnoreMap]          
                 [DisplayName("Orders")]
                 public virtual  ICollection<OrdersViewModel> Orders { get; set; }
    }

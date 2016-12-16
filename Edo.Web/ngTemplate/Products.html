@@ -18,74 +18,75 @@
               ng-scrollbars-config="scrolls.config">
           <fieldset id="tolink0">
                 <legend><i class="fa fa-circle"></i>基本信息</legend>       
-                    <div class="form-group " ng-class="{'has-error':form.ProductName.$invalid }">
-                    <label class="col-sm-2 control-label">ProductName</label>
+                    <div class="form-group " ng-class="{'has-error':form.ProductName.$invalid }" 
+                    ><label class="col-sm-2 control-label">ProductName</label>
                     <div class="col-sm-10">
                         <input type="text" autocomplete="off"  class="form-control pull-left"  placeholder="ProductName" name="ProductName" ng-model="item.ProductName"   
->
+                       >
                     </div>
                 </div>
-                    <div class="form-group " ng-class="{'has-error':form.QuantityPerUnit.$invalid }">
-                    <label class="col-sm-2 control-label">QuantityPerUnit</label>
+                    <div class="form-group " ng-class="{'has-error':form.QuantityPerUnit.$invalid }" 
+                    ><label class="col-sm-2 control-label">QuantityPerUnit</label>
                     <div class="col-sm-10">
                         <input type="text" autocomplete="off"  class="form-control pull-left"  placeholder="QuantityPerUnit" name="QuantityPerUnit" ng-model="item.QuantityPerUnit"   
->
+                       >
                     </div>
                 </div>
-                    <div class="form-group " ng-class="{'has-error':form.UnitPrice.$invalid }">
-                    <label class="col-sm-2 control-label">UnitPrice</label>
+                    <div class="form-group " ng-class="{'has-error':form.UnitPrice.$invalid }" 
+                    ><label class="col-sm-2 control-label">UnitPrice</label>
                     <div class="col-sm-10">
                         <input type="text" autocomplete="off"  class="form-control pull-left"  placeholder="UnitPrice" name="UnitPrice" ng-model="item.UnitPrice"   
- ng-pattern="/^(([0-9]+\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\.[0-9]+)|([0-9]*[1-9][0-9]*))$/">
+                        ng-pattern="/^(([0-9]+\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\.[0-9]+)|([0-9]*[1-9][0-9]*))$/">
                     <div ng-messages="form.UnitPrice.$error" class="pull-left error">                       
                             <div ng-message="pattern">请输入大于零的数</div>                         
                           </div>
                      </div>
                 </div>
-                    <div class="form-group " ng-class="{'has-error':form.UnitsInStock.$invalid }">
-                    <label class="col-sm-2 control-label">UnitsInStock</label>
+                    <div class="form-group " ng-class="{'has-error':form.UnitsInStock.$invalid }" 
+                    ><label class="col-sm-2 control-label">UnitsInStock</label>
                     <div class="col-sm-10">
                         <input type="text" autocomplete="off"  class="form-control pull-left"  placeholder="UnitsInStock" name="UnitsInStock" ng-model="item.UnitsInStock"   
- ng-pattern="/^(([0-9]+\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\.[0-9]+)|([0-9]*[1-9][0-9]*))$/">
+                        ng-pattern="/^(([0-9]+\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\.[0-9]+)|([0-9]*[1-9][0-9]*))$/">
                     <div ng-messages="form.UnitsInStock.$error" class="pull-left error">                       
                             <div ng-message="pattern">请输入大于零的数</div>                         
                           </div>
                      </div>
                 </div>
-                    <div class="form-group " ng-class="{'has-error':form.UnitsOnOrder.$invalid }">
-                    <label class="col-sm-2 control-label">UnitsOnOrder</label>
+                    <div class="form-group " ng-class="{'has-error':form.UnitsOnOrder.$invalid }" 
+                    ><label class="col-sm-2 control-label">UnitsOnOrder</label>
                     <div class="col-sm-10">
                         <input type="text" autocomplete="off"  class="form-control pull-left"  placeholder="UnitsOnOrder" name="UnitsOnOrder" ng-model="item.UnitsOnOrder"   
- ng-pattern="/^(([0-9]+\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\.[0-9]+)|([0-9]*[1-9][0-9]*))$/">
+                        ng-pattern="/^(([0-9]+\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\.[0-9]+)|([0-9]*[1-9][0-9]*))$/">
                     <div ng-messages="form.UnitsOnOrder.$error" class="pull-left error">                       
                             <div ng-message="pattern">请输入大于零的数</div>                         
                           </div>
                      </div>
                 </div>
-                    <div class="form-group " ng-class="{'has-error':form.ReorderLevel.$invalid }">
-                    <label class="col-sm-2 control-label">ReorderLevel</label>
+                    <div class="form-group " ng-class="{'has-error':form.ReorderLevel.$invalid }" 
+                    ><label class="col-sm-2 control-label">ReorderLevel</label>
                     <div class="col-sm-10">
                         <input type="text" autocomplete="off"  class="form-control pull-left"  placeholder="ReorderLevel" name="ReorderLevel" ng-model="item.ReorderLevel"   
- ng-pattern="/^(([0-9]+\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\.[0-9]+)|([0-9]*[1-9][0-9]*))$/">
+                        ng-pattern="/^(([0-9]+\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\.[0-9]+)|([0-9]*[1-9][0-9]*))$/">
                     <div ng-messages="form.ReorderLevel.$error" class="pull-left error">                       
                             <div ng-message="pattern">请输入大于零的数</div>                         
                           </div>
                      </div>
                 </div>
-                    <div class="form-group " ng-class="{'has-error':form.Discontinued.$invalid }">
-                    <label class="col-sm-2 control-label">Discontinued</label>
+                    <div class="form-group " ng-class="{'has-error':form.Discontinued.$invalid }" 
+                    ><label class="col-sm-2 control-label">Discontinued</label>
                     <div class="col-sm-10">
                         <input type="text" autocomplete="off"  class="form-control pull-left"  placeholder="Discontinued" name="Discontinued" ng-model="item.Discontinued"   
->
+                       >
                     </div>
                 </div>
-                    <div class="form-group " ng-class="{'has-error':form.Categories.$invalid }">
-                    <label class="col-sm-2 control-label">Categories</label>
+                    <div class="form-group " ng-class="{'has-error':form.Categories.$invalid }" 
+                      ng-if="'CategoryID'!=fkName"
+                    ><label class="col-sm-2 control-label">Categories</label>
                     <div class="col-sm-10">
                      <input type="hidden" name="CategoryID" ng-model="item.CategoryID" required />
                      <ui-select 
                                ng-model="item.CategoryID"
-                               theme="bootstrap"
+                               theme="bootstrap"                               
                                ng-class="{'has-error':form.CategoryID.$invalid }"
                               reset-search-input="false"
                              on-select="item.CategoryID=$item.code;">                                  
@@ -101,13 +102,14 @@
                           </div>
                      </div>
                 </div>
-                    <div class="form-group " ng-class="{'has-error':form.Suppliers.$invalid }">
-                    <label class="col-sm-2 control-label">Suppliers</label>
+                    <div class="form-group " ng-class="{'has-error':form.Suppliers.$invalid }" 
+                      ng-if="'SupplierID'!=fkName"
+                    ><label class="col-sm-2 control-label">Suppliers</label>
                     <div class="col-sm-10">
                      <input type="hidden" name="SupplierID" ng-model="item.SupplierID" required />
                      <ui-select 
                                ng-model="item.SupplierID"
-                               theme="bootstrap"
+                               theme="bootstrap"                               
                                ng-class="{'has-error':form.SupplierID.$invalid }"
                               reset-search-input="false"
                              on-select="item.SupplierID=$item.code;">                                  
@@ -131,7 +133,6 @@
                     ng-model="item.OrderDetails"
                      grid-option="gridOption"
                      grid-detail="true"
-                     grid-pk-column="Id"
                      grid-item-field="ProductID"
                      grid-enable-edit="true"
                      grid-enable-delete="true"

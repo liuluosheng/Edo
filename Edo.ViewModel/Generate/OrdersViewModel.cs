@@ -12,6 +12,7 @@ using System.Web;
 using Edo.Data.Entity.ComponentModel;
 using Newtonsoft.Json;
 using Edo.Data.Entity;
+using AutoMapper;
 namespace Edo.ViewModels
 {
     public partial class OrdersViewModel : EntityBaseViewModel
@@ -62,19 +63,19 @@ namespace Edo.ViewModels
                 [DisplayName("ShippedDate")]
                 public virtual DateTime? ShippedDate { get; set; }
   
-                [JsonIgnore]          
+                [JsonIgnore,IgnoreMap]          
                 [DisplayName("Customers")]
                 public virtual Customers Customers { get; set; }
   
-                [JsonIgnore]          
+                [JsonIgnore,IgnoreMap]          
                 [DisplayName("Employees")]
                 public virtual Employees Employees { get; set; }
   
-                [JsonIgnore]          
+                [JsonIgnore,IgnoreMap]          
                 [DisplayName("OrderDetails")]
                 public virtual  ICollection<OrderDetailsViewModel> OrderDetails { get; set; }
   
-                [JsonIgnore]          
+                [JsonIgnore,IgnoreMap]          
                 [DisplayName("Shippers")]
                 public virtual Shippers Shippers { get; set; }
    }

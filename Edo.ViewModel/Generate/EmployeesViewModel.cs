@@ -12,6 +12,7 @@ using System.Web;
 using Edo.Data.Entity.ComponentModel;
 using Newtonsoft.Json;
 using Edo.Data.Entity;
+using AutoMapper;
 namespace Edo.ViewModels
 {
     public partial class EmployeesViewModel : EntityBaseViewModel
@@ -68,7 +69,7 @@ namespace Edo.ViewModels
                 [DisplayName("PhotoPath")]
                 public virtual String PhotoPath { get; set; }
   
-                [JsonIgnore]          
+                [JsonIgnore,IgnoreMap]          
                 [DisplayName("Orders")]
                 public virtual  ICollection<OrdersViewModel> Orders { get; set; }
    }

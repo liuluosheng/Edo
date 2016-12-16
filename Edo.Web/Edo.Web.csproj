@@ -1382,13 +1382,13 @@
     <Content Include="Scripts\select.min.js.map" />
     <None Include="Views\Customers\Index.cshtml" />
     <Content Include="Views\Region\Index.cshtml" />
+    <Content Include="Views\Products\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Extension\" />
     <Folder Include="Scripts\typings\angular-material\" />
     <Folder Include="Views\OrderDetails\" />
-    <Folder Include="Views\Products\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

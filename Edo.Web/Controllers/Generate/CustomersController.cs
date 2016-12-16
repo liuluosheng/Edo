@@ -18,27 +18,27 @@ using Edo.Service;
 using System.Threading.Tasks;
 namespace Edo.Web.Controllers
 {
-	public partial class CustomersController : BaseController<Customers, CustomersViewModel>
-	{
+    public partial class CustomersController : BaseController<Customers, CustomersViewModel>
+    {
         public CustomersController(BaseService<Customers> service)
-        :base(service)
+            : base(service)
         {
-       
+
         }
         public ActionResult Index()
         {
             return View();
         }
-           
+
         public async Task<ActionResult> PageRegion(string itemFilter, int pageIndex, int pageSize, string sort, string filter)
         {
-           var obj = _dbset.Where(itemFilter).SelectMany(p => p.Regions);
-            return await PageData<Region, RegionViewModel>(obj, sort, filter, pageIndex, pageSize);    
+            var obj = _dbset.Where(itemFilter).SelectMany(p => p.Regions);
+            return await PageData<Region, RegionViewModel>(obj, sort, filter, pageIndex, pageSize);
         }
         public async Task<ActionResult> Select2Region(string itemFilter, string field, string q)
         {
             var obj = _dbset.Where(itemFilter).SelectMany(p => p.Regions);
-            return await SelectData(obj, field, q);       
-        }       
-     	}
+            return await SelectData(obj, field, q);
+        }
+    }
 }

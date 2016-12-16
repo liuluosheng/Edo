@@ -12,6 +12,7 @@ using System.Web;
 using Edo.Data.Entity.ComponentModel;
 using Newtonsoft.Json;
 using Edo.Data.Entity;
+using AutoMapper;
 namespace Edo.ViewModels
 {
     public partial class RoleViewModel : EntityBaseViewModel
@@ -20,7 +21,7 @@ namespace Edo.ViewModels
                 [DisplayName("Name")]
                 public virtual String Name { get; set; }
   
-                [JsonIgnore]          
+                [JsonIgnore,IgnoreMap]          
                 [DisplayName("Users")]
                 public virtual  ICollection<UserViewModel> Users { get; set; }
    }
