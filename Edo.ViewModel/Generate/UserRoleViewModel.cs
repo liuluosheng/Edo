@@ -31,6 +31,9 @@ namespace Edo.ViewModels
                 [JsonIgnore,IgnoreMap]          
                 [DisplayName("User")]
                 public virtual User User { get; set; }
+          
+                [DisplayName("Timestamp")]
+                public virtual Byte[] Timestamp { get; set; }
    }
 }
  

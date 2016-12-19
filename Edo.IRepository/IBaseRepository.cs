@@ -31,6 +31,7 @@ namespace Edo.IRepository
 
         #region 方法
 
+        IQueryable<T> OtherEntities<T>() where T : EntityBase;
         Task<List<TEntity>> ToListAsync(Expression<Func<TEntity, bool>> predicate);
         /// <summary>
         /// 插入实体

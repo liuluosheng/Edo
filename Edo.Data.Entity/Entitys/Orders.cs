@@ -14,7 +14,7 @@ namespace Edo.Data.Entity
         public Guid CustomerID { get; set; }
 
         [NotMapped, GridColumn(Field = "Customers.CompanyName")]
-        public string CustomerName { get { return Customers.CompanyName; } }
+        public string CustomerName { get { return Customers != null ? Customers.CompanyName : null; } }
 
         public Guid EmployeeID { get; set; }
         public Guid ShipperID { get; set; }

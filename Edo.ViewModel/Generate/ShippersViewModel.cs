@@ -27,6 +27,9 @@ namespace Edo.ViewModels
                 [JsonIgnore,IgnoreMap]          
                 [DisplayName("Orders")]
                 public virtual  ICollection<OrdersViewModel> Orders { get; set; }
+          
+                [DisplayName("Timestamp")]
+                public virtual Byte[] Timestamp { get; set; }
    }
 }
  

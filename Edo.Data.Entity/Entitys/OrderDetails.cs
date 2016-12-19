@@ -16,7 +16,7 @@ namespace Edo.Data.Entity
         [NotMapped, GridColumn(Field = "Products.ProductName")]
         public string ProductName
         {
-            get { return Products.ProductName; }
+            get { return Products != null ? Products.ProductName : null; }
         }
         public Guid ProductID { get; set; }
         [GridColumn, Required]

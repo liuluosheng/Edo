@@ -43,6 +43,12 @@ namespace Edo.Repository
         {
             get { return _dbSet; }
         }
+
+        public IQueryable<T> OtherEntities<T>() where T : EntityBase
+        {
+            return _context.Set<T>();
+        }
+
         /// <summary>
         /// 异步数据
         /// </summary>
@@ -50,7 +56,7 @@ namespace Edo.Repository
         /// <returns></returns>
         public Task<List<TEntity>> ToListAsync(Expression<Func<TEntity, bool>> predicate)
         {
-            return TrackEntities.Where(predicate).ToListAsync();
+            return Entities.Where(predicate).ToListAsync();
         }
         /// <summary>
         /// 插入实体
@@ -74,8 +80,6 @@ namespace Edo.Repository
             _dbSet.AddRange(entities);
             return _context.SaveChanges();
         }
-
-
         /// <summary>
         /// 删除实体
         /// </summary>
@@ -119,18 +123,13 @@ namespace Edo.Repository
             _dbSet.RemoveRange(entities);
             return _context.SaveChanges();
         }
-
-
-
-
         /// <summary>
         /// 更新实体对象
         /// </summary>
         /// <param name="entity">更新后的实体对象</param>
         /// <returns>操作影响的行数</returns>
-        public int Update(TEntity entity)
+        public virtual int Update(TEntity entity)
         {
-            CheckObjectEntry(entity);
             _context.Entry(entity).State = EntityState.Modified;
             return _context.SaveChanges();
         }
@@ -225,11 +224,6 @@ namespace Edo.Repository
             _dbSet.AddRange(entities);
             return await _context.SaveChangesAsync();
         }
-
-
-
-
-
         /// <summary>
         /// 异步删除实体
         /// </summary>
@@ -280,12 +274,10 @@ namespace Edo.Repository
         /// </summary>
         /// <param name="entity">更新后的实体对象</param>
         /// <returns>操作影响的行数</returns>
-        public async Task<int> UpdateAsync(TEntity entity)
+        public virtual async Task<int> UpdateAsync(TEntity entity)
         {
             try
             {
-
-                CheckObjectEntry(entity);
                 _context.Entry(entity).State = EntityState.Modified;
                 return await _context.SaveChangesAsync();
             }
@@ -295,32 +287,15 @@ namespace Edo.Repository
             }
 
         }
-
-        private void CheckObjectEntry(TEntity entity)
-        {
-            var objContext = ((IObjectContextAdapter)_context).ObjectContext;
-            var objSet = objContext.CreateObjectSet<TEntity>();
-            var entityKey = objContext.CreateEntityKey(objSet.EntitySet.Name, entity);
-            Object foundEntity;
-            if (objContext.TryGetObjectByKey(entityKey, out foundEntity))
-            {
-                entity.Timestamp = ((TEntity)foundEntity).Timestamp;
-                entity.CreatedDate = ((TEntity)foundEntity).CreatedDate;
-                objContext.ObjectStateManager.ChangeObjectState(foundEntity, EntityState.Detached);
-            }
-        }
-
-
         /// <summary>
         /// 直接更新指定条件的数据，此方法不支持事务
         /// </summary>
         /// <param name="predicate">查询条件谓语表达式</param>  
         /// <returns>操作影响的行数</returns>
-        public async Task<int> UpdateDirectAsync(Expression<Func<TEntity, bool>> predicate)
+        public virtual async Task<int> UpdateDirectAsync(Expression<Func<TEntity, bool>> predicate)
         {
             await _dbSet.Where(predicate).ForEachAsync(p =>
             {
-                CheckObjectEntry(p);
                 _context.Entry(p).State = EntityState.Modified;
             });
             return await _context.SaveChangesAsync();

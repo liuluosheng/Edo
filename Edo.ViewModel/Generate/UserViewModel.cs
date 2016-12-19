@@ -30,6 +30,9 @@ namespace Edo.ViewModels
                 [JsonIgnore,IgnoreMap]          
                 [DisplayName("Roles")]
                 public virtual  ICollection<RoleViewModel> Roles { get; set; }
+          
+                [DisplayName("Timestamp")]
+                public virtual Byte[] Timestamp { get; set; }
    }
 }
  

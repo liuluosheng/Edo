@@ -22,21 +22,26 @@ namespace Edo.Web.Controllers
         where T : EntityBase
         where TK : EntityBaseViewModel
     {
-        protected BaseService<T> _service;
+        protected readonly BaseService<T> _service;
         protected readonly IQueryable<T> _dbset;
+
         protected BaseController(BaseService<T> service)
         {
             _service = service;
-            _dbset = service.Repository.TrackEntities;
+            _dbset = service.Repository.Entities;
         }
 
         public virtual async Task<ActionResult> Edit(TK entity)
         {
-            return Content(GetJsonString(new Result { Success = await _service.Repository.UpdateAsync(Mapper.Map<TK, T>(entity)) > 0, Obj = entity }));
+           
+            T model = Mapper.Map<TK, T>(entity);
+            Mapper.Map<T, T>(model);
+            return Content(GetJsonString(new Result { Success = await _service.Repository.UpdateAsync(model) > 0, Obj = Mapper.Map<T, TK>(model) }));
         }
         public virtual async Task<ActionResult> Create(TK entity)
         {
-            return Content(GetJsonString(new Result { Success = await _service.Repository.InsertAsync(Mapper.Map<TK, T>(entity)) > 0, Obj = entity }));
+            T model = Mapper.Map<TK, T>(entity);
+            return Content(GetJsonString(new Result { Success = await _service.Repository.InsertAsync(Mapper.Map<TK, T>(entity)) > 0, Obj = Mapper.Map<T, TK>(model) }));
         }
         public virtual async Task<ActionResult> Delete(TK entity)
         {
