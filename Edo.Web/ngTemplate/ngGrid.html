@@ -83,8 +83,8 @@
                         </div>
                     </div>
                     <div class="row-btn text-left clearfix" ng-if="gridOption.showBtn">
-                        <a class="btn btn-primary" ng-click="dialog(item);" ng-if="gridOption.showBtn.edit"> <i class="glyphicon glyphicon-pencil"></i><span>编 辑</span></a>
-                        <a class="btn btn-primary" ng-click="delete(item)" ng-if="gridOption.showBtn.del">
+                        <a class="btn btn-primary" ng-click="create(item);" ng-if="gridOption.showBtn.edit"> <i class="glyphicon glyphicon-pencil"></i><span>编 辑</span></a>
+                        <a class="btn btn-primary" ng-click="delete(item,$index)" ng-if="gridOption.showBtn.del">
                             <i class="glyphicon glyphicon-trash"></i><span>删 除</span>
                         </a>
                         <a class="btn btn-primary" ng-repeat="btn in gridOption.btns" ng-click="btn.onclick(item);"><i ng-class="btn.icon"></i><span>{{btn.name}}</span>  </a>

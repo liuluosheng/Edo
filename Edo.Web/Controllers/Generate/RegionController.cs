@@ -16,6 +16,7 @@ using Edo.ViewModels;
 using System.Linq.Dynamic.Core;
 using Edo.Service;
 using System.Threading.Tasks;
+using Edo.Web.Model;
 namespace Edo.Web.Controllers
 {
 	public partial class RegionController : BaseController<Region, RegionViewModel>
@@ -30,6 +31,7 @@ namespace Edo.Web.Controllers
             return View();
         }
            
+      #region Customers    
         public async Task<ActionResult> PageCustomers(string itemFilter, int pageIndex, int pageSize, string sort, string filter)
         {
            var obj = _dbset.Where(itemFilter).SelectMany(p => p.Customers);
@@ -39,6 +41,19 @@ namespace Edo.Web.Controllers
         {
             var obj = _dbset.Where(itemFilter).SelectMany(p => p.Customers);
             return await SelectData(obj, field, q);       
-        }       
-     	}
+        }  
+        public async Task<ActionResult> DeleteCustomers(Guid id,Guid itemId)
+        {
+            var model = _service.Repository.GetByKey(id);
+            model.Customers.Remove(_service.Repository.OtherEntities<Customers>().FirstOrDefault(p => p.Id == itemId));
+            return Content(GetJsonString(new Result { Success = await _service.Repository.UpdateAsync(model) > 0 ,Obj=AutoMapper.Mapper.Map<Region,RegionViewModel>(model) }));
+        }  
+        public async Task<ActionResult> CreateCustomers(Guid id,Guid itemId)
+        {
+            var model = _service.Repository.GetByKey(id);
+            model.Customers.Add(_service.Repository.OtherEntities<Customers>().FirstOrDefault(p => p.Id == itemId));
+            return Content(GetJsonString(new Result { Success = await _service.Repository.UpdateAsync(model) > 0 ,Obj=AutoMapper.Mapper.Map<Region,RegionViewModel>(model)}));
+        }  
+     #endregion  
+     }
 }

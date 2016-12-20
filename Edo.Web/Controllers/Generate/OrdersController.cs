@@ -16,6 +16,7 @@ using Edo.ViewModels;
 using System.Linq.Dynamic.Core;
 using Edo.Service;
 using System.Threading.Tasks;
+using Edo.Web.Model;
 namespace Edo.Web.Controllers
 {
 	public partial class OrdersController : BaseController<Orders, OrdersViewModel>
@@ -29,5 +30,5 @@ namespace Edo.Web.Controllers
         {
             return View();
         }
-       	}
+       }
 }

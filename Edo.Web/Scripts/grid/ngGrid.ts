@@ -1,6 +1,7 @@
 ﻿
 /// <reference path="../typings/angularjs/angular.d.ts" />
 /// <reference path="../typings/jquery/jquery.d.ts" />
+declare var $T: any;
 angular.module("app.grid", ['ngSanitize']).directive("grid", [
     "$http", ($http, attrs) => {
         return {
@@ -39,6 +40,7 @@ angular.module("app.grid", ['ngSanitize']).directive("grid", [
                 propbtns: $common.gridOptions[$scope.gridName]["btns"],
                 url: $attrs.gridUrl || $scope.option.url, //必须项
                 selectUrl: $attrs.gridSelectUrl || $scope.option.selectUrl, //必须项
+                deleteUrl: $attrs.gridDeleteUrl,
                 editTemplateUrl: $attrs.gridEditTemplateUrl || $scope.option.editTemplateUrl,//必须项
                 isDetail: $attrs.gridDetail || false,
                 showBtn: {
@@ -74,7 +76,7 @@ angular.module("app.grid", ['ngSanitize']).directive("grid", [
                 $scope.lastPageFilter = p.filter;
                 p.total = result.total;
                 $scope.data = result.data;
-                $scope.bindModel($scope.data);
+                //$scope.bindModel($scope.data);
                 $scope.dataLoading = false;
                 $scope.gridOption.filterRow = p.pageSize >= p.total ? false : $scope.option.filterRow
             });
@@ -164,10 +166,18 @@ angular.module("app.grid", ['ngSanitize']).directive("grid", [
         $scope.page.filter = $scope.getFilterString();
         $scope.paging($scope.page);
         $scope.formatter = (formatter, value, row) => eval(`(${formatter})`)(value, row);
-        $scope.delete = item => {
-            $common.$alert.confirm("确定删除？", { title: "" }).then(function (isConfirm) {
+        $scope.delete = (item, $index) => {
+            $common.$alert.confirm($T.ConfirmDelete, { title: "" }).then(function (isConfirm) {
                 if (isConfirm) {
-                    // do delete
+                    let api = $scope.gridOption.moreToMore ? $scope.gridOption.deleteUrl : `${$scope.gridName}/delete`;
+                    let param = $scope.gridOption.moreToMore ? { id: $scope.gridOption.itemFilterValue, itemId: item.Id } : item;
+                    $http.post(api, param).success(function (result) {
+                        if (result.Success) {
+                            setTimeout(function () { $common.$alert.success($T.AlertSuccess); }, 200);
+                            $scope.data.splice($index, 1);
+                        } else
+                            setTimeout(function () { $common.$alert.error(result.Message || $T.AlertError); }, 200);
+                    });
                 }
             });
         }
@@ -186,7 +196,11 @@ angular.module("app.grid", ['ngSanitize']).directive("grid", [
                 }
             }).result.then(resultFn);
         };
-        $scope.dialog = item => {
+        $scope.isArray = (value) => {
+            return angular.isArray(value);
+        }
+        //create: 主表更新或创建数据行
+        $scope.create = item => {
             var resolve = {
                 item: item,
                 gridOption: {
@@ -197,16 +211,14 @@ angular.module("app.grid", ['ngSanitize']).directive("grid", [
                 resolve["fkName"] = $scope.gridOption.itemFilterField;
             dialog(resolve, function (result) {
                 if (result.Success) {
-                    $common.$alert.success("操作成功啦！");
+                    $common.$alert.success($T.AlertSuccess);
                     item = angular.extend(item, result.Obj);
                 } else
-                    $common.$alert.error(result.Message || "出错了~");
+                    $common.$alert.error(result.Message || $T.AlertError);
             }, $scope.gridOption.editTemplateUrl)
         }
-        $scope.option.dialog = $scope.dialog;
-        $scope.isArray = (value) => {
-            return angular.isArray(value);
-        }
+        $scope.option.create = $scope.create;
+        // createObj: 创建详情行
         $scope.createObj = (template, fkName, fkValue) => {
             let resolve = {
                 fkName: fkName,
@@ -220,17 +232,22 @@ angular.module("app.grid", ['ngSanitize']).directive("grid", [
             if (fkName)
                 resolve.item[fkName] = fkValue;
             dialog(resolve, function (result) {
-                if (result) {
-                    if (!$scope.gridOption.selectedRow[result.prop])
-                        $scope.gridOption.selectedRow[result.prop] = [];
-                    $scope.gridOption.selectedRow[result.prop].push(result.selected);
-                    $http.post(result.api, $scope.gridOption.selectedRow).success(function (data) {
-                        if (data.Success) {
-                            $common.$alert.success("操作成功啦！");
-                        } else
-                            $common.$alert.error(data.Message || "出错了~");
-                    })
+                let message = (data) => {
+                    if (data.Success) {
+                        if (data.Obj) {
+                            angular.extend($scope.gridOption.selectedRow, data.Obj);
+                        }
+                        $common.$alert.success($T.AlertSuccess);
+                    } else
+                        $common.$alert.error(data.Message || $T.AlertError);
                 }
+                if (result.api) {
+                    let param = { id: $scope.gridOption.selectedRow.Id, itemId: result.selected.Id };
+                    $http.post(`${$scope.gridName}/create${result.api}`, param).success(function (data) {
+                        message(data);
+                    });
+                } else
+                    message(result);
             }, template)
         };
     }
@@ -240,19 +257,18 @@ angular.module("app.grid", ['ngSanitize']).directive("grid", [
         $scope.item = angular.copy($scope.$resolve.resolveObj.item) || {};
         $scope.fkName = $scope.$resolve.resolveObj.fkName;
         $scope.gridOption = angular.extend({}, $scope.$resolve.resolveObj.gridOption);
-        $scope.choose = (api, prop) => {
+        $scope.choose = (api) => {
             if ($scope.gridOption.selectedRow) {
                 $uibModalInstance.close({
                     selected: $scope.gridOption.selectedRow,
-                    api,
-                    prop
+                    api
                 });
             } else
-                $common.$toast.error("还没有选择行~");
+                $common.$toast.error($T.AlertSelect);
         }
         $scope.ok = (form, api) => {
             if (form.$invalid) {
-                $common.$toast.error("好像还有错误喔~");
+                $common.$toast.error($T.FormValidateError);
                 return;
             }
             let method = $scope.gridOption.itemFilterValue ? "edit" : "create";

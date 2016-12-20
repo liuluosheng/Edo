@@ -366,6 +366,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>grid-option.tt</DependentUpon>
     </Content>
+    <Content Include="Scripts\common\resources.js" />
     <Content Include="Scripts\errors.json" />
     <Content Include="Scripts\angular-touch.min.js.map" />
     <Content Include="Scripts\angular-sanitize.min.js.map" />

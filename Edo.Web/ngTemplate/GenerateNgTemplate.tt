@@ -113,10 +113,10 @@
                         string keys="Id";
                         var template=moreToMore? string.Format("grid_{0}.html",shortName):string.Format("/ngTemplate/{0}.html",shortName);
                         string foreignKey=Methods.GetGridForeignKey(t,_type);
-                        string gridUrl=moreToMore?string.Format("/{0}/Page{1}",_type.Name.Replace("ViewModel",""),shortName):string.Format("/{0}/Page",shortName);
-                        string selectUrl=moreToMore?string.Format("/{0}/Select2{1}",_type.Name.Replace("ViewModel",""),shortName):string.Format("/{0}/Select2",shortName);
-#>
-                  
+                        string gridUrl=moreToMore?string.Format("/{0}/Page{1}",_type.Name,shortName):string.Format("/{0}/Page",shortName);
+                        string selectUrl=moreToMore?string.Format("/{0}/Select2{1}",_type.Name,shortName):string.Format("/{0}/Select2",shortName);
+                        string deleteUrl=moreToMore?string.Format("/{0}/Delete{1}",_type.Name,shortName):string.Format("/{0}/Delete",shortName);
+#>                  
                     <div grid
                     ng-model="item.<#=                        prop.Name #>"
                      grid-option="gridOption"
@@ -128,6 +128,7 @@
                      grid-template="nggrid"
                      grid-name="<#=                        shortName.Substring(0, 1).ToLower() + shortName.TrimStart(shortName.Substring(0, 1).ToCharArray())#>"
                      grid-select-url="<#=                        selectUrl#>"
+                     grid-delete-url="<#=                        deleteUrl #>"
                      grid-edit-template-url="/ngTemplate/<#=                        shortName #>.html"
                      grid-url="<#=                        gridUrl#>">
                     </div>
@@ -294,7 +295,7 @@
                      </div>
                    </div>
                    <div class="modal-footer">
-                      <button class="btn btn-primary " type="button" ng-click="choose('/<#=            api.ToLower()#>/edit','<#=prop #>')">确 定</button>
+                      <button class="btn btn-primary " type="button" ng-click="choose('<#=           t.Name #>')">确 定</button>
                       <button class="btn btn-warning " type="button" ng-click="cancel()">取 消</button>
                    </div>
              </div>
