@@ -289,12 +289,15 @@ angular.module("app.grid", ['ngSanitize']).directive("grid", [
                 return selected.length != 0 ? selected[0]["name"] : "";
             }
         };
-        $scope.getSelect2 = (t, name, value, q) => $http.post(
+        $scope.getSelectAsync = (t, name, value, q) => $http.post(
             `/${t}/select`,
             { field: name, value: value, q: `${name}.ToString().Contains("${q}")` }
         ).then(response => {
             $scope[t] = response.data.items;
         });
+        $scope.getSelect=(name) => {
+            $scope[name] = window[name];
+        }
         $scope.scrolls =
             {
                 config: {

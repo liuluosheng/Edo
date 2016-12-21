@@ -87,9 +87,7 @@ namespace Edo.Web.Controllers
         {
             return JsonConvert.SerializeObject(obj, new JsonSerializerSettings
             {
-                Converters = new List<JsonConverter> { new IsoDateTimeConverter { DateTimeFormat = "yyyy-MM-dd" } },
-                NullValueHandling = NullValueHandling.Ignore,
-                DefaultValueHandling = DefaultValueHandling.Ignore
+                Converters = new List<JsonConverter> { new IsoDateTimeConverter { DateTimeFormat = "yyyy-MM-dd" } }
             });
         }
     }

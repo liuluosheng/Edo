@@ -18,21 +18,21 @@
               ng-scrollbars-config="scrolls.config">
           <fieldset id="tolink0">
                 <legend><i class="fa fa-circle"></i>基本信息</legend>       
-                    <div class="form-group " ng-class="{'has-error':form.ProductName.$invalid }" 
+                    <div class="form-group" ng-class="{'has-error':form.ProductName.$invalid }" 
                     ><label class="col-sm-2 control-label">ProductName</label>
                     <div class="col-sm-10">
                         <input type="text" autocomplete="off"  class="form-control pull-left"  placeholder="ProductName" name="ProductName" ng-model="item.ProductName"   
                        >
                     </div>
                 </div>
-                    <div class="form-group " ng-class="{'has-error':form.QuantityPerUnit.$invalid }" 
+                    <div class="form-group" ng-class="{'has-error':form.QuantityPerUnit.$invalid }" 
                     ><label class="col-sm-2 control-label">QuantityPerUnit</label>
                     <div class="col-sm-10">
                         <input type="text" autocomplete="off"  class="form-control pull-left"  placeholder="QuantityPerUnit" name="QuantityPerUnit" ng-model="item.QuantityPerUnit"   
                        >
                     </div>
                 </div>
-                    <div class="form-group " ng-class="{'has-error':form.UnitPrice.$invalid }" 
+                    <div class="form-group" ng-class="{'has-error':form.UnitPrice.$invalid }" 
                     ><label class="col-sm-2 control-label">UnitPrice</label>
                     <div class="col-sm-10">
                         <input type="text" autocomplete="off"  class="form-control pull-left"  placeholder="UnitPrice" name="UnitPrice" ng-model="item.UnitPrice"   
@@ -42,7 +42,7 @@
                           </div>
                      </div>
                 </div>
-                    <div class="form-group " ng-class="{'has-error':form.UnitsInStock.$invalid }" 
+                    <div class="form-group" ng-class="{'has-error':form.UnitsInStock.$invalid }" 
                     ><label class="col-sm-2 control-label">UnitsInStock</label>
                     <div class="col-sm-10">
                         <input type="text" autocomplete="off"  class="form-control pull-left"  placeholder="UnitsInStock" name="UnitsInStock" ng-model="item.UnitsInStock"   
@@ -52,7 +52,7 @@
                           </div>
                      </div>
                 </div>
-                    <div class="form-group " ng-class="{'has-error':form.UnitsOnOrder.$invalid }" 
+                    <div class="form-group" ng-class="{'has-error':form.UnitsOnOrder.$invalid }" 
                     ><label class="col-sm-2 control-label">UnitsOnOrder</label>
                     <div class="col-sm-10">
                         <input type="text" autocomplete="off"  class="form-control pull-left"  placeholder="UnitsOnOrder" name="UnitsOnOrder" ng-model="item.UnitsOnOrder"   
@@ -62,7 +62,7 @@
                           </div>
                      </div>
                 </div>
-                    <div class="form-group " ng-class="{'has-error':form.ReorderLevel.$invalid }" 
+                    <div class="form-group" ng-class="{'has-error':form.ReorderLevel.$invalid }" 
                     ><label class="col-sm-2 control-label">ReorderLevel</label>
                     <div class="col-sm-10">
                         <input type="text" autocomplete="off"  class="form-control pull-left"  placeholder="ReorderLevel" name="ReorderLevel" ng-model="item.ReorderLevel"   
@@ -72,14 +72,14 @@
                           </div>
                      </div>
                 </div>
-                    <div class="form-group " ng-class="{'has-error':form.Discontinued.$invalid }" 
+                    <div class="form-group" ng-class="{'has-error':form.Discontinued.$invalid }" 
                     ><label class="col-sm-2 control-label">Discontinued</label>
                     <div class="col-sm-10">
-                        <input type="text" autocomplete="off"  class="form-control pull-left"  placeholder="Discontinued" name="Discontinued" ng-model="item.Discontinued"   
+                        <input type="checkbox" autocomplete="off"  class="form-control pull-left"  placeholder="Discontinued" name="Discontinued" ng-model="item.Discontinued"   
                        >
                     </div>
                 </div>
-                    <div class="form-group " ng-class="{'has-error':form.Categories.$invalid }" 
+                    <div class="form-group" ng-class="{'has-error':form.Categories.$invalid }" 
                       ng-if="'CategoryID'!=fkName"
                     ><label class="col-sm-2 control-label">Categories</label>
                     <div class="col-sm-10">
@@ -88,11 +88,11 @@
                                ng-model="item.CategoryID"
                                theme="bootstrap"                               
                                ng-class="{'has-error':form.CategoryID.$invalid }"
-                              reset-search-input="false"
-                             on-select="item.CategoryID=$item.code;">                                  
-                            <ui-select-match placeholder="键入过滤关键字...">{{select(item.CategoryID,Categories)}}</ui-select-match>
-                            <ui-select-choices repeat="obj in Categories track by $index"
-                             refresh="getSelect2('Categories','Id','Id',$select.search)"
+                               reset-search-input="false"
+                              on-select="item.CategoryID=$item.code;">                                  
+                             <ui-select-match placeholder="键入过滤关键字...">{{select(item.CategoryID,Categories)}}</ui-select-match>
+                             <ui-select-choices repeat="obj in Categories track by $index"
+                             refresh="getSelectAsync('Categories','Id','Id',$select.search)"
                              refresh-delay="0">
                             <div ng-bind-html="obj.name | highlight: $select.search"></div>
                             </ui-select-choices>
@@ -102,7 +102,7 @@
                           </div>
                      </div>
                 </div>
-                    <div class="form-group " ng-class="{'has-error':form.Suppliers.$invalid }" 
+                    <div class="form-group" ng-class="{'has-error':form.Suppliers.$invalid }" 
                       ng-if="'SupplierID'!=fkName"
                     ><label class="col-sm-2 control-label">Suppliers</label>
                     <div class="col-sm-10">
@@ -111,11 +111,11 @@
                                ng-model="item.SupplierID"
                                theme="bootstrap"                               
                                ng-class="{'has-error':form.SupplierID.$invalid }"
-                              reset-search-input="false"
-                             on-select="item.SupplierID=$item.code;">                                  
-                            <ui-select-match placeholder="键入过滤关键字...">{{select(item.SupplierID,Suppliers)}}</ui-select-match>
-                            <ui-select-choices repeat="obj in Suppliers track by $index"
-                             refresh="getSelect2('Suppliers','Id','Id',$select.search)"
+                               reset-search-input="false"
+                              on-select="item.SupplierID=$item.code;">                                  
+                             <ui-select-match placeholder="键入过滤关键字...">{{select(item.SupplierID,Suppliers)}}</ui-select-match>
+                             <ui-select-choices repeat="obj in Suppliers track by $index"
+                             refresh="getSelectAsync('Suppliers','Id','Id',$select.search)"
                              refresh-delay="0">
                             <div ng-bind-html="obj.name | highlight: $select.search"></div>
                             </ui-select-choices>

@@ -18,7 +18,7 @@
               ng-scrollbars-config="scrolls.config">
           <fieldset id="tolink0">
                 <legend><i class="fa fa-circle"></i>基本信息</legend>       
-                    <div class="form-group " ng-class="{'has-error':form.ShipVia.$invalid }" 
+                    <div class="form-group" ng-class="{'has-error':form.ShipVia.$invalid }" 
                     ><label class="col-sm-2 control-label">ShipVia</label>
                     <div class="col-sm-10">
                         <input type="text" autocomplete="off"  class="form-control pull-left"  placeholder="ShipVia" name="ShipVia" ng-model="item.ShipVia"   
@@ -28,7 +28,7 @@
                           </div>
                      </div>
                 </div>
-                    <div class="form-group " ng-class="{'has-error':form.Freight.$invalid }" 
+                    <div class="form-group" ng-class="{'has-error':form.Freight.$invalid }" 
                     ><label class="col-sm-2 control-label">Freight</label>
                     <div class="col-sm-10">
                         <input type="text" autocomplete="off"  class="form-control pull-left"  placeholder="Freight" name="Freight" ng-model="item.Freight"   
@@ -38,49 +38,49 @@
                           </div>
                      </div>
                 </div>
-                    <div class="form-group " ng-class="{'has-error':form.ShipName.$invalid }" 
+                    <div class="form-group" ng-class="{'has-error':form.ShipName.$invalid }" 
                     ><label class="col-sm-2 control-label">ShipName</label>
                     <div class="col-sm-10">
                         <input type="text" autocomplete="off"  class="form-control pull-left"  placeholder="ShipName" name="ShipName" ng-model="item.ShipName"   
                        >
                     </div>
                 </div>
-                    <div class="form-group " ng-class="{'has-error':form.ShipAddress.$invalid }" 
+                    <div class="form-group" ng-class="{'has-error':form.ShipAddress.$invalid }" 
                     ><label class="col-sm-2 control-label">ShipAddress</label>
                     <div class="col-sm-10">
                         <input type="text" autocomplete="off"  class="form-control pull-left"  placeholder="ShipAddress" name="ShipAddress" ng-model="item.ShipAddress"   
                        >
                     </div>
                 </div>
-                    <div class="form-group " ng-class="{'has-error':form.ShipCity.$invalid }" 
+                    <div class="form-group" ng-class="{'has-error':form.ShipCity.$invalid }" 
                     ><label class="col-sm-2 control-label">ShipCity</label>
                     <div class="col-sm-10">
                         <input type="text" autocomplete="off"  class="form-control pull-left"  placeholder="ShipCity" name="ShipCity" ng-model="item.ShipCity"   
                        >
                     </div>
                 </div>
-                    <div class="form-group " ng-class="{'has-error':form.ShipRegion.$invalid }" 
+                    <div class="form-group" ng-class="{'has-error':form.ShipRegion.$invalid }" 
                     ><label class="col-sm-2 control-label">ShipRegion</label>
                     <div class="col-sm-10">
                         <input type="text" autocomplete="off"  class="form-control pull-left"  placeholder="ShipRegion" name="ShipRegion" ng-model="item.ShipRegion"   
                        >
                     </div>
                 </div>
-                    <div class="form-group " ng-class="{'has-error':form.ShipPostalCode.$invalid }" 
+                    <div class="form-group" ng-class="{'has-error':form.ShipPostalCode.$invalid }" 
                     ><label class="col-sm-2 control-label">ShipPostalCode</label>
                     <div class="col-sm-10">
                         <input type="text" autocomplete="off"  class="form-control pull-left"  placeholder="ShipPostalCode" name="ShipPostalCode" ng-model="item.ShipPostalCode"   
                        >
                     </div>
                 </div>
-                    <div class="form-group " ng-class="{'has-error':form.ShipCountry.$invalid }" 
+                    <div class="form-group" ng-class="{'has-error':form.ShipCountry.$invalid }" 
                     ><label class="col-sm-2 control-label">ShipCountry</label>
                     <div class="col-sm-10">
                         <input type="text" autocomplete="off"  class="form-control pull-left"  placeholder="ShipCountry" name="ShipCountry" ng-model="item.ShipCountry"   
                        >
                     </div>
                 </div>
-                    <div class="form-group " ng-class="{'has-error':form.OrderDate.$invalid }" 
+                    <div class="form-group" ng-class="{'has-error':form.OrderDate.$invalid }" 
                     ><label class="col-sm-2 control-label">OrderDate</label>
                     <div class="col-sm-10">
                   <div class="dropdown">
@@ -103,7 +103,7 @@
                           </div>
                      </div>
                 </div>
-                    <div class="form-group " ng-class="{'has-error':form.RequiredDate.$invalid }" 
+                    <div class="form-group" ng-class="{'has-error':form.RequiredDate.$invalid }" 
                     ><label class="col-sm-2 control-label">RequiredDate</label>
                     <div class="col-sm-10">
                   <div class="dropdown">
@@ -123,7 +123,7 @@
                </div>
                     </div>
                 </div>
-                    <div class="form-group " ng-class="{'has-error':form.ShippedDate.$invalid }" 
+                    <div class="form-group" ng-class="{'has-error':form.ShippedDate.$invalid }" 
                     ><label class="col-sm-2 control-label">ShippedDate</label>
                     <div class="col-sm-10">
                   <div class="dropdown">
@@ -143,7 +143,7 @@
                </div>
                     </div>
                 </div>
-                    <div class="form-group " ng-class="{'has-error':form.Customers.$invalid }" 
+                    <div class="form-group" ng-class="{'has-error':form.Customers.$invalid }" 
                       ng-if="'CustomerID'!=fkName"
                     ><label class="col-sm-2 control-label">Customers</label>
                     <div class="col-sm-10">
@@ -152,11 +152,11 @@
                                ng-model="item.CustomerID"
                                theme="bootstrap"                               
                                ng-class="{'has-error':form.CustomerID.$invalid }"
-                              reset-search-input="false"
-                             on-select="item.CustomerID=$item.code;">                                  
-                            <ui-select-match placeholder="键入过滤关键字...">{{select(item.CustomerID,Customers)}}</ui-select-match>
-                            <ui-select-choices repeat="obj in Customers track by $index"
-                             refresh="getSelect2('Customers','CompanyName','Id',$select.search)"
+                               reset-search-input="false"
+                              on-select="item.CustomerID=$item.code;">                                  
+                             <ui-select-match placeholder="键入过滤关键字...">{{select(item.CustomerID,Customers)}}</ui-select-match>
+                             <ui-select-choices repeat="obj in Customers track by $index"
+                             refresh="getSelectAsync('Customers','CompanyName','Id',$select.search)"
                              refresh-delay="0">
                             <div ng-bind-html="obj.name | highlight: $select.search"></div>
                             </ui-select-choices>
@@ -166,7 +166,7 @@
                           </div>
                      </div>
                 </div>
-                    <div class="form-group " ng-class="{'has-error':form.Employees.$invalid }" 
+                    <div class="form-group" ng-class="{'has-error':form.Employees.$invalid }" 
                       ng-if="'EmployeeID'!=fkName"
                     ><label class="col-sm-2 control-label">Employees</label>
                     <div class="col-sm-10">
@@ -175,11 +175,11 @@
                                ng-model="item.EmployeeID"
                                theme="bootstrap"                               
                                ng-class="{'has-error':form.EmployeeID.$invalid }"
-                              reset-search-input="false"
-                             on-select="item.EmployeeID=$item.code;">                                  
-                            <ui-select-match placeholder="键入过滤关键字...">{{select(item.EmployeeID,Employees)}}</ui-select-match>
-                            <ui-select-choices repeat="obj in Employees track by $index"
-                             refresh="getSelect2('Employees','HomePhone','Id',$select.search)"
+                               reset-search-input="false"
+                              on-select="item.EmployeeID=$item.code;">                                  
+                             <ui-select-match placeholder="键入过滤关键字...">{{select(item.EmployeeID,Employees)}}</ui-select-match>
+                             <ui-select-choices repeat="obj in Employees track by $index"
+                             refresh="getSelectAsync('Employees','HomePhone','Id',$select.search)"
                              refresh-delay="0">
                             <div ng-bind-html="obj.name | highlight: $select.search"></div>
                             </ui-select-choices>
@@ -189,7 +189,7 @@
                           </div>
                      </div>
                 </div>
-                    <div class="form-group " ng-class="{'has-error':form.Shippers.$invalid }" 
+                    <div class="form-group" ng-class="{'has-error':form.Shippers.$invalid }" 
                       ng-if="'ShipperID'!=fkName"
                     ><label class="col-sm-2 control-label">Shippers</label>
                     <div class="col-sm-10">
@@ -198,11 +198,11 @@
                                ng-model="item.ShipperID"
                                theme="bootstrap"                               
                                ng-class="{'has-error':form.ShipperID.$invalid }"
-                              reset-search-input="false"
-                             on-select="item.ShipperID=$item.code;">                                  
-                            <ui-select-match placeholder="键入过滤关键字...">{{select(item.ShipperID,Shippers)}}</ui-select-match>
-                            <ui-select-choices repeat="obj in Shippers track by $index"
-                             refresh="getSelect2('Shippers','CompanyName','Id',$select.search)"
+                               reset-search-input="false"
+                              on-select="item.ShipperID=$item.code;">                                  
+                             <ui-select-match placeholder="键入过滤关键字...">{{select(item.ShipperID,Shippers)}}</ui-select-match>
+                             <ui-select-choices repeat="obj in Shippers track by $index"
+                             refresh="getSelectAsync('Shippers','CompanyName','Id',$select.search)"
                              refresh-delay="0">
                             <div ng-bind-html="obj.name | highlight: $select.search"></div>
                             </ui-select-choices>

@@ -80,6 +80,12 @@
   padding: 0 50px 0 60px;
   width: 100%;
 }
+.grid-modal-dialog .modal-body .modal-form .form-group input[type='checkbox'] {
+  width: 25px;
+  height: 25px;
+  outline: none;
+  border: none;
+}
 .grid-modal-dialog .modal-body .modal-form .error {
   height: auto;
   color: #a94442 !important;

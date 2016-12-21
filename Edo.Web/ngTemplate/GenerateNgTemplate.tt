@@ -138,10 +138,11 @@
                     string name=dispalyNameAttribute!=null?dispalyNameAttribute.DisplayName:prop.Name;
                     var foreignKeyAttribute=prop.GetCustomAttribute<ForeignKeyAttribute>();
                     bool isSelect =prop.PropertyType.BaseType==typeof(EntityBase);
+                    bool isEnum =prop.PropertyType==typeof(Enum);
 #>
-                    <div class="form-group " ng-class="{'has-error':form.<#=                    prop.Name #>.$invalid }" 
+                    <div class="form-group" ng-class="{'has-error':form.<#=                    prop.Name #>.$invalid }" 
 <#+
-                    if(isSelect)
+                    if(isSelect || isEnum)
                     {
  #>
                       ng-if="'<#=                        foreignKeyAttribute.Name#>'!=fkName"
@@ -174,10 +175,9 @@
                         }
                     }
                     bool isDate=typeof(DateTime)==prop.PropertyType.GetTypeInfo() || typeof(DateTime?)==prop.PropertyType.GetTypeInfo();  
-                    if(isSelect){
-                        var selectAttribute = prop.GetCustomAttribute<SelectAttribute>() ?? new SelectAttribute();
-                      
-                        if(foreignKeyAttribute==null)
+                    if(isSelect || isEnum){
+                        var selectAttribute = prop.GetCustomAttribute<SelectAttribute>() ?? new SelectAttribute();                 
+                        if(foreignKeyAttribute==null && isSelect)
                         {
                             throw new Exception(string.Format("实体{0}的属性{1}没有添加ForeignKey的属性!",_type.Name,prop.Name));    
                         }
@@ -187,11 +187,11 @@
                                ng-model="item.<#=                        foreignKeyAttribute.Name#>"
                                theme="bootstrap"                               
                                ng-class="{'has-error':form.<#=                        foreignKeyAttribute.Name #>.$invalid }"
-                              reset-search-input="false"
-                             on-select="item.<#=                        foreignKeyAttribute.Name#>=$item.code;">                                  
-                            <ui-select-match placeholder="键入过滤关键字...">{{select(item.<#=                        foreignKeyAttribute.Name#>,<#=                        prop.PropertyType.Name #>)}}</ui-select-match>
-                            <ui-select-choices repeat="obj in <#=                        prop.PropertyType.Name #> track by $index"
-                             refresh="getSelect2('<#=                        prop.PropertyType.Name #>','<#=                        selectAttribute.NameField??"Id" #>','Id',$select.search)"
+                               reset-search-input="false"
+                              on-select="item.<#=                        foreignKeyAttribute.Name#>=$item.code;">                                  
+                             <ui-select-match placeholder="键入过滤关键字...">{{select(item.<#=                        foreignKeyAttribute.Name#>,<#=                        prop.PropertyType.Name #>)}}</ui-select-match>
+                             <ui-select-choices repeat="obj in <#=                        prop.PropertyType.Name #> track by $index"
+                             refresh="getSelectAsync('<#=                        prop.PropertyType.Name #>','<#=                        selectAttribute.NameField??"Id" #>','Id',$select.search)"
                              refresh-delay="0">
                             <div ng-bind-html="obj.name | highlight: $select.search"></div>
                             </ui-select-choices>
@@ -216,9 +216,10 @@
                </div>
 <#+ 
                     }  
-                    else{                          
+                    else{      
+                        bool isBool =prop.PropertyType==typeof(bool) || prop.PropertyType==typeof(bool?);                    
 #>
-                        <input type="text" autocomplete="off"  class="form-control pull-left"  placeholder="<#=                        name #>" name="<#=                        prop.Name #>" ng-model="item.<#=                        prop.Name #>"   
+                        <input type="<#=                        isBool?"checkbox":"text" #>" autocomplete="off"  class="form-control pull-left"  placeholder="<#=                        name #>" name="<#=                        prop.Name #>" ng-model="item.<#=                        prop.Name #>"   
                        <#+   
                         StringBuilder attrs= new StringBuilder();  
                         if(requiredAttribute!=null)  
@@ -295,7 +296,7 @@
                      </div>
                    </div>
                    <div class="modal-footer">
-                      <button class="btn btn-primary " type="button" ng-click="choose('<#=           t.Name #>')">确 定</button>
+                      <button class="btn btn-primary " type="button" ng-click="choose('<#=            t.Name #>')">确 定</button>
                       <button class="btn btn-warning " type="button" ng-click="cancel()">取 消</button>
                    </div>
              </div>
