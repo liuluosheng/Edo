@@ -55,11 +55,11 @@ angular.module("app.grid", ['ngSanitize']).directive("grid", [
                 $parse(modelAttr).assign($scope.$parent, value);
             }
         }
-        $scope.psArray = $scope.gridOption.isDetail ? [15] : [10, 20, 50, 100];
+        $scope.psArray = $scope.gridOption.isDetail ? [10] : [10, 20, 50, 100];
         $scope.page = {
             pageIndex: 1,
             pageSize: $scope.psArray[0],
-            sort: `${$scope.gridOption.itemFilterField || $scope.gridOption.pkColumn} ascending`
+            sort: `${$scope.gridOption.itemFilterField || $scope.gridOption.pkColumn} descending`
         }
         if ($scope.gridOption.itemFilterField) {
             $scope.gridOption.itemFilter = `${$scope.gridOption.itemFilterField} = "${$scope.gridOption.itemFilterValue || $common.emptyGuid}"`;
@@ -78,7 +78,8 @@ angular.module("app.grid", ['ngSanitize']).directive("grid", [
                 $scope.data = result.data;
                 //$scope.bindModel($scope.data);
                 $scope.dataLoading = false;
-                $scope.gridOption.filterRow = p.pageSize >= p.total ? false : $scope.option.filterRow
+                if (!isfilter)
+                    $scope.gridOption.filterRow = p.pageSize >= p.total ? false : $scope.option.filterRow
             });
         }
 
@@ -174,7 +175,7 @@ angular.module("app.grid", ['ngSanitize']).directive("grid", [
                     $http.post(api, param).success(function (result) {
                         if (result.Success) {
                             setTimeout(function () { $common.$alert.success($T.AlertSuccess); }, 200);
-                            $scope.data.splice($index, 1);
+                            $scope.paging($scope.page);
                         } else
                             setTimeout(function () { $common.$alert.error(result.Message || $T.AlertError); }, 200);
                     });
@@ -201,6 +202,8 @@ angular.module("app.grid", ['ngSanitize']).directive("grid", [
         }
         //create: 主表更新或创建数据行
         $scope.create = item => {
+            let isNew = item == null;
+            item = item || {};
             var resolve = {
                 item: item,
                 gridOption: {
@@ -212,7 +215,11 @@ angular.module("app.grid", ['ngSanitize']).directive("grid", [
             dialog(resolve, function (result) {
                 if (result.Success) {
                     $common.$alert.success($T.AlertSuccess);
-                    item = angular.extend(item, result.Obj);
+                    if (!isNew)
+                        item = angular.extend(item, result.Obj);
+                    else {
+                        $scope.paging($scope.page);
+                    }
                 } else
                     $common.$alert.error(result.Message || $T.AlertError);
             }, $scope.gridOption.editTemplateUrl)
@@ -225,8 +232,7 @@ angular.module("app.grid", ['ngSanitize']).directive("grid", [
                 item: {},
                 gridOption: {
                     showBtn: false,
-                    rowDetail: false,
-                    height: 'auto'
+                    filterRow: true
                 }
             };
             if (fkName)
@@ -234,9 +240,6 @@ angular.module("app.grid", ['ngSanitize']).directive("grid", [
             dialog(resolve, function (result) {
                 let message = (data) => {
                     if (data.Success) {
-                        if (data.Obj) {
-                            angular.extend($scope.gridOption.selectedRow, data.Obj);
-                        }
                         $common.$alert.success($T.AlertSuccess);
                     } else
                         $common.$alert.error(data.Message || $T.AlertError);
@@ -252,7 +255,7 @@ angular.module("app.grid", ['ngSanitize']).directive("grid", [
         };
     }
 ]).controller("editInstanceCtrl", [
-    "$scope", "$http", "$uibModalInstance", "$uibModal", "$common", ($scope, $http, $uibModalInstance, $uibModal, $common) => {
+    "$scope", "$http", "$uibModalInstance", "$uibModal", "$common", "$window", ($scope, $http, $uibModalInstance, $uibModal, $common, $window) => {
         $scope.modalHeight = angular.element(window).height() - 230;
         $scope.item = angular.copy($scope.$resolve.resolveObj.item) || {};
         $scope.fkName = $scope.$resolve.resolveObj.fkName;
@@ -265,6 +268,27 @@ angular.module("app.grid", ['ngSanitize']).directive("grid", [
                 });
             } else
                 $common.$toast.error($T.AlertSelect);
+        }
+        $scope.chooseObj = (template,field,bindName) => {
+            $uibModal.open({
+                windowTemplateUrl: "/ngTemplate/modal-template.html",
+                templateUrl: template,
+                controller: 'editInstanceCtrl',
+                backdrop: "static",
+                resolve: {
+                    resolveObj() {
+                        return {
+                            gridOption: {
+                                showBtn: false,
+                                filterRow: true
+                            }
+                        };
+                    }
+                }
+            }).result.then(function (result) {
+                $scope.item[field] = result.selected.Id;
+                $scope.item[bindName] = result.selected[bindName];
+            });
         }
         $scope.ok = (form, api) => {
             if (form.$invalid) {
@@ -280,23 +304,22 @@ angular.module("app.grid", ['ngSanitize']).directive("grid", [
             let top = angular.element(targetSelection).position().top;
             $scope.scrolls.updateScrollbar('scrollTo', top);
         };
-        $scope.bind = ($item, tobindValue) => {
-            $scope.item[tobindValue] = $item.code;
-        };
         $scope.select = (value, options) => {
             if (options) {
                 var selected = $.grep(options, (t) => { return t["code"] == value });
                 return selected.length != 0 ? selected[0]["name"] : "";
             }
         };
-        $scope.getSelectAsync = (t, name, value, q) => $http.post(
-            `/${t}/select`,
-            { field: name, value: value, q: `${name}.ToString().Contains("${q}")` }
-        ).then(response => {
-            $scope[t] = response.data.items;
-        });
-        $scope.getSelect=(name) => {
-            $scope[name] = window[name];
+        $scope.getSelectAsync = (t, name, value, q) => {
+            $http.post(
+                `/${t}/select`,
+                { field: name, value: value, q: `${name}.ToString().Contains("${q}")` }
+            ).then(response => {
+                $scope[t] = response.data.items;
+            })
+        };
+        $scope.getSelect = (name) => {
+            $scope[name] = $window[name];
         }
         $scope.scrolls =
             {

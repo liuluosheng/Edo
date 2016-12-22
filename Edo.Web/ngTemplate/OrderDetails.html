@@ -56,10 +56,9 @@
                                ng-model="item.OrderID"
                                theme="bootstrap"                               
                                ng-class="{'has-error':form.OrderID.$invalid }"
-                               reset-search-input="false"
-                              on-select="item.OrderID=$item.code;">                                  
-                             <ui-select-match placeholder="键入过滤关键字...">{{select(item.OrderID,Orders)}}</ui-select-match>
-                             <ui-select-choices repeat="obj in Orders track by $index"
+                               on-select="item.OrderID=$item.code;"                                                                                         
+                              ><ui-select-match placeholder="键入过滤关键字...">{{select(item.OrderID,Orders)}}</ui-select-match>
+                                <ui-select-choices repeat="obj in Orders track by $index"
                              refresh="getSelectAsync('Orders','Id','Id',$select.search)"
                              refresh-delay="0">
                             <div ng-bind-html="obj.name | highlight: $select.search"></div>
@@ -79,10 +78,9 @@
                                ng-model="item.ProductID"
                                theme="bootstrap"                               
                                ng-class="{'has-error':form.ProductID.$invalid }"
-                               reset-search-input="false"
-                              on-select="item.ProductID=$item.code;">                                  
-                             <ui-select-match placeholder="键入过滤关键字...">{{select(item.ProductID,Products)}}</ui-select-match>
-                             <ui-select-choices repeat="obj in Products track by $index"
+                               on-select="item.ProductID=$item.code;"                                                                                         
+                              ><ui-select-match placeholder="键入过滤关键字...">{{select(item.ProductID,Products)}}</ui-select-match>
+                                <ui-select-choices repeat="obj in Products track by $index"
                              refresh="getSelectAsync('Products','ProductName','Id',$select.search)"
                              refresh-delay="0">
                             <div ng-bind-html="obj.name | highlight: $select.search"></div>

@@ -13,6 +13,7 @@ using Edo.Data.Entity.ComponentModel;
 using Newtonsoft.Json;
 using Edo.Data.Entity;
 using AutoMapper;
+using Edo.Data.Entity.Enum;
 namespace Edo.ViewModels
 {
     public partial class UserViewModel : EntityBaseViewModel
@@ -26,6 +27,9 @@ namespace Edo.ViewModels
           
                 [DisplayName("Address")]
                 public virtual String Address { get; set; }
+          
+                [DisplayName("ColumnType")]
+                public virtual ColumnType ColumnType { get; set; }
   
                 [JsonIgnore,IgnoreMap]          
                 [DisplayName("Roles")]

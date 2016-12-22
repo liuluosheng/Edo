@@ -88,10 +88,9 @@
                                ng-model="item.CategoryID"
                                theme="bootstrap"                               
                                ng-class="{'has-error':form.CategoryID.$invalid }"
-                               reset-search-input="false"
-                              on-select="item.CategoryID=$item.code;">                                  
-                             <ui-select-match placeholder="键入过滤关键字...">{{select(item.CategoryID,Categories)}}</ui-select-match>
-                             <ui-select-choices repeat="obj in Categories track by $index"
+                               on-select="item.CategoryID=$item.code;"                                                                                         
+                              ><ui-select-match placeholder="键入过滤关键字...">{{select(item.CategoryID,Categories)}}</ui-select-match>
+                                <ui-select-choices repeat="obj in Categories track by $index"
                              refresh="getSelectAsync('Categories','Id','Id',$select.search)"
                              refresh-delay="0">
                             <div ng-bind-html="obj.name | highlight: $select.search"></div>
@@ -111,10 +110,9 @@
                                ng-model="item.SupplierID"
                                theme="bootstrap"                               
                                ng-class="{'has-error':form.SupplierID.$invalid }"
-                               reset-search-input="false"
-                              on-select="item.SupplierID=$item.code;">                                  
-                             <ui-select-match placeholder="键入过滤关键字...">{{select(item.SupplierID,Suppliers)}}</ui-select-match>
-                             <ui-select-choices repeat="obj in Suppliers track by $index"
+                               on-select="item.SupplierID=$item.code;"                                                                                         
+                              ><ui-select-match placeholder="键入过滤关键字...">{{select(item.SupplierID,Suppliers)}}</ui-select-match>
+                                <ui-select-choices repeat="obj in Suppliers track by $index"
                              refresh="getSelectAsync('Suppliers','Id','Id',$select.search)"
                              refresh-delay="0">
                             <div ng-bind-html="obj.name | highlight: $select.search"></div>

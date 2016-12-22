@@ -13,6 +13,7 @@ using Edo.Data.Entity.ComponentModel;
 using Newtonsoft.Json;
 using Edo.Data.Entity;
 using AutoMapper;
+using Edo.Data.Entity.Enum;
 namespace Edo.ViewModels
 {
     public partial class RegionViewModel : EntityBaseViewModel
@@ -20,6 +21,9 @@ namespace Edo.ViewModels
                   
                 [DisplayName("RegionDescription")]
                 public virtual String RegionDescription { get; set; }
+          
+                [DisplayName("RegionType")]
+                public virtual ColumnType RegionType { get; set; }
   
                 [JsonIgnore,IgnoreMap]          
                 [DisplayName("Customers")]

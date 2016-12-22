@@ -10,7 +10,7 @@
     <div class="modal-body" id="modal-body">
         <div class="modal-nav">
   <a ng-click="scrollTo('#tolink0')">基本信息</a>
-  <a ng-click="scrollTo('#tolink1')">Customers</a>
+  <a ng-click="scrollTo('#tolink1')">Roles</a>
         </div>
         <form class="form-horizontal  modal-form" role="form" ng-style="{maxHeight:modalHeight}" name="form"
               ng-scrollbars
@@ -18,21 +18,35 @@
               ng-scrollbars-config="scrolls.config">
           <fieldset id="tolink0">
                 <legend><i class="fa fa-circle"></i>基本信息</legend>       
-                    <div class="form-group" ng-class="{'has-error':form.RegionDescription.$invalid }" 
-                    ><label class="col-sm-2 control-label">RegionDescription</label>
+                    <div class="form-group" ng-class="{'has-error':form.Name.$invalid }" 
+                    ><label class="col-sm-2 control-label">Name</label>
                     <div class="col-sm-10">
-                        <input type="text" autocomplete="off"  class="form-control pull-left"  placeholder="RegionDescription" name="RegionDescription" ng-model="item.RegionDescription"   
+                        <input type="text" autocomplete="off"  class="form-control pull-left"  placeholder="Name" name="Name" ng-model="item.Name"   
                        >
                     </div>
                 </div>
-                    <div class="form-group" ng-class="{'has-error':form.RegionType.$invalid }" 
-                    ><label class="col-sm-2 control-label">RegionType</label>
+                    <div class="form-group" ng-class="{'has-error':form.Password.$invalid }" 
+                    ><label class="col-sm-2 control-label">Password</label>
                     <div class="col-sm-10">
-                     <input type="hidden" name="RegionType" ng-model="item.RegionType" required />
+                        <input type="text" autocomplete="off"  class="form-control pull-left"  placeholder="Password" name="Password" ng-model="item.Password"   
+                       >
+                    </div>
+                </div>
+                    <div class="form-group" ng-class="{'has-error':form.Address.$invalid }" 
+                    ><label class="col-sm-2 control-label">Address</label>
+                    <div class="col-sm-10">
+                        <input type="text" autocomplete="off"  class="form-control pull-left"  placeholder="Address" name="Address" ng-model="item.Address"   
+                       >
+                    </div>
+                </div>
+                    <div class="form-group" ng-class="{'has-error':form.ColumnType.$invalid }" 
+                    ><label class="col-sm-2 control-label">ColumnType</label>
+                    <div class="col-sm-10">
+                     <input type="hidden" name="ColumnType" ng-model="item.ColumnType" required />
                      <ui-select 
-                               ng-model="item.RegionType"
+                               ng-model="item.ColumnType"
                                theme="bootstrap"                               
-                               ng-class="{'has-error':form.RegionType.$invalid }"
+                               ng-class="{'has-error':form.ColumnType.$invalid }"
                                                                                         
                               ><ui-select-match placeholder="键入过滤关键字...">{{$select.selected}}</ui-select-match>
                                 <ui-select-choices repeat="obj in ColumnType track by $index"
@@ -45,10 +59,10 @@
                 </div>
                 </fieldset>
           <fieldset id="tolink1">
-                <legend><i class="fa fa-circle"></i>Customers</legend>       
+                <legend><i class="fa fa-circle"></i>Roles</legend>       
                   
                     <div grid
-                    ng-model="item.Customers"
+                    ng-model="item.Roles"
                      grid-option="gridOption"
                      grid-detail="true"
                      grid-item-field="Id"
@@ -56,17 +70,17 @@
                      grid-enable-delete="true"
                      grid-more-to-more="true"
                      grid-template="nggrid"
-                     grid-name="customers"
-                     grid-select-url="/Region/Select2Customers"
-                     grid-delete-url="/Region/DeleteCustomers"
-                     grid-edit-template-url="/ngTemplate/Customers.html"
-                     grid-url="/Region/PageCustomers">
+                     grid-name="role"
+                     grid-select-url="/User/Select2Role"
+                     grid-delete-url="/User/DeleteRole"
+                     grid-edit-template-url="/ngTemplate/Role.html"
+                     grid-url="/User/PageRole">
                     </div>
                 </fieldset>
         </form>
     </div>
     <div class="modal-footer">
-        <button class="btn btn-primary " type="button" ng-click="ok(form,'/region/')">确 定</button>
+        <button class="btn btn-primary " type="button" ng-click="ok(form,'/user/')">确 定</button>
         <button class="btn btn-warning " type="button" ng-click="cancel()">取 消</button>
     </div>
 </div>

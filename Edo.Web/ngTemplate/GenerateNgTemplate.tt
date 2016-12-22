@@ -30,23 +30,10 @@
         if (type.BaseType != null && type.BaseType == baseType && attribute !=null){
             Template template = new NgTemplate(type);
             template.Output.Encoding = Encoding.UTF8;
-            template.RenderToFile( string.Format("{0}.html",type.Name));
-            
-            foreach( PropertyInfo prop in type.GetProperties())
-            {
-                var isGrid=prop.PropertyType.GenericTypeArguments.Length!=0 && prop.PropertyType.GenericTypeArguments[0].BaseType==typeof(EntityBase);
-                if(!isGrid)
-                {       
-                    continue;
-                }         
-                Type t=prop.PropertyType.GenericTypeArguments[0];   
-                if(Methods.CheckMoreToMore(t,type))
-                {                
-                    Template templates = new NgTemplateForMoretoMore(t,type.Name,prop.Name); 
-                    templates.Output.Encoding = Encoding.UTF8;
-                    templates.RenderToFile( string.Format("Grid_{0}.html",prop.Name));
-                }         
-            }       
+            template.RenderToFile( string.Format("{0}.html",type.Name.ToLower()));
+            Template gridTemplate = new NgTemplateForMoretoMore(type); 
+            gridTemplate.Output.Encoding = Encoding.UTF8;
+            gridTemplate.RenderToFile( string.Format("grid_{0}.html",type.Name.ToLower()));               
         }       
     }
     
@@ -75,9 +62,9 @@
     <div class="modal-body" id="modal-body">
         <div class="modal-nav">
 <#+
-            int i =0;
-          
+            int i =0;   
             Dictionary<string,List<PropertyInfo>> props=Methods.GetNavPropertyInfo(_type);
+            List<Type> enums= new List<Type>();
             foreach(var nav in props.Keys)
             {
 #>
@@ -101,8 +88,7 @@
 #>
           <fieldset id="tolink<#=                ii #>">
                 <legend><i class="fa fa-circle"></i><#=                nav#></legend>       
-<#+
-                foreach( PropertyInfo prop in ps)
+<#+                foreach( PropertyInfo prop in ps)
                 {
                     var gridAttr=  prop.GetCustomAttribute<GridAttribute>() ?? new GridAttribute();   
                     var isGrid=prop.PropertyType.GenericTypeArguments.Length!=0 && prop.PropertyType.GenericTypeArguments[0].BaseType==typeof(EntityBase);
@@ -138,11 +124,14 @@
                     string name=dispalyNameAttribute!=null?dispalyNameAttribute.DisplayName:prop.Name;
                     var foreignKeyAttribute=prop.GetCustomAttribute<ForeignKeyAttribute>();
                     bool isSelect =prop.PropertyType.BaseType==typeof(EntityBase);
-                    bool isEnum =prop.PropertyType==typeof(Enum);
+                    bool isEnum =prop.PropertyType.BaseType==typeof(Enum);
+                    if(isEnum){
+                        enums.Add(prop.PropertyType);
+                    }
 #>
                     <div class="form-group" ng-class="{'has-error':form.<#=                    prop.Name #>.$invalid }" 
 <#+
-                    if(isSelect || isEnum)
+                    if(isSelect)
                     {
  #>
                       ng-if="'<#=                        foreignKeyAttribute.Name#>'!=fkName"
@@ -176,28 +165,31 @@
                     }
                     bool isDate=typeof(DateTime)==prop.PropertyType.GetTypeInfo() || typeof(DateTime?)==prop.PropertyType.GetTypeInfo();  
                     if(isSelect || isEnum){
-                        var selectAttribute = prop.GetCustomAttribute<SelectAttribute>() ?? new SelectAttribute();                 
+                        var selectAttribute = prop.GetCustomAttribute<SelectAttribute>() ?? new SelectAttribute();  
+                        string selectName =isEnum?prop.Name:foreignKeyAttribute.Name;     
+                        string refreshApi=isEnum?string.Format("getSelect('{0}')",prop.PropertyType.Name):string.Format("getSelectAsync('{0}','{1}','Id',$select.search)",prop.PropertyType.Name,selectAttribute.NameField??"Id");    
+                        string binds =isEnum?"$select.selected":string.Format("select(item.{0},{1})",selectName,prop.PropertyType.Name);     
                         if(foreignKeyAttribute==null && isSelect)
                         {
                             throw new Exception(string.Format("实体{0}的属性{1}没有添加ForeignKey的属性!",_type.Name,prop.Name));    
                         }
 #>
-                     <input type="hidden" name="<#=                        foreignKeyAttribute.Name#>" ng-model="item.<#=                        foreignKeyAttribute.Name#>" required />
+                     <input type="hidden" name="<#=                        selectName#>" ng-model="item.<#=                        selectName#>" required />
                      <ui-select 
-                               ng-model="item.<#=                        foreignKeyAttribute.Name#>"
+                               ng-model="item.<#=                        selectName#>"
                                theme="bootstrap"                               
-                               ng-class="{'has-error':form.<#=                        foreignKeyAttribute.Name #>.$invalid }"
-                               reset-search-input="false"
-                              on-select="item.<#=                        foreignKeyAttribute.Name#>=$item.code;">                                  
-                             <ui-select-match placeholder="键入过滤关键字...">{{select(item.<#=                        foreignKeyAttribute.Name#>,<#=                        prop.PropertyType.Name #>)}}</ui-select-match>
-                             <ui-select-choices repeat="obj in <#=                        prop.PropertyType.Name #> track by $index"
-                             refresh="getSelectAsync('<#=                        prop.PropertyType.Name #>','<#=                        selectAttribute.NameField??"Id" #>','Id',$select.search)"
+                               ng-class="{'has-error':form.<#=                        selectName #>.$invalid }"
+<#+                        if(isSelect){#>
+                               on-select="item.<#=                            selectName#>=$item.code;" <#+                        } #>                                                                                        
+                              ><ui-select-match placeholder="键入过滤关键字...">{{<#=                        binds #>}}</ui-select-match>
+                                <ui-select-choices repeat="obj in <#=                        prop.PropertyType.Name #> track by $index"
+                             refresh="<#=                        refreshApi #>"
                              refresh-delay="0">
-                            <div ng-bind-html="obj.name | highlight: $select.search"></div>
+                            <div ng-bind-html="<#=                        isEnum?"obj":"obj.name" #> | highlight: $select.search"></div>
                             </ui-select-choices>
                         </ui-select>
 <#+                    }
-                    else if (isDate){
+                    else if (isDate || isSelect){
 #>
                   <div class="dropdown">
                         <a class="dropdown-toggle" id="<#=                        prop.Name #>" role="button" data-toggle="dropdown" data-target="#" href="#">
@@ -206,13 +198,19 @@
                                  name="<#=                        prop.Name #>" 
                                  readonly="readonly"
                                  class="form-control"
-                                 ng-value="item.<#=                        prop.Name #>  | date:'yyyy-MM-dd HH:mm a'">
-                               <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                 ng-value="item.<#=                        prop.Name #><#=                        isDate?"  | date:'yyyy-MM-dd HH:mm a'":"" #>">
+                               <span class="input-group-addon" <#=                        isSelect?string.Format("ng-click=\"chooseObj('/ngtemplate/grid_{0}.html','{1}','{2}')\"",prop.PropertyType.Name,foreignKeyAttribute.Name,"Id") #> ><i class="glyphicon glyphicon-calendar"></i></span>
                         </div>
                         </a>
+<#+                        if(isDate)
+                        {
+ #>
                         <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                            <datetimepicker ng-model="item.<#=                        prop.Name #>" data-datetimepicker-config="{ dropdownSelector: '#<#=                        prop.Name #>' }"></datetimepicker>
+                            <datetimepicker ng-model="item.<#=                            prop.Name #>" data-datetimepicker-config="{ dropdownSelector: '#<#=                            prop.Name #>' }"></datetimepicker>
                         </ul>
+<#+ 
+                        }
+ #>
                </div>
 <#+ 
                     }  
@@ -256,22 +254,31 @@
     </div>
 </div>
 <#+
+            if(enums.Count>0){
+#>
+<script type="text/javascript">
+<#+                foreach(Type t in enums)
+                {
+                    var names =System.Enum.GetNames(t).Select(p=>string.Format("\"{0}\"",p));
+#>
+                var <#=                    t.Name #>=[<#=                    string.Join(",",names) #>];
+<#+
+                }
+ #>
+</script>
+<#+
+            }
             return this.GenerationEnvironment.ToString();
         }    
     }
 #>
-
 <#+
     public class NgTemplateForMoretoMore : CSharpTemplate
     {
-        private Type t; 
-        private string api;   
-        private string prop;
-        public NgTemplateForMoretoMore(Type type,string apiName,string propName)
+        private Type t;  
+        public NgTemplateForMoretoMore(Type type)
         {
             t=type;
-            api=apiName;
-            prop=propName;
         }
         public override string TransformText()
         {                            

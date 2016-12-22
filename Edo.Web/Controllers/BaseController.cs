@@ -33,15 +33,13 @@ namespace Edo.Web.Controllers
 
         public virtual async Task<ActionResult> Edit(TK entity)
         {
-           
             T model = Mapper.Map<TK, T>(entity);
-            Mapper.Map<T, T>(model);
             return Content(GetJsonString(new Result { Success = await _service.Repository.UpdateAsync(model) > 0, Obj = Mapper.Map<T, TK>(model) }));
         }
         public virtual async Task<ActionResult> Create(TK entity)
         {
             T model = Mapper.Map<TK, T>(entity);
-            return Content(GetJsonString(new Result { Success = await _service.Repository.InsertAsync(Mapper.Map<TK, T>(entity)) > 0, Obj = Mapper.Map<T, TK>(model) }));
+            return Content(GetJsonString(new Result { Success = await _service.Repository.InsertAsync(model) > 0, Obj = Mapper.Map<T, TK>(model) }));
         }
         public virtual async Task<ActionResult> Delete(TK entity)
         {

@@ -13,6 +13,7 @@ using Edo.Data.Entity.ComponentModel;
 using Newtonsoft.Json;
 using Edo.Data.Entity;
 using AutoMapper;
+using Edo.Data.Entity.Enum;
 namespace Edo.ViewModels
 {
     public partial class ProductsViewModel : EntityBaseViewModel

@@ -205,6 +205,9 @@
     <Compile Include="Controllers\Generate\SuppliersController.cs">
       <DependentUpon>GenerateController.tt</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\Generate\UserController.cs">
+      <DependentUpon>GenerateController.tt</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OrderDetailsController.cs" />
     <Compile Include="Controllers\OrdersController.cs" />
@@ -285,39 +288,66 @@
     <Content Include="images\tick.png" />
     <Content Include="images\user_identity.gif" />
     <Content Include="images\user_identity_plus.gif" />
-    <Content Include="ngTemplate\Categories.html">
+    <Content Include="ngTemplate\categories.html">
       <DependentUpon>GenerateNgTemplate.tt</DependentUpon>
     </Content>
-    <Content Include="ngTemplate\Customers.html">
+    <Content Include="ngTemplate\customers.html">
       <DependentUpon>GenerateNgTemplate.tt</DependentUpon>
     </Content>
     <Content Include="ngTemplate\datetimepicker.html" />
-    <Content Include="ngTemplate\Employees.html">
+    <Content Include="ngTemplate\employees.html">
       <DependentUpon>GenerateNgTemplate.tt</DependentUpon>
     </Content>
-    <Content Include="ngTemplate\Grid_Customers.html">
+    <Content Include="ngTemplate\grid_categories.html">
       <DependentUpon>GenerateNgTemplate.tt</DependentUpon>
     </Content>
-    <Content Include="ngTemplate\Grid_Regions.html">
+    <Content Include="ngTemplate\grid_customers.html">
+      <DependentUpon>GenerateNgTemplate.tt</DependentUpon>
+    </Content>
+    <Content Include="ngTemplate\grid_employees.html">
+      <DependentUpon>GenerateNgTemplate.tt</DependentUpon>
+    </Content>
+    <Content Include="ngTemplate\grid_orderdetails.html">
+      <DependentUpon>GenerateNgTemplate.tt</DependentUpon>
+    </Content>
+    <Content Include="ngTemplate\grid_orders.html">
+      <DependentUpon>GenerateNgTemplate.tt</DependentUpon>
+    </Content>
+    <Content Include="ngTemplate\grid_products.html">
+      <DependentUpon>GenerateNgTemplate.tt</DependentUpon>
+    </Content>
+    <Content Include="ngTemplate\grid_region.html">
+      <DependentUpon>GenerateNgTemplate.tt</DependentUpon>
+    </Content>
+    <Content Include="ngTemplate\grid_shippers.html">
+      <DependentUpon>GenerateNgTemplate.tt</DependentUpon>
+    </Content>
+    <Content Include="ngTemplate\grid_suppliers.html">
+      <DependentUpon>GenerateNgTemplate.tt</DependentUpon>
+    </Content>
+    <Content Include="ngTemplate\grid_user.html">
       <DependentUpon>GenerateNgTemplate.tt</DependentUpon>
     </Content>
     <Content Include="ngTemplate\modal-template.html" />
-    <Content Include="ngTemplate\OrderDetails.html">
+    <Content Include="ngTemplate\orderdetails.html">
       <DependentUpon>GenerateNgTemplate.tt</DependentUpon>
     </Content>
-    <Content Include="ngTemplate\Orders.html">
+    <Content Include="ngTemplate\orders.html">
       <DependentUpon>GenerateNgTemplate.tt</DependentUpon>
     </Content>
-    <Content Include="ngTemplate\Products.html">
+    <Content Include="ngTemplate\products.html">
       <DependentUpon>GenerateNgTemplate.tt</DependentUpon>
     </Content>
-    <Content Include="ngTemplate\Region.html">
+    <Content Include="ngTemplate\region.html">
       <DependentUpon>GenerateNgTemplate.tt</DependentUpon>
     </Content>
-    <Content Include="ngTemplate\Shippers.html">
+    <Content Include="ngTemplate\shippers.html">
       <DependentUpon>GenerateNgTemplate.tt</DependentUpon>
     </Content>
-    <Content Include="ngTemplate\Suppliers.html">
+    <Content Include="ngTemplate\suppliers.html">
+      <DependentUpon>GenerateNgTemplate.tt</DependentUpon>
+    </Content>
+    <Content Include="ngTemplate\user.html">
       <DependentUpon>GenerateNgTemplate.tt</DependentUpon>
     </Content>
     <Content Include="Scripts\angular-animate.js" />
@@ -1223,25 +1253,29 @@
     <Content Include="ngTemplate\GenerateNgTemplate.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastOutputs>
-.\Categories.html
-.\Customers.html
-.\Employees.html
+.\categories.html
+.\customers.html
+.\employees.html
 .\GenerateNgTemplate.log
-.\Grid_Customers.html
-.\Grid_Regions.html
-.\OrderDetails.html
-.\Orders.html
-.\Products.html
-.\Region.html
-.\Shippers.html
-.\Suppliers.html
+.\grid_categories.html
+.\grid_customers.html
+.\grid_employees.html
+.\grid_orderdetails.html
+.\grid_orders.html
+.\grid_products.html
+.\grid_region.html
+.\grid_shippers.html
+.\grid_suppliers.html
+.\grid_user.html
+.\orderdetails.html
+.\orders.html
+.\products.html
+.\region.html
+.\shippers.html
+.\suppliers.html
+.\user.html
 </LastOutputs>
       <LastGenOutput>GenerateNgTemplate.log</LastGenOutput>
-    </Content>
-    <Content Include="ngTemplate\GenerateNgTemplate.log">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>GenerateNgTemplate.tt</DependentUpon>
     </Content>
     <None Include="compilerconfig.json" />
     <None Include="compilerconfig.json.defaults">
@@ -1263,6 +1297,7 @@
 .\RegionController.cs
 .\ShippersController.cs
 .\SuppliersController.cs
+.\UserController.cs
 </LastOutputs>
       <LastGenOutput>GenerateController.log</LastGenOutput>
     </Content>
@@ -1274,6 +1309,11 @@
     <Content Include="Content\angular-datetimepicker\datetimepicker.scss" />
     <Content Include="Content\angular-datetimepicker\_core.scss" />
     <Content Include="Content\angular-datetimepicker\_variables.scss" />
+    <Content Include="ngTemplate\GenerateNgTemplate.log">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GenerateNgTemplate.tt</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-1.12.4.intellisense.js" />
     <Content Include="Scripts\i18n\ar.js" />
     <Content Include="Scripts\i18n\az.js" />
