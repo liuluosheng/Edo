@@ -37,11 +37,11 @@ namespace Edo.ViewModels
                 [DisplayName("Discount")]
                 public virtual Single Discount { get; set; }
   
-                [JsonIgnore,IgnoreMap]          
+                [IgnoreMap]          
                 [DisplayName("Orders")]
                 public virtual Orders Orders { get; set; }
   
-                [JsonIgnore,IgnoreMap]          
+                [IgnoreMap]          
                 [DisplayName("Products")]
                 public virtual Products Products { get; set; }
           

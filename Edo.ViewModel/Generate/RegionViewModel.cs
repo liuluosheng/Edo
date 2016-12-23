@@ -25,7 +25,7 @@ namespace Edo.ViewModels
                 [DisplayName("RegionType")]
                 public virtual ColumnType RegionType { get; set; }
   
-                [JsonIgnore,IgnoreMap]          
+                [IgnoreMap]          
                 [DisplayName("Customers")]
                 public virtual  ICollection<CustomersViewModel> Customers { get; set; }
           

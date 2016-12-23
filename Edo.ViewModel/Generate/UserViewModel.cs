@@ -31,7 +31,7 @@ namespace Edo.ViewModels
                 [DisplayName("ColumnType")]
                 public virtual ColumnType ColumnType { get; set; }
   
-                [JsonIgnore,IgnoreMap]          
+                [IgnoreMap]          
                 [DisplayName("Roles")]
                 public virtual  ICollection<RoleViewModel> Roles { get; set; }
           

@@ -49,15 +49,15 @@ namespace Edo.ViewModels
                 [DisplayName("Discontinued")]
                 public virtual Boolean Discontinued { get; set; }
   
-                [JsonIgnore,IgnoreMap]          
+                [IgnoreMap]          
                 [DisplayName("Categories")]
                 public virtual Categories Categories { get; set; }
   
-                [JsonIgnore,IgnoreMap]          
+                [IgnoreMap]          
                 [DisplayName("OrderDetails")]
                 public virtual  ICollection<OrderDetailsViewModel> OrderDetails { get; set; }
   
-                [JsonIgnore,IgnoreMap]          
+                [IgnoreMap]          
                 [DisplayName("Suppliers")]
                 public virtual Suppliers Suppliers { get; set; }
           

@@ -28,7 +28,7 @@ namespace Edo.ViewModels
                 [DisplayName("Picture")]
                 public virtual String Picture { get; set; }
   
-                [JsonIgnore,IgnoreMap]          
+                [IgnoreMap]          
                 [DisplayName("Products")]
                 public virtual  ICollection<ProductsViewModel> Products { get; set; }
           

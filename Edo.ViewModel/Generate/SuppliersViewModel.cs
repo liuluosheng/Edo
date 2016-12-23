@@ -52,7 +52,7 @@ namespace Edo.ViewModels
                 [DisplayName("HomePage")]
                 public virtual String HomePage { get; set; }
   
-                [JsonIgnore,IgnoreMap]          
+                [IgnoreMap]          
                 [DisplayName("Products")]
                 public virtual  ICollection<ProductsViewModel> Products { get; set; }
           

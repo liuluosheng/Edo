@@ -28,20 +28,12 @@
                     <div class="form-group" ng-class="{'has-error':form.RegionType.$invalid }" 
                     ><label class="col-sm-2 control-label">RegionType</label>
                     <div class="col-sm-10">
-                     <input type="hidden" name="RegionType" ng-model="item.RegionType" required />
-                     <ui-select 
-                               ng-model="item.RegionType"
-                               theme="bootstrap"                               
-                               ng-class="{'has-error':form.RegionType.$invalid }"
-                                                                                        
-                              ><ui-select-match placeholder="键入过滤关键字...">{{$select.selected}}</ui-select-match>
-                                <ui-select-choices repeat="obj in ColumnType track by $index"
-                             refresh="getSelect('ColumnType')"
-                             refresh-delay="0">
-                            <div ng-bind-html="obj | highlight: $select.search"></div>
-                            </ui-select-choices>
-                        </ui-select>
-                    </div>
+                <select class="form-control" ng-model="item.RegionType" ng-options="value for value in ['Bool','Date','Number','Text']">
+               </select>                 
+                    <div ng-messages="form.RegionType.$error" class="pull-left error">                       
+                            <div ng-message="required">这是个必填项</div>                         
+                          </div>
+                     </div>
                 </div>
                 </fieldset>
           <fieldset id="tolink1">
@@ -70,6 +62,3 @@
         <button class="btn btn-warning " type="button" ng-click="cancel()">取 消</button>
     </div>
 </div>
-<script type="text/javascript">
-                var ColumnType=["Bool","Date","Number","Text"];
-</script>

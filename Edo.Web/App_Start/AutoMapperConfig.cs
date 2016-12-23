@@ -29,6 +29,9 @@ namespace Edo.Web
                     .ForMember(v => v.Regions, opt => opt.Ignore());
 
                 cfg.CreateMap<ProductsViewModel, Products>().ReverseMap();
+                cfg.CreateMap<EmployeesViewModel, Employees>().ReverseMap();
+                cfg.CreateMap<SuppliersViewModel, Suppliers>().ReverseMap();
+                cfg.CreateMap<ShippersViewModel, Shippers>().ReverseMap();
             });
         }
     }

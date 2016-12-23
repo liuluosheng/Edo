@@ -27,7 +27,7 @@ namespace Edo.Data.Entity
         public float Discount { get; set; }
         [ForeignKey("OrderID")]
         public virtual Orders Orders { get; set; }
-        [ForeignKey("ProductID"), Select(NameField = "ProductName")]
+        [ForeignKey("ProductID"), Select(ToNameField = "ProductName")]
         public virtual Products Products { get; set; }
 
 

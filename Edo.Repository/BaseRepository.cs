@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Core.Objects;
 using System.Data.Entity.Infrastructure;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
@@ -281,7 +282,7 @@ namespace Edo.Repository
                 _context.Entry(entity).State = EntityState.Modified;
                 return await _context.SaveChangesAsync();
             }
-            catch (Exception ex)
+            catch (DbEntityValidationException ex)
             {
                 throw ex;
             }

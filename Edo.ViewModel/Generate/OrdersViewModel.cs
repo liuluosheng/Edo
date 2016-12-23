@@ -25,6 +25,12 @@ namespace Edo.ViewModels
                 [DisplayName("CustomerName")]
                 public virtual String CustomerName { get; set; }
           
+                [DisplayName("EmployeesHomePhone")]
+                public virtual String EmployeesHomePhone { get; set; }
+          
+                [DisplayName("ShippersName")]
+                public virtual String ShippersName { get; set; }
+          
                 [DisplayName("EmployeeID")]
                 public virtual Guid EmployeeID { get; set; }
           
@@ -64,19 +70,19 @@ namespace Edo.ViewModels
                 [DisplayName("ShippedDate")]
                 public virtual DateTime? ShippedDate { get; set; }
   
-                [JsonIgnore,IgnoreMap]          
+                [IgnoreMap]          
                 [DisplayName("Customers")]
                 public virtual Customers Customers { get; set; }
   
-                [JsonIgnore,IgnoreMap]          
+                [IgnoreMap]          
                 [DisplayName("Employees")]
                 public virtual Employees Employees { get; set; }
   
-                [JsonIgnore,IgnoreMap]          
+                [IgnoreMap]          
                 [DisplayName("OrderDetails")]
                 public virtual  ICollection<OrderDetailsViewModel> OrderDetails { get; set; }
   
-                [JsonIgnore,IgnoreMap]          
+                [IgnoreMap]          
                 [DisplayName("Shippers")]
                 public virtual Shippers Shippers { get; set; }
           

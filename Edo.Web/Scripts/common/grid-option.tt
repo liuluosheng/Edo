@@ -47,6 +47,19 @@
                         {
                             data.Type = Edo.Data.Entity.Enum.ColumnType.Date;
                         }
+                        if(typeof(decimal?)==propertyInfo.PropertyType
+                            ||typeof(decimal)==propertyInfo.PropertyType
+                            ||typeof(float?)==propertyInfo.PropertyType
+                            ||typeof(float)==propertyInfo.PropertyType
+                            ||typeof(double?)==propertyInfo.PropertyType
+                            ||typeof(double)==propertyInfo.PropertyType
+                            ||typeof(short?)==propertyInfo.PropertyType
+                            ||typeof(short)==propertyInfo.PropertyType
+                            ||typeof(int?)==propertyInfo.PropertyType
+                            ||typeof(int)==propertyInfo.PropertyType)
+                        {
+                            data.Type = Edo.Data.Entity.Enum.ColumnType.Number;
+                        }
                         if (propertyInfo.PropertyType == typeof(Boolean) || propertyInfo.PropertyType == typeof(Boolean?))
                         {
                             data.Type = Edo.Data.Entity.Enum.ColumnType.Bool;

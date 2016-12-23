@@ -1,5 +1,6 @@
 
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using Edo.Data.Entity.ComponentModel;
 using Edo.Data.Entity.Enum;
 
@@ -13,7 +14,7 @@ namespace Edo.Data.Entity
     {
         [GridColumn]
         public string RegionDescription { get; set; }
-
+        [Required]
         public ColumnType RegionType { get; set; }
         [DisplayName("客户信息")]
         public virtual ICollection<Customers> Customers { get; set; }

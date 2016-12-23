@@ -1,99 +1,102 @@
 ﻿
 
 <div class="ng-grid" ng-cloak>
-    <table class="content-table" style="width:100%;">
-        <thead>
-            <tr class="grid-head">
-                <th class="row-number-cell" ng-if="gridOption.rowNumber">No.</th>
-                <th class="detail-cell" ng-if="gridOption.rowDetail || gridOption.showBtn"></th>
-                <th ng-repeat="op in gridOption.columns" ng-style="{width:gridOption.columns.length>1?op.width:'auto'}">
-                    <span ng-bind="op.name" ng-click="sort(op)" class="sort-name"> </span>
-                    <span class="sort" ng-show="op.sortable">
-                        <i class="fa fa-sort-asc" aria-hidden="true" ng-hide="gridSort.field==op.field && gridSort.sort!='ascending'"></i>
-                        <i class="fa fa-sort-desc" aria-hidden="true" ng-hide="gridSort.field==op.field && gridSort.sort!='descending'"></i>
-                    </span>
-                    <div ng-if="gridOption.filterRow" class="row-filter" ng-cloak>
-                        <div ng-if="op.type=='Date'" ng-cloak class="date-filter form-inline">
-                            <input type="text" class="form-control" data-field="{{op.field}}"
-                                   uib-datepicker-popup ng-model="filterObj[op.field].start"
-                                   ng-change="filter();"
-                                   is-open="sO"
-                                   datepicker-options="{maxDate:filterObj[op.field].end,showWeeks:false}"
-                                   ng-click="sO=!sO" />
-                            <span class="split">~</span>
-                            <input type="text" class="form-control" data-field="{{op.field}}"
-                                   uib-datepicker-popup ng-model="filterObj[op.field].end"
-                                   ng-change="filter();"
-                                   is-open="eO"
-                                   datepicker-options="{minDate:filterObj[op.field].start,showWeeks:false}"
-                                   ng-click="eO=!eO" />
-                        </div>
-                        <div class="num-filter" ng-if="op.type=='Number'" ng-cloak ng-init="filterOption='='; filterValue=''">
-                            <div class="input-group">
-                                <div class="input-group-btn" uib-dropdown on-toggle="filterNum(op.field, filterOption)">
-                                    <button type="button" class="btn btn-default dropdown-toggle" uib-dropdown-toggle><b>&nbsp;{{filterOption}}&nbsp;</b><span class="caret"></span></button>
-                                    <ul class="dropdown-menu dropdown-menu-left" role="menu" uib-dropdown-menu>
-                                        <li><a href="#" ng-click="filterOption='='">等于（=）</a></li>
-                                        <li><a href="#" ng-click="filterOption='>='">大于且等于（&ge;）</a></li>
-                                        <li><a href="#" ng-click="filterOption='<='">小于且等于（&le;）</a></li>
-                                        <li><a href="#" ng-click="filterOption='!='">不等于（!=）</a></li>
-                                    </ul>
+    <div class="grid-body" ng-scrollbars
+         ng-scrollbars-config="scrolls.config">
+        <table class="content-table" style="width: 100%;">
+            <thead>
+                <tr class="grid-head">
+                    <th class="row-number-cell" ng-if="gridOption.rowNumber">No.</th>
+                    <th class="detail-cell" ng-if="gridOption.rowDetail || gridOption.showBtn"></th>
+                    <th ng-repeat="op in gridOption.columns" ng-style="{width:gridOption.columns.length>1?op.width:'auto'}">
+                        <span ng-bind="op.name" ng-click="sort(op)" class="sort-name"> </span>
+                        <span class="sort" ng-show="op.sortable">
+                            <i class="fa fa-sort-asc" aria-hidden="true" ng-hide="gridSort.field==op.field && gridSort.sort!='ascending'"></i>
+                            <i class="fa fa-sort-desc" aria-hidden="true" ng-hide="gridSort.field==op.field && gridSort.sort!='descending'"></i>
+                        </span>
+                        <div ng-if="gridOption.filterRow" class="row-filter" ng-cloak>
+                            <div ng-if="op.type=='Date'" ng-cloak class="date-filter form-inline">
+                                <input type="text" class="form-control" data-field="{{op.field}}"
+                                       uib-datepicker-popup ng-model="filterObj[op.field].start"
+                                       ng-change="filter();"
+                                       is-open="sO"
+                                       datepicker-options="{maxDate:filterObj[op.field].end,showWeeks:false}"
+                                       ng-click="sO=!sO" />
+                                <span class="split">~</span>
+                                <input type="text" class="form-control" data-field="{{op.field}}"
+                                       uib-datepicker-popup ng-model="filterObj[op.field].end"
+                                       ng-change="filter();"
+                                       is-open="eO"
+                                       datepicker-options="{minDate:filterObj[op.field].start,showWeeks:false}"
+                                       ng-click="eO=!eO" />
+                            </div>
+                            <div class="num-filter" ng-if="op.type=='Number'" ng-cloak ng-init="filterOption='='; filterValue=''">
+                                <div class="input-group">
+                                    <div class="input-group-btn" uib-dropdown on-toggle="filterNum(op.field, filterOption)">
+                                        <button type="button" class="btn btn-default dropdown-toggle" uib-dropdown-toggle><b>&nbsp;{{filterOption}}&nbsp;</b><span class="caret"></span></button>
+                                        <ul class="dropdown-menu dropdown-menu-left" role="menu" uib-dropdown-menu>
+                                            <li><a href="#" ng-click="filterOption='='">等于（=）</a></li>
+                                            <li><a href="#" ng-click="filterOption='>='">大于且等于（&ge;）</a></li>
+                                            <li><a href="#" ng-click="filterOption='<='">小于且等于（&le;）</a></li>
+                                            <li><a href="#" ng-click="filterOption='!='">不等于（!=）</a></li>
+                                        </ul>
+                                    </div>
+                                    <input type="text" class="form-control" ng-model="filterObj[op.field].text" ng-blur="filterNum(op.field,filterOption)">
                                 </div>
-                                <input type="text" class="form-control" ng-model="filterObj[op.field].text" ng-blur="filterNum(op.field,filterOption)">
+                            </div>
+                            <input ng-if="op.type=='Text'" ng-model="filterObj[op.field]" class="form-control filter-text" type="text" ng-blur="filter(filterIsOpen);"
+                                   uib-typeahead="filter for filter in getSelectFilter(op.field,$viewValue)"
+                                   typeahead-focus-on-select="false"
+                                   typeahead-on-select="filter();"
+                                   typeahead-is-open="filterIsOpen"
+                                   typeahead-min-length="2"
+                                   typeahead-wait-ms="500" />
+                            <i class="fa fa-close filter-clear-btn" ng-click="clearFilter(op.field);" ng-show="op.type!='Date' && filterObj[op.field] "></i>
+                        </div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-cloak class="static-row">
+                    <td colspan={{getconspan()}} ng-cloak>
+                        <div class="alert alert-warning" ng-show="data && data.length==0">没有符合条件的数据！</div>
+                        <i class="fa fa-spinner fa-pulse  fa-fw" ng-hide="dataLoading==false"></i>
+                    </td>
+                </tr>
+                <tr ng-repeat-start="item in data" ng-click="rowSelected(item);" ng-class="{active:item.$selected,striped:$odd}" class="data-row" ng-init="row.show=false">
+                    <td ng-if="gridOption.rowNumber" ng-bind="(page.pageIndex-1)*page.pageSize+$index+1" class="row-number-cell"> </td>
+                    <td class="detail-cell" ng-if="gridOption.rowDetail || gridOption.showBtn"><i class="fa" ng-click="row.show=!row.show;" ng-class="row.show?'fa-minus-square':'fa-plus-square'" aria-hidden="true"></i></td>
+                    <td ng-repeat="col in gridOption.columns"
+                        ng-style="{width:col.width}"
+                        ng-bind="col.formatter?formatter(col.formatter,item[col.id],item) : item[col.id]"
+                        uib-popover="{{col.formatter?formatter(col.formatter,item[col.id],item) : item[col.id]}}"
+                        popover-append-to-body="true"
+                        popover-trigger="'outsideClick'"
+                        popover-placement="top-left"></td>
+                </tr>
+                <tr ng-repeat-end class="static-row" ng-cloak ng-show="row.show">
+                    <td colspan={{getconspan()}}>
+                        <div ng-if="gridOption.rowDetail" class="row-detail-content clearfix">
+                            <div ng-if="gridOption.onRenderRowDetail" ng-bind-html="renderRowDetail(item)"></div>
+                            <div ng-if="!gridOption.onRenderRowDetail" ng-repeat="(key,value) in item | filterColunm:columnfields" class="row-detail-item">
+                                <div ng-if="!isArray(value)">
+                                    <b>{{key}}</b> ： {{value}}
+                                </div>
                             </div>
                         </div>
-                        <input ng-if="op.type=='Text'" ng-model="filterObj[op.field]" class="form-control filter-text" type="text" ng-blur="filter(filterIsOpen);"
-                               uib-typeahead="filter for filter in getSelectFilter(op.field,$viewValue)"
-                               typeahead-focus-on-select="false"
-                               typeahead-on-select="filter();"
-                               typeahead-is-open="filterIsOpen"
-                               typeahead-min-length="2"
-                               typeahead-wait-ms="500" />
-                        <i class="fa fa-close filter-clear-btn" ng-click="clearFilter(op.field);" ng-show="op.type!='Date' && filterObj[op.field] "></i>
-                    </div>
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr ng-cloak class="static-row">
-                <td colspan={{getconspan()}} ng-cloak>
-                    <div class="alert alert-warning" ng-show="data && data.length==0">没有符合条件的数据！</div>
-                    <i class="fa fa-spinner fa-pulse  fa-fw" ng-hide="dataLoading==false"></i>
-                </td>
-            </tr>
-            <tr ng-repeat-start="item in data" ng-click="rowSelected(item);" ng-class="{active:item.$selected,striped:$odd}" class="data-row" ng-init="row.show=false">
-                <td ng-if="gridOption.rowNumber" ng-bind="(page.pageIndex-1)*page.pageSize+$index+1" class="row-number-cell"> </td>
-                <td class="detail-cell" ng-if="gridOption.rowDetail || gridOption.showBtn"><i class="fa" ng-click="row.show=!row.show;" ng-class="row.show?'fa-minus-square':'fa-plus-square'" aria-hidden="true"></i></td>
-                <td ng-repeat="col in gridOption.columns"
-                    ng-style="{width:col.width}"
-                    ng-bind="col.formatter?formatter(col.formatter,item[col.id],item) : item[col.id]"
-                    uib-popover="{{col.formatter?formatter(col.formatter,item[col.id],item) : item[col.id]}}"
-                    popover-append-to-body="true"
-                    popover-trigger="'outsideClick'"
-                    popover-placement="top-left"></td>
-            </tr>
-            <tr ng-repeat-end class="static-row" ng-cloak ng-show="row.show">
-                <td colspan={{getconspan()}}>
-                    <div ng-if="gridOption.rowDetail" class="row-detail-content clearfix">
-                        <div ng-if="gridOption.onRenderRowDetail" ng-bind-html="renderRowDetail(item)"></div>
-                        <div ng-if="!gridOption.onRenderRowDetail" ng-repeat="(key,value) in item | filterColunm:columnfields" class="row-detail-item">
-                            <div ng-if="!isArray(value)">
-                                <b>{{key}}</b> ： {{value}}
-                            </div>
+                        <div class="row-btn text-left clearfix" ng-if="gridOption.showBtn">
+                            <a class="btn btn-primary" ng-click="create(item);" ng-if="gridOption.showBtn.edit"> <i class="glyphicon glyphicon-pencil"></i><span>编 辑</span></a>
+                            <a class="btn btn-primary" ng-click="delete(item,$index)" ng-if="gridOption.showBtn.del">
+                                <i class="glyphicon glyphicon-trash"></i><span>删 除</span>
+                            </a>
+                            <a class="btn btn-primary" ng-repeat="btn in gridOption.btns" ng-click="btn.onclick(item);"><i ng-class="btn.icon"></i><span>{{btn.name}}</span>  </a>
+                            <a ng-if="!gridOption.isDetail" class="btn btn-primary" ng-repeat="btn in gridOption.propbtns" ng-click="createObj('/ngTemplate/'+btn.template+'.html',btn.pk,item.Id)"><i class="fa fa-plus"></i><span>{{btn.name}}</span>  </a>
                         </div>
-                    </div>
-                    <div class="row-btn text-left clearfix" ng-if="gridOption.showBtn">
-                        <a class="btn btn-primary" ng-click="create(item);" ng-if="gridOption.showBtn.edit"> <i class="glyphicon glyphicon-pencil"></i><span>编 辑</span></a>
-                        <a class="btn btn-primary" ng-click="delete(item,$index)" ng-if="gridOption.showBtn.del">
-                            <i class="glyphicon glyphicon-trash"></i><span>删 除</span>
-                        </a>
-                        <a class="btn btn-primary" ng-repeat="btn in gridOption.btns" ng-click="btn.onclick(item);"><i ng-class="btn.icon"></i><span>{{btn.name}}</span>  </a>
-                        <a ng-if="!gridOption.isDetail" class="btn btn-primary" ng-repeat="btn in gridOption.propbtns" ng-click="createObj('/ngTemplate/'+btn.template+'.html',btn.pk,item.Id)"><i class="fa fa-plus"></i><span>{{btn.name}}</span>  </a>
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
     <div ng-show="page.pageSize<page.total" ng-cloak>
         <div class="btn-group grid-pagination" uib-dropdown>
             <button id="single-button" type="button" class="btn btn-primary" uib-dropdown-toggle>

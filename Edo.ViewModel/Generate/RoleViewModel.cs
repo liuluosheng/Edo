@@ -22,7 +22,7 @@ namespace Edo.ViewModels
                 [DisplayName("Name")]
                 public virtual String Name { get; set; }
   
-                [JsonIgnore,IgnoreMap]          
+                [IgnoreMap]          
                 [DisplayName("Users")]
                 public virtual  ICollection<UserViewModel> Users { get; set; }
           

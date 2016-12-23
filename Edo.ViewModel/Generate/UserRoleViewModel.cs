@@ -22,14 +22,14 @@ namespace Edo.ViewModels
                 [DisplayName("RoleId")]
                 public virtual Guid RoleId { get; set; }
   
-                [JsonIgnore,IgnoreMap]          
+                [IgnoreMap]          
                 [DisplayName("Role")]
                 public virtual Role Role { get; set; }
           
                 [DisplayName("UserId")]
                 public virtual Guid UserId { get; set; }
   
-                [JsonIgnore,IgnoreMap]          
+                [IgnoreMap]          
                 [DisplayName("User")]
                 public virtual User User { get; set; }
           

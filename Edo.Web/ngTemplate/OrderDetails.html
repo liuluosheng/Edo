@@ -47,45 +47,45 @@
                           </div>
                      </div>
                 </div>
-                    <div class="form-group" ng-class="{'has-error':form.Orders.$invalid }" 
+                    <div class="form-group" ng-class="{'has-error':form.OrderID.$invalid }" 
                       ng-if="'OrderID'!=fkName"
                     ><label class="col-sm-2 control-label">Orders</label>
                     <div class="col-sm-10">
-                     <input type="hidden" name="OrderID" ng-model="item.OrderID" required />
-                     <ui-select 
-                               ng-model="item.OrderID"
-                               theme="bootstrap"                               
-                               ng-class="{'has-error':form.OrderID.$invalid }"
-                               on-select="item.OrderID=$item.code;"                                                                                         
-                              ><ui-select-match placeholder="键入过滤关键字...">{{select(item.OrderID,Orders)}}</ui-select-match>
-                                <ui-select-choices repeat="obj in Orders track by $index"
-                             refresh="getSelectAsync('Orders','Id','Id',$select.search)"
-                             refresh-delay="0">
-                            <div ng-bind-html="obj.name | highlight: $select.search"></div>
-                            </ui-select-choices>
-                        </ui-select>
+                  <div class="dropdown">
+                  <input type="hidden" ng-model="item.OrderID" required name="OrderID" />               
+                                       <a class="dropdown-toggle" id="Orders" role="button" data-toggle="dropdown" data-target="#" href="#">
+                        <div class="input-group">
+                           <input type="text"                             
+                                 readonly="readonly"
+                                 class="form-control"
+                                 ng-value="item.OrderID">
+                               <span class="input-group-addon" ng-click="chooseObj('/ngtemplate/grid_Orders.html','OrderID','OrderID','Id')" >
+                               <i class="glyphicon glyphicon-plus"></i></span>
+                        </div>
+                    </a>
+               </div>
                     <div ng-messages="form.OrderID.$error" class="pull-left error">                       
                             <div ng-message="required">这是个必填项</div>                         
                           </div>
                      </div>
                 </div>
-                    <div class="form-group" ng-class="{'has-error':form.Products.$invalid }" 
+                    <div class="form-group" ng-class="{'has-error':form.ProductID.$invalid }" 
                       ng-if="'ProductID'!=fkName"
                     ><label class="col-sm-2 control-label">Products</label>
                     <div class="col-sm-10">
-                     <input type="hidden" name="ProductID" ng-model="item.ProductID" required />
-                     <ui-select 
-                               ng-model="item.ProductID"
-                               theme="bootstrap"                               
-                               ng-class="{'has-error':form.ProductID.$invalid }"
-                               on-select="item.ProductID=$item.code;"                                                                                         
-                              ><ui-select-match placeholder="键入过滤关键字...">{{select(item.ProductID,Products)}}</ui-select-match>
-                                <ui-select-choices repeat="obj in Products track by $index"
-                             refresh="getSelectAsync('Products','ProductName','Id',$select.search)"
-                             refresh-delay="0">
-                            <div ng-bind-html="obj.name | highlight: $select.search"></div>
-                            </ui-select-choices>
-                        </ui-select>
+                  <div class="dropdown">
+                  <input type="hidden" ng-model="item.ProductID" required name="ProductID" />               
+                                       <a class="dropdown-toggle" id="Products" role="button" data-toggle="dropdown" data-target="#" href="#">
+                        <div class="input-group">
+                           <input type="text"                             
+                                 readonly="readonly"
+                                 class="form-control"
+                                 ng-value="item.ProductName">
+                               <span class="input-group-addon" ng-click="chooseObj('/ngtemplate/grid_Products.html','ProductID','ProductName','ProductName')" >
+                               <i class="glyphicon glyphicon-plus"></i></span>
+                        </div>
+                    </a>
+               </div>
                     <div ng-messages="form.ProductID.$error" class="pull-left error">                       
                             <div ng-message="required">这是个必填项</div>                         
                           </div>

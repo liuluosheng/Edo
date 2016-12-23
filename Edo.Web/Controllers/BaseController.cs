@@ -34,12 +34,12 @@ namespace Edo.Web.Controllers
         public virtual async Task<ActionResult> Edit(TK entity)
         {
             T model = Mapper.Map<TK, T>(entity);
-            return Content(GetJsonString(new Result { Success = await _service.Repository.UpdateAsync(model) > 0, Obj = Mapper.Map<T, TK>(model) }));
+            return Content(GetJsonString(new Result { Success = await _service.Repository.UpdateAsync(model) > 0, Obj = model }));
         }
         public virtual async Task<ActionResult> Create(TK entity)
         {
             T model = Mapper.Map<TK, T>(entity);
-            return Content(GetJsonString(new Result { Success = await _service.Repository.InsertAsync(model) > 0, Obj = Mapper.Map<T, TK>(model) }));
+            return Content(GetJsonString(new Result { Success = await _service.Repository.InsertAsync(model) > 0, Obj = model }));
         }
         public virtual async Task<ActionResult> Delete(TK entity)
         {
@@ -85,7 +85,10 @@ namespace Edo.Web.Controllers
         {
             return JsonConvert.SerializeObject(obj, new JsonSerializerSettings
             {
-                Converters = new List<JsonConverter> { new IsoDateTimeConverter { DateTimeFormat = "yyyy-MM-dd" } }
+                Converters = new List<JsonConverter> { new IsoDateTimeConverter { DateTimeFormat = "yyyy-MM-dd" }, new StringEnumConverter() },
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
+                NullValueHandling = NullValueHandling.Ignore,
+                PreserveReferencesHandling = PreserveReferencesHandling.Objects
             });
         }
     }

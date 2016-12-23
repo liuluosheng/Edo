@@ -49,11 +49,11 @@ namespace Edo.ViewModels
                 [DisplayName("Fax")]
                 public virtual String Fax { get; set; }
   
-                [JsonIgnore,IgnoreMap]          
+                [IgnoreMap]          
                 [DisplayName("Orders")]
                 public virtual  ICollection<OrdersViewModel> Orders { get; set; }
   
-                [JsonIgnore,IgnoreMap]          
+                [IgnoreMap]          
                 [DisplayName("Regions")]
                 public virtual  ICollection<RegionViewModel> Regions { get; set; }
           

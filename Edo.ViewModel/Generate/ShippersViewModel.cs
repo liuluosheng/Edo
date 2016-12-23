@@ -25,7 +25,7 @@ namespace Edo.ViewModels
                 [DisplayName("Phone")]
                 public virtual String Phone { get; set; }
   
-                [JsonIgnore,IgnoreMap]          
+                [IgnoreMap]          
                 [DisplayName("Orders")]
                 public virtual  ICollection<OrdersViewModel> Orders { get; set; }
           

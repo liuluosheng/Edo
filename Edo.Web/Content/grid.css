@@ -155,7 +155,7 @@
   min-width: 300px;
 }
 .ng-grid .grid-body {
-  max-width: 1200px;
+  width: 100%;
   overflow: auto;
 }
 .ng-grid .panel-heading {

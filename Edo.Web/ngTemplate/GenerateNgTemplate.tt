@@ -64,7 +64,6 @@
 <#+
             int i =0;   
             Dictionary<string,List<PropertyInfo>> props=Methods.GetNavPropertyInfo(_type);
-            List<Type> enums= new List<Type>();
             foreach(var nav in props.Keys)
             {
 #>
@@ -125,11 +124,8 @@
                     var foreignKeyAttribute=prop.GetCustomAttribute<ForeignKeyAttribute>();
                     bool isSelect =prop.PropertyType.BaseType==typeof(EntityBase);
                     bool isEnum =prop.PropertyType.BaseType==typeof(Enum);
-                    if(isEnum){
-                        enums.Add(prop.PropertyType);
-                    }
 #>
-                    <div class="form-group" ng-class="{'has-error':form.<#=                    prop.Name #>.$invalid }" 
+                    <div class="form-group" ng-class="{'has-error':form.<#=                    isSelect? foreignKeyAttribute.Name:prop.Name #>.$invalid }" 
 <#+
                     if(isSelect)
                     {
@@ -164,44 +160,43 @@
                         }
                     }
                     bool isDate=typeof(DateTime)==prop.PropertyType.GetTypeInfo() || typeof(DateTime?)==prop.PropertyType.GetTypeInfo();  
-                    if(isSelect || isEnum){
-                        var selectAttribute = prop.GetCustomAttribute<SelectAttribute>() ?? new SelectAttribute();  
-                        string selectName =isEnum?prop.Name:foreignKeyAttribute.Name;     
-                        string refreshApi=isEnum?string.Format("getSelect('{0}')",prop.PropertyType.Name):string.Format("getSelectAsync('{0}','{1}','Id',$select.search)",prop.PropertyType.Name,selectAttribute.NameField??"Id");    
-                        string binds =isEnum?"$select.selected":string.Format("select(item.{0},{1})",selectName,prop.PropertyType.Name);     
+                    if( isEnum){                
+#>
+                <select class="form-control" ng-model="item.<#=                        prop.Name #>" ng-options="value for value in [<#=                        string.Join(",",Enum.GetNames(prop.PropertyType).Select(p=>string.Format("\'{0}\'",p))) #>]">
+               </select>                 
+<#+                    }
+                    else if (isDate || isSelect){
+                        var selectAttribute = prop.GetCustomAttribute<SelectAttribute>() ?? new SelectAttribute(); 
                         if(foreignKeyAttribute==null && isSelect)
                         {
                             throw new Exception(string.Format("实体{0}的属性{1}没有添加ForeignKey的属性!",_type.Name,prop.Name));    
                         }
-#>
-                     <input type="hidden" name="<#=                        selectName#>" ng-model="item.<#=                        selectName#>" required />
-                     <ui-select 
-                               ng-model="item.<#=                        selectName#>"
-                               theme="bootstrap"                               
-                               ng-class="{'has-error':form.<#=                        selectName #>.$invalid }"
-<#+                        if(isSelect){#>
-                               on-select="item.<#=                            selectName#>=$item.code;" <#+                        } #>                                                                                        
-                              ><ui-select-match placeholder="键入过滤关键字...">{{<#=                        binds #>}}</ui-select-match>
-                                <ui-select-choices repeat="obj in <#=                        prop.PropertyType.Name #> track by $index"
-                             refresh="<#=                        refreshApi #>"
-                             refresh-delay="0">
-                            <div ng-bind-html="<#=                        isEnum?"obj":"obj.name" #> | highlight: $select.search"></div>
-                            </ui-select-choices>
-                        </ui-select>
-<#+                    }
-                    else if (isDate || isSelect){
+                        if(isSelect){
+                            if(_type.GetProperty(foreignKeyAttribute.Name).PropertyType==typeof(Guid))
+                            {
+                                requiredAttribute= new RequiredAttribute();
+                            } else
+                            {
+                                requiredAttribute = _type.GetProperty(foreignKeyAttribute.Name).GetCustomAttribute<RequiredAttribute>();
+                            }
+                        }
 #>
                   <div class="dropdown">
-                        <a class="dropdown-toggle" id="<#=                        prop.Name #>" role="button" data-toggle="dropdown" data-target="#" href="#">
+<#+                        if(requiredAttribute!=null)
+                        {
+#>
+                  <input type="hidden" ng-model="item.<#=                            isSelect? foreignKeyAttribute.Name:prop.Name #>" required name="<#=                            isSelect? foreignKeyAttribute.Name:prop.Name #>" />               
+                     <#+                        } #>
+                  <a class="dropdown-toggle" id="<#=                        prop.Name #>" role="button" data-toggle="dropdown" data-target="#" href="#">
                         <div class="input-group">
-                           <input type="text"
-                                 name="<#=                        prop.Name #>" 
+                           <input type="text"                             
                                  readonly="readonly"
                                  class="form-control"
-                                 ng-value="item.<#=                        prop.Name #><#=                        isDate?"  | date:'yyyy-MM-dd HH:mm a'":"" #>">
-                               <span class="input-group-addon" <#=                        isSelect?string.Format("ng-click=\"chooseObj('/ngtemplate/grid_{0}.html','{1}','{2}')\"",prop.PropertyType.Name,foreignKeyAttribute.Name,"Id") #> ><i class="glyphicon glyphicon-calendar"></i></span>
+                                 ng-value="item.<#=                        isSelect?(selectAttribute.ToNameField??foreignKeyAttribute.Name):prop.Name #><#=                        isDate?"  | date:'yyyy-MM-dd HH:mm a'":"" #>">
+                               <span class="input-group-addon" <#=                        isSelect?string.Format("ng-click=\"chooseObj('/ngtemplate/grid_{0}.html','{1}','{2}','{3}')\"",prop.PropertyType.Name,foreignKeyAttribute.Name,selectAttribute.ToNameField??foreignKeyAttribute.Name,selectAttribute.FromNameField??selectAttribute.ToNameField??"Id"):"" #> >
+                               <i class="glyphicon glyphicon-<#=                        isDate?"calendar":"plus" #>"></i></span>
                         </div>
-                        </a>
+                    </a>
 <#+                        if(isDate)
                         {
  #>
@@ -229,12 +224,11 @@
                         if(regularExpressionAttribute!=null)
                             attrs.Append(string.Format(" ng-pattern=\"{0}\"",regularExpressionAttribute.Pattern));
                         WriteLine(attrs.ToString()+">");            
-                    }
-    
-                    if(requiredAttribute!=null || maxLengthAttribute!=null || minLengthAttribute!=null || regularExpressionAttribute!=null || isSelect){
+                    }  
+                    if(requiredAttribute!=null || maxLengthAttribute!=null || minLengthAttribute!=null || regularExpressionAttribute!=null){
 #>                    <div ng-messages="form.<#=                        isSelect?foreignKeyAttribute.Name:prop.Name  #>.$error" class="pull-left error">                       
 <#+                        StringBuilder errors= new StringBuilder();                                       
-                        if(requiredAttribute!=null  || isSelect) errors.Append("<div ng-message=\"required\">这是个必填项</div>");  
+                        if(requiredAttribute!=null) errors.Append("<div ng-message=\"required\">这是个必填项</div>");  
                         if(maxLengthAttribute!=null) errors.Append(string.Format("<div ng-message=\"maxlength\">输入不能超过{0}个字符</div>",maxLengthAttribute.Length)); 
                         if(minLengthAttribute!=null) errors.Append(string.Format("<div ng-message=\"minlength\">输入不能小于{0}个字符</div>",minLengthAttribute.Length));   
                         if(regularExpressionAttribute!=null)  errors.Append(string.Format("<div ng-message=\"pattern\">{0}</div>",regularExpressionAttribute.ErrorMessage??"输入的数据格式不匹配"));#>
@@ -253,21 +247,7 @@
         <button class="btn btn-warning " type="button" ng-click="cancel()">取 消</button>
     </div>
 </div>
-<#+
-            if(enums.Count>0){
-#>
-<script type="text/javascript">
-<#+                foreach(Type t in enums)
-                {
-                    var names =System.Enum.GetNames(t).Select(p=>string.Format("\"{0}\"",p));
-#>
-                var <#=                    t.Name #>=[<#=                    string.Join(",",names) #>];
-<#+
-                }
- #>
-</script>
-<#+
-            }
+<#+           
             return this.GenerationEnvironment.ToString();
         }    
     }

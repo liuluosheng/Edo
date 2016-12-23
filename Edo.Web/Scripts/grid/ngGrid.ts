@@ -182,6 +182,16 @@ angular.module("app.grid", ['ngSanitize']).directive("grid", [
                 }
             });
         }
+        $scope.scrolls =
+            {
+                config: {
+                    autoHideScrollbar: false,
+                    theme: 'dark-3',
+                    scrollInertia: 0,
+                    axis: 'x',
+                    mouseWheel: { enable: false }
+                }
+            }
         let dialog = (resolveObj, resultFn, template) => {
             let modalInstance = $uibModal.open({
                 windowTemplateUrl: "/ngTemplate/modal-template.html",
@@ -215,11 +225,11 @@ angular.module("app.grid", ['ngSanitize']).directive("grid", [
             dialog(resolve, function (result) {
                 if (result.Success) {
                     $common.$alert.success($T.AlertSuccess);
-                    if (!isNew)
-                        item = angular.extend(item, result.Obj);
-                    else {
+                    if (isNew)
                         $scope.paging($scope.page);
-                    }
+                    else
+                        item = angular.extend(item, result.editObj, result.Obj)
+
                 } else
                     $common.$alert.error(result.Message || $T.AlertError);
             }, $scope.gridOption.editTemplateUrl)
@@ -269,7 +279,7 @@ angular.module("app.grid", ['ngSanitize']).directive("grid", [
             } else
                 $common.$toast.error($T.AlertSelect);
         }
-        $scope.chooseObj = (template,field,bindName) => {
+        $scope.chooseObj = (template, field, name, bindName) => {
             $uibModal.open({
                 windowTemplateUrl: "/ngTemplate/modal-template.html",
                 templateUrl: template,
@@ -287,7 +297,7 @@ angular.module("app.grid", ['ngSanitize']).directive("grid", [
                 }
             }).result.then(function (result) {
                 $scope.item[field] = result.selected.Id;
-                $scope.item[bindName] = result.selected[bindName];
+                $scope.item[name] = result.selected[bindName];
             });
         }
         $scope.ok = (form, api) => {
@@ -297,6 +307,7 @@ angular.module("app.grid", ['ngSanitize']).directive("grid", [
             }
             let method = $scope.gridOption.itemFilterValue ? "edit" : "create";
             $http.post(api + method, $scope.item).success(function (result) {
+                result.editObj = $scope.item;
                 $uibModalInstance.close(result);
             })
         };
@@ -304,23 +315,6 @@ angular.module("app.grid", ['ngSanitize']).directive("grid", [
             let top = angular.element(targetSelection).position().top;
             $scope.scrolls.updateScrollbar('scrollTo', top);
         };
-        $scope.select = (value, options) => {
-            if (options) {
-                var selected = $.grep(options, (t) => { return t["code"] == value });
-                return selected.length != 0 ? selected[0]["name"] : "";
-            }
-        };
-        $scope.getSelectAsync = (t, name, value, q) => {
-            $http.post(
-                `/${t}/select`,
-                { field: name, value: value, q: `${name}.ToString().Contains("${q}")` }
-            ).then(response => {
-                $scope[t] = response.data.items;
-            })
-        };
-        $scope.getSelect = (name) => {
-            $scope[name] = $window[name];
-        }
         $scope.scrolls =
             {
                 config: {

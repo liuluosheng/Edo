@@ -71,7 +71,7 @@ namespace Edo.ViewModels
                 if( new []{"Id","IsDeleted","Timestamp1","CreatedDate"}.Contains(prop.Name) ) continue;
                 if(p!=null || genericTypes.Length!=0 && genericTypes[0].BaseType==typeof(EntityBase)){ 
         #>  
-                [JsonIgnore,IgnoreMap]<#+                }     #>          
+                [IgnoreMap]<#+                }     #>          
                 [DisplayName("<#=                prop.Name #>")]
                 public virtual <#=                genericTypes.Length==0  ?prop.PropertyType.Name:(genericTypes[0].BaseType!=typeof(EntityBase)?string.Format("{0}?",genericTypes[0].Name):string.Format(" ICollection<{0}ViewModel>",genericTypes[0].Name)) #> <#=                prop.Name #> { get; set; }
 <#+            }#>   }

@@ -70,7 +70,7 @@ namespace Edo.ViewModels
                 [DisplayName("PhotoPath")]
                 public virtual String PhotoPath { get; set; }
   
-                [JsonIgnore,IgnoreMap]          
+                [IgnoreMap]          
                 [DisplayName("Orders")]
                 public virtual  ICollection<OrdersViewModel> Orders { get; set; }
           

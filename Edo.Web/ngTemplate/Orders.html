@@ -9,225 +9,213 @@
     </div>
     <div class="modal-body" id="modal-body">
         <div class="modal-nav">
-            <a ng-click="scrollTo('#tolink0')">基本信息</a>
-            <a ng-click="scrollTo('#tolink1')">OrderDetails</a>
+  <a ng-click="scrollTo('#tolink0')">基本信息</a>
+  <a ng-click="scrollTo('#tolink1')">OrderDetails</a>
         </div>
         <form class="form-horizontal  modal-form" role="form" ng-style="{maxHeight:modalHeight}" name="form"
               ng-scrollbars
               ng-scrollbars-update="scrolls.updateScrollbar"
               ng-scrollbars-config="scrolls.config">
-            <fieldset id="tolink0">
-                <legend><i class="fa fa-circle"></i>基本信息</legend>
-                <div class="form-group" ng-class="{'has-error':form.ShipVia.$invalid }">
-                    <label class="col-sm-2 control-label">ShipVia</label>
+          <fieldset id="tolink0">
+                <legend><i class="fa fa-circle"></i>基本信息</legend>       
+                    <div class="form-group" ng-class="{'has-error':form.ShipVia.$invalid }" 
+                    ><label class="col-sm-2 control-label">ShipVia</label>
                     <div class="col-sm-10">
-                        <input type="text" autocomplete="off" class="form-control pull-left" placeholder="ShipVia" name="ShipVia" ng-model="item.ShipVia"
-                               ng-pattern="/^([1-9][0-9]*){1,3}$/">
-                        <div ng-messages="form.ShipVia.$error" class="pull-left error">
-                            <div ng-message="pattern">请输入大于零的整数</div>
+                        <input type="text" autocomplete="off"  class="form-control pull-left"  placeholder="ShipVia" name="ShipVia" ng-model="item.ShipVia"   
+                        ng-pattern="/^([1-9][0-9]*){1,3}$/">
+                    <div ng-messages="form.ShipVia.$error" class="pull-left error">                       
+                            <div ng-message="pattern">请输入大于零的整数</div>                         
+                          </div>
+                     </div>
+                </div>
+                    <div class="form-group" ng-class="{'has-error':form.Freight.$invalid }" 
+                    ><label class="col-sm-2 control-label">Freight</label>
+                    <div class="col-sm-10">
+                        <input type="text" autocomplete="off"  class="form-control pull-left"  placeholder="Freight" name="Freight" ng-model="item.Freight"   
+                        ng-pattern="/^(([0-9]+\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\.[0-9]+)|([0-9]*[1-9][0-9]*))$/">
+                    <div ng-messages="form.Freight.$error" class="pull-left error">                       
+                            <div ng-message="pattern">请输入大于零的数</div>                         
+                          </div>
+                     </div>
+                </div>
+                    <div class="form-group" ng-class="{'has-error':form.ShipName.$invalid }" 
+                    ><label class="col-sm-2 control-label">ShipName</label>
+                    <div class="col-sm-10">
+                        <input type="text" autocomplete="off"  class="form-control pull-left"  placeholder="ShipName" name="ShipName" ng-model="item.ShipName"   
+                       >
+                    </div>
+                </div>
+                    <div class="form-group" ng-class="{'has-error':form.ShipAddress.$invalid }" 
+                    ><label class="col-sm-2 control-label">ShipAddress</label>
+                    <div class="col-sm-10">
+                        <input type="text" autocomplete="off"  class="form-control pull-left"  placeholder="ShipAddress" name="ShipAddress" ng-model="item.ShipAddress"   
+                       >
+                    </div>
+                </div>
+                    <div class="form-group" ng-class="{'has-error':form.ShipCity.$invalid }" 
+                    ><label class="col-sm-2 control-label">ShipCity</label>
+                    <div class="col-sm-10">
+                        <input type="text" autocomplete="off"  class="form-control pull-left"  placeholder="ShipCity" name="ShipCity" ng-model="item.ShipCity"   
+                       >
+                    </div>
+                </div>
+                    <div class="form-group" ng-class="{'has-error':form.ShipRegion.$invalid }" 
+                    ><label class="col-sm-2 control-label">ShipRegion</label>
+                    <div class="col-sm-10">
+                        <input type="text" autocomplete="off"  class="form-control pull-left"  placeholder="ShipRegion" name="ShipRegion" ng-model="item.ShipRegion"   
+                       >
+                    </div>
+                </div>
+                    <div class="form-group" ng-class="{'has-error':form.ShipPostalCode.$invalid }" 
+                    ><label class="col-sm-2 control-label">ShipPostalCode</label>
+                    <div class="col-sm-10">
+                        <input type="text" autocomplete="off"  class="form-control pull-left"  placeholder="ShipPostalCode" name="ShipPostalCode" ng-model="item.ShipPostalCode"   
+                       >
+                    </div>
+                </div>
+                    <div class="form-group" ng-class="{'has-error':form.ShipCountry.$invalid }" 
+                    ><label class="col-sm-2 control-label">ShipCountry</label>
+                    <div class="col-sm-10">
+                        <input type="text" autocomplete="off"  class="form-control pull-left"  placeholder="ShipCountry" name="ShipCountry" ng-model="item.ShipCountry"   
+                       >
+                    </div>
+                </div>
+                    <div class="form-group" ng-class="{'has-error':form.OrderDate.$invalid }" 
+                    ><label class="col-sm-2 control-label">OrderDate</label>
+                    <div class="col-sm-10">
+                  <div class="dropdown">
+                  <input type="hidden" ng-model="item.OrderDate" required name="OrderDate" />               
+                                       <a class="dropdown-toggle" id="OrderDate" role="button" data-toggle="dropdown" data-target="#" href="#">
+                        <div class="input-group">
+                           <input type="text"                             
+                                 readonly="readonly"
+                                 class="form-control"
+                                 ng-value="item.OrderDate  | date:'yyyy-MM-dd HH:mm a'">
+                               <span class="input-group-addon"  >
+                               <i class="glyphicon glyphicon-calendar"></i></span>
                         </div>
-                    </div>
+                    </a>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                            <datetimepicker ng-model="item.OrderDate" data-datetimepicker-config="{ dropdownSelector: '#OrderDate' }"></datetimepicker>
+                        </ul>
+               </div>
+                    <div ng-messages="form.OrderDate.$error" class="pull-left error">                       
+                            <div ng-message="required">这是个必填项</div>                         
+                          </div>
+                     </div>
                 </div>
-                <div class="form-group" ng-class="{'has-error':form.Freight.$invalid }">
-                    <label class="col-sm-2 control-label">Freight</label>
+                    <div class="form-group" ng-class="{'has-error':form.RequiredDate.$invalid }" 
+                    ><label class="col-sm-2 control-label">RequiredDate</label>
                     <div class="col-sm-10">
-                        <input type="text" autocomplete="off" class="form-control pull-left" placeholder="Freight" name="Freight" ng-model="item.Freight"
-                               ng-pattern="/^(([0-9]+\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\.[0-9]+)|([0-9]*[1-9][0-9]*))$/">
-                        <div ng-messages="form.Freight.$error" class="pull-left error">
-                            <div ng-message="pattern">请输入大于零的数</div>
+                  <div class="dropdown">
+                  <a class="dropdown-toggle" id="RequiredDate" role="button" data-toggle="dropdown" data-target="#" href="#">
+                        <div class="input-group">
+                           <input type="text"                             
+                                 readonly="readonly"
+                                 class="form-control"
+                                 ng-value="item.RequiredDate  | date:'yyyy-MM-dd HH:mm a'">
+                               <span class="input-group-addon"  >
+                               <i class="glyphicon glyphicon-calendar"></i></span>
                         </div>
+                    </a>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                            <datetimepicker ng-model="item.RequiredDate" data-datetimepicker-config="{ dropdownSelector: '#RequiredDate' }"></datetimepicker>
+                        </ul>
+               </div>
                     </div>
                 </div>
-                <div class="form-group" ng-class="{'has-error':form.ShipName.$invalid }">
-                    <label class="col-sm-2 control-label">ShipName</label>
+                    <div class="form-group" ng-class="{'has-error':form.ShippedDate.$invalid }" 
+                    ><label class="col-sm-2 control-label">ShippedDate</label>
                     <div class="col-sm-10">
-                        <input type="text" autocomplete="off" class="form-control pull-left" placeholder="ShipName" name="ShipName" ng-model="item.ShipName">
-                    </div>
-                </div>
-                <div class="form-group" ng-class="{'has-error':form.ShipAddress.$invalid }">
-                    <label class="col-sm-2 control-label">ShipAddress</label>
-                    <div class="col-sm-10">
-                        <input type="text" autocomplete="off" class="form-control pull-left" placeholder="ShipAddress" name="ShipAddress" ng-model="item.ShipAddress">
-                    </div>
-                </div>
-                <div class="form-group" ng-class="{'has-error':form.ShipCity.$invalid }">
-                    <label class="col-sm-2 control-label">ShipCity</label>
-                    <div class="col-sm-10">
-                        <input type="text" autocomplete="off" class="form-control pull-left" placeholder="ShipCity" name="ShipCity" ng-model="item.ShipCity">
-                    </div>
-                </div>
-                <div class="form-group" ng-class="{'has-error':form.ShipRegion.$invalid }">
-                    <label class="col-sm-2 control-label">ShipRegion</label>
-                    <div class="col-sm-10">
-                        <input type="text" autocomplete="off" class="form-control pull-left" placeholder="ShipRegion" name="ShipRegion" ng-model="item.ShipRegion">
-                    </div>
-                </div>
-                <div class="form-group" ng-class="{'has-error':form.ShipPostalCode.$invalid }">
-                    <label class="col-sm-2 control-label">ShipPostalCode</label>
-                    <div class="col-sm-10">
-                        <input type="text" autocomplete="off" class="form-control pull-left" placeholder="ShipPostalCode" name="ShipPostalCode" ng-model="item.ShipPostalCode">
-                    </div>
-                </div>
-                <div class="form-group" ng-class="{'has-error':form.ShipCountry.$invalid }">
-                    <label class="col-sm-2 control-label">ShipCountry</label>
-                    <div class="col-sm-10">
-                        <input type="text" autocomplete="off" class="form-control pull-left" placeholder="ShipCountry" name="ShipCountry" ng-model="item.ShipCountry">
-                    </div>
-                </div>
-                <div class="form-group" ng-class="{'has-error':form.OrderDate.$invalid }">
-                    <label class="col-sm-2 control-label">OrderDate</label>
-                    <div class="col-sm-10">
-                        <div class="dropdown">
-                            <a class="dropdown-toggle" id="OrderDate" role="button" data-toggle="dropdown" data-target="#" href="#">
-                                <div class="input-group">
-                                    <input type="text"
-                                           name="OrderDate"
-                                           readonly="readonly"
-                                           class="form-control"
-                                           ng-value="item.OrderDate  | date:'yyyy-MM-dd HH:mm a'">
-                                    <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-                                </div>
-                            </a>
-                            <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                                <datetimepicker ng-model="item.OrderDate" data-datetimepicker-config="{ dropdownSelector: '#OrderDate' }"></datetimepicker>
-                            </ul>
+                  <div class="dropdown">
+                  <a class="dropdown-toggle" id="ShippedDate" role="button" data-toggle="dropdown" data-target="#" href="#">
+                        <div class="input-group">
+                           <input type="text"                             
+                                 readonly="readonly"
+                                 class="form-control"
+                                 ng-value="item.ShippedDate  | date:'yyyy-MM-dd HH:mm a'">
+                               <span class="input-group-addon"  >
+                               <i class="glyphicon glyphicon-calendar"></i></span>
                         </div>
-                        <div ng-messages="form.OrderDate.$error" class="pull-left error">
-                            <div ng-message="required">这是个必填项</div>
-                        </div>
+                    </a>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                            <datetimepicker ng-model="item.ShippedDate" data-datetimepicker-config="{ dropdownSelector: '#ShippedDate' }"></datetimepicker>
+                        </ul>
+               </div>
                     </div>
                 </div>
-
-                <div class="form-group" ng-class="{'has-error':form.OrderDate.$invalid }">
-                    <label class="col-sm-2 control-label">OrderDate1</label>
+                    <div class="form-group" ng-class="{'has-error':form.CustomerID.$invalid }" 
+                      ng-if="'CustomerID'!=fkName"
+                    ><label class="col-sm-2 control-label">Customers</label>
                     <div class="col-sm-10">
-                        <div class="dropdown">
-                            <a class="dropdown-toggle" id="OrderDate" role="button" data-toggle="dropdown" data-target="#" href="#">
-                                <div class="input-group">
-                                    <input type="text"
-                                           name="OrderDate"
-                                           readonly="readonly"
-                                           class="form-control"
-                                           ng-value="item.OrderDate  | date:'yyyy-MM-dd HH:mm a'">
-                                    <span class="input-group-addon" ng-click="chooseObj('/ngtemplate/grid_products.html','ProdctsId','ProductName')><i class="glyphicon glyphicon-calendar"></i></span>
-                                </div>
-                            </a>
+                  <div class="dropdown">
+                  <input type="hidden" ng-model="item.CustomerID" required name="CustomerID" />               
+                                       <a class="dropdown-toggle" id="Customers" role="button" data-toggle="dropdown" data-target="#" href="#">
+                        <div class="input-group">
+                           <input type="text"                             
+                                 readonly="readonly"
+                                 class="form-control"
+                                 ng-value="item.CustomerName">
+                               <span class="input-group-addon" ng-click="chooseObj('/ngtemplate/grid_Customers.html','CustomerID','CustomerName','CompanyName')" >
+                               <i class="glyphicon glyphicon-plus"></i></span>
                         </div>
-                        <div ng-messages="form.OrderDate.$error" class="pull-left error">
-                            <div ng-message="required">这是个必填项</div>
-                        </div>
-                    </div>
+                    </a>
+               </div>
+                    <div ng-messages="form.CustomerID.$error" class="pull-left error">                       
+                            <div ng-message="required">这是个必填项</div>                         
+                          </div>
+                     </div>
                 </div>
-
-                <div class="form-group" ng-class="{'has-error':form.RequiredDate.$invalid }">
-                    <label class="col-sm-2 control-label">RequiredDate</label>
+                    <div class="form-group" ng-class="{'has-error':form.EmployeeID.$invalid }" 
+                      ng-if="'EmployeeID'!=fkName"
+                    ><label class="col-sm-2 control-label">Employees</label>
                     <div class="col-sm-10">
-                        <div class="dropdown">
-                            <a class="dropdown-toggle" id="RequiredDate" role="button" data-toggle="dropdown" data-target="#" href="#">
-                                <div class="input-group">
-                                    <input type="text"
-                                           name="RequiredDate"
-                                           readonly="readonly"
-                                           class="form-control"
-                                           ng-value="item.RequiredDate  | date:'yyyy-MM-dd HH:mm a'">
-                                    <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-                                </div>
-                            </a>
-                            <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                                <datetimepicker ng-model="item.RequiredDate" data-datetimepicker-config="{ dropdownSelector: '#RequiredDate' }"></datetimepicker>
-                            </ul>
+                  <div class="dropdown">
+                  <input type="hidden" ng-model="item.EmployeeID" required name="EmployeeID" />               
+                                       <a class="dropdown-toggle" id="Employees" role="button" data-toggle="dropdown" data-target="#" href="#">
+                        <div class="input-group">
+                           <input type="text"                             
+                                 readonly="readonly"
+                                 class="form-control"
+                                 ng-value="item.EmployeesHomePhone">
+                               <span class="input-group-addon" ng-click="chooseObj('/ngtemplate/grid_Employees.html','EmployeeID','EmployeesHomePhone','HomePhone')" >
+                               <i class="glyphicon glyphicon-plus"></i></span>
                         </div>
-                    </div>
+                    </a>
+               </div>
+                    <div ng-messages="form.EmployeeID.$error" class="pull-left error">                       
+                            <div ng-message="required">这是个必填项</div>                         
+                          </div>
+                     </div>
                 </div>
-                <div class="form-group" ng-class="{'has-error':form.ShippedDate.$invalid }">
-                    <label class="col-sm-2 control-label">ShippedDate</label>
+                    <div class="form-group" ng-class="{'has-error':form.ShipperID.$invalid }" 
+                      ng-if="'ShipperID'!=fkName"
+                    ><label class="col-sm-2 control-label">Shippers</label>
                     <div class="col-sm-10">
-                        <div class="dropdown">
-                            <a class="dropdown-toggle" id="ShippedDate" role="button" data-toggle="dropdown" data-target="#" href="#">
-                                <div class="input-group">
-                                    <input type="text"
-                                           name="ShippedDate"
-                                           readonly="readonly"
-                                           class="form-control"
-                                           ng-value="item.ShippedDate  | date:'yyyy-MM-dd HH:mm a'">
-                                    <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-                                </div>
-                            </a>
-                            <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                                <datetimepicker ng-model="item.ShippedDate" data-datetimepicker-config="{ dropdownSelector: '#ShippedDate' }"></datetimepicker>
-                            </ul>
+                  <div class="dropdown">
+                  <input type="hidden" ng-model="item.ShipperID" required name="ShipperID" />               
+                                       <a class="dropdown-toggle" id="Shippers" role="button" data-toggle="dropdown" data-target="#" href="#">
+                        <div class="input-group">
+                           <input type="text"                             
+                                 readonly="readonly"
+                                 class="form-control"
+                                 ng-value="item.ShippersName">
+                               <span class="input-group-addon" ng-click="chooseObj('/ngtemplate/grid_Shippers.html','ShipperID','ShippersName','CompanyName')" >
+                               <i class="glyphicon glyphicon-plus"></i></span>
                         </div>
-                    </div>
+                    </a>
+               </div>
+                    <div ng-messages="form.ShipperID.$error" class="pull-left error">                       
+                            <div ng-message="required">这是个必填项</div>                         
+                          </div>
+                     </div>
                 </div>
-                <div class="form-group" ng-class="{'has-error':form.Customers.$invalid }"
-                     ng-if="'CustomerID'!=fkName">
-                    <label class="col-sm-2 control-label">Customers</label>
-                    <div class="col-sm-10">
-                        <input type="hidden" name="CustomerID" ng-model="item.CustomerID" required />
-                        <ui-select ng-model="item.CustomerID"
-                                   theme="bootstrap"
-                                   ng-class="{'has-error':form.CustomerID.$invalid }"
-                                   on-select="item.CustomerID=$item.code;">
-                            <ui-select-match placeholder="键入过滤关键字...">{{select(item.CustomerID,Customers)}}</ui-select-match>
-                            <ui-select-choices repeat="obj in Customers track by $index"
-                                               refresh="getSelectAsync('Customers','CompanyName','Id',$select.search)"
-                                               refresh-delay="0">
-                                <div ng-bind-html="obj.name | highlight: $select.search"></div>
-                            </ui-select-choices>
-                        </ui-select>
-                        <div ng-messages="form.CustomerID.$error" class="pull-left error">
-                            <div ng-message="required">这是个必填项</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group" ng-class="{'has-error':form.Employees.$invalid }"
-                     ng-if="'EmployeeID'!=fkName">
-                    <label class="col-sm-2 control-label">Employees</label>
-                    <div class="col-sm-10">
-                        <input type="hidden" name="EmployeeID" ng-model="item.EmployeeID" required />
-                        <ui-select ng-model="item.EmployeeID"
-                                   theme="bootstrap"
-                                   ng-class="{'has-error':form.EmployeeID.$invalid }"
-                                   on-select="item.EmployeeID=$item.code;">
-                            <ui-select-match placeholder="键入过滤关键字...">{{select(item.EmployeeID,Employees)}}</ui-select-match>
-                            <ui-select-choices repeat="obj in Employees track by $index"
-                                               refresh="getSelectAsync('Employees','HomePhone','Id',$select.search)"
-                                               refresh-delay="0">
-                                <div ng-bind-html="obj.name | highlight: $select.search"></div>
-                            </ui-select-choices>
-                        </ui-select>
-                        <div ng-messages="form.EmployeeID.$error" class="pull-left error">
-                            <div ng-message="required">这是个必填项</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group" ng-class="{'has-error':form.Shippers.$invalid }"
-                     ng-if="'ShipperID'!=fkName">
-                    <label class="col-sm-2 control-label">Shippers</label>
-                    <div class="col-sm-10">
-                        <input type="hidden" name="ShipperID" ng-model="item.ShipperID" required />
-                        <ui-select ng-model="item.ShipperID"
-                                   theme="bootstrap"
-                                   ng-class="{'has-error':form.ShipperID.$invalid }"
-                                   on-select="item.ShipperID=$item.code;">
-                            <ui-select-match placeholder="键入过滤关键字...">{{select(item.ShipperID,Shippers)}}</ui-select-match>
-                            <ui-select-choices repeat="obj in Shippers track by $index"
-                                               refresh="getSelectAsync('Shippers','CompanyName','Id',$select.search)"
-                                               refresh-delay="0">
-                                <div ng-bind-html="obj.name | highlight: $select.search"></div>
-                            </ui-select-choices>
-                        </ui-select>
-                        <div ng-messages="form.ShipperID.$error" class="pull-left error">
-                            <div ng-message="required">这是个必填项</div>
-                        </div>
-                    </div>
-                </div>
-            </fieldset>
-            <fieldset id="tolink1">
-                <legend><i class="fa fa-circle"></i>OrderDetails</legend>
-
-                <div grid
-                     ng-model="item.OrderDetails"
+                </fieldset>
+          <fieldset id="tolink1">
+                <legend><i class="fa fa-circle"></i>OrderDetails</legend>       
+                  
+                    <div grid
+                    ng-model="item.OrderDetails"
                      grid-option="gridOption"
                      grid-detail="true"
                      grid-item-field="OrderID"
@@ -240,8 +228,8 @@
                      grid-delete-url="/OrderDetails/Delete"
                      grid-edit-template-url="/ngTemplate/OrderDetails.html"
                      grid-url="/OrderDetails/Page">
-                </div>
-            </fieldset>
+                    </div>
+                </fieldset>
         </form>
     </div>
     <div class="modal-footer">
