@@ -55,7 +55,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ComponentModel\NgTemplateAttribute.cs" />
-    <Compile Include="ComponentModel\FormAttribute.cs" />
+    <Compile Include="ComponentModel\GenerateViewAttribute.cs" />
     <Compile Include="ComponentModel\GridAttribute.cs" />
     <Compile Include="ComponentModel\GridColumnAttribute.cs" />
     <Compile Include="ComponentModel\NavTagAttribute.cs" />
@@ -73,14 +73,14 @@
     <Compile Include="Entitys\Suppliers.cs" />
     <Compile Include="Entitys\User.cs" />
     <Compile Include="Entitys\UserRole.cs" />
-    <Compile Include="Enum\Form.FiledType.cs" />
-    <Compile Include="Enum\Grid.ColumnType.cs" />
+    <Compile Include="Enum\UI.Grid.ColumnType.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="EdoDbContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <Compile Include="Enum\System.UserType.cs" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

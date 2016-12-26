@@ -23,5 +23,8 @@ namespace Edo.Data.Entity
         public virtual DbSet<Region> Region { get; set; }
         public virtual DbSet<Shippers> Shippers { get; set; }
         public virtual DbSet<Suppliers> Suppliers { get; set; }
+        public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<Role> Roles { get; set; }
+        public virtual DbSet<UserRole> UserRole { get; set; }
     }
 }

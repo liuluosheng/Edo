@@ -158,6 +158,10 @@
   width: 100%;
   overflow: auto;
 }
+.ng-grid .grid-page {
+  border-top: solid 2px #eee;
+  padding-top: 10px;
+}
 .ng-grid .panel-heading {
   height: 34px;
   line-height: 34px;
@@ -204,7 +208,7 @@
   text-overflow: ellipsis;
   overflow: hidden;
   cursor: default;
-  height: 40px;
+  height: 35px;
 }
 .ng-grid .content-table tr.striped {
   background-color: #f9f9f9;
@@ -257,7 +261,7 @@
 .ng-grid .detail-cell .glyphicon,
 .ng-grid .detail-cell .fa {
   cursor: pointer;
-  line-height: 40px;
+  line-height: 35px;
 }
 .ng-grid .sort-name {
   cursor: pointer;

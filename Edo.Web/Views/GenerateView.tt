@@ -1,0 +1,84 @@
+<#@ template language="C#" debug="True" hostspecific="true" #>
+<#@ output extension="log" #>
+<#@ assembly name="$(TargetDir)Edo.Data.Entity.dll" #>
+<#@import namespace="System.Reflection"#>
+<#@ assembly name="System.Core" #>
+<#@ assembly name="System.Web" #>
+<#@ assembly name="System.IO" #>
+<#@ import namespace="Edo.Data.Entity" #>
+<#@ import namespace="Edo.Data.Entity.ComponentModel" #>
+<#@ include file="T4Toolbox.tt" #> 
+<#
+    var types = Assembly.GetAssembly(typeof(EntityBase)).GetTypes();
+    string projectDir=   Host.ResolveAssemblyReference("$(ProjectDir)"); 
+    
+    var baseType = typeof(EntityBase);
+    foreach(var type in types){
+        var attribute = type.GetCustomAttribute<GenerateViewAttribute>();
+        if (type.BaseType != null && type.BaseType == baseType && attribute !=null)
+        {
+            string path=string.Format("{0}\\Views\\{1}\\Index.cshtml",projectDir,type.Name);
+            if(!System.IO.File.Exists(path))
+            {                ViewTemplate template= new  ViewTemplate(type,attribute.Title);
+                template.RenderToFile(path);
+            }
+        }
+    }
+#>
+<#+
+    public class ViewTemplate : CSharpTemplate
+    {
+        Type _type;
+        string _title;
+        public ViewTemplate (Type type,string title){
+            _type=type;
+            _title=title;
+        }
+        public override string TransformText()
+        {
+            //  base.TransformText();
+#>
+@{
+    ViewBag.Title = "<#=            _title??_type.Name #>";
+}
+@section Styles{
+
+}
+<div ng-app="app" ng-controller="<#=            _type.Name.ToLower() #>Controller">
+    <br />
+    <div class="ng-grid panel panel-default" ng-cloak>
+        <div class="panel-heading">
+            <b><#=            _title??_type.Name #></b>
+            <a class="btn btn-primary pull-right" ng-click="gridOption.create();"><i class="fa fa-plus"></i>ÐÂ ½¨</a>
+        </div>
+        <div class="panel-body">
+            <div grid grid-option="gridOption" data="data" grid-name="<#=            _type.Name.ToLower() #>"></div>
+        </div>
+    </div>  
+</div>
+@section scripts{
+    <script type="text/javascript">
+        app.controller("<#=            _type.Name.ToLower() #>Controller", [
+            "$scope", "$http", "$filter", "$window", "$common", function ($scope, $http, $filter, $window, $common) {
+                $scope.gridOption = {
+                    height: 'auto',
+                    rowNumber: true,
+                    pkColumn: "Id",
+                    rowDetail: true,
+                    filterRow: true,
+                    url: "/<#=            _type.Name.ToLower() #>/page",
+                    selectUrl: "/<#=            _type.Name.ToLower() #>/select2",
+                    editTemplateUrl: "/ngTemplate/<#=            _type.Name.ToLower() #>.html"
+                //, onRowSelected: function (row) { }
+               // , onRenderRowDetail: function (row) { }
+                };
+            }
+        ])
+    </script>
+}
+
+<#+
+            return this.GenerationEnvironment.ToString();
+        }
+    }
+                    #>

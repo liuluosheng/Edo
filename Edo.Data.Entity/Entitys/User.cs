@@ -10,14 +10,21 @@ using Edo.Data.Entity.Enum;
 
 namespace Edo.Data.Entity
 {
-    [NgTemplate]
+    [NgTemplate,GenerateView(Title="系统用户")]
     public class User : EntityBase
     {
+        [GridColumn]
         public string Name { get; set; }
+        public string NickName { get; set; }
         public string Password { get; set; }
         public string Address { get; set; }
         [GridColumn]
-        public ColumnType ColumnType { get; set; }
+        public string Email { get; set; }
+        [GridColumn]
+        public string Mobile { get; set; }
+        public DateTime RegisterDate { get; set; }
+        [GridColumn]
+        public UserType UserType { get; set; }
         public virtual ICollection<Role> Roles { get; set; }
     }
 }

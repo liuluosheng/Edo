@@ -21,6 +21,9 @@ namespace Edo.ViewModels
                   
                 [DisplayName("Name")]
                 public virtual String Name { get; set; }
+          
+                [DisplayName("Describe")]
+                public virtual String Describe { get; set; }
   
                 [IgnoreMap]          
                 [DisplayName("Users")]

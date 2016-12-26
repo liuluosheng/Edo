@@ -1,0 +1,61 @@
+﻿<!--由模板生成，如修改代码，重新生成后将被覆盖！-->
+<div>
+    <div class="modal-header">
+        <h3 class="modal-title" id="modal-title">
+            <b>{{item.Id?"EDIT":"CREATE"}}</b>
+
+            <i class="fa fa-close pull-right" ng-click="cancel()"></i>
+        </h3>
+    </div>
+    <div class="modal-body" id="modal-body">
+        <div class="modal-nav">
+  <a ng-click="scrollTo('#tolink0')">基本信息</a>
+  <a ng-click="scrollTo('#tolink1')">Users</a>
+        </div>
+        <form class="form-horizontal  modal-form" role="form" ng-style="{maxHeight:modalHeight}" name="form"
+              ng-scrollbars
+              ng-scrollbars-update="scrolls.updateScrollbar"
+              ng-scrollbars-config="scrolls.config">
+          <fieldset id="tolink0">
+                <legend><i class="fa fa-circle"></i>基本信息</legend>       
+                    <div class="form-group" ng-class="{'has-error':form.Name.$invalid }" 
+                    ><label class="col-sm-2 control-label">Name</label>
+                    <div class="col-sm-10">
+                        <input type="text" autocomplete="off"  class="form-control pull-left"  placeholder="Name" name="Name" ng-model="item.Name"   
+                       >
+                    </div>
+                </div>
+                    <div class="form-group" ng-class="{'has-error':form.Describe.$invalid }" 
+                    ><label class="col-sm-2 control-label">Describe</label>
+                    <div class="col-sm-10">
+                        <input type="text" autocomplete="off"  class="form-control pull-left"  placeholder="Describe" name="Describe" ng-model="item.Describe"   
+                       >
+                    </div>
+                </div>
+                </fieldset>
+          <fieldset id="tolink1">
+                <legend><i class="fa fa-circle"></i>Users</legend>       
+                  
+                    <div grid
+                    ng-model="item.Users"
+                     grid-option="gridOption"
+                     grid-detail="true"
+                     grid-item-field="Id"
+                     grid-enable-edit="true"
+                     grid-enable-delete="true"
+                     grid-more-to-more="true"
+                     grid-template="nggrid"
+                     grid-name="user"
+                     grid-select-url="/Role/Select2User"
+                     grid-delete-url="/Role/DeleteUser"
+                     grid-edit-template-url="/ngTemplate/User.html"
+                     grid-url="/Role/PageUser">
+                    </div>
+                </fieldset>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary " type="button" ng-click="ok(form,'/role/')">确 定</button>
+        <button class="btn btn-warning " type="button" ng-click="cancel()">取 消</button>
+    </div>
+</div>

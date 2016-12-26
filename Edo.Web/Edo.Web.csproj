@@ -199,6 +199,9 @@
     <Compile Include="Controllers\Generate\RegionController.cs">
       <DependentUpon>GenerateController.tt</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\Generate\RoleController.cs">
+      <DependentUpon>GenerateController.tt</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\Generate\ShippersController.cs">
       <DependentUpon>GenerateController.tt</DependentUpon>
     </Compile>
@@ -206,6 +209,9 @@
       <DependentUpon>GenerateController.tt</DependentUpon>
     </Compile>
     <Compile Include="Controllers\Generate\UserController.cs">
+      <DependentUpon>GenerateController.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\Generate\UserRoleController.cs">
       <DependentUpon>GenerateController.tt</DependentUpon>
     </Compile>
     <Compile Include="Controllers\HomeController.cs" />
@@ -319,6 +325,9 @@
     <Content Include="ngTemplate\grid_region.html">
       <DependentUpon>GenerateNgTemplate.tt</DependentUpon>
     </Content>
+    <Content Include="ngTemplate\grid_role.html">
+      <DependentUpon>GenerateNgTemplate.tt</DependentUpon>
+    </Content>
     <Content Include="ngTemplate\grid_shippers.html">
       <DependentUpon>GenerateNgTemplate.tt</DependentUpon>
     </Content>
@@ -326,6 +335,9 @@
       <DependentUpon>GenerateNgTemplate.tt</DependentUpon>
     </Content>
     <Content Include="ngTemplate\grid_user.html">
+      <DependentUpon>GenerateNgTemplate.tt</DependentUpon>
+    </Content>
+    <Content Include="ngTemplate\grid_userrole.html">
       <DependentUpon>GenerateNgTemplate.tt</DependentUpon>
     </Content>
     <Content Include="ngTemplate\modal-template.html" />
@@ -341,6 +353,9 @@
     <Content Include="ngTemplate\region.html">
       <DependentUpon>GenerateNgTemplate.tt</DependentUpon>
     </Content>
+    <Content Include="ngTemplate\role.html">
+      <DependentUpon>GenerateNgTemplate.tt</DependentUpon>
+    </Content>
     <Content Include="ngTemplate\shippers.html">
       <DependentUpon>GenerateNgTemplate.tt</DependentUpon>
     </Content>
@@ -348,6 +363,9 @@
       <DependentUpon>GenerateNgTemplate.tt</DependentUpon>
     </Content>
     <Content Include="ngTemplate\user.html">
+      <DependentUpon>GenerateNgTemplate.tt</DependentUpon>
+    </Content>
+    <Content Include="ngTemplate\userrole.html">
       <DependentUpon>GenerateNgTemplate.tt</DependentUpon>
     </Content>
     <Content Include="Scripts\angular-animate.js" />
@@ -1264,16 +1282,20 @@
 .\grid_orders.html
 .\grid_products.html
 .\grid_region.html
+.\grid_role.html
 .\grid_shippers.html
 .\grid_suppliers.html
 .\grid_user.html
+.\grid_userrole.html
 .\orderdetails.html
 .\orders.html
 .\products.html
 .\region.html
+.\role.html
 .\shippers.html
 .\suppliers.html
 .\user.html
+.\userrole.html
 </LastOutputs>
       <LastGenOutput>GenerateNgTemplate.log</LastGenOutput>
     </Content>
@@ -1295,9 +1317,11 @@
 .\OrdersController.cs
 .\ProductsController.cs
 .\RegionController.cs
+.\RoleController.cs
 .\ShippersController.cs
 .\SuppliersController.cs
 .\UserController.cs
+.\UserRoleController.cs
 </LastOutputs>
       <LastGenOutput>GenerateController.log</LastGenOutput>
     </Content>
@@ -1424,6 +1448,20 @@
     <None Include="Views\Customers\Index.cshtml" />
     <Content Include="Views\Region\Index.cshtml" />
     <Content Include="Views\Products\Index.cshtml" />
+    <Content Include="Views\GenerateView.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastOutputs>
+.\GenerateView.log
+.\User\Index.cshtml
+</LastOutputs>
+      <LastGenOutput>GenerateView.log</LastGenOutput>
+    </Content>
+    <Content Include="Views\GenerateView.log">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GenerateView.tt</DependentUpon>
+    </Content>
+    <Content Include="Views\User\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

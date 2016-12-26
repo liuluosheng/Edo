@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Edo.Data.Entity.ComponentModel
 {
-    public class FormAttribute : Attribute
+    public class GenerateViewAttribute : Attribute
     {
+        public string Title { get; set; }
     }
 }

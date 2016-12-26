@@ -25,6 +25,13 @@
                        >
                     </div>
                 </div>
+                    <div class="form-group" ng-class="{'has-error':form.NickName.$invalid }" 
+                    ><label class="col-sm-2 control-label">NickName</label>
+                    <div class="col-sm-10">
+                        <input type="text" autocomplete="off"  class="form-control pull-left"  placeholder="NickName" name="NickName" ng-model="item.NickName"   
+                       >
+                    </div>
+                </div>
                     <div class="form-group" ng-class="{'has-error':form.Password.$invalid }" 
                     ><label class="col-sm-2 control-label">Password</label>
                     <div class="col-sm-10">
@@ -39,10 +46,44 @@
                        >
                     </div>
                 </div>
-                    <div class="form-group" ng-class="{'has-error':form.ColumnType.$invalid }" 
-                    ><label class="col-sm-2 control-label">ColumnType</label>
+                    <div class="form-group" ng-class="{'has-error':form.Email.$invalid }" 
+                    ><label class="col-sm-2 control-label">Email</label>
                     <div class="col-sm-10">
-                <select class="form-control" ng-model="item.ColumnType" ng-options="value for value in ['Bool','Date','Number','Text']">
+                        <input type="text" autocomplete="off"  class="form-control pull-left"  placeholder="Email" name="Email" ng-model="item.Email"   
+                       >
+                    </div>
+                </div>
+                    <div class="form-group" ng-class="{'has-error':form.Mobile.$invalid }" 
+                    ><label class="col-sm-2 control-label">Mobile</label>
+                    <div class="col-sm-10">
+                        <input type="text" autocomplete="off"  class="form-control pull-left"  placeholder="Mobile" name="Mobile" ng-model="item.Mobile"   
+                       >
+                    </div>
+                </div>
+                    <div class="form-group" ng-class="{'has-error':form.RegisterDate.$invalid }" 
+                    ><label class="col-sm-2 control-label">RegisterDate</label>
+                    <div class="col-sm-10">
+                  <div class="dropdown">
+                  <a class="dropdown-toggle" id="RegisterDate" role="button" data-toggle="dropdown" data-target="#" href="#">
+                        <div class="input-group">
+                           <input type="text"                             
+                                 readonly="readonly"
+                                 class="form-control"
+                                 ng-value="item.RegisterDate  | date:'yyyy-MM-dd HH:mm a'">
+                               <span class="input-group-addon"  >
+                               <i class="glyphicon glyphicon-calendar"></i></span>
+                        </div>
+                    </a>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                            <datetimepicker ng-model="item.RegisterDate" data-datetimepicker-config="{ dropdownSelector: '#RegisterDate' }"></datetimepicker>
+                        </ul>
+               </div>
+                    </div>
+                </div>
+                    <div class="form-group" ng-class="{'has-error':form.UserType.$invalid }" 
+                    ><label class="col-sm-2 control-label">UserType</label>
+                    <div class="col-sm-10">
+                <select class="form-control" ng-model="item.UserType" ng-options="value for value in ['Admin','Employees']">
                </select>                 
                     </div>
                 </div>

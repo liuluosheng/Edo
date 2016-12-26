@@ -32,6 +32,9 @@ namespace Edo.Web
                 cfg.CreateMap<EmployeesViewModel, Employees>().ReverseMap();
                 cfg.CreateMap<SuppliersViewModel, Suppliers>().ReverseMap();
                 cfg.CreateMap<ShippersViewModel, Shippers>().ReverseMap();
+
+                cfg.CreateMap<UserViewModel, User>().ReverseMap();
+                cfg.CreateMap<RoleViewModel, Role>().ReverseMap();
             });
         }
     }

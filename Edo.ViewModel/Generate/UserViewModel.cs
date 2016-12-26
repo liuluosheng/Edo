@@ -22,14 +22,26 @@ namespace Edo.ViewModels
                 [DisplayName("Name")]
                 public virtual String Name { get; set; }
           
+                [DisplayName("NickName")]
+                public virtual String NickName { get; set; }
+          
                 [DisplayName("Password")]
                 public virtual String Password { get; set; }
           
                 [DisplayName("Address")]
                 public virtual String Address { get; set; }
           
-                [DisplayName("ColumnType")]
-                public virtual ColumnType ColumnType { get; set; }
+                [DisplayName("Email")]
+                public virtual String Email { get; set; }
+          
+                [DisplayName("Mobile")]
+                public virtual String Mobile { get; set; }
+          
+                [DisplayName("RegisterDate")]
+                public virtual DateTime RegisterDate { get; set; }
+          
+                [DisplayName("UserType")]
+                public virtual UserType UserType { get; set; }
   
                 [IgnoreMap]          
                 [DisplayName("Roles")]

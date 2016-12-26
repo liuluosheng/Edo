@@ -81,7 +81,7 @@
                         }
                         btns.Add(new{
                                 name,
-                                template=mtm?"Grid_"+propertyInfo.Name:propertyInfo.Name,
+                                template=mtm?"Grid_"+propertyInfo.PropertyType.GenericTypeArguments[0].Name:propertyInfo.Name,
                                 pk=mtm?"Id":GetGridForeignKey(propertyInfo.PropertyType.GenericTypeArguments[0],type)});                   
                     }
                 }

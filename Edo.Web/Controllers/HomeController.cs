@@ -48,9 +48,6 @@ namespace Edo.Web.Controllers
             //  string content = template.TransformText();
             //如果有汉字，需要设置编码格式
             //System.IO.File.WriteAllText(Server.MapPath("~/scripts/common/Q.LT.ts"), content, Encoding.UTF8);
-            var s = typeof(Edo.Data.Entity.User).GetProperty("ColumnType").PropertyType == typeof(Enum);
-            string.Join(",",Enum.GetNames(typeof(Edo.Data.Entity.User).GetProperty("ColumnType").PropertyType).Select(p=>string.Format("{0}",p)))
-            ;
             return View();
         }
 

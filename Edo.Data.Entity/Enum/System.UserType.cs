@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace Edo.Data.Entity.Enum
 {
-    class Form
+    public enum UserType
     {
+        Admin,
+        Employees
     }
 }

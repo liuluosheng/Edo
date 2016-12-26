@@ -1,0 +1,39 @@
+﻿@{
+    ViewBag.Title = "系统用户";
+}
+@section Styles{
+
+}
+<div ng-app="app" ng-controller="userController">
+    <br />
+    <div class="ng-grid panel panel-default" ng-cloak>
+        <div class="panel-heading">
+            <b>系统用户</b>
+            <a class="btn btn-primary pull-right" ng-click="gridOption.create();"><i class="fa fa-plus"></i>新 建</a>
+        </div>
+        <div class="panel-body">
+            <div grid grid-option="gridOption" data="data" grid-name="user"></div>
+        </div>
+    </div>  
+</div>
+@section scripts{
+    <script type="text/javascript">
+        app.controller("userController", [
+            "$scope", "$http", "$filter", "$window", "$common", function ($scope, $http, $filter, $window, $common) {
+                $scope.gridOption = {
+                    height: 'auto',
+                    rowNumber: true,
+                    pkColumn: "Id",
+                    rowDetail: true,
+                    filterRow: true,
+                    url: "/user/page",
+                    selectUrl: "/user/select2",
+                    editTemplateUrl: "/ngTemplate/user.html"
+                //, onRowSelected: function (row) { }
+               // , onRenderRowDetail: function (row) { }
+                };
+            }
+        ])
+    </script>
+}
+
