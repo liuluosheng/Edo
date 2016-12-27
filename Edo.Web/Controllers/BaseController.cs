@@ -11,6 +11,7 @@ using Edo.Data.Entity;
 using Newtonsoft.Json;
 using System.Reflection;
 using System.Threading.Tasks;
+using Edo.Data.Entity.Enum;
 using Edo.Service;
 using Edo.ViewModels;
 using Edo.Web.Model;
@@ -90,6 +91,20 @@ namespace Edo.Web.Controllers
                 NullValueHandling = NullValueHandling.Ignore,
                 PreserveReferencesHandling = PreserveReferencesHandling.Objects
             });
+        }
+
+        protected virtual List<PermissionKey> PermissionKeys {
+            get
+            {
+                return new List<PermissionKey>
+                {
+                    PermissionKey.General,
+                    PermissionKey.View,
+                    PermissionKey.Modify,
+                    PermissionKey.Delete
+                };
+            }
+            set { PermissionKeys = value; } 
         }
     }
 }

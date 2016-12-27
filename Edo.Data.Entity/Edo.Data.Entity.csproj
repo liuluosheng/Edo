@@ -73,6 +73,7 @@
     <Compile Include="Entitys\Suppliers.cs" />
     <Compile Include="Entitys\User.cs" />
     <Compile Include="Entitys\UserRole.cs" />
+    <Compile Include="Enum\Sys.PermissionKeys.cs" />
     <Compile Include="Enum\UI.Grid.ColumnType.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="EdoDbContext.cs" />
@@ -80,7 +81,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <Compile Include="Enum\System.UserType.cs" />
+    <Compile Include="Enum\Sys.UserType.cs" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

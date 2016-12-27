@@ -1,0 +1,39 @@
+﻿@{
+    ViewBag.Title = "系统角色";
+}
+@section Styles{
+
+}
+<div ng-app="app" ng-controller="roleController">
+    <br />
+    <div class="ng-grid panel panel-default" ng-cloak>
+        <div class="panel-heading">
+            <b>系统角色</b>
+            <a class="btn btn-primary pull-right" ng-click="gridOption.create();"><i class="fa fa-plus"></i>新 建</a>
+        </div>
+        <div class="panel-body">
+            <div grid grid-option="gridOption" data="data" grid-name="role"></div>
+        </div>
+    </div>  
+</div>
+@section scripts{
+    <script type="text/javascript">
+        app.controller("roleController", [
+            "$scope", "$http", "$filter", "$window", "$common", function ($scope, $http, $filter, $window, $common) {
+                $scope.gridOption = {
+                    height: 'auto',
+                    rowNumber: true,
+                    pkColumn: "Id",
+                    rowDetail: true,
+                    filterRow: true,
+                    url: "/role/page",
+                    selectUrl: "/role/select2",
+                    editTemplateUrl: "/ngTemplate/role.html"
+                //, onRowSelected: function (row) { }
+               // , onRenderRowDetail: function (row) { }
+                };
+            }
+        ])
+    </script>
+}
+

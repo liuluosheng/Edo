@@ -1452,6 +1452,7 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastOutputs>
 .\GenerateView.log
+.\Role\Index.cshtml
 .\User\Index.cshtml
 </LastOutputs>
       <LastGenOutput>GenerateView.log</LastGenOutput>
@@ -1462,6 +1463,7 @@
       <DependentUpon>GenerateView.tt</DependentUpon>
     </Content>
     <Content Include="Views\User\Index.cshtml" />
+    <Content Include="Views\Role\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

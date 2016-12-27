@@ -1,4 +1,4 @@
-<#@ template language="C#" debug="True" #>
+<#@ template language="C#" debug="True"  hostspecific="true" #>
 <#@ output extension="log" #>
 <#@ import namespace="System.Text" #>
 <#@ assembly name="System.Core" #>
@@ -14,24 +14,26 @@
 <#@ assembly name="System.ComponentModel.DataAnnotations.dll" #>
 <#@ import namespace="Edo.Data.Entity.ComponentModel" #>
 <#@ import namespace="Edo.Data.Entity" #>
+<#@ assembly name="System.IO" #>
+<#@ import namespace="System.IO" #>
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
 <#@import namespace="System.Reflection"#>
 <#@import namespace="Newtonsoft.Json"#>
 <#@import namespace="Edo.ViewModels"#>
 <#@ include file="T4Toolbox.tt" #>
-<#
-
-
+<#    //  不重新生成已存在的文件，需要重新生成文件，先将其删除。
     var types = Assembly.GetAssembly(typeof(EntityBase)).GetTypes();
     var baseType = typeof(EntityBase);
     foreach(var type in types){
         var attribute = type.GetCustomAttribute<NgTemplateAttribute>();
         if (type.BaseType != null && type.BaseType == baseType && attribute !=null){
-            Template template = new NgTemplate(type);
+            string path=Host.ResolvePath(string.Format("{0}\\{1}.html",Path.GetDirectoryName(Host.TemplateFile),type.Name.ToLower()));
+            Template template = new NgTemplate(type,path);
             template.Output.Encoding = Encoding.UTF8;
             template.RenderToFile( string.Format("{0}.html",type.Name.ToLower()));
-            Template gridTemplate = new NgTemplateForMoretoMore(type); 
+            string grid_path=Host.ResolvePath(string.Format("{0}\\grid_{1}.html",Path.GetDirectoryName(Host.TemplateFile),type.Name.ToLower()));
+            Template gridTemplate = new NgTemplateForMoretoMore(type,grid_path); 
             gridTemplate.Output.Encoding = Encoding.UTF8;
             gridTemplate.RenderToFile( string.Format("grid_{0}.html",type.Name.ToLower()));               
         }       
@@ -42,15 +44,23 @@
 <#+
     public class NgTemplate : CSharpTemplate
     {
-        private Type _type;          
-        public NgTemplate(Type type)
+        private Type _type;    
+        private string _path;      
+        public NgTemplate(Type type,string path)
         {
             _type=type;
+            _path=path;
         }
         public override string TransformText()
         {
+            if(System.IO.File.Exists(_path))
+            {
+                FileStream fs = new FileStream(_path, FileMode.Open, FileAccess.Read, FileShare.Read);
+                StreamReader sr = new StreamReader(fs, Encoding.UTF8);
+                return sr.ReadToEnd();
+            }
 #>
-<!--由模板生成，如修改代码，重新生成后将被覆盖！-->
+
 <div>
     <div class="modal-header">
         <h3 class="modal-title" id="modal-title">
@@ -256,12 +266,20 @@
     public class NgTemplateForMoretoMore : CSharpTemplate
     {
         private Type t;  
-        public NgTemplateForMoretoMore(Type type)
+        private string _path;
+        public NgTemplateForMoretoMore(Type type,string path)
         {
             t=type;
+            _path=path;
         }
         public override string TransformText()
-        {                            
+        {    
+            if(System.IO.File.Exists(_path))
+            {
+                FileStream fs = new FileStream(_path, FileMode.Open, FileAccess.Read, FileShare.Read);
+                StreamReader sr = new StreamReader(fs, Encoding.UTF8);
+                return sr.ReadToEnd();
+            }                        
 #>
                <div>
                     <div class="modal-header">

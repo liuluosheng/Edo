@@ -16,38 +16,45 @@
 <#@import namespace="System.Reflection"#>
 <#@import namespace="Newtonsoft.Json"#>
 <#@import namespace="Edo.ViewModels"#>
+<#@ assembly name="System.IO" #>
+<#@ import namespace="System.IO" #>
 <#@ include file="T4Toolbox.tt" #>
 <#
-
     var types = Assembly.GetAssembly(typeof(EntityBase)).GetTypes();
     var baseType = typeof(EntityBase);
     foreach(var type in types){
         var attribute = type.GetCustomAttribute<NgTemplateAttribute>();
         if (type.BaseType != null && type.BaseType == baseType && attribute !=null){
-            Template template = new ControllerTemplate(type);
+            string path=Host.ResolvePath(string.Format("{0}\\{1}Controller.cs",Path.GetDirectoryName(Host.TemplateFile),type.Name));
+            Template template = new ControllerTemplate(type,path);
             template.Output.Encoding = Encoding.UTF8;
             string file=string.Format("{0}Controller.cs",type.Name);
             template.RenderToFile(file);
             WriteLine(string.Format("Generate file:{0}.",file));
         }       
     }
-   
-
 #>
 
 <#+
     public class ControllerTemplate : CSharpTemplate
     {
         private Type _type;
+        private string _path;
         List<PropertyInfo> genericProperties=new List<PropertyInfo>();
         private string name;
-        public ControllerTemplate(Type t){
+        public ControllerTemplate(Type t,string path){
             _type=t;
             name=_type.Name;
+            _path=path;
         }
         public override string TransformText()
         {
-            base.TransformText();
+            if(System.IO.File.Exists(_path))
+            {
+                FileStream fs = new FileStream(_path, FileMode.Open, FileAccess.Read, FileShare.Read);
+                StreamReader sr = new StreamReader(fs, Encoding.UTF8);
+                return sr.ReadToEnd();
+            }
 #>
 using System;
 using System.Collections.Generic;
@@ -99,13 +106,13 @@ namespace Edo.Web.Controllers
         {
             var model = _service.Repository.GetByKey(id);
             model.<#=                    prop.Name #>.Remove(_service.Repository.OtherEntities<<#=                    t.Name #>>().FirstOrDefault(p => p.Id == itemId));
-            return Content(GetJsonString(new Result { Success = await _service.Repository.UpdateAsync(model) > 0 ,Obj=AutoMapper.Mapper.Map<<#=            name #>,<#=            name #>ViewModel>(model) }));
+            return Content(GetJsonString(new Result { Success = await _service.Repository.UpdateAsync(model) > 0 ,Obj=AutoMapper.Mapper.Map<<#=                    name #>,<#=                    name #>ViewModel>(model) }));
         }  
         public async Task<ActionResult> Create<#=                    tName #>(Guid id,Guid itemId)
         {
             var model = _service.Repository.GetByKey(id);
             model.<#=                    prop.Name #>.Add(_service.Repository.OtherEntities<<#=                    t.Name #>>().FirstOrDefault(p => p.Id == itemId));
-            return Content(GetJsonString(new Result { Success = await _service.Repository.UpdateAsync(model) > 0 ,Obj=AutoMapper.Mapper.Map<<#=            name #>,<#=            name #>ViewModel>(model)}));
+            return Content(GetJsonString(new Result { Success = await _service.Repository.UpdateAsync(model) > 0 ,Obj=AutoMapper.Mapper.Map<<#=                    name #>,<#=                    name #>ViewModel>(model)}));
         }  
      #endregion  
      <#+                }

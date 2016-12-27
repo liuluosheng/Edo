@@ -18,14 +18,16 @@
 <#@import namespace="System.Reflection"#>
 <#@import namespace="Newtonsoft.Json"#>
 <#@import namespace="Edo.ViewModels"#>
+<#@ assembly name="System.IO" #>
+<#@ import namespace="System.IO" #>
 <#@ include file="T4Toolbox.tt" #>
-<#
-
+<#    //  不重新生成已存在的文件，需要重新生成文件，先将其删除。
     var types = Assembly.GetAssembly(typeof(EntityBase)).GetTypes();
     var baseType = typeof(EntityBase);
     foreach(var type in types){
         if (type.BaseType != null && type.BaseType == baseType){
-            Template template = new ControllerTemplate(type);
+            string path=Host.ResolvePath(string.Format("{0}\\{1}ViewModel.cs",Path.GetDirectoryName(Host.TemplateFile),type.Name));
+            Template template = new ControllerTemplate(type,path);
             template.Output.Encoding = Encoding.UTF8;
             string file=string.Format("{0}ViewModel.cs",type.Name);
             template.RenderToFile(file);
@@ -35,19 +37,25 @@
    
 
 #>
-
 <#+
     public class ControllerTemplate : CSharpTemplate
     {
         private Type _type;
         private string name;
-        public ControllerTemplate(Type t){
+        private string _path;
+        public ControllerTemplate(Type t,string path){
             _type=t;
+            _path=path;
             name=_type.Name.Replace("ViewModel","");
         }
         public override string TransformText()
         {
-            base.TransformText();
+            if(System.IO.File.Exists(_path))
+            {
+                FileStream fs = new FileStream(_path, FileMode.Open, FileAccess.Read, FileShare.Read);
+                StreamReader sr = new StreamReader(fs, Encoding.UTF8);
+                return sr.ReadToEnd();
+            }
 #>
 using System;
 using System.Collections.Generic;
@@ -68,7 +76,7 @@ namespace Edo.ViewModels
             foreach(PropertyInfo prop in _type.GetProperties()){
                 var p=prop.GetCustomAttribute<ForeignKeyAttribute>();
                 var genericTypes=prop.PropertyType.GenericTypeArguments;
-                if( new []{"Id","IsDeleted","Timestamp1","CreatedDate"}.Contains(prop.Name) ) continue;
+                if( new []{"Id","IsDeleted","CreatedDate"}.Contains(prop.Name) ) continue;
                 if(p!=null || genericTypes.Length!=0 && genericTypes[0].BaseType==typeof(EntityBase)){ 
         #>  
                 [IgnoreMap]<#+                }     #>          

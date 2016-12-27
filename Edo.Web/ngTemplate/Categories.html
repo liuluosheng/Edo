@@ -1,4 +1,4 @@
-﻿<!--由模板生成，如修改代码，重新生成后将被覆盖！-->
+﻿
 <div>
     <div class="modal-header">
         <h3 class="modal-title" id="modal-title">
@@ -9,42 +9,39 @@
     </div>
     <div class="modal-body" id="modal-body">
         <div class="modal-nav">
-  <a ng-click="scrollTo('#tolink0')">基本信息</a>
-  <a ng-click="scrollTo('#tolink1')">Products</a>
+            <a ng-click="scrollTo('#tolink0')">基本信息</a>
+            <a ng-click="scrollTo('#tolink1')">Products</a>
         </div>
         <form class="form-horizontal  modal-form" role="form" ng-style="{maxHeight:modalHeight}" name="form"
               ng-scrollbars
               ng-scrollbars-update="scrolls.updateScrollbar"
               ng-scrollbars-config="scrolls.config">
-          <fieldset id="tolink0">
-                <legend><i class="fa fa-circle"></i>基本信息</legend>       
-                    <div class="form-group" ng-class="{'has-error':form.CategoryName.$invalid }" 
-                    ><label class="col-sm-2 control-label">CategoryName</label>
+            <fieldset id="tolink0">
+                <legend><i class="fa fa-circle"></i>基本信息</legend>
+                <div class="form-group" ng-class="{'has-error':form.CategoryName.$invalid }">
+                    <label class="col-sm-2 control-label">CategoryName</label>
                     <div class="col-sm-10">
-                        <input type="text" autocomplete="off"  class="form-control pull-left"  placeholder="CategoryName" name="CategoryName" ng-model="item.CategoryName"   
-                       >
+                        <input type="text" autocomplete="off" class="form-control pull-left" placeholder="CategoryName" name="CategoryName" ng-model="item.CategoryName">
                     </div>
                 </div>
-                    <div class="form-group" ng-class="{'has-error':form.Description.$invalid }" 
-                    ><label class="col-sm-2 control-label">Description</label>
+                <div class="form-group" ng-class="{'has-error':form.Description.$invalid }">
+                    <label class="col-sm-2 control-label">Description</label>
                     <div class="col-sm-10">
-                        <input type="text" autocomplete="off"  class="form-control pull-left"  placeholder="Description" name="Description" ng-model="item.Description"   
-                       >
+                        <input type="text" autocomplete="off" class="form-control pull-left" placeholder="Description" name="Description" ng-model="item.Description">
                     </div>
                 </div>
-                    <div class="form-group" ng-class="{'has-error':form.Picture.$invalid }" 
-                    ><label class="col-sm-2 control-label">Picture</label>
+                <div class="form-group" ng-class="{'has-error':form.Picture.$invalid }">
+                    <label class="col-sm-2 control-label">Picture</label>
                     <div class="col-sm-10">
-                        <input type="text" autocomplete="off"  class="form-control pull-left"  placeholder="Picture" name="Picture" ng-model="item.Picture"   
-                       >
+                        <input type="text" autocomplete="off" class="form-control pull-left" placeholder="Picture" name="Picture" ng-model="item.Picture">
                     </div>
                 </div>
-                </fieldset>
-          <fieldset id="tolink1">
-                <legend><i class="fa fa-circle"></i>Products</legend>       
-                  
-                    <div grid
-                    ng-model="item.Products"
+            </fieldset>
+            <fieldset id="tolink1">
+                <legend><i class="fa fa-circle"></i>Products</legend>
+
+                <div grid
+                     ng-model="item.Products"
                      grid-option="gridOption"
                      grid-detail="true"
                      grid-item-field="CategoryID"
@@ -57,8 +54,8 @@
                      grid-delete-url="/Products/Delete"
                      grid-edit-template-url="/ngTemplate/Products.html"
                      grid-url="/Products/Page">
-                    </div>
-                </fieldset>
+                </div>
+            </fieldset>
         </form>
     </div>
     <div class="modal-footer">

@@ -1,27 +1,27 @@
-<#@ template language="C#" debug="True" hostspecific="true" #>
+ï»¿<#@ template language="C#" debug="True" hostspecific="true" #>
 <#@ output extension="log" #>
 <#@ assembly name="$(TargetDir)Edo.Data.Entity.dll" #>
 <#@import namespace="System.Reflection"#>
+<#@Â importÂ namespace="System.Text"Â #>
 <#@ assembly name="System.Core" #>
 <#@ assembly name="System.Web" #>
 <#@ assembly name="System.IO" #>
 <#@ import namespace="Edo.Data.Entity" #>
+<#@ import namespace="System.IO" #>
 <#@ import namespace="Edo.Data.Entity.ComponentModel" #>
 <#@ include file="T4Toolbox.tt" #> 
 <#
     var types = Assembly.GetAssembly(typeof(EntityBase)).GetTypes();
     string projectDir=   Host.ResolveAssemblyReference("$(ProjectDir)"); 
-    
     var baseType = typeof(EntityBase);
     foreach(var type in types){
         var attribute = type.GetCustomAttribute<GenerateViewAttribute>();
         if (type.BaseType != null && type.BaseType == baseType && attribute !=null)
         {
             string path=string.Format("{0}\\Views\\{1}\\Index.cshtml",projectDir,type.Name);
-            if(!System.IO.File.Exists(path))
-            {                ViewTemplate template= new  ViewTemplate(type,attribute.Title);
-                template.RenderToFile(path);
-            }
+            ViewTemplate template= new  ViewTemplate(type,attribute.Title,path);
+            template.RenderToFile(path);
+            
         }
     }
 #>
@@ -30,12 +30,21 @@
     {
         Type _type;
         string _title;
-        public ViewTemplate (Type type,string title){
+        string _path;
+        public ViewTemplate (Type type,string title,string path){
             _type=type;
             _title=title;
+            _path=path;
         }
         public override string TransformText()
         {
+           
+            if(System.IO.File.Exists(_path))
+            {
+                FileStream fs = new FileStream(_path, FileMode.Open, FileAccess.Read, FileShare.Read);
+                StreamReader sr = new StreamReader(fs, Encoding.UTF8);
+                return sr.ReadToEnd();
+            }
             //  base.TransformText();
 #>
 @{
@@ -49,7 +58,7 @@
     <div class="ng-grid panel panel-default" ng-cloak>
         <div class="panel-heading">
             <b><#=            _title??_type.Name #></b>
-            <a class="btn btn-primary pull-right" ng-click="gridOption.create();"><i class="fa fa-plus"></i>ÐÂ ½¨</a>
+            <a class="btn btn-primary pull-right" ng-click="gridOption.create();"><i class="fa fa-plus"></i>æ–° å»º</a>
         </div>
         <div class="panel-body">
             <div grid grid-option="gridOption" data="data" grid-name="<#=            _type.Name.ToLower() #>"></div>
