@@ -41,6 +41,10 @@ namespace Edo.ViewModels
                 [IgnoreMap]          
                 [DisplayName("Roles")]
                 public virtual  ICollection<RoleViewModel> Roles { get; set; }
+  
+                [IgnoreMap]          
+                [DisplayName("Permissions")]
+                public virtual  ICollection<UserPermissionViewModel> Permissions { get; set; }
           
                 [DisplayName("Timestamp")]
                 public virtual Byte[] Timestamp { get; set; }

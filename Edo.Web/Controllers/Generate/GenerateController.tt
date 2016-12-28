@@ -23,7 +23,7 @@
     var types = Assembly.GetAssembly(typeof(EntityBase)).GetTypes();
     var baseType = typeof(EntityBase);
     foreach(var type in types){
-        var attribute = type.GetCustomAttribute<NgTemplateAttribute>();
+        var attribute = type.GetCustomAttribute<GenerateControllerAttribute>();
         if (type.BaseType != null && type.BaseType == baseType && attribute !=null){
             string path=Host.ResolvePath(string.Format("{0}\\{1}Controller.cs",Path.GetDirectoryName(Host.TemplateFile),type.Name));
             Template template = new ControllerTemplate(type,path);
@@ -49,12 +49,12 @@
         }
         public override string TransformText()
         {
-            if(System.IO.File.Exists(_path))
-            {
-                FileStream fs = new FileStream(_path, FileMode.Open, FileAccess.Read, FileShare.Read);
-                StreamReader sr = new StreamReader(fs, Encoding.UTF8);
-                return sr.ReadToEnd();
-            }
+            //if(System.IO.File.Exists(_path))
+            //{
+            //FileStream fs = new FileStream(_path, FileMode.Open, FileAccess.Read, FileShare.Read);
+            //StreamReader sr = new StreamReader(fs, Encoding.UTF8);
+            //return sr.ReadToEnd();
+            //}
 #>
 using System;
 using System.Collections.Generic;

@@ -1,24 +1,24 @@
 ﻿@{
-    ViewBag.Title = "订单信息";
+    ViewBag.Title = "用户权限";
 }
 @section Styles{
 
 }
-<div ng-app="app" ng-controller="ordersController">
+<div ng-app="app" ng-controller="userpermissionController">
     <br />
     <div class="ng-grid panel panel-default" ng-cloak>
         <div class="panel-heading">
-            <b>订单信息</b>
+            <b>用户权限</b>
             <a class="btn btn-primary pull-right" ng-click="gridOption.create();"><i class="fa fa-plus"></i>新 建</a>
         </div>
         <div class="panel-body">
-            <div grid grid-option="gridOption" data="data" grid-name="orders"></div>
+            <div grid grid-option="gridOption" data="data" grid-name="userpermission"></div>
         </div>
     </div>  
 </div>
 @section scripts{
     <script type="text/javascript">
-        app.controller("ordersController", [
+        app.controller("userpermissionController", [
             "$scope", "$http", "$filter", "$window", "$common", function ($scope, $http, $filter, $window, $common) {
                 $scope.gridOption = {
                     height: 'auto',
@@ -26,9 +26,9 @@
                     pkColumn: "Id",
                     rowDetail: true,
                     filterRow: true,
-                    url: "/orders/page",
-                    selectUrl: "/orders/select2",
-                    editTemplateUrl: "/ngTemplate/orders.html"
+                    url: "/userpermission/page",
+                    selectUrl: "/userpermission/select2",
+                    editTemplateUrl: "/ngTemplate/userpermission.html"
                 //, onRowSelected: function (row) { }
                // , onRenderRowDetail: function (row) { }
                 };

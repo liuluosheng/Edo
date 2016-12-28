@@ -7,7 +7,7 @@ using Edo.Data.Entity.ComponentModel;
 
 namespace Edo.Data.Entity
 {
-    [NgTemplate,GenerateView(Title="系统角色")]
+    [NgTemplate,GenerateController(Title="系统角色")]
     public partial class Role : EntityBase
     {
         [GridColumn]

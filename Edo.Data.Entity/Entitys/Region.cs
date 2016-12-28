@@ -9,7 +9,7 @@ namespace Edo.Data.Entity
     using System;
     using System.Collections.Generic;
 
-    [NgTemplate]
+    [NgTemplate, GenerateController(Title = "«¯”Ú–≈œ¢")]
     public partial class Region : EntityBase
     {
         [GridColumn]

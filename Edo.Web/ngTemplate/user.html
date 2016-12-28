@@ -1,4 +1,4 @@
-﻿<!--由模板生成，如修改代码，重新生成后将被覆盖！-->
+﻿
 <div>
     <div class="modal-header">
         <h3 class="modal-title" id="modal-title">
@@ -11,6 +11,7 @@
         <div class="modal-nav">
   <a ng-click="scrollTo('#tolink0')">基本信息</a>
   <a ng-click="scrollTo('#tolink1')">Roles</a>
+  <a ng-click="scrollTo('#tolink2')">Permissions</a>
         </div>
         <form class="form-horizontal  modal-form" role="form" ng-style="{maxHeight:modalHeight}" name="form"
               ng-scrollbars
@@ -105,6 +106,25 @@
                      grid-delete-url="/User/DeleteRole"
                      grid-edit-template-url="/ngTemplate/Role.html"
                      grid-url="/User/PageRole">
+                    </div>
+                </fieldset>
+          <fieldset id="tolink2">
+                <legend><i class="fa fa-circle"></i>Permissions</legend>       
+                  
+                    <div grid
+                    ng-model="item.Permissions"
+                     grid-option="gridOption"
+                     grid-detail="true"
+                     grid-item-field="UserId"
+                     grid-enable-edit="true"
+                     grid-enable-delete="true"
+                     grid-more-to-more="false"
+                     grid-template="nggrid"
+                     grid-name="userPermission"
+                     grid-select-url="/UserPermission/Select2"
+                     grid-delete-url="/UserPermission/Delete"
+                     grid-edit-template-url="/ngTemplate/UserPermission.html"
+                     grid-url="/UserPermission/Page">
                     </div>
                 </fieldset>
         </form>

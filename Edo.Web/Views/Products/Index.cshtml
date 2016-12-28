@@ -1,45 +1,39 @@
 ﻿@{
-    ViewBag.Title = "Products";
+    ViewBag.Title = "产品信息";
+}
+@section Styles{
+
 }
 <div ng-app="app" ng-controller="productsController">
     <br />
-    <div class="ng-grid panel panel-default pull-left" ng-cloak ng-cloak>
+    <div class="ng-grid panel panel-default" ng-cloak>
         <div class="panel-heading">
-            <b>Products</b>
+            <b>产品信息</b>
             <a class="btn btn-primary pull-right" ng-click="gridOption.create();"><i class="fa fa-plus"></i>新 建</a>
         </div>
         <div class="panel-body">
             <div grid grid-option="gridOption" data="data" grid-name="products"></div>
         </div>
-    </div>
-    <div class="clearfix"></div>
+    </div>  
 </div>
 @section scripts{
-
     <script type="text/javascript">
-
         app.controller("productsController", [
-         "$scope", "$http", "$filter", "$window", "$common", function ($scope, $http, $filter, $window, $common) {
-             $window.formatterDate = function (value) {
-                 return $filter("date")(value, "yyyy-MM-dd");
-             }
-
-             $scope.gridOption = {
-                 height: 'auto',
-                 rowNumber: true,
-                 pkColumn: "Id",
-                 rowDetail: true,
-                 filterRow: true,
-                 url: "/products/page",
-                 selectUrl: "/products/select2",
-                 editTemplateUrl: "/ngTemplate/products.html",
-                 btns: [
-             { name: "detail", icon: "glyphicon glyphicon-th", onclick: function () { alert("detail") } }
-                 ],
-                 onRowSelected: function (row) { }
-                 // ,onRenderRowDetail: function (row) { }
-             };
-         }
+            "$scope", "$http", "$filter", "$window", "$common", function ($scope, $http, $filter, $window, $common) {
+                $scope.gridOption = {
+                    height: 'auto',
+                    rowNumber: true,
+                    pkColumn: "Id",
+                    rowDetail: true,
+                    filterRow: true,
+                    url: "/products/page",
+                    selectUrl: "/products/select2",
+                    editTemplateUrl: "/ngTemplate/products.html"
+                //, onRowSelected: function (row) { }
+               // , onRenderRowDetail: function (row) { }
+                };
+            }
         ])
     </script>
 }
+

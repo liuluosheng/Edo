@@ -53,12 +53,12 @@
         }
         public override string TransformText()
         {
-            if(System.IO.File.Exists(_path))
-            {
-                FileStream fs = new FileStream(_path, FileMode.Open, FileAccess.Read, FileShare.Read);
-                StreamReader sr = new StreamReader(fs, Encoding.UTF8);
-                return sr.ReadToEnd();
-            }
+            //if(System.IO.File.Exists(_path))
+            //{
+                //FileStream fs = new FileStream(_path, FileMode.Open, FileAccess.Read, FileShare.Read);
+                //StreamReader sr = new StreamReader(fs, Encoding.UTF8);
+                //return sr.ReadToEnd();
+            //}
 #>
 
 <div>
@@ -274,12 +274,12 @@
         }
         public override string TransformText()
         {    
-            if(System.IO.File.Exists(_path))
-            {
-                FileStream fs = new FileStream(_path, FileMode.Open, FileAccess.Read, FileShare.Read);
-                StreamReader sr = new StreamReader(fs, Encoding.UTF8);
-                return sr.ReadToEnd();
-            }                        
+            //if(System.IO.File.Exists(_path))
+            //{
+                //FileStream fs = new FileStream(_path, FileMode.Open, FileAccess.Read, FileShare.Read);
+                //StreamReader sr = new StreamReader(fs, Encoding.UTF8);
+                //return sr.ReadToEnd();
+            //}                        
 #>
                <div>
                     <div class="modal-header">

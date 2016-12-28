@@ -100,6 +100,7 @@
   margin-bottom: 10px;
   text-align: left;
   position: relative;
+  min-width: 650px;
 }
 .grid-modal-dialog .modal-body fieldset .btns {
   height: 0;

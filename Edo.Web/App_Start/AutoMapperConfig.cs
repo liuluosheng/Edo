@@ -35,6 +35,7 @@ namespace Edo.Web
 
                 cfg.CreateMap<UserViewModel, User>().ReverseMap();
                 cfg.CreateMap<RoleViewModel, Role>().ReverseMap();
+                cfg.CreateMap<UserPermissionViewModel, UserPermission>().ReverseMap();
             });
         }
     }

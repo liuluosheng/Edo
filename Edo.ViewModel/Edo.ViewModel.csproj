@@ -81,6 +81,9 @@
     <Compile Include="Generate\SuppliersViewModel.cs">
       <DependentUpon>GenerateViewModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Generate\UserPermissionViewModel.cs">
+      <DependentUpon>GenerateViewModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Generate\UserRoleViewModel.cs">
       <DependentUpon>GenerateViewModel.tt</DependentUpon>
     </Compile>
@@ -115,6 +118,7 @@
 .\RoleViewModel.cs
 .\ShippersViewModel.cs
 .\SuppliersViewModel.cs
+.\UserPermissionViewModel.cs
 .\UserRoleViewModel.cs
 .\UserViewModel.cs
 </LastOutputs>

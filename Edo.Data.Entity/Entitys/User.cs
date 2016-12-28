@@ -10,7 +10,7 @@ using Edo.Data.Entity.Enum;
 
 namespace Edo.Data.Entity
 {
-    [NgTemplate,GenerateView(Title="系统用户")]
+    [NgTemplate,GenerateController(Title="系统用户")]
     public class User : EntityBase
     {
         [GridColumn]
@@ -26,5 +26,7 @@ namespace Edo.Data.Entity
         [GridColumn]
         public UserType UserType { get; set; }
         public virtual ICollection<Role> Roles { get; set; }
+
+        public virtual ICollection<UserPermission> Permissions { get; set; }
     }
 }

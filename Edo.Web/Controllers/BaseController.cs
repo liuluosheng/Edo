@@ -92,19 +92,5 @@ namespace Edo.Web.Controllers
                 PreserveReferencesHandling = PreserveReferencesHandling.Objects
             });
         }
-
-        protected virtual List<PermissionKey> PermissionKeys {
-            get
-            {
-                return new List<PermissionKey>
-                {
-                    PermissionKey.General,
-                    PermissionKey.View,
-                    PermissionKey.Modify,
-                    PermissionKey.Delete
-                };
-            }
-            set { PermissionKeys = value; } 
-        }
     }
 }

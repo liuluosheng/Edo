@@ -14,7 +14,6 @@ var app = angular.module("app", ['ui.bootstrap', 'ui.bootstrap.datetimepicker', 
     });
 }).service("$common", [
     "$filter", "toastr", "SweetAlert", function ($filter, $toast, $sweetAlert) {
-        this.columnOption = window["columnOption"];
         this.gridOptions = window["gridOptions"];
         //提示框服务
         this.$toast = $toast;

@@ -178,15 +178,6 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CustomersController.cs" />
-    <Compile Include="Controllers\Generate\CategoriesController.cs">
-      <DependentUpon>GenerateController.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Controllers\Generate\CustomersController.cs">
-      <DependentUpon>GenerateController.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Controllers\Generate\EmployeesController.cs">
-      <DependentUpon>GenerateController.tt</DependentUpon>
-    </Compile>
     <Compile Include="Controllers\Generate\OrderDetailsController.cs">
       <DependentUpon>GenerateController.tt</DependentUpon>
     </Compile>
@@ -202,27 +193,24 @@
     <Compile Include="Controllers\Generate\RoleController.cs">
       <DependentUpon>GenerateController.tt</DependentUpon>
     </Compile>
-    <Compile Include="Controllers\Generate\ShippersController.cs">
-      <DependentUpon>GenerateController.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Controllers\Generate\SuppliersController.cs">
-      <DependentUpon>GenerateController.tt</DependentUpon>
-    </Compile>
     <Compile Include="Controllers\Generate\UserController.cs">
       <DependentUpon>GenerateController.tt</DependentUpon>
     </Compile>
-    <Compile Include="Controllers\Generate\UserRoleController.cs">
+    <Compile Include="Controllers\Generate\UserPermissionController.cs">
       <DependentUpon>GenerateController.tt</DependentUpon>
     </Compile>
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OrderDetailsController.cs" />
     <Compile Include="Controllers\OrdersController.cs" />
     <Compile Include="Controllers\RegionController.cs" />
+    <Compile Include="Extension\CacheHelper.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Model\Result.cs" />
-    <Compile Include="MVC\HttpRuntimeCache.cs" />
+    <Compile Include="Services\PageAuthorizationAttribute.cs" />
+    <Compile Include="Services\HttpRuntimeCache.cs" />
+    <Compile Include="Services\PermissionKeys.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -337,6 +325,9 @@
     <Content Include="ngTemplate\grid_user.html">
       <DependentUpon>GenerateNgTemplate.tt</DependentUpon>
     </Content>
+    <Content Include="ngTemplate\grid_userpermission.html">
+      <DependentUpon>GenerateNgTemplate.tt</DependentUpon>
+    </Content>
     <Content Include="ngTemplate\grid_userrole.html">
       <DependentUpon>GenerateNgTemplate.tt</DependentUpon>
     </Content>
@@ -363,6 +354,9 @@
       <DependentUpon>GenerateNgTemplate.tt</DependentUpon>
     </Content>
     <Content Include="ngTemplate\user.html">
+      <DependentUpon>GenerateNgTemplate.tt</DependentUpon>
+    </Content>
+    <Content Include="ngTemplate\userpermission.html">
       <DependentUpon>GenerateNgTemplate.tt</DependentUpon>
     </Content>
     <Content Include="ngTemplate\userrole.html">
@@ -409,10 +403,8 @@
     <Content Include="Scripts\bootstrap-datetimepicker.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Scripts\common\grid-option.js">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>grid-option.tt</DependentUpon>
+    <Content Include="Scripts\common\gridOptions.js">
+      <DependentUpon>GenerateJavascripts.tt</DependentUpon>
     </Content>
     <Content Include="Scripts\common\resources.js" />
     <Content Include="Scripts\errors.json" />
@@ -1286,6 +1278,7 @@
 .\grid_shippers.html
 .\grid_suppliers.html
 .\grid_user.html
+.\grid_userpermission.html
 .\grid_userrole.html
 .\orderdetails.html
 .\orders.html
@@ -1295,6 +1288,7 @@
 .\shippers.html
 .\suppliers.html
 .\user.html
+.\userpermission.html
 .\userrole.html
 </LastOutputs>
       <LastGenOutput>GenerateNgTemplate.log</LastGenOutput>
@@ -1309,19 +1303,14 @@
     <Content Include="Controllers\Generate\GenerateController.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastOutputs>
-.\CategoriesController.cs
-.\CustomersController.cs
-.\EmployeesController.cs
 .\GenerateController.log
 .\OrderDetailsController.cs
 .\OrdersController.cs
 .\ProductsController.cs
 .\RegionController.cs
 .\RoleController.cs
-.\ShippersController.cs
-.\SuppliersController.cs
 .\UserController.cs
-.\UserRoleController.cs
+.\UserPermissionController.cs
 </LastOutputs>
       <LastGenOutput>GenerateController.log</LastGenOutput>
     </Content>
@@ -1337,6 +1326,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>GenerateNgTemplate.tt</DependentUpon>
+    </Content>
+    <Content Include="Scripts\common\GenerateJavascripts.log">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GenerateJavascripts.tt</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-1.12.4.intellisense.js" />
     <Content Include="Scripts\i18n\ar.js" />
@@ -1434,16 +1428,14 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Scripts\version.json" />
-    <Content Include="Scripts\common\grid-option.tt">
+    <Content Include="Scripts\common\GenerateJavascripts.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>grid-option.js</LastGenOutput>
+      <LastOutputs>
+.\GenerateJavascripts.log
+.\gridOptions.js
+</LastOutputs>
+      <LastGenOutput>GenerateJavascripts.log</LastGenOutput>
     </Content>
-    <Content Include="Views\Orders\Create.cshtml" />
-    <Content Include="Views\Orders\Delete.cshtml" />
-    <Content Include="Views\Orders\Details.cshtml" />
-    <Content Include="Views\Orders\Edit.cshtml" />
-    <Content Include="Views\Orders\Index.cshtml" />
-    <Content Include="Views\Orders\OrderList.cshtml" />
     <Content Include="Scripts\select.min.js.map" />
     <None Include="Views\Customers\Index.cshtml" />
     <Content Include="Views\Region\Index.cshtml" />
@@ -1452,8 +1444,13 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastOutputs>
 .\GenerateView.log
+.\OrderDetails\Index.cshtml
+.\Orders\Index.cshtml
+.\Products\Index.cshtml
+.\Region\Index.cshtml
 .\Role\Index.cshtml
 .\User\Index.cshtml
+.\UserPermission\Index.cshtml
 </LastOutputs>
       <LastGenOutput>GenerateView.log</LastGenOutput>
     </Content>
@@ -1464,12 +1461,13 @@
     </Content>
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\Role\Index.cshtml" />
+    <Content Include="Views\Orders\Index.cshtml" />
+    <Content Include="Views\OrderDetails\Index.cshtml" />
+    <Content Include="Views\UserPermission\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Extension\" />
     <Folder Include="Scripts\typings\angular-material\" />
-    <Folder Include="Views\OrderDetails\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

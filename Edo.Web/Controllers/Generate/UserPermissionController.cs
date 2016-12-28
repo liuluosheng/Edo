@@ -14,9 +14,9 @@ using System.Threading.Tasks;
 using Edo.Web.Model;
 namespace Edo.Web.Controllers
 {
-	public partial class SuppliersController : BaseController<Suppliers, SuppliersViewModel>
+	public partial class UserPermissionController : BaseController<UserPermission, UserPermissionViewModel>
 	{
-        public SuppliersController(BaseService<Suppliers> service)
+        public UserPermissionController(BaseService<UserPermission> service)
         :base(service)
         {
        

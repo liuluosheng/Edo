@@ -15,7 +15,7 @@
     string projectDir=   Host.ResolveAssemblyReference("$(ProjectDir)"); 
     var baseType = typeof(EntityBase);
     foreach(var type in types){
-        var attribute = type.GetCustomAttribute<GenerateViewAttribute>();
+        var attribute = type.GetCustomAttribute<GenerateControllerAttribute>();
         if (type.BaseType != null && type.BaseType == baseType && attribute !=null)
         {
             string path=string.Format("{0}\\Views\\{1}\\Index.cshtml",projectDir,type.Name);
@@ -39,13 +39,12 @@
         public override string TransformText()
         {
            
-            if(System.IO.File.Exists(_path))
-            {
-                FileStream fs = new FileStream(_path, FileMode.Open, FileAccess.Read, FileShare.Read);
-                StreamReader sr = new StreamReader(fs, Encoding.UTF8);
-                return sr.ReadToEnd();
-            }
-            //  base.TransformText();
+            //if(System.IO.File.Exists(_path))
+            //{
+                //FileStream fs = new FileStream(_path, FileMode.Open, FileAccess.Read, FileShare.Read);
+                //StreamReader sr = new StreamReader(fs, Encoding.UTF8);
+                //return sr.ReadToEnd();
+            //}
 #>
 @{
     ViewBag.Title = "<#=            _title??_type.Name #>";
@@ -90,4 +89,4 @@
             return this.GenerationEnvironment.ToString();
         }
     }
-                    #>
+#>

@@ -55,7 +55,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ComponentModel\NgTemplateAttribute.cs" />
-    <Compile Include="ComponentModel\GenerateViewAttribute.cs" />
+    <Compile Include="ComponentModel\GenerateControllerAttribute.cs" />
     <Compile Include="ComponentModel\GridAttribute.cs" />
     <Compile Include="ComponentModel\GridColumnAttribute.cs" />
     <Compile Include="ComponentModel\NavTagAttribute.cs" />
@@ -71,6 +71,7 @@
     <Compile Include="Entitys\Role.cs" />
     <Compile Include="Entitys\Shippers.cs" />
     <Compile Include="Entitys\Suppliers.cs" />
+    <Compile Include="Entitys\UserPermission.cs" />
     <Compile Include="Entitys\User.cs" />
     <Compile Include="Entitys\UserRole.cs" />
     <Compile Include="Enum\Sys.PermissionKeys.cs" />
@@ -85,7 +86,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Extensions\" />
+    <Folder Include="Enum\Extensions\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Edo.Utility\Edo.Utility.csproj">

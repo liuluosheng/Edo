@@ -8,7 +8,7 @@ namespace Edo.Data.Entity
 {
     using System;
     using System.Collections.Generic;
-    [NgTemplate]
+    [NgTemplate, GenerateController(Title = "∂©µ•œÍ«È")]
     public partial class OrderDetails : EntityBase
     {
         public Guid OrderID { get; set; }
