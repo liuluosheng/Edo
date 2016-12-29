@@ -243,11 +243,20 @@
     <Content Include="Content\ng-scrollbars\mCSB_buttons.png" />
     <Content Include="Content\select.css" />
     <Content Include="Content\select.min.css" />
+    <Content Include="Content\Site.css">
+      <DependentUpon>Site.less</DependentUpon>
+    </Content>
+    <Content Include="Content\Site.min.css">
+      <DependentUpon>Site.css</DependentUpon>
+    </Content>
     <Content Include="Content\ui-bootstrap-csp.css" />
     <Content Include="Dynamic Expressions.html" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
-    <Content Include="Content\Site.css" />
+    <Content Include="Content\Site.css.map">
+      <DependentUpon>Site.css</DependentUpon>
+    </Content>
+    <None Include="Content\Site.less" />
     <Content Include="images\actions.gif" />
     <Content Include="images\ajax-loader-small.gif" />
     <Content Include="images\arrow_redo.png" />

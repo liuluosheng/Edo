@@ -1,0 +1,80 @@
+﻿
+@import url('bootstrap/variables.less');
+
+body, html {
+    height: 100%;
+}
+
+.body-content {
+    padding-top: @navbar-height;
+    height: 100%;
+    @system-menu-width: 250px;
+    @system-menu-short: 45px;
+
+    .sys-menu {
+        width: @system-menu-width;
+        height: 100%;
+        border-right: solid 1px @btn-default-border;
+        position: fixed;
+        left: 0;
+        top: @navbar-height;
+        z-index: 999;
+
+        .menu-switch {
+            text-align: right;
+
+            .glyphicon {
+                font-size: 24px;
+                color: @brand-warning;
+                margin: 10px;
+                cursor: pointer;
+                opacity: .8;
+
+                &:hover {
+                    opacity: 1;
+                }
+            }
+        }
+
+        &.switch {
+            width: @system-menu-short;
+        }
+
+        .menu-item {
+            border-bottom: solid 1px @btn-default-border;
+            background-color: white;
+            font-size: 14px;
+            padding: 10px 15px;
+            cursor: pointer;
+            overflow: visible;
+            white-space: nowrap;
+
+            .menu-item-icon {
+                width: 25px;
+                font-size: 16px;
+            }
+
+            .item-text {
+                display: inline-block;
+                width: 175px;
+            }
+
+            .switch {
+                font-size: 16px;
+                line-height: 20px;
+            }
+
+            &:hover {
+                background-color: @breadcrumb-bg;
+            }
+        }
+    }
+
+    .container-fluid {
+        padding-left: @system-menu-width + 20px;
+
+        &.switch {
+            padding-left: @system-menu-short+20px;
+        }
+    }
+}

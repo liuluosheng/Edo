@@ -1,18 +1,64 @@
-﻿body {
-    padding-top: 50px;
-    padding-bottom: 20px;
+﻿body,
+html {
+  height: 100%;
 }
-
-/* Set padding to keep content from hitting the edges */
 .body-content {
-    padding-left: 15px;
-    padding-right: 15px;
+  padding-top: 50px;
+  height: 100%;
 }
-
-/* Override the default bootstrap behavior where horizontal description lists 
-   will truncate terms that are too long to fit in the left column 
-*/
-.dl-horizontal dt {
-    white-space: normal;
+.body-content .sys-menu {
+  width: 250px;
+  height: 100%;
+  border-right: solid 1px #cccccc;
+  position: fixed;
+  left: 0;
+  top: 50px;
+  z-index: 999;
 }
-
+.body-content .sys-menu .menu-switch {
+  text-align: right;
+}
+.body-content .sys-menu .menu-switch .glyphicon {
+  font-size: 24px;
+  color: #f0ad4e;
+  margin: 10px;
+  cursor: pointer;
+  opacity: .8;
+}
+.body-content .sys-menu .menu-switch .glyphicon:hover {
+  opacity: 1;
+}
+.body-content .sys-menu.switch {
+  width: 45px;
+}
+.body-content .sys-menu .menu-item {
+  border-bottom: solid 1px #cccccc;
+  background-color: white;
+  font-size: 14px;
+  padding: 10px 15px;
+  cursor: pointer;
+  overflow: visible;
+  white-space: nowrap;
+}
+.body-content .sys-menu .menu-item .menu-item-icon {
+  width: 25px;
+  font-size: 16px;
+}
+.body-content .sys-menu .menu-item .item-text {
+  display: inline-block;
+  width: 175px;
+}
+.body-content .sys-menu .menu-item .switch {
+  font-size: 16px;
+  line-height: 20px;
+}
+.body-content .sys-menu .menu-item:hover {
+  background-color: #f5f5f5;
+}
+.body-content .container-fluid {
+  padding-left: 270px;
+}
+.body-content .container-fluid.switch {
+  padding-left: 65px;
+}
+/*# sourceMappingURL=Site.css.map */

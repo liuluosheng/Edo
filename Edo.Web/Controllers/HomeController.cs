@@ -37,6 +37,7 @@ namespace Edo.Web.Controllers
         {
 
         }
+        //[PageAuthorization(typeof(Orders), PermissionKey.View)]
         public ActionResult Index()
         {
             //JsonLocalTextRegistration.AddFromFilesInFolder(HostingEnvironment.MapPath("~/Common/"));       
@@ -121,9 +122,5 @@ namespace Edo.Web.Controllers
                 return await PageData<OrderDetails, OrderDetailsViewModel>(dbset, sort, filter, pageIndex, pageSize);
             }
         }
-
-
-
-
     }
 }

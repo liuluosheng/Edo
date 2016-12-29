@@ -52,7 +52,7 @@
 @section Styles{
 
 }
-<div ng-app="app" ng-controller="<#=            _type.Name.ToLower() #>Controller">
+<div  ng-controller="<#=            _type.Name.ToLower() #>Controller">
     <br />
     <div class="ng-grid panel panel-default" ng-cloak>
         <div class="panel-heading">

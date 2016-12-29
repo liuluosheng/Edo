@@ -20,5 +20,7 @@ var app = angular.module("app", ['ui.bootstrap', 'ui.bootstrap.datetimepicker', 
         this.$alert = $sweetAlert;
         this.emptyGuid = "00000000-0000-0000-0000-000000000000";
     }
-]);
+])
+    .controller("appController", ["$scope", function ($scope) {
+    }]);
 //# sourceMappingURL=app.js.map

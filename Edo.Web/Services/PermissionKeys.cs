@@ -10,11 +10,11 @@ namespace Edo.Web
     /// </summary>
     public class PermissionKeys
     {
-        public class Customer
+        public class Orders
         {
-            public const string Delete = "Edo:Customer:Delete";
-            public const string Modify = "Edo:Customer:Modify";
-            public const string View = "Edo:Customer:View";
+            public const string Delete = "Edo:Orders:Delete";
+            public const string Modify = "Edo:Orders:Modify";
+            public const string View = "Edo:Orders:View";
         }
 
         public const string General = "Edo:General";
