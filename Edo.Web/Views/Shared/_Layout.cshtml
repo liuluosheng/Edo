@@ -46,45 +46,21 @@
             <div class="menu-switch">
                 <i class="glyphicon glyphicon-th-list" ng-click="switch=!switch;"></i>
             </div>
-            <div class="menu-item" ng-click="orders=!orders;">
-                <i class="fa fa-battery-3 menu-item-icon"></i>
-                <span ng-hide="switch">
-                    <span class="item-text">Orders</span>
-                    <i class="switch fa fa-angle-{{orders?'down':'left'}}"></i>
-                </span>
-            </div>
-            <div ng-show="orders">
-                <div class="menu-item">
-                    <i class="fa"></i>
-                    <i class=" fa menu-item-icon"></i>
-                    <span>Orders-item1</span>
+            <div class="menu-item" ng-class="{folding:!a && !switch}" ng-repeat="menu in sysMenu">
+                <i class="fa {{menu.icon}} menu-item-icon" aria-hidden="true"></i>
+                <a class="menu-warp" ng-click="a=!a;" href="{{menu.children?'javascript:void(0)':menu.url}}">
+                    <span class="item-text" ng-bind="menu.name"></span>
+                    <i class="switch fa fa-angle-{{a?'down':'left'}}" ng-if="menu.children"></i>
+                </a>
+                <div ng-show="a" class="menu-child" ng-cloak ng-if="menu.children">
+                    <a ng-repeat="item in menu.children" href="{{item.url}}">
+                        <i class="fa {{item.icon}} menu-item-icon" aria-hidden="true"></i>
+                        <span ng-bind="item.name" class="item-text"></span>
+                    </a>
                 </div>
-                <div class="menu-item">
-                    <i class="fa"></i>
-                    <i class=" fa menu-item-icon"></i>
-                    <span>Orders-item2</span>
-                </div>
-            </div>
-            <div class="menu-item">
-                <i class="fa fa-apple menu-item-icon"></i>
-                <span ng-hide="switch">
-                    <span>Users</span>
-                </span>
-            </div>
-            <div class="menu-item">
-                <i class="fa fa-audio-description menu-item-icon"></i>
-                <span ng-hide="switch">
-                    <span>Regions</span>
-                </span>
-            </div>
-            <div class="menu-item">
-                <i class="fa fa-automobile menu-item-icon"></i>
-                <span ng-hide="switch">
-                    <span>Roles</span>
-                </span>
             </div>
         </div>
-        <div class="container-fluid pull-left" ng-class="{switch:switch}">
+        <div class="container-fluid" ng-class="{switch:switch}">
             @RenderBody()
         </div>
     </div>

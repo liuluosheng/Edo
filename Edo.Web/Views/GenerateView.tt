@@ -37,13 +37,12 @@
             _path=path;
         }
         public override string TransformText()
-        {
-           
+        {        
             //if(System.IO.File.Exists(_path))
             //{
-                //FileStream fs = new FileStream(_path, FileMode.Open, FileAccess.Read, FileShare.Read);
-                //StreamReader sr = new StreamReader(fs, Encoding.UTF8);
-                //return sr.ReadToEnd();
+              //FileStream fs = new FileStream(_path, FileMode.Open, FileAccess.Read, FileShare.Read);
+              //StreamReader sr = new StreamReader(fs, Encoding.UTF8);
+             //return sr.ReadToEnd();
             //}
 #>
 @{
@@ -53,12 +52,14 @@
 
 }
 <div  ng-controller="<#=            _type.Name.ToLower() #>Controller">
-    <br />
+    <div class="clearfix grid-btn">
+        <ol class="breadcrumb pull-left">
+            <li><a href="/">EDO</a></li>
+            <li><a  class="active"><#=            _title??_type.Name #></a></li>
+        </ol>
+        <a class="btn btn-primary " ng-click="gridOption.create();"><i class="fa fa-plus"></i>新 建</a>
+    </div>
     <div class="ng-grid panel panel-default" ng-cloak>
-        <div class="panel-heading">
-            <b><#=            _title??_type.Name #></b>
-            <a class="btn btn-primary pull-right" ng-click="gridOption.create();"><i class="fa fa-plus"></i>新 建</a>
-        </div>
         <div class="panel-body">
             <div grid grid-option="gridOption" data="data" grid-name="<#=            _type.Name.ToLower() #>"></div>
         </div>

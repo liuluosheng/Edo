@@ -164,16 +164,8 @@
   padding-top: 10px;
 }
 .ng-grid .panel-heading {
-  height: 34px;
-  line-height: 34px;
   box-sizing: content-box;
-  padding-top: 10px;
-  padding-bottom: 8px;
   padding-right: 8px;
-}
-.ng-grid .panel-heading .fa {
-  margin-right: 10px;
-  vertical-align: middle;
 }
 .ng-grid .fa-spinner {
   font-size: 25px;
@@ -248,7 +240,7 @@
   height: 25px;
 }
 .ng-grid .row-number-cell {
-  width: 50px;
+  width: 1%;
   padding: 0;
   text-align: center;
 }

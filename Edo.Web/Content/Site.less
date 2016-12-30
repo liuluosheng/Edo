@@ -1,12 +1,16 @@
 ﻿
 @import url('bootstrap/variables.less');
 
+a {
+    text-decoration: none !important;
+}
+
 body, html {
     height: 100%;
 }
 
 .body-content {
-    padding-top: @navbar-height;
+    padding-top: @navbar-height + 2px;
     height: 100%;
     @system-menu-width: 250px;
     @system-menu-short: 45px;
@@ -14,14 +18,16 @@ body, html {
     .sys-menu {
         width: @system-menu-width;
         height: 100%;
-        border-right: solid 1px @btn-default-border;
+        border-right: solid 1px@navbar-default-border;
         position: fixed;
         left: 0;
         top: @navbar-height;
         z-index: 999;
+        background-color: @navbar-default-bg;
 
         .menu-switch {
             text-align: right;
+            height: 48px;
 
             .glyphicon {
                 font-size: 24px;
@@ -38,40 +44,162 @@ body, html {
 
         &.switch {
             width: @system-menu-short;
+
+            .menu-warp, .menu-child {
+                display: none;
+            }
+
+            .menu-item:hover {
+                width: @system-menu-width;
+                position: relative;
+                background-color: @navbar-default-bg;
+                color: @brand-warning;
+                border: solid 1px @navbar-default-border;
+                border-top-right-radius: 5px;
+
+                &.folding {
+                    border-bottom-right-radius: 5px;
+                }
+
+                .menu-warp {
+                    display: inline-block;
+
+                    .item-text {
+                        text-indent: 45px;
+                    }
+
+                    .switch {
+                        display: none;
+                    }
+                }
+
+                .menu-child {
+                    border-bottom-right-radius: 5px;
+                    border-bottom-left-radius: 5px;
+                    position: absolute;
+                    background-color: @navbar-default-bg;
+                    border: solid 1px @navbar-default-border;
+                    color: @brand-warning;
+                    border-top: none;
+                    display: block !important;
+                    left: 46px;
+                    top: 46px;
+                    width: @system-menu-width - 47px;
+
+                    > a {
+                        background-color: @navbar-default-bg;
+                        color: @btn-default-color;
+
+                        .menu-item-icon {
+                            margin-left: 0;
+                        }
+
+                        .item-text {
+                            text-align: center;
+                            width: auto;
+                        }
+
+                        &:hover {
+                            background-color: @alert-success-bg;
+                        }
+                    }
+                }
+            }
         }
 
         .menu-item {
-            border-bottom: solid 1px @btn-default-border;
-            background-color: white;
+            border: solid 1px @navbar-default-border;
+            border-right: none;
+            border-left: none;
             font-size: 14px;
-            padding: 10px 15px;
             cursor: pointer;
             overflow: visible;
             white-space: nowrap;
+            margin-top: -1px;
+
+            &.folding {
+                &:hover {
+                    background-color: @alert-success-bg;
+                }
+            }
 
             .menu-item-icon {
-                width: 25px;
-                font-size: 16px;
+                display: inline-block;
+                width: 45px;
+                height: 45px;
+                line-height: 45px;
+                text-align: center;
+                font-size: 20px;
+                vertical-align: middle;
+            }
+
+            &::selection {
+                color: white;
+            }
+
+            &:hover {
+                background-color: @breadcrumb-bg;
+            }
+
+            .menu-child > a {
+                height: 45px;
+                line-height: 45px;
+                margin-bottom: 2px;
+                display: block;
+
+                .menu-item-icon {
+                    color: @btn-default-color;
+                    margin-left: 20px;
+                }
+
+                &:hover {
+                    background-color: @alert-success-bg;
+                    color: @btn-default-color;
+                }
             }
 
             .item-text {
                 display: inline-block;
                 width: 175px;
+                font-size: 16px;
+                font-weight: bold;
+                user-select: none;
+                color: @btn-default-color;
+                height: 45px;
+                line-height: 45px;
+                vertical-align: middle;
             }
 
             .switch {
                 font-size: 16px;
                 line-height: 20px;
-            }
-
-            &:hover {
-                background-color: @breadcrumb-bg;
+                color: @brand-warning;
             }
         }
     }
 
     .container-fluid {
         padding-left: @system-menu-width + 20px;
+
+        .grid-btn {
+            padding: 2px 0;
+            width: 100%;
+            text-align: right;
+
+            .breadcrumb {
+                margin: 0;
+                background-color: transparent;
+                padding: 10px 0;
+            }
+
+            .btn {
+                padding: 8px 20px;
+
+                .fa {
+                    margin-right: 8px;
+                }
+            }
+        }
 
         &.switch {
             padding-left: @system-menu-short+20px;

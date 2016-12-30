@@ -5,12 +5,14 @@
 
 }
 <div  ng-controller="ordersController">
-    <br />
+    <div class="clearfix grid-btn">
+        <ol class="breadcrumb pull-left">
+            <li><a href="/">EDO</a></li>
+            <li><a  class="active">订单信息</a></li>
+        </ol>
+        <a class="btn btn-primary " ng-click="gridOption.create();"><i class="fa fa-plus"></i>新 建</a>
+    </div>
     <div class="ng-grid panel panel-default" ng-cloak>
-        <div class="panel-heading">
-            <b>订单信息</b>
-            <a class="btn btn-primary pull-right" ng-click="gridOption.create();"><i class="fa fa-plus"></i>新 建</a>
-        </div>
         <div class="panel-body">
             <div grid grid-option="gridOption" data="data" grid-name="orders"></div>
         </div>

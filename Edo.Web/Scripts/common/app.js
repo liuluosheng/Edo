@@ -22,5 +22,11 @@ var app = angular.module("app", ['ui.bootstrap', 'ui.bootstrap.datetimepicker', 
     }
 ])
     .controller("appController", ["$scope", function ($scope) {
+        $scope.sysMenu = [
+            { name: "Orders", url: "/orders", icon: "fa-html5" },
+            { name: "Region", url: "/region", icon: "fa-cc-mastercard" },
+            { name: "Products", url: "/products", icon: "fa-pie-chart" },
+            { name: "系统管理", children: [{ name: "User", url: "/user", icon: "fa-user" }, { name: "Role", url: "/role", icon: "fa-users" }], icon: "fa-cog" }
+        ];
     }]);
 //# sourceMappingURL=app.js.map
