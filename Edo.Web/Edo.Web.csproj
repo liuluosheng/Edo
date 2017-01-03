@@ -178,6 +178,12 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CustomersController.cs" />
+    <Compile Include="Controllers\Generate\CustomersController.cs">
+      <DependentUpon>GenerateController.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\Generate\EmployeesController.cs">
+      <DependentUpon>GenerateController.tt</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\Generate\OrderDetailsController.cs">
       <DependentUpon>GenerateController.tt</DependentUpon>
     </Compile>
@@ -1312,6 +1318,8 @@
     <Content Include="Controllers\Generate\GenerateController.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastOutputs>
+.\CustomersController.cs
+.\EmployeesController.cs
 .\GenerateController.log
 .\OrderDetailsController.cs
 .\OrdersController.cs
@@ -1452,6 +1460,8 @@
     <Content Include="Views\GenerateView.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastOutputs>
+.\Customers\Index.cshtml
+.\Employees\Index.cshtml
 .\GenerateView.log
 .\OrderDetails\Index.cshtml
 .\Orders\Index.cshtml
@@ -1473,6 +1483,7 @@
     <Content Include="Views\Orders\Index.cshtml" />
     <Content Include="Views\OrderDetails\Index.cshtml" />
     <Content Include="Views\UserPermission\Index.cshtml" />
+    <Content Include="Views\Employees\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

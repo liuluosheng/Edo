@@ -46,7 +46,7 @@
             <div class="menu-switch">
                 <i class="glyphicon glyphicon-th-list" ng-click="switch=!switch;"></i>
             </div>
-            <div class="menu-item" ng-class="{folding:!a && !switch}" ng-repeat="menu in sysMenu">
+            <div class="menu-item" ng-class="{folding:!a && !switch || !menu.children}" ng-repeat="menu in sysMenu">
                 <i class="fa {{menu.icon}} menu-item-icon" aria-hidden="true"></i>
                 <a class="menu-warp" ng-click="a=!a;" href="{{menu.children?'javascript:void(0)':menu.url}}">
                     <span class="item-text" ng-bind="menu.name"></span>

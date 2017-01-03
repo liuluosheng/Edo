@@ -4,3 +4,4 @@ $T.AlertError = "出错啦~";
 $T.AlertSelect = "请选择数据行~";
 $T.ConfirmDelete = "确定删除？";
 $T.FormValidateError = "表单验证错误";
+$T.DataLoadError = "数据加载错误！";

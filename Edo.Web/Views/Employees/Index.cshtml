@@ -1,26 +1,26 @@
 ﻿@{
-    ViewBag.Title = "客户信息";
+    ViewBag.Title = "员工信息";
 }
 @section Styles{
 
 }
-<div  ng-controller="customersController">
+<div  ng-controller="employeesController">
     <div class="clearfix grid-btn">
         <ol class="breadcrumb pull-left">
             <li><a href="/">EDO</a></li>
-            <li><a  class="active">客户信息</a></li>
+            <li><a  class="active">员工信息</a></li>
         </ol>
         <a class="btn btn-primary " ng-click="gridOption.create();"><i class="fa fa-plus"></i>新 建</a>
     </div>
     <div class="ng-grid panel panel-default" ng-cloak>
         <div class="panel-body">
-            <div grid grid-option="gridOption" data="data" grid-name="customers"></div>
+            <div grid grid-option="gridOption" data="data" grid-name="employees"></div>
         </div>
     </div>  
 </div>
 @section scripts{
     <script type="text/javascript">
-        app.controller("customersController", [
+        app.controller("employeesController", [
             "$scope", "$http", "$filter", "$window", "$common", function ($scope, $http, $filter, $window, $common) {
                 $scope.gridOption = {
                     height: 'auto',
@@ -28,9 +28,9 @@
                     pkColumn: "Id",
                     rowDetail: true,
                     filterRow: true,
-                    url: "/customers/page",
-                    selectUrl: "/customers/select2",
-                    editTemplateUrl: "/ngTemplate/customers.html"
+                    url: "/employees/page",
+                    selectUrl: "/employees/select2",
+                    editTemplateUrl: "/ngTemplate/employees.html"
                 //, onRowSelected: function (row) { }
                // , onRenderRowDetail: function (row) { }
                 };

@@ -80,6 +80,9 @@ angular.module("app.grid", ['ngSanitize']).directive("grid", [
                 $scope.dataLoading = false;
                 if (!isfilter)
                     $scope.gridOption.filterRow = p.pageSize >= p.total ? false : $scope.option.filterRow
+            }).error(result => {
+                $scope.dataLoading = false;
+                $common.$alert.error($T.DataLoadError);
             });
         }
 

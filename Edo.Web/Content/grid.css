@@ -163,6 +163,9 @@
   border-top: solid 2px #eee;
   padding-top: 10px;
 }
+.ng-grid .panel-body {
+  padding: 5px;
+}
 .ng-grid .panel-heading {
   box-sizing: content-box;
   padding-right: 8px;
