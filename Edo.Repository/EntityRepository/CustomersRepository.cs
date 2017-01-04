@@ -9,7 +9,6 @@ namespace Edo.Repository.EntityRepository
 {
     public class CustomersRepository : BaseRepository<Customers>
     {
-        private EdoDbContext _db;
         public CustomersRepository(EdoDbContext db)
             : base(db)
         {

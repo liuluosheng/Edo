@@ -1,11 +1,10 @@
-<#@ template language="C#" debug="True" #>
+<#@ template language="C#" debug="false" #>
 <#@ output extension="log" #>
 <#@ import namespace="System.Text" #>
 <#@ assembly name="System.Core" #>
 <#@ assembly name="System.Web" #>
-<#@ assembly name="$(TargetDir)Edo.Data.Entity.dll" #>
-<#@ assembly name="$(TargetDir)Edo.ViewModel.dll" #>
-<#@ assembly name="$(TargetDir)Newtonsoft.Json.dll" #>
+<#@ assembly name="$(SolutionDir)Edo.Web\bin\Edo.Data.Entity.dll" #>
+<#@ assembly name="$(SolutionDir)Edo.Web\bin\Newtonsoft.Json.dll" #>
 <#@ assembly name="System.ComponentModel.DataAnnotations.dll" #>
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="Edo.Data.Entity.ComponentModel" #>
@@ -17,7 +16,6 @@
 <#@ import namespace="System.Collections.Generic" #>
 <#@import namespace="System.Reflection"#>
 <#@import namespace="Newtonsoft.Json"#>
-<#@import namespace="Edo.ViewModels"#>
 <#@ assembly name="System.IO" #>
 <#@ import namespace="System.IO" #>
 <#@ include file="T4Toolbox.tt" #>
