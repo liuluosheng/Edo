@@ -335,7 +335,7 @@ angular.module("app.grid", ['ngSanitize']).directive("grid", [
             $uibModalInstance.dismiss('cancel');
         };
     }
-]).filter("filterColunm", function () { return function (item, arrays) {
+]).filter("filterColumn", function () { return function (item, arrays) {
     var obj = {};
     angular.forEach(item, function (value, key) {
         if ($.inArray(key, arrays) === -1 && key.indexOf("$$") !== 0)

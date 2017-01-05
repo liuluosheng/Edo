@@ -1,21 +1,14 @@
-﻿class GridDirective implements ng.IDirectiveFactory {
+﻿class GridDirective implements ng.IDirective {
     static $inject = ["$http", "attrs"];
-    constructor($http, attrs) {
-        return {
-            restrict: 'EA',
-            templateUrl: (element: any, attrs: any) => {
-                if (!attrs.gridTemplate) attrs.gridTemplate = "ngGrid";
-                return `/ngTemplate/${attrs.gridTemplate}.html`;
-            },
-            scope:
-            {
-                "option": "=gridOption",
-                "gridName": "@gridName"
-            },
-            replace: true,
-            controller: "GridController"
-        };
-    }
+    restrict = "EA";
+    templateUrl = "/ngTemplate/ngGrid.html";
+    replace = true;
+    controller = "gridController";
+    scope =
+    <any>{
+        "option": "=gridOption",
+        "gridName": "@gridName"
+    };
 }
 
 class GridController {
@@ -336,16 +329,19 @@ class EditGridController {
     }
 }
 
-class FilterColumn {
-    constructor(item, arrays) {
-        let obj = {};
-        angular.forEach(item, (value, key) => {
-            if ($.inArray(key, <any>arrays) === -1 && key.indexOf("$$") !== 0)
-                obj[key] = value;
-        });
-        return obj;
-    }
+
+function FilterColumn(item, arrays) {
+    let obj = {};
+    angular.forEach(item, (value, key) => {
+        if ($.inArray(key, <any>arrays) === -1 && key.indexOf("$$") !== 0)
+            obj[key] = value;
+    });
+    return obj;
 }
 
+
 angular.module("app.grid", ['ngSanitize'])
-    .directive("grid", GridDirective)
+    .directive("grid", () => new GridDirective())
+    .controller("gridController", GridController)
+    .controller("editInstanceCtrl", EditGridController)
+    .filter("filterColumn", () => FilterColumn);

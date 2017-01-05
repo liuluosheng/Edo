@@ -1,18 +1,12 @@
 var GridDirective = (function () {
-    function GridDirective($http, attrs) {
-        return {
-            restrict: 'EA',
-            templateUrl: function (element, attrs) {
-                if (!attrs.gridTemplate)
-                    attrs.gridTemplate = "ngGrid";
-                return "/ngTemplate/" + attrs.gridTemplate + ".html";
-            },
-            scope: {
-                "option": "=gridOption",
-                "gridName": "@gridName"
-            },
-            replace: true,
-            controller: "GridController"
+    function GridDirective() {
+        this.restrict = "EA";
+        this.templateUrl = "/ngTemplate/ngGrid.html";
+        this.replace = true;
+        this.controller = "gridController";
+        this.scope = {
+            "option": "=gridOption",
+            "gridName": "@gridName"
         };
     }
     GridDirective.$inject = ["$http", "attrs"];
@@ -342,15 +336,17 @@ var EditGridController = (function () {
     EditGridController.$inject = ["$scope", "$http", "$uibModalInstance", "$uibModal", "$common", "$window"];
     return EditGridController;
 }());
-var FilterColumn = (function () {
-    function FilterColumn(item, arrays) {
-        var obj = {};
-        angular.forEach(item, function (value, key) {
-            if ($.inArray(key, arrays) === -1 && key.indexOf("$$") !== 0)
-                obj[key] = value;
-        });
-        return obj;
-    }
-    return FilterColumn;
-}());
+function FilterColumn(item, arrays) {
+    var obj = {};
+    angular.forEach(item, function (value, key) {
+        if ($.inArray(key, arrays) === -1 && key.indexOf("$$") !== 0)
+            obj[key] = value;
+    });
+    return obj;
+}
+angular.module("app.grid", ['ngSanitize'])
+    .directive("grid", function () { return new GridDirective(); })
+    .controller("gridController", GridController)
+    .controller("editInstanceCtrl", EditGridController)
+    .filter("filterColumn", function () { return FilterColumn; });
 //# sourceMappingURL=grid.js.map

@@ -30,7 +30,7 @@ namespace Edo.Web
              "~/Scripts/moment.min.js",
              "~/Scripts/angular-datetimepicker/datetimepicker.js",
              "~/Scripts/angular-datetimepicker/datetimepicker.templates.js",
-             "~/Scripts/grid/ngGrid.js"
+             "~/Scripts/grid/grid.js"
              ));
 
             bundles.Add(new ScriptBundle("~/bundles/common").Include("~/scripts/common/*.js"));

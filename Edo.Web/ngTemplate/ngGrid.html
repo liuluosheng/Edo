@@ -78,7 +78,7 @@
                     <td colspan={{getconspan()}}>
                         <div ng-if="gridOption.rowDetail" class="row-detail-content clearfix">
                             <div ng-if="gridOption.onRenderRowDetail" ng-bind-html="renderRowDetail(item)"></div>
-                            <div ng-if="!gridOption.onRenderRowDetail" ng-repeat="(key,value) in item | filterColunm:columnfields" class="row-detail-item">
+                            <div ng-if="!gridOption.onRenderRowDetail" ng-repeat="(key,value) in item | filterColumn:columnfields" class="row-detail-item">
                                 <div ng-if="!isArray(value)">
                                     <b>{{key}}</b> ： {{value}}
                                 </div>

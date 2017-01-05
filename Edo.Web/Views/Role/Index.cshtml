@@ -4,11 +4,11 @@
 @section Styles{
 
 }
-<div ng-controller="roleController">
+<div  ng-controller="roleController">
     <div class="clearfix grid-btn">
         <ol class="breadcrumb pull-left">
             <li><a href="/">EDO</a></li>
-            <li><a class="active">系统角色</a></li>
+            <li><a  class="active">系统角色</a></li>
         </ol>
         <a class="btn btn-primary " ng-click="gridOption.create();"><i class="fa fa-plus"></i>新 建</a>
     </div>
@@ -16,11 +16,11 @@
         <div class="panel-body">
             <div grid grid-option="gridOption" data="data" grid-name="role"></div>
         </div>
-    </div>
+    </div>  
 </div>
 @section scripts{
     <script type="text/javascript">
-        var app = angular.module("app");
+   var app = angular.module("app");
         app.controller("roleController", [
             "$scope", "$http", "$filter", "$window", "$common", function ($scope, $http, $filter, $window, $common) {
                 $scope.gridOption = {
@@ -32,8 +32,8 @@
                     url: "/role/page",
                     selectUrl: "/role/select2",
                     editTemplateUrl: "/ngTemplate/role.html"
-                    //, onRowSelected: function (row) { }
-                    // , onRenderRowDetail: function (row) { }
+                //, onRowSelected: function (row) { }
+               // , onRenderRowDetail: function (row) { }
                 };
             }
         ])

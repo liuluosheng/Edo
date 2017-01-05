@@ -332,7 +332,7 @@ angular.module("app.grid", ['ngSanitize']).directive("grid", [
         };
 
     }
-]).filter("filterColunm", () => (item, arrays) => {
+]).filter("filterColumn", () => (item, arrays) => {
     var obj = {};
     angular.forEach(item, (value, key) => {
         if ($.inArray(key, <any>arrays) === -1 && key.indexOf("$$") !== 0)
