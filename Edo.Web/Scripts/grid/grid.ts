@@ -1,9 +1,9 @@
 ﻿class GridDirective implements ng.IDirective {
-    static $inject = ["$http", "attrs"];
     restrict = "EA";
     templateUrl = "/ngTemplate/ngGrid.html";
     replace = true;
     controller = "gridController";
+    controllerAs = "ctrl";
     scope =
     <any>{
         "option": "=gridOption",
@@ -13,12 +13,47 @@
 
 class GridController {
     static $inject = ["$scope", "$sce", "$filter", "$http", "$uibModal", "$attrs", "$common", "$parse"];
-    constructor($scope, $sce, $filter, $http, $uibModal, $attrs, $common, $parse) {
-        $scope.gridOption = angular.extend(
+    page: any;
+    gridOption: any;
+    data: any[];
+    lastPageFilter;
+    filterObj = {};
+    psArray: number[];
+    gridSort = {};
+    dataLoading: boolean = true;
+    columnfields;
+    paging;
+    getconspan: () => number;
+    sort;
+    rowSelected: (param: any) => void;
+    renderRowDetail: (param: any) => string;
+    getFilterString: () => string;
+    filter: (param: string | boolean) => void;
+    filterNum: (param: string, param1: string) => void;
+    clearFilter: (param: string) => void;
+    getSelectFilter: (param: string) => any;
+    formatter;
+    delete;
+    scrolls;
+    dialog;
+    isArray;
+    create;
+    createObj;
+    constructor(
+        $scope,
+        $sce,
+        $filter,
+        $http,
+        $uibModal,
+        $attrs,
+        $common,
+        $parse) {
+        this.gridOption = angular.extend(
             {
                 height: 'auto',
                 rowNumber: false,
                 rowDetail: true,
+                filterRow: false,
                 showBtn: {
                     edit: true,
                     del: true
@@ -41,94 +76,56 @@ class GridController {
                     del: $attrs.gridEnableDelete != "false"
                 }
             }, $scope.option);
-        $scope.gridOption.filterRow = false;
-        $scope.bindModel = (value) => {
-            let modelAttr = $attrs.ngModel;
-            if (modelAttr) {
-                $parse(modelAttr).assign($scope.$parent, value);
-            }
-        }
-        $scope.psArray = $scope.gridOption.isDetail ? [10] : [10, 20, 50, 100];
-        $scope.page = {
+        this.page = {
             pageIndex: 1,
-            pageSize: $scope.psArray[0],
-            sort: `${$scope.gridOption.itemFilterField || $scope.gridOption.pkColumn} descending`
+            pageSize: 10,
+            sort: `${this.gridOption.itemFilterField || this.gridOption.pkColumn} descending`
         }
-        if ($scope.gridOption.itemFilterField) {
-            $scope.gridOption.itemFilter = `${$scope.gridOption.itemFilterField} = "${$scope.gridOption.itemFilterValue || $common.emptyGuid}"`;
-        }
-        $scope.gridSort = {};
-        $scope.columnfields = $.map($scope.gridOption.columns, (v) => {
+        this.columnfields = $.map(this.gridOption.columns, (v) => {
             return v.id;
         });
-        $scope.dataLoading = true;
-        $scope.paging = (p, isfilter = false) => {
-            if (isfilter && $scope.lastPageFilter != null && $scope.lastPageFilter == p.filter) return;
-            if ($scope.gridOption.moreToMore && $scope.gridOption.itemFilter) p.itemFilter = $scope.gridOption.itemFilter; // 多对多时
-            $http.post($scope.gridOption.url, p).success(result => {
-                $scope.lastPageFilter = p.filter;
+        this.paging = (p, isfilter = false) => {
+            if (isfilter && this.lastPageFilter != null && this.lastPageFilter == p.filter) return;
+            if (this.gridOption.moreToMore && this.gridOption.itemFilter) p.itemFilter = this.gridOption.itemFilter; // 多对多时
+            $http.post(this.gridOption.url, p).success(result => {
+                this.lastPageFilter = p.filter;
                 p.total = result.total;
-                $scope.data = result.data;
+                this.data = result.data;
                 //$scope.bindModel($scope.data);
-                $scope.dataLoading = false;
+                this.dataLoading = false;
                 if (!isfilter)
-                    $scope.gridOption.filterRow = p.pageSize >= p.total ? false : $scope.option.filterRow
+                    this.gridOption.filterRow = p.pageSize >= p.total ? false : $scope.option.filterRow
             }).error(result => {
-                $scope.dataLoading = false;
+                this.dataLoading = false;
                 $common.$alert.error($T.DataLoadError);
             });
         }
-
-        $scope.getconspan = (): number => { return $scope.gridOption.columns.length + ($scope.gridOption.rowDetail || $scope.gridOption.showBtn ? 1 : 0) + ($scope.gridOption.rowNumber ? 1 : 0) };
-        $scope.sort = (op) => {
+        this.getconspan = (): number => { return this.gridOption.columns.length + (this.gridOption.rowDetail || this.gridOption.showBtn ? 1 : 0) + (this.gridOption.rowNumber ? 1 : 0) };
+        this.sort = (op) => {
             if (!op.sortable) return;
-            let sortBy = $scope.gridSort.field !== op.field ? "ascending" : $scope.gridSort.sort === "descending" ? "ascending" : "descending";
+            let sortBy = this.gridSort["field"] !== op.field ? "ascending" : this.gridSort["sort"] === "descending" ? "ascending" : "descending";
             let sort = `${op.field} ${sortBy}`;
-            $scope.gridSort = { field: op.field, sort: sortBy };
-            $scope.page.sort = sort;
-            $scope.paging($scope.page);
+            this.gridSort = { field: op.field, sort: sortBy };
+            this.page.sort = sort;
+            this.paging(this.page);
         }
-        $scope.rowSelected = (row) => {
+        this.rowSelected = (row) => {
             if (row.$selected) return;
-            $scope.gridOption.selectedRow = row;
+            this.gridOption.selectedRow = row;
             $scope.option.selectedRow = row;
-            angular.forEach($scope.data, (v) => { delete v.$selected });
+            angular.forEach(this.data, (v) => { delete v.$selected });
             row.$selected = true;
-            if (angular.isFunction($scope.gridOption.onRowSelected))
-                $scope.gridOption.onRowSelected(row);
+            if (angular.isFunction(this.gridOption.onRowSelected))
+                this.gridOption.onRowSelected(row);
         }
-        $scope.renderRowDetail = (row): string => {
-            if (angular.isFunction($scope.gridOption.onRenderRowDetail))
-                return $sce.trustAsHtml($scope.gridOption.onRenderRowDetail(row));
+        this.renderRowDetail = (row): string => {
+            if (angular.isFunction(this.gridOption.onRenderRowDetail))
+                return $sce.trustAsHtml(this.gridOption.onRenderRowDetail(row));
         }
-        $scope.filterObj = {};
-        $scope.filter = filterIsOpen => {
-            if (filterIsOpen) return;
-            $scope.page.filter = $scope.getFilterString();
-            $scope.page.pageIndex = 1;
-            $scope.paging($scope.page, true);
-        }
-        $scope.clearFilter = (field) => {
-            delete $scope.filterObj[field];
-            $scope.filter();
-        }
-        $scope.filterNum = (field, option) => {
-            if ($scope.filterObj[field] && !isNaN(<any>$scope.filterObj[field].text)) {
-                $scope.filterObj[field].value = `${field} ${option} ${$scope.filterObj[field].text}`;
-                $scope.filter();
-            }
-        }
-        $scope.getSelectFilter = (field) => {
-            let str = $scope.getFilterString();
-            let param = { field: field, q: str };
-            if ($scope.gridOption.moreToMore && $scope.page.itemFilter) param["itemFilter"] = $scope.page.itemFilter;
-            return $http.post($scope.gridOption.selectUrl, param).then(result => result.data.items);
-        }
-
-        $scope.getFilterString = (): string => {
+        this.getFilterString = (): string => {
             let values = [];
-            angular.forEach($scope.filterObj, (v, k) => {
-                let col = $filter('filter')($scope.gridOption.columns, { field: k });
+            angular.forEach(this.filterObj, (v, k) => {
+                let col = $filter('filter')(this.gridOption.columns, { field: k });
                 if (col.length !== 0) {
                     if (v != null || v !== "") {
                         switch (col[0].type) {
@@ -155,30 +152,54 @@ class GridController {
                     }
                 }
             });
-            if ($scope.gridOption.itemFilter && !$scope.gridOption.moreToMore) {
-                values.push($scope.gridOption.itemFilter);
+            if (this.gridOption.itemFilter && !this.gridOption.moreToMore) {
+                values.push(this.gridOption.itemFilter);
             }
             return values.join(' and ');
         }
-        $scope.page.filter = $scope.getFilterString();
-        $scope.paging($scope.page);
-        $scope.formatter = (formatter, value, row) => eval(`(${formatter})`)(value, row);
-        $scope.delete = (item, $index) => {
+        this.filter = (filterIsOpen) => {
+            if (filterIsOpen) return;
+            this.page["filter"] = this.getFilterString();
+            this.page.pageIndex = 1;
+            this.paging(this.page, true);
+        }
+        this.clearFilter = (field) => {
+            delete this.filterObj[field];
+            this.filter(false);
+        }
+        this.filterNum = (field, option) => {
+            if (this.filterObj[field].text == "") {
+                this.clearFilter(field);
+                return;
+            }
+            if (this.filterObj[field] && !isNaN(<any>this.filterObj[field].text)) {
+                this.filterObj[field].value = `${field} ${option} ${this.filterObj[field].text}`;
+                this.filter(false);
+            }
+        }
+        this.getSelectFilter = (field) => {
+            let str = this.getFilterString();
+            let param = { field: field, q: str };
+            if (this.gridOption.moreToMore && this.page["itemFilter"]) param["itemFilter"] = this.page["itemFilter"];
+            return $http.post(this.gridOption.selectUrl, param).then(result => result.data.items);
+        }
+        this.formatter = (formatter, value, row) => { eval(`(${formatter})`)(value, row) };
+        this.delete = (item, $index) => {
             $common.$alert.confirm($T.ConfirmDelete, { title: "" }).then(function (isConfirm) {
                 if (isConfirm) {
-                    let api = $scope.gridOption.moreToMore ? $scope.gridOption.deleteUrl : `${$scope.gridName}/delete`;
-                    let param = $scope.gridOption.moreToMore ? { id: $scope.gridOption.itemFilterValue, itemId: item.Id } : item;
-                    $http.post(api, param).success(function (result) {
+                    let api = this.gridOption.moreToMore ? this.gridOption.deleteUrl : `${this.gridName}/delete`;
+                    let param = this.gridOption.moreToMore ? { id: this.gridOption.itemFilterValue, itemId: item.Id } : item;
+                    this.$http.post(api, param).success(function (result) {
                         if (result.Success) {
                             setTimeout(function () { $common.$alert.success($T.AlertSuccess); }, 200);
-                            $scope.paging($scope.page);
+                            this.paging(this.page);
                         } else
                             setTimeout(function () { $common.$alert.error(result.Message || $T.AlertError); }, 200);
                     });
                 }
             });
         }
-        $scope.scrolls =
+        this.scrolls =
             {
                 config: {
                     autoHideScrollbar: false,
@@ -188,7 +209,7 @@ class GridController {
                     mouseWheel: { enable: false }
                 }
             }
-        let dialog = (resolveObj, resultFn, template) => {
+        this.dialog = (resolveObj, resultFn, template) => {
             let modalInstance = $uibModal.open({
                 windowTemplateUrl: "/ngTemplate/modal-template.html",
                 ariaLabelledBy: 'modal-title',
@@ -202,37 +223,34 @@ class GridController {
                     }
                 }
             }).result.then(resultFn);
-        };
-        $scope.isArray = (value) => {
+        }
+        this.isArray = (value) => {
             return angular.isArray(value);
         }
-        //create: 主表更新或创建数据行
-        $scope.create = item => {
+        this.create = (item) => {
             let isNew = item == null;
             item = item || {};
             var resolve = {
                 item: item,
                 gridOption: {
-                    itemFilterValue: item[$scope.gridOption.pkColumn]
+                    itemFilterValue: item[this.gridOption.pkColumn]
                 }
             };
-            if ($scope.gridOption.itemFilterField)
-                resolve["fkName"] = $scope.gridOption.itemFilterField;
-            dialog(resolve, function (result) {
+            if (this.gridOption.itemFilterField)
+                resolve["fkName"] = this.gridOption.itemFilterField;
+            this.dialog(resolve, function (result) {
                 if (result.Success) {
                     $common.$alert.success($T.AlertSuccess);
                     if (isNew)
-                        $scope.paging($scope.page);
+                        this.paging(this.page);
                     else
                         item = angular.extend(item, result.editObj, result.Obj)
 
                 } else
                     $common.$alert.error(result.Message || $T.AlertError);
-            }, $scope.gridOption.editTemplateUrl)
+            }, this.gridOption.editTemplateUrl)
         }
-        $scope.option.create = $scope.create;
-        // createObj: 创建详情行
-        $scope.createObj = (template, fkName, fkValue) => {
+        this.createObj = (template, fkName, fkValue) => {
             let resolve = {
                 fkName: fkName,
                 item: {},
@@ -243,7 +261,7 @@ class GridController {
             };
             if (fkName)
                 resolve.item[fkName] = fkValue;
-            dialog(resolve, function (result) {
+            this.dialog(resolve, function (result) {
                 let message = (data) => {
                     if (data.Success) {
                         $common.$alert.success($T.AlertSuccess);
@@ -251,17 +269,25 @@ class GridController {
                         $common.$alert.error(data.Message || $T.AlertError);
                 }
                 if (result.api) {
-                    let param = { id: $scope.gridOption.selectedRow.Id, itemId: result.selected.Id };
-                    $http.post(`${$scope.gridName}/create${result.api}`, param).success(function (data) {
+                    let param = { id: this.gridOption.selectedRow.Id, itemId: result.selected.Id };
+                    this.$http.post(`${this.gridName}/create${result.api}`, param).success(function (data) {
                         message(data);
                     });
                 } else
                     message(result);
             }, template)
         };
+        //$scope.gridOption.filterRow = false;
+        this.psArray = this.gridOption.isDetail ? [10] : [10, 20, 50, 100];
+        if (this.gridOption.itemFilterField) {
+            this.gridOption.itemFilter = `${this.gridOption.itemFilterField} = "${this.gridOption.itemFilterValue || $common.emptyGuid}"`;
+        }
+        $scope.option.create = this.create;
+        this.page["filter"] = this.getFilterString();
+        this.paging(this.page);
     }
-}
 
+}
 class EditGridController {
     static $inject = ["$scope", "$http", "$uibModalInstance", "$uibModal", "$common", "$window"];
     constructor($scope, $http, $uibModalInstance, $uibModal, $common, $window) {
@@ -338,7 +364,6 @@ function FilterColumn(item, arrays) {
     });
     return obj;
 }
-
 
 angular.module("app.grid", ['ngSanitize'])
     .directive("grid", () => new GridDirective())

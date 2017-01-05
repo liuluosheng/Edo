@@ -4,20 +4,25 @@ var GridDirective = (function () {
         this.templateUrl = "/ngTemplate/ngGrid.html";
         this.replace = true;
         this.controller = "gridController";
+        this.controllerAs = "ctrl";
         this.scope = {
             "option": "=gridOption",
             "gridName": "@gridName"
         };
     }
-    GridDirective.$inject = ["$http", "attrs"];
     return GridDirective;
 }());
 var GridController = (function () {
     function GridController($scope, $sce, $filter, $http, $uibModal, $attrs, $common, $parse) {
-        $scope.gridOption = angular.extend({
+        var _this = this;
+        this.filterObj = {};
+        this.gridSort = {};
+        this.dataLoading = true;
+        this.gridOption = angular.extend({
             height: 'auto',
             rowNumber: false,
             rowDetail: true,
+            filterRow: false,
             showBtn: {
                 edit: true,
                 del: true
@@ -39,99 +44,61 @@ var GridController = (function () {
                 del: $attrs.gridEnableDelete != "false"
             }
         }, $scope.option);
-        $scope.gridOption.filterRow = false;
-        $scope.bindModel = function (value) {
-            var modelAttr = $attrs.ngModel;
-            if (modelAttr) {
-                $parse(modelAttr).assign($scope.$parent, value);
-            }
-        };
-        $scope.psArray = $scope.gridOption.isDetail ? [10] : [10, 20, 50, 100];
-        $scope.page = {
+        this.page = {
             pageIndex: 1,
-            pageSize: $scope.psArray[0],
-            sort: ($scope.gridOption.itemFilterField || $scope.gridOption.pkColumn) + " descending"
+            pageSize: 10,
+            sort: (this.gridOption.itemFilterField || this.gridOption.pkColumn) + " descending"
         };
-        if ($scope.gridOption.itemFilterField) {
-            $scope.gridOption.itemFilter = $scope.gridOption.itemFilterField + " = \"" + ($scope.gridOption.itemFilterValue || $common.emptyGuid) + "\"";
-        }
-        $scope.gridSort = {};
-        $scope.columnfields = $.map($scope.gridOption.columns, function (v) {
+        this.columnfields = $.map(this.gridOption.columns, function (v) {
             return v.id;
         });
-        $scope.dataLoading = true;
-        $scope.paging = function (p, isfilter) {
+        this.paging = function (p, isfilter) {
             if (isfilter === void 0) { isfilter = false; }
-            if (isfilter && $scope.lastPageFilter != null && $scope.lastPageFilter == p.filter)
+            if (isfilter && _this.lastPageFilter != null && _this.lastPageFilter == p.filter)
                 return;
-            if ($scope.gridOption.moreToMore && $scope.gridOption.itemFilter)
-                p.itemFilter = $scope.gridOption.itemFilter; // 多对多时
-            $http.post($scope.gridOption.url, p).success(function (result) {
-                $scope.lastPageFilter = p.filter;
+            if (_this.gridOption.moreToMore && _this.gridOption.itemFilter)
+                p.itemFilter = _this.gridOption.itemFilter; // 多对多时
+            $http.post(_this.gridOption.url, p).success(function (result) {
+                _this.lastPageFilter = p.filter;
                 p.total = result.total;
-                $scope.data = result.data;
+                _this.data = result.data;
                 //$scope.bindModel($scope.data);
-                $scope.dataLoading = false;
+                _this.dataLoading = false;
                 if (!isfilter)
-                    $scope.gridOption.filterRow = p.pageSize >= p.total ? false : $scope.option.filterRow;
+                    _this.gridOption.filterRow = p.pageSize >= p.total ? false : $scope.option.filterRow;
             }).error(function (result) {
-                $scope.dataLoading = false;
+                _this.dataLoading = false;
                 $common.$alert.error($T.DataLoadError);
             });
         };
-        $scope.getconspan = function () { return $scope.gridOption.columns.length + ($scope.gridOption.rowDetail || $scope.gridOption.showBtn ? 1 : 0) + ($scope.gridOption.rowNumber ? 1 : 0); };
-        $scope.sort = function (op) {
+        this.getconspan = function () { return _this.gridOption.columns.length + (_this.gridOption.rowDetail || _this.gridOption.showBtn ? 1 : 0) + (_this.gridOption.rowNumber ? 1 : 0); };
+        this.sort = function (op) {
             if (!op.sortable)
                 return;
-            var sortBy = $scope.gridSort.field !== op.field ? "ascending" : $scope.gridSort.sort === "descending" ? "ascending" : "descending";
+            var sortBy = _this.gridSort["field"] !== op.field ? "ascending" : _this.gridSort["sort"] === "descending" ? "ascending" : "descending";
             var sort = op.field + " " + sortBy;
-            $scope.gridSort = { field: op.field, sort: sortBy };
-            $scope.page.sort = sort;
-            $scope.paging($scope.page);
+            _this.gridSort = { field: op.field, sort: sortBy };
+            _this.page.sort = sort;
+            _this.paging(_this.page);
         };
-        $scope.rowSelected = function (row) {
+        this.rowSelected = function (row) {
             if (row.$selected)
                 return;
-            $scope.gridOption.selectedRow = row;
+            _this.gridOption.selectedRow = row;
             $scope.option.selectedRow = row;
-            angular.forEach($scope.data, function (v) { delete v.$selected; });
+            angular.forEach(_this.data, function (v) { delete v.$selected; });
             row.$selected = true;
-            if (angular.isFunction($scope.gridOption.onRowSelected))
-                $scope.gridOption.onRowSelected(row);
+            if (angular.isFunction(_this.gridOption.onRowSelected))
+                _this.gridOption.onRowSelected(row);
         };
-        $scope.renderRowDetail = function (row) {
-            if (angular.isFunction($scope.gridOption.onRenderRowDetail))
-                return $sce.trustAsHtml($scope.gridOption.onRenderRowDetail(row));
+        this.renderRowDetail = function (row) {
+            if (angular.isFunction(_this.gridOption.onRenderRowDetail))
+                return $sce.trustAsHtml(_this.gridOption.onRenderRowDetail(row));
         };
-        $scope.filterObj = {};
-        $scope.filter = function (filterIsOpen) {
-            if (filterIsOpen)
-                return;
-            $scope.page.filter = $scope.getFilterString();
-            $scope.page.pageIndex = 1;
-            $scope.paging($scope.page, true);
-        };
-        $scope.clearFilter = function (field) {
-            delete $scope.filterObj[field];
-            $scope.filter();
-        };
-        $scope.filterNum = function (field, option) {
-            if ($scope.filterObj[field] && !isNaN($scope.filterObj[field].text)) {
-                $scope.filterObj[field].value = field + " " + option + " " + $scope.filterObj[field].text;
-                $scope.filter();
-            }
-        };
-        $scope.getSelectFilter = function (field) {
-            var str = $scope.getFilterString();
-            var param = { field: field, q: str };
-            if ($scope.gridOption.moreToMore && $scope.page.itemFilter)
-                param["itemFilter"] = $scope.page.itemFilter;
-            return $http.post($scope.gridOption.selectUrl, param).then(function (result) { return result.data.items; });
-        };
-        $scope.getFilterString = function () {
+        this.getFilterString = function () {
             var values = [];
-            angular.forEach($scope.filterObj, function (v, k) {
-                var col = $filter('filter')($scope.gridOption.columns, { field: k });
+            angular.forEach(_this.filterObj, function (v, k) {
+                var col = $filter('filter')(_this.gridOption.columns, { field: k });
                 if (col.length !== 0) {
                     if (v != null || v !== "") {
                         switch (col[0].type) {
@@ -157,23 +124,49 @@ var GridController = (function () {
                     }
                 }
             });
-            if ($scope.gridOption.itemFilter && !$scope.gridOption.moreToMore) {
-                values.push($scope.gridOption.itemFilter);
+            if (_this.gridOption.itemFilter && !_this.gridOption.moreToMore) {
+                values.push(_this.gridOption.itemFilter);
             }
             return values.join(' and ');
         };
-        $scope.page.filter = $scope.getFilterString();
-        $scope.paging($scope.page);
-        $scope.formatter = function (formatter, value, row) { return eval("(" + formatter + ")")(value, row); };
-        $scope.delete = function (item, $index) {
+        this.filter = function (filterIsOpen) {
+            if (filterIsOpen)
+                return;
+            _this.page["filter"] = _this.getFilterString();
+            _this.page.pageIndex = 1;
+            _this.paging(_this.page, true);
+        };
+        this.clearFilter = function (field) {
+            delete _this.filterObj[field];
+            _this.filter(false);
+        };
+        this.filterNum = function (field, option) {
+            if (_this.filterObj[field].text == "") {
+                _this.clearFilter(field);
+                return;
+            }
+            if (_this.filterObj[field] && !isNaN(_this.filterObj[field].text)) {
+                _this.filterObj[field].value = field + " " + option + " " + _this.filterObj[field].text;
+                _this.filter(false);
+            }
+        };
+        this.getSelectFilter = function (field) {
+            var str = _this.getFilterString();
+            var param = { field: field, q: str };
+            if (_this.gridOption.moreToMore && _this.page["itemFilter"])
+                param["itemFilter"] = _this.page["itemFilter"];
+            return $http.post(_this.gridOption.selectUrl, param).then(function (result) { return result.data.items; });
+        };
+        this.formatter = function (formatter, value, row) { eval("(" + formatter + ")")(value, row); };
+        this.delete = function (item, $index) {
             $common.$alert.confirm($T.ConfirmDelete, { title: "" }).then(function (isConfirm) {
                 if (isConfirm) {
-                    var api = $scope.gridOption.moreToMore ? $scope.gridOption.deleteUrl : $scope.gridName + "/delete";
-                    var param = $scope.gridOption.moreToMore ? { id: $scope.gridOption.itemFilterValue, itemId: item.Id } : item;
-                    $http.post(api, param).success(function (result) {
+                    var api = this.gridOption.moreToMore ? this.gridOption.deleteUrl : this.gridName + "/delete";
+                    var param = this.gridOption.moreToMore ? { id: this.gridOption.itemFilterValue, itemId: item.Id } : item;
+                    this.$http.post(api, param).success(function (result) {
                         if (result.Success) {
                             setTimeout(function () { $common.$alert.success($T.AlertSuccess); }, 200);
-                            $scope.paging($scope.page);
+                            this.paging(this.page);
                         }
                         else
                             setTimeout(function () { $common.$alert.error(result.Message || $T.AlertError); }, 200);
@@ -181,7 +174,7 @@ var GridController = (function () {
                 }
             });
         };
-        $scope.scrolls =
+        this.scrolls =
             {
                 config: {
                     autoHideScrollbar: false,
@@ -191,7 +184,7 @@ var GridController = (function () {
                     mouseWheel: { enable: false }
                 }
             };
-        var dialog = function (resolveObj, resultFn, template) {
+        this.dialog = function (resolveObj, resultFn, template) {
             var modalInstance = $uibModal.open({
                 windowTemplateUrl: "/ngTemplate/modal-template.html",
                 ariaLabelledBy: 'modal-title',
@@ -206,36 +199,33 @@ var GridController = (function () {
                 }
             }).result.then(resultFn);
         };
-        $scope.isArray = function (value) {
+        this.isArray = function (value) {
             return angular.isArray(value);
         };
-        //create: 主表更新或创建数据行
-        $scope.create = function (item) {
+        this.create = function (item) {
             var isNew = item == null;
             item = item || {};
             var resolve = {
                 item: item,
                 gridOption: {
-                    itemFilterValue: item[$scope.gridOption.pkColumn]
+                    itemFilterValue: item[_this.gridOption.pkColumn]
                 }
             };
-            if ($scope.gridOption.itemFilterField)
-                resolve["fkName"] = $scope.gridOption.itemFilterField;
-            dialog(resolve, function (result) {
+            if (_this.gridOption.itemFilterField)
+                resolve["fkName"] = _this.gridOption.itemFilterField;
+            _this.dialog(resolve, function (result) {
                 if (result.Success) {
                     $common.$alert.success($T.AlertSuccess);
                     if (isNew)
-                        $scope.paging($scope.page);
+                        this.paging(this.page);
                     else
                         item = angular.extend(item, result.editObj, result.Obj);
                 }
                 else
                     $common.$alert.error(result.Message || $T.AlertError);
-            }, $scope.gridOption.editTemplateUrl);
+            }, _this.gridOption.editTemplateUrl);
         };
-        $scope.option.create = $scope.create;
-        // createObj: 创建详情行
-        $scope.createObj = function (template, fkName, fkValue) {
+        this.createObj = function (template, fkName, fkValue) {
             var resolve = {
                 fkName: fkName,
                 item: {},
@@ -246,7 +236,7 @@ var GridController = (function () {
             };
             if (fkName)
                 resolve.item[fkName] = fkValue;
-            dialog(resolve, function (result) {
+            _this.dialog(resolve, function (result) {
                 var message = function (data) {
                     if (data.Success) {
                         $common.$alert.success($T.AlertSuccess);
@@ -255,8 +245,8 @@ var GridController = (function () {
                         $common.$alert.error(data.Message || $T.AlertError);
                 };
                 if (result.api) {
-                    var param = { id: $scope.gridOption.selectedRow.Id, itemId: result.selected.Id };
-                    $http.post($scope.gridName + "/create" + result.api, param).success(function (data) {
+                    var param = { id: this.gridOption.selectedRow.Id, itemId: result.selected.Id };
+                    this.$http.post(this.gridName + "/create" + result.api, param).success(function (data) {
                         message(data);
                     });
                 }
@@ -264,6 +254,14 @@ var GridController = (function () {
                     message(result);
             }, template);
         };
+        //$scope.gridOption.filterRow = false;
+        this.psArray = this.gridOption.isDetail ? [10] : [10, 20, 50, 100];
+        if (this.gridOption.itemFilterField) {
+            this.gridOption.itemFilter = this.gridOption.itemFilterField + " = \"" + (this.gridOption.itemFilterValue || $common.emptyGuid) + "\"";
+        }
+        $scope.option.create = this.create;
+        this.page["filter"] = this.getFilterString();
+        this.paging(this.page);
     }
     GridController.$inject = ["$scope", "$sce", "$filter", "$http", "$uibModal", "$attrs", "$common", "$parse"];
     return GridController;

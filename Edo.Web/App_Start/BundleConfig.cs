@@ -26,7 +26,6 @@ namespace Edo.Web
              "~/Scripts/sweetalert.min.js",
              "~/Scripts/sweetalert-angular.js",
              "~/Scripts/angular-toastr.tpls.min.js",
-         //    "~/Scripts/select.min.js",
              "~/Scripts/moment.min.js",
              "~/Scripts/angular-datetimepicker/datetimepicker.js",
              "~/Scripts/angular-datetimepicker/datetimepicker.templates.js",
@@ -43,7 +42,7 @@ namespace Edo.Web
                 "~/Content/angular-csp.css",
                 "~/Content/ng-scrollbars/jquery.mCustomScrollbar.css",
                 "~/Styles/sweetalert.css",
-           //     "~/Content/select.css",
+                //     "~/Content/select.css",
                 "~/Content/angular-datetimepicker/datetimepicker.css",
                 "~/Content/angular-toastr.min.css",
                 "~/Content/grid.css"

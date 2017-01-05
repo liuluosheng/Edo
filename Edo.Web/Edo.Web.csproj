@@ -344,6 +344,7 @@
       <DependentUpon>GenerateNgTemplate.tt</DependentUpon>
     </Content>
     <Content Include="ngTemplate\modal-template.html" />
+    <Content Include="ngTemplate\ngGrid - 复制.html" />
     <Content Include="ngTemplate\orderdetails.html">
       <DependentUpon>GenerateNgTemplate.tt</DependentUpon>
     </Content>
