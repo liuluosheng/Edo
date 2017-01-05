@@ -259,9 +259,6 @@
     <Content Include="Dynamic Expressions.html" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
-    <Content Include="Content\Site.css.map">
-      <DependentUpon>Site.css</DependentUpon>
-    </Content>
     <None Include="Content\Site.less" />
     <Content Include="images\actions.gif" />
     <Content Include="images\ajax-loader-small.gif" />
@@ -420,18 +417,6 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\common\resources.js" />
     <Content Include="Scripts\errors.json" />
-    <Content Include="Scripts\angular-touch.min.js.map" />
-    <Content Include="Scripts\angular-sanitize.min.js.map" />
-    <Content Include="Scripts\angular-route.min.js.map" />
-    <Content Include="Scripts\angular-resource.min.js.map" />
-    <Content Include="Scripts\angular-parse-ext.min.js.map" />
-    <Content Include="Scripts\angular-messages.min.js.map" />
-    <Content Include="Scripts\angular-message-format.min.js.map" />
-    <Content Include="Scripts\angular-loader.min.js.map" />
-    <Content Include="Scripts\angular-cookies.min.js.map" />
-    <Content Include="Scripts\angular-aria.min.js.map" />
-    <Content Include="Scripts\angular-animate.min.js.map" />
-    <Content Include="Scripts\angular.min.js.map" />
     <Content Include="Scripts\i18n\angular-locale_aa-dj.js" />
     <Content Include="Scripts\i18n\angular-locale_aa-er.js" />
     <Content Include="Scripts\i18n\angular-locale_aa-et.js" />
@@ -1264,14 +1249,8 @@
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="Content\bootstrap-theme.css.map" />
-    <Content Include="Content\bootstrap.css.map" />
-    <Content Include="Content\bootstrap\bootstrap.css.map">
-      <DependentUpon>bootstrap.css</DependentUpon>
-    </Content>
     <Content Include="Content\bootstrap-datetimepicker-build.less" />
     <Content Include="Content\_bootstrap-datetimepicker.less" />
-    <Content Include="Content\select.min.css.map" />
     <Content Include="ngTemplate\GenerateNgTemplate.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastOutputs>
@@ -1309,9 +1288,6 @@
     <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>
     </None>
-    <Content Include="Content\grid.css.map">
-      <DependentUpon>grid.css</DependentUpon>
-    </Content>
     <Content Include="Controllers\Generate\GenerateController.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastOutputs>
@@ -1397,7 +1373,6 @@
     <Content Include="Scripts\sweetalert-angular.js" />
     <Content Include="Scripts\jquery-1.12.4.js" />
     <Content Include="Scripts\jquery-1.12.4.min.js" />
-    <Content Include="Scripts\jquery-1.12.4.min.map" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
@@ -1450,7 +1425,6 @@
 </LastOutputs>
       <LastGenOutput>GenerateJavascripts.log</LastGenOutput>
     </Content>
-    <Content Include="Scripts\select.min.js.map" />
     <None Include="Views\Customers\Index.cshtml" />
     <Content Include="Views\Region\Index.cshtml" />
     <Content Include="Views\Products\Index.cshtml" />

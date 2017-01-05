@@ -1,0 +1,13 @@
+<#@ template language="C#" debug="True" #>
+<#@ output extension="cs" #>
+<#@ include file="T4Toolbox.tt" #>
+<#@ include file="Template1.tt" #>
+<#
+    // <copyright file="Script1.tt" company="Microsoft">
+    //  Copyright © Microsoft. All Rights Reserved.
+    // </copyright>
+    Template1 template = new Template1();
+    template.RenderToFile("a.cs");
+	
+
+#>
