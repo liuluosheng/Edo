@@ -22,8 +22,8 @@
 <#@ output extension=".log" #>
  <#
     GridOptionsTemplate gridOptionTemplate= new GridOptionsTemplate();
-    gridOptionTemplate.RenderToFile("gridOptions.js");
-    WriteLine("Generate File： gridOptions.js");
+    gridOptionTemplate.RenderToFile("GridOptions.ts");
+    WriteLine("Generate File： GridOptions.ts");
  #> 
 <#+
     public class GridOptionsTemplate : CSharpTemplate
@@ -32,7 +32,11 @@
         {          
 #>
 /******* 由模板生成*******/
-  var gridOptions=<#=            Methods.GetScript() #>
+namespace edo {
+    export class GridOption {
+         static value=<#=            Methods.GetScript() #>;
+    }
+}
 <#+
             return this.GenerationEnvironment.ToString();
         }

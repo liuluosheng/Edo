@@ -418,9 +418,6 @@
     <Content Include="Scripts\bootstrap-datetimepicker.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Scripts\common\gridOptions.js">
-      <DependentUpon>GenerateJavascripts.tt</DependentUpon>
-    </Content>
     <Content Include="Scripts\common\resources.js" />
     <Content Include="Scripts\errors.json" />
     <Content Include="Scripts\angular-touch.min.js.map" />
@@ -1449,7 +1446,7 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastOutputs>
 .\GenerateJavascripts.log
-.\gridOptions.js
+.\GridOptions.ts
 </LastOutputs>
       <LastGenOutput>GenerateJavascripts.log</LastGenOutput>
     </Content>
@@ -1495,7 +1492,11 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\common\app.ts" />
+    <TypeScriptCompile Include="Scripts\common\GridOptions.ts">
+      <DependentUpon>GenerateJavascripts.tt</DependentUpon>
+    </TypeScriptCompile>
     <TypeScriptCompile Include="Scripts\common\Q.ts" />
+    <TypeScriptCompile Include="Scripts\grid\grid.ts" />
     <TypeScriptCompile Include="Scripts\linq.d.ts" />
     <TypeScriptCompile Include="Scripts\grid\ngGrid.ts" />
     <TypeScriptCompile Include="Scripts\typings\angular-toastr\angular-toastr.d.ts" />
