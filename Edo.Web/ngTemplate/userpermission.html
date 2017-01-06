@@ -27,6 +27,7 @@
                         <div class="input-group">
                            <input type="text"                             
                                  readonly="readonly"
+                                  
                                  class="form-control"
                                  ng-value="vm.item.UserId">
                                <span class="input-group-addon" ng-click="vm.chooseObj('/ngtemplate/grid_User.html','UserId','UserId','Id')" >
@@ -42,7 +43,8 @@
                     <div class="form-group" ng-class="{'has-error':form.PermissionKey.$invalid }" 
                     ><label class="col-sm-2 control-label">PermissionKey</label>
                     <div class="col-sm-10">
-                        <input type="text" autocomplete="off"  class="form-control pull-left"  placeholder="PermissionKey" name="PermissionKey" ng-model="vm.item.PermissionKey"   
+                        <input type="text"
+                       autocomplete="off"  class="form-control pull-left"  placeholder="PermissionKey" name="PermissionKey" ng-model="vm.item.PermissionKey"   
                        >
                     </div>
                 </div>

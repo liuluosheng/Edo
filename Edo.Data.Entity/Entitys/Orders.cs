@@ -26,14 +26,14 @@ namespace Edo.Data.Entity
         public decimal? Freight { get; set; }
         [GridColumn]
         public string ShipName { get; set; }
-        [GridColumn]
+        [GridColumn, Editable(false)]
         public string ShipAddress { get; set; }
         [GridColumn]
         public string ShipCity { get; set; }
         public string ShipRegion { get; set; }
         public string ShipPostalCode { get; set; }
         public string ShipCountry { get; set; }
-        [Required, GridColumn(Width = 200)]
+        [Required, GridColumn(Width = 200), Editable(false)]
         public DateTime? OrderDate { get; set; }
         public DateTime? RequiredDate { get; set; }
         [GridColumn(Width = 200)]
@@ -42,7 +42,7 @@ namespace Edo.Data.Entity
         [ForeignKey("CustomerID"), Select(ToNameField = "CustomerName", FromNameField = "CompanyName")]
         public virtual Customers Customers { get; set; }
 
-        [ForeignKey("EmployeeID"), Select(ToNameField = "EmployeesHomePhone", FromNameField = "HomePhone")]
+        [ForeignKey("EmployeeID"), Select(ToNameField = "EmployeesHomePhone", FromNameField = "HomePhone"), Editable(false)]
         public virtual Employees Employees { get; set; }
 
         public virtual ICollection<OrderDetails> OrderDetails { get; set; }

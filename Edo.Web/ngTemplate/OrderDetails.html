@@ -20,7 +20,8 @@
                     <div class="form-group" ng-class="{'has-error':form.UnitPrice.$invalid }" 
                     ><label class="col-sm-2 control-label">UnitPrice</label>
                     <div class="col-sm-10">
-                        <input type="text" autocomplete="off"  class="form-control pull-left"  placeholder="UnitPrice" name="UnitPrice" ng-model="vm.item.UnitPrice"   
+                        <input type="text"
+                       autocomplete="off"  class="form-control pull-left"  placeholder="UnitPrice" name="UnitPrice" ng-model="vm.item.UnitPrice"   
                         ng-required="true"  ng-pattern="/^(([0-9]+\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\.[0-9]+)|([0-9]*[1-9][0-9]*))$/">
                     <div ng-messages="form.UnitPrice.$error" class="pull-left error">                       
                             <div ng-message="required">这是个必填项</div><div ng-message="pattern">请输入大于零的数</div>                         
@@ -30,7 +31,8 @@
                     <div class="form-group" ng-class="{'has-error':form.Quantity.$invalid }" 
                     ><label class="col-sm-2 control-label">Quantity</label>
                     <div class="col-sm-10">
-                        <input type="text" autocomplete="off"  class="form-control pull-left"  placeholder="Quantity" name="Quantity" ng-model="vm.item.Quantity"   
+                        <input type="text"
+                       autocomplete="off"  class="form-control pull-left"  placeholder="Quantity" name="Quantity" ng-model="vm.item.Quantity"   
                         ng-required="true"  ng-pattern="/^(([0-9]+\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\.[0-9]+)|([0-9]*[1-9][0-9]*))$/">
                     <div ng-messages="form.Quantity.$error" class="pull-left error">                       
                             <div ng-message="required">这是个必填项</div><div ng-message="pattern">请输入大于零的数</div>                         
@@ -40,7 +42,8 @@
                     <div class="form-group" ng-class="{'has-error':form.Discount.$invalid }" 
                     ><label class="col-sm-2 control-label">Discount</label>
                     <div class="col-sm-10">
-                        <input type="text" autocomplete="off"  class="form-control pull-left"  placeholder="Discount" name="Discount" ng-model="vm.item.Discount"   
+                        <input type="text"
+                       autocomplete="off"  class="form-control pull-left"  placeholder="Discount" name="Discount" ng-model="vm.item.Discount"   
                         ng-pattern="/^(([0-9]+\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\.[0-9]+)|([0-9]*[1-9][0-9]*))$/">
                     <div ng-messages="form.Discount.$error" class="pull-left error">                       
                             <div ng-message="pattern">请输入大于零的数</div>                         
@@ -57,6 +60,7 @@
                         <div class="input-group">
                            <input type="text"                             
                                  readonly="readonly"
+                                  
                                  class="form-control"
                                  ng-value="vm.item.OrderID">
                                <span class="input-group-addon" ng-click="vm.chooseObj('/ngtemplate/grid_Orders.html','OrderID','OrderID','Id')" >
@@ -79,6 +83,7 @@
                         <div class="input-group">
                            <input type="text"                             
                                  readonly="readonly"
+                                  
                                  class="form-control"
                                  ng-value="vm.item.ProductName">
                                <span class="input-group-addon" ng-click="vm.chooseObj('/ngtemplate/grid_Products.html','ProductID','ProductName','ProductName')" >

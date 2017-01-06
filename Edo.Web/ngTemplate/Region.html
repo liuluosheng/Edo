@@ -21,14 +21,16 @@
                     <div class="form-group" ng-class="{'has-error':form.RegionDescription.$invalid }" 
                     ><label class="col-sm-2 control-label">RegionDescription</label>
                     <div class="col-sm-10">
-                        <input type="text" autocomplete="off"  class="form-control pull-left"  placeholder="RegionDescription" name="RegionDescription" ng-model="vm.item.RegionDescription"   
+                        <input type="text"
+                       autocomplete="off"  class="form-control pull-left"  placeholder="RegionDescription" name="RegionDescription" ng-model="vm.item.RegionDescription"   
                        >
                     </div>
                 </div>
                     <div class="form-group" ng-class="{'has-error':form.RegionType.$invalid }" 
                     ><label class="col-sm-2 control-label">RegionType</label>
                     <div class="col-sm-10">
-                <select class="form-control" ng-model="vm.item.RegionType" ng-options="value for value in ['Bool','Date','Number','Text']">
+                <select class="form-control"   
+                  ng-model="vm.item.RegionType" ng-options="value for value in ['Bool','Date','Number','Text']">
                </select>                 
                     <div ng-messages="form.RegionType.$error" class="pull-left error">                       
                             <div ng-message="required">这是个必填项</div>                         

@@ -21,21 +21,24 @@
                     <div class="form-group" ng-class="{'has-error':form.ProductName.$invalid }" 
                     ><label class="col-sm-2 control-label">ProductName</label>
                     <div class="col-sm-10">
-                        <input type="text" autocomplete="off"  class="form-control pull-left"  placeholder="ProductName" name="ProductName" ng-model="vm.item.ProductName"   
+                        <input type="text"
+                       autocomplete="off"  class="form-control pull-left"  placeholder="ProductName" name="ProductName" ng-model="vm.item.ProductName"   
                        >
                     </div>
                 </div>
                     <div class="form-group" ng-class="{'has-error':form.QuantityPerUnit.$invalid }" 
                     ><label class="col-sm-2 control-label">QuantityPerUnit</label>
                     <div class="col-sm-10">
-                        <input type="text" autocomplete="off"  class="form-control pull-left"  placeholder="QuantityPerUnit" name="QuantityPerUnit" ng-model="vm.item.QuantityPerUnit"   
+                        <input type="text"
+                       autocomplete="off"  class="form-control pull-left"  placeholder="QuantityPerUnit" name="QuantityPerUnit" ng-model="vm.item.QuantityPerUnit"   
                        >
                     </div>
                 </div>
                     <div class="form-group" ng-class="{'has-error':form.UnitPrice.$invalid }" 
                     ><label class="col-sm-2 control-label">UnitPrice</label>
                     <div class="col-sm-10">
-                        <input type="text" autocomplete="off"  class="form-control pull-left"  placeholder="UnitPrice" name="UnitPrice" ng-model="vm.item.UnitPrice"   
+                        <input type="text"
+                       autocomplete="off"  class="form-control pull-left"  placeholder="UnitPrice" name="UnitPrice" ng-model="vm.item.UnitPrice"   
                         ng-pattern="/^(([0-9]+\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\.[0-9]+)|([0-9]*[1-9][0-9]*))$/">
                     <div ng-messages="form.UnitPrice.$error" class="pull-left error">                       
                             <div ng-message="pattern">请输入大于零的数</div>                         
@@ -45,7 +48,8 @@
                     <div class="form-group" ng-class="{'has-error':form.UnitsInStock.$invalid }" 
                     ><label class="col-sm-2 control-label">UnitsInStock</label>
                     <div class="col-sm-10">
-                        <input type="text" autocomplete="off"  class="form-control pull-left"  placeholder="UnitsInStock" name="UnitsInStock" ng-model="vm.item.UnitsInStock"   
+                        <input type="text"
+                       autocomplete="off"  class="form-control pull-left"  placeholder="UnitsInStock" name="UnitsInStock" ng-model="vm.item.UnitsInStock"   
                         ng-pattern="/^(([0-9]+\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\.[0-9]+)|([0-9]*[1-9][0-9]*))$/">
                     <div ng-messages="form.UnitsInStock.$error" class="pull-left error">                       
                             <div ng-message="pattern">请输入大于零的数</div>                         
@@ -55,7 +59,8 @@
                     <div class="form-group" ng-class="{'has-error':form.UnitsOnOrder.$invalid }" 
                     ><label class="col-sm-2 control-label">UnitsOnOrder</label>
                     <div class="col-sm-10">
-                        <input type="text" autocomplete="off"  class="form-control pull-left"  placeholder="UnitsOnOrder" name="UnitsOnOrder" ng-model="vm.item.UnitsOnOrder"   
+                        <input type="text"
+                       autocomplete="off"  class="form-control pull-left"  placeholder="UnitsOnOrder" name="UnitsOnOrder" ng-model="vm.item.UnitsOnOrder"   
                         ng-pattern="/^(([0-9]+\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\.[0-9]+)|([0-9]*[1-9][0-9]*))$/">
                     <div ng-messages="form.UnitsOnOrder.$error" class="pull-left error">                       
                             <div ng-message="pattern">请输入大于零的数</div>                         
@@ -65,7 +70,8 @@
                     <div class="form-group" ng-class="{'has-error':form.ReorderLevel.$invalid }" 
                     ><label class="col-sm-2 control-label">ReorderLevel</label>
                     <div class="col-sm-10">
-                        <input type="text" autocomplete="off"  class="form-control pull-left"  placeholder="ReorderLevel" name="ReorderLevel" ng-model="vm.item.ReorderLevel"   
+                        <input type="text"
+                       autocomplete="off"  class="form-control pull-left"  placeholder="ReorderLevel" name="ReorderLevel" ng-model="vm.item.ReorderLevel"   
                         ng-pattern="/^(([0-9]+\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\.[0-9]+)|([0-9]*[1-9][0-9]*))$/">
                     <div ng-messages="form.ReorderLevel.$error" class="pull-left error">                       
                             <div ng-message="pattern">请输入大于零的数</div>                         
@@ -75,7 +81,8 @@
                     <div class="form-group" ng-class="{'has-error':form.Discontinued.$invalid }" 
                     ><label class="col-sm-2 control-label">Discontinued</label>
                     <div class="col-sm-10">
-                        <input type="checkbox" autocomplete="off"  class="form-control pull-left"  placeholder="Discontinued" name="Discontinued" ng-model="vm.item.Discontinued"   
+                        <input type="checkbox"
+                       autocomplete="off"  class="form-control pull-left"  placeholder="Discontinued" name="Discontinued" ng-model="vm.item.Discontinued"   
                        >
                     </div>
                 </div>
@@ -89,6 +96,7 @@
                         <div class="input-group">
                            <input type="text"                             
                                  readonly="readonly"
+                                  
                                  class="form-control"
                                  ng-value="vm.item.CategoryID">
                                <span class="input-group-addon" ng-click="vm.chooseObj('/ngtemplate/grid_Categories.html','CategoryID','CategoryID','Id')" >
@@ -111,6 +119,7 @@
                         <div class="input-group">
                            <input type="text"                             
                                  readonly="readonly"
+                                  
                                  class="form-control"
                                  ng-value="vm.item.SupplierID">
                                <span class="input-group-addon" ng-click="vm.chooseObj('/ngtemplate/grid_Suppliers.html','SupplierID','SupplierID','Id')" >

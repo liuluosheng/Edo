@@ -130,6 +130,8 @@
 <#+                        continue;
                     }
                     var dispalyNameAttribute = prop.GetCustomAttribute<DisplayNameAttribute>();
+                    var editableAttribute=prop.GetCustomAttribute<EditableAttribute>();
+                    bool disabledEdit=editableAttribute!=null &&!editableAttribute.AllowEdit;
                     string name=dispalyNameAttribute!=null?dispalyNameAttribute.DisplayName:prop.Name;
                     var foreignKeyAttribute=prop.GetCustomAttribute<ForeignKeyAttribute>();
                     bool isSelect =prop.PropertyType.BaseType==typeof(EntityBase);
@@ -172,7 +174,8 @@
                     bool isDate=typeof(DateTime)==prop.PropertyType.GetTypeInfo() || typeof(DateTime?)==prop.PropertyType.GetTypeInfo();  
                     if( isEnum){                
 #>
-                <select class="form-control" ng-model="vm.item.<#=                        prop.Name #>" ng-options="value for value in [<#=                        string.Join(",",Enum.GetNames(prop.PropertyType).Select(p=>string.Format("\'{0}\'",p))) #>]">
+                <select class="form-control" <#=                        disabledEdit?string.Format("disabled ng-init='_{0}=vm.item.{0}'",prop.Name):"" #>  
+                  ng-model="<#=                        disabledEdit?"_"+prop.Name:string.Format("vm.item.{0}",prop.Name) #>" ng-options="value for value in [<#=                        string.Join(",",Enum.GetNames(prop.PropertyType).Select(p=>string.Format("\'{0}\'",p))) #>]">
                </select>                 
 <#+                    }
                     else if (isDate || isSelect){
@@ -201,13 +204,14 @@
                         <div class="input-group">
                            <input type="text"                             
                                  readonly="readonly"
+                                  <#=                        disabledEdit?"disabled":"" #>
                                  class="form-control"
                                  ng-value="vm.item.<#=                        isSelect?(selectAttribute.ToNameField??foreignKeyAttribute.Name):prop.Name #><#=                        isDate?"  | date:'yyyy-MM-dd HH:mm a'":"" #>">
-                               <span class="input-group-addon" <#=                        isSelect?string.Format("ng-click=\"vm.chooseObj('/ngtemplate/grid_{0}.html','{1}','{2}','{3}')\"",prop.PropertyType.Name,foreignKeyAttribute.Name,selectAttribute.ToNameField??foreignKeyAttribute.Name,selectAttribute.FromNameField??selectAttribute.ToNameField??"Id"):"" #> >
+                               <span class="input-group-addon" <#=                        isSelect && !disabledEdit?string.Format("ng-click=\"vm.chooseObj('/ngtemplate/grid_{0}.html','{1}','{2}','{3}')\"",prop.PropertyType.Name,foreignKeyAttribute.Name,selectAttribute.ToNameField??foreignKeyAttribute.Name,selectAttribute.FromNameField??selectAttribute.ToNameField??"Id"):"" #> >
                                <i class="glyphicon glyphicon-<#=                        isDate?"calendar":"plus" #>"></i></span>
                         </div>
                     </a>
-<#+                        if(isDate)
+<#+                        if(isDate && !disabledEdit)
                         {
  #>
                         <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
@@ -222,7 +226,8 @@
                     else{      
                         bool isBool =prop.PropertyType==typeof(bool) || prop.PropertyType==typeof(bool?);                    
 #>
-                        <input type="<#=                        isBool?"checkbox":"text" #>" autocomplete="off"  class="form-control pull-left"  placeholder="<#=                        name #>" name="<#=                        prop.Name #>" ng-model="vm.item.<#=                        prop.Name #>"   
+                        <input type="<#=                        isBool?"checkbox":"text" #>"<#=                        disabledEdit?string.Format("disabled ng-init='_{0}=vm.item.{0}'",prop.Name):"" #>
+                       autocomplete="off"  class="form-control pull-left"  placeholder="<#=                        name #>" name="<#=                        prop.Name #>" ng-model="<#=                        disabledEdit?"_"+prop.Name:string.Format("vm.item.{0}",prop.Name) #>"   
                        <#+   
                         StringBuilder attrs= new StringBuilder();  
                         if(requiredAttribute!=null)  
