@@ -4,31 +4,31 @@
         <h3 class="modal-title" id="modal-title">
             <b>{{item.Id?"EDIT":"CREATE"}}</b>
 
-            <i class="fa fa-close pull-right" ng-click="cancel()"></i>
+            <i class="fa fa-close pull-right" ng-click="vm.cancel()"></i>
         </h3>
     </div>
     <div class="modal-body" id="modal-body">
         <div class="modal-nav">
-  <a ng-click="scrollTo('#tolink0')">基本信息</a>
-  <a ng-click="scrollTo('#tolink1')">Customers</a>
+  <a ng-click="vm.scrollTo('#tolink0')">基本信息</a>
+  <a ng-click="vm.scrollTo('#tolink1')">Customers</a>
         </div>
-        <form class="form-horizontal  modal-form" role="form" ng-style="{maxHeight:modalHeight}" name="form"
+        <form class="form-horizontal  modal-form" role="form" ng-style="{maxHeight:vm.modalHeight}" name="form"
               ng-scrollbars
-              ng-scrollbars-update="scrolls.updateScrollbar"
-              ng-scrollbars-config="scrolls.config">
+              ng-scrollbars-update="vm.scrolls.updateScrollbar"
+              ng-scrollbars-config="vm.scrolls.config">
           <fieldset id="tolink0">
                 <legend><i class="fa fa-circle"></i>基本信息</legend>       
                     <div class="form-group" ng-class="{'has-error':form.RegionDescription.$invalid }" 
                     ><label class="col-sm-2 control-label">RegionDescription</label>
                     <div class="col-sm-10">
-                        <input type="text" autocomplete="off"  class="form-control pull-left"  placeholder="RegionDescription" name="RegionDescription" ng-model="item.RegionDescription"   
+                        <input type="text" autocomplete="off"  class="form-control pull-left"  placeholder="RegionDescription" name="RegionDescription" ng-model="vm.item.RegionDescription"   
                        >
                     </div>
                 </div>
                     <div class="form-group" ng-class="{'has-error':form.RegionType.$invalid }" 
                     ><label class="col-sm-2 control-label">RegionType</label>
                     <div class="col-sm-10">
-                <select class="form-control" ng-model="item.RegionType" ng-options="value for value in ['Bool','Date','Number','Text']">
+                <select class="form-control" ng-model="vm.item.RegionType" ng-options="value for value in ['Bool','Date','Number','Text']">
                </select>                 
                     <div ng-messages="form.RegionType.$error" class="pull-left error">                       
                             <div ng-message="required">这是个必填项</div>                         
@@ -40,8 +40,8 @@
                 <legend><i class="fa fa-circle"></i>Customers</legend>       
                   
                     <div grid
-                    ng-model="item.Customers"
-                     grid-option="gridOption"
+                    ng-model="vm.item.Customers"
+                     grid-option="vm.gridOption"
                      grid-detail="true"
                      grid-item-field="Id"
                      grid-enable-edit="true"
@@ -58,7 +58,7 @@
         </form>
     </div>
     <div class="modal-footer">
-        <button class="btn btn-primary " type="button" ng-click="ok(form,'/region/')">确 定</button>
-        <button class="btn btn-warning " type="button" ng-click="cancel()">取 消</button>
+        <button class="btn btn-primary " type="button" ng-click="vm.ok(form,'/region/')">确 定</button>
+        <button class="btn btn-warning " type="button" ng-click="vm.cancel()">取 消</button>
     </div>
 </div>

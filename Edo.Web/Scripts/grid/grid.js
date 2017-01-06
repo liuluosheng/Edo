@@ -13,6 +13,7 @@ var GridDirective = (function () {
     return GridDirective;
 }());
 var GridController = (function () {
+    //
     function GridController($scope, $sce, $filter, $http, $uibModal, $attrs, $common, $parse) {
         var _this = this;
         this.filterObj = {};
@@ -161,12 +162,12 @@ var GridController = (function () {
         this.delete = function (item, $index) {
             $common.$alert.confirm($T.ConfirmDelete, { title: "" }).then(function (isConfirm) {
                 if (isConfirm) {
-                    var api = this.gridOption.moreToMore ? this.gridOption.deleteUrl : this.gridName + "/delete";
-                    var param = this.gridOption.moreToMore ? { id: this.gridOption.itemFilterValue, itemId: item.Id } : item;
-                    this.$http.post(api, param).success(function (result) {
+                    var api = _this.gridOption.moreToMore ? _this.gridOption.deleteUrl : $scope.gridName + "/delete";
+                    var param = _this.gridOption.moreToMore ? { id: _this.gridOption.itemFilterValue, itemId: item.Id } : item;
+                    $http.post(api, param).success(function (result) {
                         if (result.Success) {
                             setTimeout(function () { $common.$alert.success($T.AlertSuccess); }, 200);
-                            this.paging(this.page);
+                            _this.paging(_this.page);
                         }
                         else
                             setTimeout(function () { $common.$alert.error(result.Message || $T.AlertError); }, 200);
@@ -191,6 +192,7 @@ var GridController = (function () {
                 ariaDescribedBy: 'modal-body',
                 templateUrl: template,
                 controller: 'editInstanceCtrl',
+                controllerAs: "vm",
                 backdrop: "static",
                 resolve: {
                     resolveObj: function () {
@@ -217,7 +219,7 @@ var GridController = (function () {
                 if (result.Success) {
                     $common.$alert.success($T.AlertSuccess);
                     if (isNew)
-                        this.paging(this.page);
+                        _this.paging(_this.page);
                     else
                         item = angular.extend(item, result.editObj, result.Obj);
                 }
@@ -245,8 +247,8 @@ var GridController = (function () {
                         $common.$alert.error(data.Message || $T.AlertError);
                 };
                 if (result.api) {
-                    var param = { id: this.gridOption.selectedRow.Id, itemId: result.selected.Id };
-                    this.$http.post(this.gridName + "/create" + result.api, param).success(function (data) {
+                    var param = { id: _this.gridOption.selectedRow.Id, itemId: result.selected.Id };
+                    $http.post($scope.gridName + "/create" + result.api, param).success(function (data) {
                         message(data);
                     });
                 }
@@ -267,26 +269,29 @@ var GridController = (function () {
     return GridController;
 }());
 var EditGridController = (function () {
+    //
     function EditGridController($scope, $http, $uibModalInstance, $uibModal, $common, $window) {
-        $scope.modalHeight = angular.element(window).height() - 230;
-        $scope.item = angular.copy($scope.$resolve.resolveObj.item) || {};
-        $scope.fkName = $scope.$resolve.resolveObj.fkName;
-        $scope.gridOption = angular.extend({}, $scope.$resolve.resolveObj.gridOption);
-        $scope.choose = function (api) {
-            if ($scope.gridOption.selectedRow) {
+        var _this = this;
+        this.modalHeight = angular.element(window).height() - 230;
+        this.item = angular.copy($scope.$resolve.resolveObj.item) || {};
+        this.fkName = $scope.$resolve.resolveObj.fkName;
+        this.gridOption = angular.extend({}, $scope.$resolve.resolveObj.gridOption);
+        this.choose = function (api) {
+            if (_this.gridOption.selectedRow) {
                 $uibModalInstance.close({
-                    selected: $scope.gridOption.selectedRow,
+                    selected: _this.gridOption.selectedRow,
                     api: api
                 });
             }
             else
                 $common.$toast.error($T.AlertSelect);
         };
-        $scope.chooseObj = function (template, field, name, bindName) {
+        this.chooseObj = function (template, field, name, bindName) {
             $uibModal.open({
                 windowTemplateUrl: "/ngTemplate/modal-template.html",
                 templateUrl: template,
                 controller: 'editInstanceCtrl',
+                controllerAs: "vm",
                 backdrop: "static",
                 resolve: {
                     resolveObj: function () {
@@ -299,26 +304,26 @@ var EditGridController = (function () {
                     }
                 }
             }).result.then(function (result) {
-                $scope.item[field] = result.selected.Id;
-                $scope.item[name] = result.selected[bindName];
+                _this.item[field] = result.selected.Id;
+                _this.item[name] = result.selected[bindName];
             });
         };
-        $scope.ok = function (form, api) {
+        this.ok = function (form, api) {
             if (form.$invalid) {
                 $common.$toast.error($T.FormValidateError);
                 return;
             }
-            var method = $scope.gridOption.itemFilterValue ? "edit" : "create";
-            $http.post(api + method, $scope.item).success(function (result) {
-                result.editObj = $scope.item;
+            var method = _this.gridOption.itemFilterValue ? "edit" : "create";
+            $http.post(api + method, _this.item).success(function (result) {
+                result.editObj = _this.item;
                 $uibModalInstance.close(result);
             });
         };
-        $scope.scrollTo = function (targetSelection) {
+        this.scrollTo = function (targetSelection) {
             var top = angular.element(targetSelection).position().top;
-            $scope.scrolls.updateScrollbar('scrollTo', top);
+            _this.scrolls.updateScrollbar('scrollTo', top);
         };
-        $scope.scrolls =
+        this.scrolls =
             {
                 config: {
                     autoHideScrollbar: false,
@@ -327,7 +332,7 @@ var EditGridController = (function () {
                     axis: 'y'
                 }
             };
-        $scope.cancel = function () {
+        this.cancel = function () {
             $uibModalInstance.dismiss('cancel');
         };
     }

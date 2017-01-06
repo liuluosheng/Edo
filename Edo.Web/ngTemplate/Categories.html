@@ -4,38 +4,38 @@
         <h3 class="modal-title" id="modal-title">
             <b>{{item.Id?"EDIT":"CREATE"}}</b>
 
-            <i class="fa fa-close pull-right" ng-click="cancel()"></i>
+            <i class="fa fa-close pull-right" ng-click="vm.cancel()"></i>
         </h3>
     </div>
     <div class="modal-body" id="modal-body">
         <div class="modal-nav">
-  <a ng-click="scrollTo('#tolink0')">基本信息</a>
-  <a ng-click="scrollTo('#tolink1')">Products</a>
+  <a ng-click="vm.scrollTo('#tolink0')">基本信息</a>
+  <a ng-click="vm.scrollTo('#tolink1')">Products</a>
         </div>
-        <form class="form-horizontal  modal-form" role="form" ng-style="{maxHeight:modalHeight}" name="form"
+        <form class="form-horizontal  modal-form" role="form" ng-style="{maxHeight:vm.modalHeight}" name="form"
               ng-scrollbars
-              ng-scrollbars-update="scrolls.updateScrollbar"
-              ng-scrollbars-config="scrolls.config">
+              ng-scrollbars-update="vm.scrolls.updateScrollbar"
+              ng-scrollbars-config="vm.scrolls.config">
           <fieldset id="tolink0">
                 <legend><i class="fa fa-circle"></i>基本信息</legend>       
                     <div class="form-group" ng-class="{'has-error':form.CategoryName.$invalid }" 
                     ><label class="col-sm-2 control-label">CategoryName</label>
                     <div class="col-sm-10">
-                        <input type="text" autocomplete="off"  class="form-control pull-left"  placeholder="CategoryName" name="CategoryName" ng-model="item.CategoryName"   
+                        <input type="text" autocomplete="off"  class="form-control pull-left"  placeholder="CategoryName" name="CategoryName" ng-model="vm.item.CategoryName"   
                        >
                     </div>
                 </div>
                     <div class="form-group" ng-class="{'has-error':form.Description.$invalid }" 
                     ><label class="col-sm-2 control-label">Description</label>
                     <div class="col-sm-10">
-                        <input type="text" autocomplete="off"  class="form-control pull-left"  placeholder="Description" name="Description" ng-model="item.Description"   
+                        <input type="text" autocomplete="off"  class="form-control pull-left"  placeholder="Description" name="Description" ng-model="vm.item.Description"   
                        >
                     </div>
                 </div>
                     <div class="form-group" ng-class="{'has-error':form.Picture.$invalid }" 
                     ><label class="col-sm-2 control-label">Picture</label>
                     <div class="col-sm-10">
-                        <input type="text" autocomplete="off"  class="form-control pull-left"  placeholder="Picture" name="Picture" ng-model="item.Picture"   
+                        <input type="text" autocomplete="off"  class="form-control pull-left"  placeholder="Picture" name="Picture" ng-model="vm.item.Picture"   
                        >
                     </div>
                 </div>
@@ -44,8 +44,8 @@
                 <legend><i class="fa fa-circle"></i>Products</legend>       
                   
                     <div grid
-                    ng-model="item.Products"
-                     grid-option="gridOption"
+                    ng-model="vm.item.Products"
+                     grid-option="vm.gridOption"
                      grid-detail="true"
                      grid-item-field="CategoryID"
                      grid-enable-edit="true"
@@ -62,7 +62,7 @@
         </form>
     </div>
     <div class="modal-footer">
-        <button class="btn btn-primary " type="button" ng-click="ok(form,'/categories/')">确 定</button>
-        <button class="btn btn-warning " type="button" ng-click="cancel()">取 消</button>
+        <button class="btn btn-primary " type="button" ng-click="vm.ok(form,'/categories/')">确 定</button>
+        <button class="btn btn-warning " type="button" ng-click="vm.cancel()">取 消</button>
     </div>
 </div>

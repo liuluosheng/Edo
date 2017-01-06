@@ -4,32 +4,32 @@
         <h3 class="modal-title" id="modal-title">
             <b>{{item.Id?"EDIT":"CREATE"}}</b>
 
-            <i class="fa fa-close pull-right" ng-click="cancel()"></i>
+            <i class="fa fa-close pull-right" ng-click="vm.cancel()"></i>
         </h3>
     </div>
     <div class="modal-body" id="modal-body">
         <div class="modal-nav">
-  <a ng-click="scrollTo('#tolink0')">基本信息</a>
+  <a ng-click="vm.scrollTo('#tolink0')">基本信息</a>
         </div>
-        <form class="form-horizontal  modal-form" role="form" ng-style="{maxHeight:modalHeight}" name="form"
+        <form class="form-horizontal  modal-form" role="form" ng-style="{maxHeight:vm.modalHeight}" name="form"
               ng-scrollbars
-              ng-scrollbars-update="scrolls.updateScrollbar"
-              ng-scrollbars-config="scrolls.config">
+              ng-scrollbars-update="vm.scrolls.updateScrollbar"
+              ng-scrollbars-config="vm.scrolls.config">
           <fieldset id="tolink0">
                 <legend><i class="fa fa-circle"></i>基本信息</legend>       
                     <div class="form-group" ng-class="{'has-error':form.UserId.$invalid }" 
-                      ng-if="'UserId'!=fkName"
+                      ng-if="'UserId'!=vm.fkName"
                     ><label class="col-sm-2 control-label">User</label>
                     <div class="col-sm-10">
                   <div class="dropdown">
-                  <input type="hidden" ng-model="item.UserId" required name="UserId" />               
+                  <input type="hidden" ng-model="vm.item.UserId" required name="UserId" />               
                                        <a class="dropdown-toggle" id="User" role="button" data-toggle="dropdown" data-target="#" href="#">
                         <div class="input-group">
                            <input type="text"                             
                                  readonly="readonly"
                                  class="form-control"
-                                 ng-value="item.UserId">
-                               <span class="input-group-addon" ng-click="chooseObj('/ngtemplate/grid_User.html','UserId','UserId','Id')" >
+                                 ng-value="vm.item.UserId">
+                               <span class="input-group-addon" ng-click="vm.chooseObj('/ngtemplate/grid_User.html','UserId','UserId','Id')" >
                                <i class="glyphicon glyphicon-plus"></i></span>
                         </div>
                     </a>
@@ -42,7 +42,7 @@
                     <div class="form-group" ng-class="{'has-error':form.PermissionKey.$invalid }" 
                     ><label class="col-sm-2 control-label">PermissionKey</label>
                     <div class="col-sm-10">
-                        <input type="text" autocomplete="off"  class="form-control pull-left"  placeholder="PermissionKey" name="PermissionKey" ng-model="item.PermissionKey"   
+                        <input type="text" autocomplete="off"  class="form-control pull-left"  placeholder="PermissionKey" name="PermissionKey" ng-model="vm.item.PermissionKey"   
                        >
                     </div>
                 </div>
@@ -50,7 +50,7 @@
         </form>
     </div>
     <div class="modal-footer">
-        <button class="btn btn-primary " type="button" ng-click="ok(form,'/userpermission/')">确 定</button>
-        <button class="btn btn-warning " type="button" ng-click="cancel()">取 消</button>
+        <button class="btn btn-primary " type="button" ng-click="vm.ok(form,'/userpermission/')">确 定</button>
+        <button class="btn btn-warning " type="button" ng-click="vm.cancel()">取 消</button>
     </div>
 </div>

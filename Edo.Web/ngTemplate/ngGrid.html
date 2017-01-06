@@ -56,7 +56,7 @@
             </thead>
             <tbody>
                 <tr ng-cloak class="static-row">
-                    <td colspan={{getconspan()}} ng-cloak>
+                    <td colspan={{ctrl.getconspan()}} ng-cloak>
                         <div class="alert alert-warning" ng-show="ctrl.data && ctrl.data.length==0">没有符合条件的数据！</div>
                         <i class="fa fa-spinner fa-pulse  fa-fw" ng-hide="ctrl.dataLoading==false"></i>
                     </td>

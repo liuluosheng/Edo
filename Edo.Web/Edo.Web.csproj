@@ -199,6 +199,9 @@
     <Compile Include="Controllers\Generate\RoleController.cs">
       <DependentUpon>GenerateController.tt</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\Generate\ShippersController.cs">
+      <DependentUpon>GenerateController.tt</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\Generate\UserController.cs">
       <DependentUpon>GenerateController.tt</DependentUpon>
     </Compile>
@@ -344,7 +347,7 @@
       <DependentUpon>GenerateNgTemplate.tt</DependentUpon>
     </Content>
     <Content Include="ngTemplate\modal-template.html" />
-    <Content Include="ngTemplate\ngGrid - 复制.html" />
+    <Content Include="ngTemplate\ngGrid -backup.html" />
     <Content Include="ngTemplate\orderdetails.html">
       <DependentUpon>GenerateNgTemplate.tt</DependentUpon>
     </Content>
@@ -1300,6 +1303,7 @@
 .\ProductsController.cs
 .\RegionController.cs
 .\RoleController.cs
+.\ShippersController.cs
 .\UserController.cs
 .\UserPermissionController.cs
 </LastOutputs>
@@ -1440,6 +1444,7 @@
 .\Products\Index.cshtml
 .\Region\Index.cshtml
 .\Role\Index.cshtml
+.\Shippers\Index.cshtml
 .\User\Index.cshtml
 .\UserPermission\Index.cshtml
 </LastOutputs>
@@ -1456,6 +1461,7 @@
     <Content Include="Views\OrderDetails\Index.cshtml" />
     <Content Include="Views\UserPermission\Index.cshtml" />
     <Content Include="Views\Employees\Index.cshtml" />
+    <Content Include="Views\Shippers\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

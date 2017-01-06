@@ -5,7 +5,7 @@ namespace Edo.Data.Entity
 {
     using System;
     using System.Collections.Generic;
-    [NgTemplate]
+    [NgTemplate,GenerateController(Title="发货人信息")]
     public partial class Shippers : EntityBase
     {
         [GridColumn]

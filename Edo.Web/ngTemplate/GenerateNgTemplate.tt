@@ -55,9 +55,9 @@
         {
             //if(System.IO.File.Exists(_path))
             //{
-                //FileStream fs = new FileStream(_path, FileMode.Open, FileAccess.Read, FileShare.Read);
-                //StreamReader sr = new StreamReader(fs, Encoding.UTF8);
-                //return sr.ReadToEnd();
+            //FileStream fs = new FileStream(_path, FileMode.Open, FileAccess.Read, FileShare.Read);
+            //StreamReader sr = new StreamReader(fs, Encoding.UTF8);
+            //return sr.ReadToEnd();
             //}
 #>
 
@@ -66,7 +66,7 @@
         <h3 class="modal-title" id="modal-title">
             <b>{{item.Id?"EDIT":"CREATE"}}</b>
 
-            <i class="fa fa-close pull-right" ng-click="cancel()"></i>
+            <i class="fa fa-close pull-right" ng-click="vm.cancel()"></i>
         </h3>
     </div>
     <div class="modal-body" id="modal-body">
@@ -77,16 +77,16 @@
             foreach(var nav in props.Keys)
             {
 #>
-  <a ng-click="scrollTo('#tolink<#=                i #>')"><#=                nav #></a>
+  <a ng-click="vm.scrollTo('#tolink<#=                i #>')"><#=                nav #></a>
 <#+
                 i++;
             }
 #>
         </div>
-        <form class="form-horizontal  modal-form" role="form" ng-style="{maxHeight:modalHeight}" name="form"
+        <form class="form-horizontal  modal-form" role="form" ng-style="{maxHeight:vm.modalHeight}" name="form"
               ng-scrollbars
-              ng-scrollbars-update="scrolls.updateScrollbar"
-              ng-scrollbars-config="scrolls.config">
+              ng-scrollbars-update="vm.scrolls.updateScrollbar"
+              ng-scrollbars-config="vm.scrolls.config">
 <#+
             int ii =0;
             foreach(var nav in props.Keys)
@@ -113,8 +113,8 @@
                         string deleteUrl=moreToMore?string.Format("/{0}/Delete{1}",_type.Name,shortName):string.Format("/{0}/Delete",shortName);
 #>                  
                     <div grid
-                    ng-model="item.<#=                        prop.Name #>"
-                     grid-option="gridOption"
+                    ng-model="vm.item.<#=                        prop.Name #>"
+                     grid-option="vm.gridOption"
                      grid-detail="true"
                      grid-item-field="<#=                        moreToMore?keys:foreignKey#>"
                      grid-enable-edit="<#=                        gridAttr.RowEdit.ToString().ToLower()  #>"
@@ -140,7 +140,7 @@
                     if(isSelect)
                     {
  #>
-                      ng-if="'<#=                        foreignKeyAttribute.Name#>'!=fkName"
+                      ng-if="'<#=                        foreignKeyAttribute.Name#>'!=vm.fkName"
 <#+
                     }
  #>
@@ -172,7 +172,7 @@
                     bool isDate=typeof(DateTime)==prop.PropertyType.GetTypeInfo() || typeof(DateTime?)==prop.PropertyType.GetTypeInfo();  
                     if( isEnum){                
 #>
-                <select class="form-control" ng-model="item.<#=                        prop.Name #>" ng-options="value for value in [<#=                        string.Join(",",Enum.GetNames(prop.PropertyType).Select(p=>string.Format("\'{0}\'",p))) #>]">
+                <select class="form-control" ng-model="vm.item.<#=                        prop.Name #>" ng-options="value for value in [<#=                        string.Join(",",Enum.GetNames(prop.PropertyType).Select(p=>string.Format("\'{0}\'",p))) #>]">
                </select>                 
 <#+                    }
                     else if (isDate || isSelect){
@@ -195,15 +195,15 @@
 <#+                        if(requiredAttribute!=null)
                         {
 #>
-                  <input type="hidden" ng-model="item.<#=                            isSelect? foreignKeyAttribute.Name:prop.Name #>" required name="<#=                            isSelect? foreignKeyAttribute.Name:prop.Name #>" />               
+                  <input type="hidden" ng-model="vm.item.<#=                            isSelect? foreignKeyAttribute.Name:prop.Name #>" required name="<#=                            isSelect? foreignKeyAttribute.Name:prop.Name #>" />               
                      <#+                        } #>
                   <a class="dropdown-toggle" id="<#=                        prop.Name #>" role="button" data-toggle="dropdown" data-target="#" href="#">
                         <div class="input-group">
                            <input type="text"                             
                                  readonly="readonly"
                                  class="form-control"
-                                 ng-value="item.<#=                        isSelect?(selectAttribute.ToNameField??foreignKeyAttribute.Name):prop.Name #><#=                        isDate?"  | date:'yyyy-MM-dd HH:mm a'":"" #>">
-                               <span class="input-group-addon" <#=                        isSelect?string.Format("ng-click=\"chooseObj('/ngtemplate/grid_{0}.html','{1}','{2}','{3}')\"",prop.PropertyType.Name,foreignKeyAttribute.Name,selectAttribute.ToNameField??foreignKeyAttribute.Name,selectAttribute.FromNameField??selectAttribute.ToNameField??"Id"):"" #> >
+                                 ng-value="vm.item.<#=                        isSelect?(selectAttribute.ToNameField??foreignKeyAttribute.Name):prop.Name #><#=                        isDate?"  | date:'yyyy-MM-dd HH:mm a'":"" #>">
+                               <span class="input-group-addon" <#=                        isSelect?string.Format("ng-click=\"vm.chooseObj('/ngtemplate/grid_{0}.html','{1}','{2}','{3}')\"",prop.PropertyType.Name,foreignKeyAttribute.Name,selectAttribute.ToNameField??foreignKeyAttribute.Name,selectAttribute.FromNameField??selectAttribute.ToNameField??"Id"):"" #> >
                                <i class="glyphicon glyphicon-<#=                        isDate?"calendar":"plus" #>"></i></span>
                         </div>
                     </a>
@@ -211,7 +211,7 @@
                         {
  #>
                         <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                            <datetimepicker ng-model="item.<#=                            prop.Name #>" data-datetimepicker-config="{ dropdownSelector: '#<#=                            prop.Name #>' }"></datetimepicker>
+                            <datetimepicker ng-model="vm.item.<#=                            prop.Name #>" data-datetimepicker-config="{ dropdownSelector: '#<#=                            prop.Name #>' }"></datetimepicker>
                         </ul>
 <#+ 
                         }
@@ -222,7 +222,7 @@
                     else{      
                         bool isBool =prop.PropertyType==typeof(bool) || prop.PropertyType==typeof(bool?);                    
 #>
-                        <input type="<#=                        isBool?"checkbox":"text" #>" autocomplete="off"  class="form-control pull-left"  placeholder="<#=                        name #>" name="<#=                        prop.Name #>" ng-model="item.<#=                        prop.Name #>"   
+                        <input type="<#=                        isBool?"checkbox":"text" #>" autocomplete="off"  class="form-control pull-left"  placeholder="<#=                        name #>" name="<#=                        prop.Name #>" ng-model="vm.item.<#=                        prop.Name #>"   
                        <#+   
                         StringBuilder attrs= new StringBuilder();  
                         if(requiredAttribute!=null)  
@@ -253,8 +253,8 @@
         </form>
     </div>
     <div class="modal-footer">
-        <button class="btn btn-primary " type="button" ng-click="ok(form,'/<#=            _type.Name.ToLower()#>/')">确 定</button>
-        <button class="btn btn-warning " type="button" ng-click="cancel()">取 消</button>
+        <button class="btn btn-primary " type="button" ng-click="vm.ok(form,'/<#=            _type.Name.ToLower()#>/')">确 定</button>
+        <button class="btn btn-warning " type="button" ng-click="vm.cancel()">取 消</button>
     </div>
 </div>
 <#+           
@@ -276,22 +276,22 @@
         {    
             //if(System.IO.File.Exists(_path))
             //{
-                //FileStream fs = new FileStream(_path, FileMode.Open, FileAccess.Read, FileShare.Read);
-                //StreamReader sr = new StreamReader(fs, Encoding.UTF8);
-                //return sr.ReadToEnd();
+            //FileStream fs = new FileStream(_path, FileMode.Open, FileAccess.Read, FileShare.Read);
+            //StreamReader sr = new StreamReader(fs, Encoding.UTF8);
+            //return sr.ReadToEnd();
             //}                        
 #>
                <div>
                     <div class="modal-header">
                          <h3 class="modal-title" id="modal-title-dt">
                               <b>CHOOSE</b>
-                              <i class="fa fa-close pull-right" ng-click="cancel()"></i>
+                              <i class="fa fa-close pull-right" ng-click="vm.cancel()"></i>
                         </h3>
                     </div>
                     <div class="modal-body grid-template" id="modal-body-dt" >
                          <div grid
                             grid-detail="true"
-                            grid-option="gridOption"
+                            grid-option="vm.gridOption"
                             grid-more-to-more="true"
                             grid-template="nggrid"
                             grid-name="<#=            t.Name.Substring(0, 1).ToLower() + t.Name.TrimStart(t.Name.Substring(0, 1).ToCharArray())#>"
@@ -301,8 +301,8 @@
                      </div>
                    </div>
                    <div class="modal-footer">
-                      <button class="btn btn-primary " type="button" ng-click="choose('<#=            t.Name #>')">确 定</button>
-                      <button class="btn btn-warning " type="button" ng-click="cancel()">取 消</button>
+                      <button class="btn btn-primary " type="button" ng-click="vm.choose('<#=            t.Name #>')">确 定</button>
+                      <button class="btn btn-warning " type="button" ng-click="vm.cancel()">取 消</button>
                    </div>
              </div>
 <#+                         

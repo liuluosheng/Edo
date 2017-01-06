@@ -1,0 +1,42 @@
+﻿@{
+    ViewBag.Title = "发货人信息";
+}
+@section Styles{
+
+}
+<div  ng-controller="shippersController">
+    <div class="clearfix grid-btn">
+        <ol class="breadcrumb pull-left">
+            <li><a href="/">EDO</a></li>
+            <li><a  class="active">发货人信息</a></li>
+        </ol>
+        <a class="btn btn-primary " ng-click="gridOption.create();"><i class="fa fa-plus"></i>新 建</a>
+    </div>
+    <div class="ng-grid panel panel-default" ng-cloak>
+        <div class="panel-body" ng-cloak>
+            <div grid grid-option="gridOption" data="data" grid-name="shippers"></div>
+        </div>
+    </div>  
+</div>
+@section scripts{
+    <script type="text/javascript">
+   var app = angular.module("app");
+        app.controller("shippersController", [
+            "$scope", "$http", "$filter", "$window", "$common", function ($scope, $http, $filter, $window, $common) {
+                $scope.gridOption = {
+                    height: 'auto',
+                    rowNumber: true,
+                    pkColumn: "Id",
+                    rowDetail: true,
+                    filterRow: true,
+                    url: "/shippers/page",
+                    selectUrl: "/shippers/select2",
+                    editTemplateUrl: "/ngTemplate/shippers.html"
+                //, onRowSelected: function (row) { }
+               // , onRenderRowDetail: function (row) { }
+                };
+            }
+        ])
+    </script>
+}
+
