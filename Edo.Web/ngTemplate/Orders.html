@@ -51,7 +51,7 @@
                     <div class="form-group" ng-class="{'has-error':form.ShipAddress.$invalid }" 
                     ><label class="col-sm-2 control-label">ShipAddress</label>
                     <div class="col-sm-10">
-                        <input type="text"disabled ng-init='_ShipAddress=vm.item.ShipAddress'
+                        <input type="text"ng-disabled="vm.item.Id"
                        autocomplete="off"  class="form-control pull-left"  placeholder="ShipAddress" name="ShipAddress" ng-model="_ShipAddress"   
                        >
                     </div>
@@ -97,13 +97,16 @@
                         <div class="input-group">
                            <input type="text"                             
                                  readonly="readonly"
-                                  disabled
                                  class="form-control"
+                                ng-disabled='vm.item.Id'
                                  ng-value="vm.item.OrderDate  | date:'yyyy-MM-dd HH:mm a'">
-                               <span class="input-group-addon"  >
+                               <span  ng-disabled='vm.item.Id'  class="input-group-addon"  >
                                <i class="glyphicon glyphicon-calendar"></i></span>
                         </div>
                     </a>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel" ng-if="!vm.item.Id">
+                            <datetimepicker ng-model="vm.item.OrderDate" data-datetimepicker-config="{ dropdownSelector: '#OrderDate' }"></datetimepicker>
+                        </ul>
                </div>
                     <div ng-messages="form.OrderDate.$error" class="pull-left error">                       
                             <div ng-message="required">这是个必填项</div>                         
@@ -118,14 +121,14 @@
                         <div class="input-group">
                            <input type="text"                             
                                  readonly="readonly"
-                                  
                                  class="form-control"
+                                
                                  ng-value="vm.item.RequiredDate  | date:'yyyy-MM-dd HH:mm a'">
-                               <span class="input-group-addon"  >
+                               <span    class="input-group-addon"  >
                                <i class="glyphicon glyphicon-calendar"></i></span>
                         </div>
                     </a>
-                        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel" >
                             <datetimepicker ng-model="vm.item.RequiredDate" data-datetimepicker-config="{ dropdownSelector: '#RequiredDate' }"></datetimepicker>
                         </ul>
                </div>
@@ -139,14 +142,14 @@
                         <div class="input-group">
                            <input type="text"                             
                                  readonly="readonly"
-                                  
                                  class="form-control"
+                                
                                  ng-value="vm.item.ShippedDate  | date:'yyyy-MM-dd HH:mm a'">
-                               <span class="input-group-addon"  >
+                               <span    class="input-group-addon"  >
                                <i class="glyphicon glyphicon-calendar"></i></span>
                         </div>
                     </a>
-                        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel" >
                             <datetimepicker ng-model="vm.item.ShippedDate" data-datetimepicker-config="{ dropdownSelector: '#ShippedDate' }"></datetimepicker>
                         </ul>
                </div>
@@ -162,10 +165,10 @@
                         <div class="input-group">
                            <input type="text"                             
                                  readonly="readonly"
-                                  
                                  class="form-control"
+                                
                                  ng-value="vm.item.CustomerName">
-                               <span class="input-group-addon" ng-click="vm.chooseObj('/ngtemplate/grid_Customers.html','CustomerID','CustomerName','CompanyName')" >
+                               <span    class="input-group-addon" ng-click="vm.chooseObj('/ngtemplate/grid_Customers.html','CustomerID','CustomerName','CompanyName',$event)" >
                                <i class="glyphicon glyphicon-plus"></i></span>
                         </div>
                     </a>
@@ -185,10 +188,10 @@
                         <div class="input-group">
                            <input type="text"                             
                                  readonly="readonly"
-                                  disabled
                                  class="form-control"
+                                ng-disabled='vm.item.Id'
                                  ng-value="vm.item.EmployeesHomePhone">
-                               <span class="input-group-addon"  >
+                               <span  ng-disabled='vm.item.Id'  class="input-group-addon" ng-click="vm.chooseObj('/ngtemplate/grid_Employees.html','EmployeeID','EmployeesHomePhone','HomePhone',$event)" >
                                <i class="glyphicon glyphicon-plus"></i></span>
                         </div>
                     </a>
@@ -208,10 +211,10 @@
                         <div class="input-group">
                            <input type="text"                             
                                  readonly="readonly"
-                                  
                                  class="form-control"
+                                
                                  ng-value="vm.item.ShippersName">
-                               <span class="input-group-addon" ng-click="vm.chooseObj('/ngtemplate/grid_Shippers.html','ShipperID','ShippersName','CompanyName')" >
+                               <span    class="input-group-addon" ng-click="vm.chooseObj('/ngtemplate/grid_Shippers.html','ShipperID','ShippersName','CompanyName',$event)" >
                                <i class="glyphicon glyphicon-plus"></i></span>
                         </div>
                     </a>

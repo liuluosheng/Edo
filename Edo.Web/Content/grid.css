@@ -27,7 +27,10 @@
   border: none;
 }
 [readonly] {
-  background-color: white !important;
+  background-color: white!important;
+}
+[disabled] {
+  background-color: #eee !important;
 }
 .grid-modal-dialog {
   margin: auto;
@@ -81,8 +84,8 @@
   width: 100%;
 }
 .grid-modal-dialog .modal-body .modal-form .form-group input[type='checkbox'] {
-  width: 25px;
-  height: 25px;
+  width: 20px;
+  height: 20px;
   outline: none;
   border: none;
 }

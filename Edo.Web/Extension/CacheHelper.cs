@@ -12,7 +12,7 @@ namespace Edo.Web
 
         public static class CacheHelper
     {
-        private static Cache _cache;
+        private static readonly Cache _cache;
 
             private static double SaveTime 
         { 

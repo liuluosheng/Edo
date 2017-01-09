@@ -31,7 +31,6 @@ namespace Edo.Web.Controllers
             _service = service;
             _dbset = service.Repository.Entities;
         }
-
         public virtual async Task<ActionResult> Edit(TK entity)
         {
             T model = Mapper.Map<TK, T>(entity);

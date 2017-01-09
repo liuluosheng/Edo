@@ -7,23 +7,23 @@
                     <th class="row-number-cell" ng-if="ctrl.gridOption.rowNumber">No.</th>
                     <th class="detail-cell" ng-if="ctrl.gridOption.rowDetail || ctrl.gridOption.showBtn"></th>
                     <th ng-repeat="op in ctrl.gridOption.columns" ng-style="{width:ctrl.gridOption.columns.length>1?op.width:'auto'}">
-                        <span ng-bind="op.name" ng-click="sort(op)" class="sort-name"> </span>
+                        <span ng-bind="op.name" ng-click="ctrl.sort(op)" class="sort-name"> </span>
                         <span class="sort" ng-show="op.sortable">
                             <i class="fa fa-sort-asc" aria-hidden="true" ng-hide="ctrl.gridSort.field==op.field && ctrl.gridSort.sort!='ascending'"></i>
                             <i class="fa fa-sort-desc" aria-hidden="true" ng-hide="ctrl.gridSort.field==op.field && ctrl.gridSort.sort!='descending'"></i>
                         </span>
-                        <div ng-if="ctrl.gridOption.filterRow" class="row-filter" ng-cloak>
+                        <div ng-if="ctrl.gridOption.filterRow && ctrl.data" class="row-filter" ng-cloak>
                             <div ng-if="op.type=='Date'" ng-cloak class="date-filter form-inline">
                                 <input type="text" class="form-control" data-field="{{op.field}}"
                                        uib-datepicker-popup ng-model="ctrl.filterObj[op.field].start"
-                                       ng-change="filter();"
+                                       ng-change="ctrl.filter();"
                                        is-open="sO"
                                        datepicker-options="{maxDate:ctrl.filterObj[op.field].end,showWeeks:false}"
                                        ng-click="sO=!sO" />
                                 <span class="split">~</span>
                                 <input type="text" class="form-control" data-field="{{op.field}}"
                                        uib-datepicker-popup ng-model="ctrl.filterObj[op.field].end"
-                                       ng-change="filter();"
+                                       ng-change="ctrl.filter();"
                                        is-open="eO"
                                        datepicker-options="{minDate:ctrl.filterObj[op.field].start,showWeeks:false}"
                                        ng-click="eO=!eO" />

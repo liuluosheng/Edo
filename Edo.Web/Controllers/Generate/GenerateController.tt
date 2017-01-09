@@ -8,8 +8,10 @@
 <#@ assembly name="$(TargetDir)Newtonsoft.Json.dll" #>
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="Edo.Data.Entity.ComponentModel" #>
+<#@ assembly name="System.ComponentModel.DataAnnotations.dll" #>
 <#@ import namespace="System.ComponentModel" #>
 <#@ import namespace="System.ComponentModel.DataAnnotations" #>
+<#@ import namespace="System.ComponentModel.DataAnnotations.Schema" #>
 <#@ import namespace="Edo.Data.Entity" #>
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
@@ -84,7 +86,12 @@ namespace Edo.Web.Controllers
             return View();
         }
        <#+
+            List<string> exclude= new List<string>();
             foreach(PropertyInfo prop in _type.GetProperties()){
+                var editableAttribute=prop.GetCustomAttribute<EditableAttribute>();
+                if(editableAttribute!=null &&!editableAttribute.AllowEdit){
+                    exclude.Add(prop.Name);
+                }
                 if(!prop.PropertyType.IsGenericType)continue;
                 Type t=prop.PropertyType.GenericTypeArguments[0];
                 if(CheckMoreToMore(t)){
@@ -116,6 +123,14 @@ namespace Edo.Web.Controllers
         }  
      #endregion  
      <#+                }
+            }
+            if(exclude.Count!=0){
+     #>
+      public override async Task<ActionResult> Edit([Bind(Exclude="<#=                string.Join(",",exclude) #>")] <#=                name #>ViewModel entity)
+        {
+            return await base.Edit(entity);
+        }
+<#+
             }          
 #>}
 }

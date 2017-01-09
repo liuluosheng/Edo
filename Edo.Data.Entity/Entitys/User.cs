@@ -16,6 +16,7 @@ namespace Edo.Data.Entity
         [GridColumn]
         public string Name { get; set; }
         public string NickName { get; set; }
+        [DataType(DataType.Password)]
         public string Password { get; set; }
         public string Address { get; set; }
         [GridColumn]

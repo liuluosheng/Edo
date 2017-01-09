@@ -6,7 +6,7 @@ using Edo.Data.Entity.Enum;
 namespace Edo.Web
 {
     /// <summary>
-    /// 定义系统中所有的权限KEY
+    /// 预定义系统中所有的权限KEY
     /// </summary>
     public class PermissionKeys
     {

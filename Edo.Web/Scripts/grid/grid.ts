@@ -94,8 +94,8 @@ class GridController {
                 this.data = result.data;
                 //$scope.bindModel($scope.data);
                 this.dataLoading = false;
-                if (!isfilter)
-                    this.gridOption.filterRow = p.pageSize >= p.total ? false : $scope.option.filterRow
+                if (!isfilter && $scope.option.filterRow)
+                    this.gridOption.filterRow = p.pageSize >= p.total ? false : true;
             }).error(result => {
                 this.dataLoading = false;
                 $common.$alert.error($T.DataLoadError);
@@ -297,7 +297,7 @@ class EditGridController {
     fkName: string;
     gridOption: any;
     choose: (a) => void;
-    chooseObj: (a, b, c, d) => void;
+    chooseObj: (a, b, c, d, e) => void;
     ok: (a, b) => void;
     scrollTo: (a) => void;
     scrolls: any;
@@ -317,7 +317,8 @@ class EditGridController {
             } else
                 $common.$toast.error($T.AlertSelect);
         }
-        this.chooseObj = (template, field, name, bindName) => {
+        this.chooseObj = (template, field, name, bindName, eventObj) => {
+            if ($(eventObj.target).is("[disabled]") || $(eventObj.target).parent().is("[disabled]")) return;
             $uibModal.open({
                 windowTemplateUrl: "/ngTemplate/modal-template.html",
                 templateUrl: template,

@@ -65,8 +65,8 @@ var GridController = (function () {
                 _this.data = result.data;
                 //$scope.bindModel($scope.data);
                 _this.dataLoading = false;
-                if (!isfilter)
-                    _this.gridOption.filterRow = p.pageSize >= p.total ? false : $scope.option.filterRow;
+                if (!isfilter && $scope.option.filterRow)
+                    _this.gridOption.filterRow = p.pageSize >= p.total ? false : true;
             }).error(function (result) {
                 _this.dataLoading = false;
                 $common.$alert.error($T.DataLoadError);
@@ -286,7 +286,9 @@ var EditGridController = (function () {
             else
                 $common.$toast.error($T.AlertSelect);
         };
-        this.chooseObj = function (template, field, name, bindName) {
+        this.chooseObj = function (template, field, name, bindName, eventObj) {
+            if ($(eventObj.target).is("[disabled]") || $(eventObj.target).parent().is("[disabled]"))
+                return;
             $uibModal.open({
                 windowTemplateUrl: "/ngTemplate/modal-template.html",
                 templateUrl: template,

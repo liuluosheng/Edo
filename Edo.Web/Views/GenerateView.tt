@@ -61,7 +61,7 @@
     </div>
     <div class="ng-grid panel panel-default" ng-cloak>
         <div class="panel-body" ng-cloak>
-            <div grid grid-option="gridOption" data="data" grid-name="<#=            _type.Name.ToLower() #>"></div>
+            <div grid grid-option="gridOption" data="data" grid-name="<#=                        _type.Name.Substring(0, 1).ToLower() + _type.Name.TrimStart(_type.Name.Substring(0, 1).ToCharArray())#>"></div>
         </div>
     </div>  
 </div>
