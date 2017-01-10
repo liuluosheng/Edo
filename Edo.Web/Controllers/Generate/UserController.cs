@@ -50,9 +50,10 @@ namespace Edo.Web.Controllers
             return Content(GetJsonString(new Result { Success = await _service.Repository.UpdateAsync(model) > 0 ,Obj=AutoMapper.Mapper.Map<User,UserViewModel>(model)}));
         }  
      #endregion  
-           public override async Task<ActionResult> Edit([Bind(Exclude="UserType")] UserViewModel entity)
-        {
-            return await base.Edit(entity);
-        }
-}
+           protected override string[] ExcludeUpdate
+           {
+               get {  return new[] {"UserType" };
+            }
+       }
+     }
 }

@@ -25,9 +25,10 @@ namespace Edo.Web.Controllers
         {
             return View();
         }
-             public override async Task<ActionResult> Edit([Bind(Exclude="ShipAddress,OrderDate,Employees")] OrdersViewModel entity)
-        {
-            return await base.Edit(entity);
-        }
-}
+             protected override string[] ExcludeUpdate
+           {
+               get {  return new[] {"ShipAddress","OrderDate","EmployeeID" };
+            }
+       }
+     }
 }

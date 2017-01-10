@@ -203,13 +203,11 @@
                      <#+                        } #>
                   <a class="dropdown-toggle" id="<#=                        prop.Name #>" role="button" data-toggle="dropdown" data-target="#" href="#">
                         <div class="input-group">
-                           <input type="text"                             
-                                 readonly="readonly"
-                                 class="form-control"
-                                <#=                        disabledEdit?"ng-disabled='vm.item.Id'":"" #>
-                                 ng-value="vm.item.<#=                        isSelect?(selectAttribute.ToNameField??foreignKeyAttribute.Name):prop.Name #><#=                        isDate?"  | date:'yyyy-MM-dd HH:mm a'":"" #>">
+                           <input type="text"  readonly="readonly" class="form-control"  <#=                        disabledEdit?"ng-disabled='vm.item.Id'":"" #>
+                               ng-value="vm.item.<#=                        isSelect?(selectAttribute.ToNameField??foreignKeyAttribute.Name):prop.Name #><#=                        isDate?"  | date:'yyyy-MM-dd HH:mm a'":"" #>">
                                <span  <#=                        disabledEdit?"ng-disabled='vm.item.Id'":"" #>  class="input-group-addon" <#=                        isSelect ?string.Format("ng-click=\"vm.chooseObj('/ngtemplate/grid_{0}.html','{1}','{2}','{3}',$event)\"",prop.PropertyType.Name,foreignKeyAttribute.Name,selectAttribute.ToNameField??foreignKeyAttribute.Name,selectAttribute.FromNameField??selectAttribute.ToNameField??"Id"):"" #> >
-                               <i class="glyphicon glyphicon-<#=                        isDate?"calendar":"plus" #>"></i></span>
+                               <i class="glyphicon glyphicon-<#=                        isDate?"calendar":"plus" #>"></i>
+                               </span>
                         </div>
                     </a>
 <#+                        if(isDate)
@@ -228,7 +226,7 @@
                         bool isBool =prop.PropertyType==typeof(bool) || prop.PropertyType==typeof(bool?);                    
 #>
                         <input type="<#=                        isBool?"checkbox":(dataTypeAttribute!=null?dataTypeAttribute.DataType.ToString().ToLower():"text") #>"<#=                        disabledEdit?"ng-disabled=\"vm.item.Id\"":"" #>
-                       autocomplete="off"  class="form-control pull-left"  placeholder="<#=                        name #>" name="<#=                        prop.Name #>" ng-model="<#=                        disabledEdit?"_"+prop.Name:string.Format("vm.item.{0}",prop.Name) #>"   
+                       autocomplete="off"  class="form-control pull-left"  placeholder="<#=                        name #>" name="<#=                        prop.Name #>" ng-model="vm.item.<#=                        prop.Name#>"   
                        <#+   
                         StringBuilder attrs= new StringBuilder();  
                         if(requiredAttribute!=null)  

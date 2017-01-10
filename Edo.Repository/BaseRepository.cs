@@ -128,10 +128,15 @@ namespace Edo.Repository
         /// 更新实体对象
         /// </summary>
         /// <param name="entity">更新后的实体对象</param>
+        /// <param name="excludeProperty">要排除的更新的属性</param>
         /// <returns>操作影响的行数</returns>
-        public virtual int Update(TEntity entity)
+        public virtual int Update(TEntity entity, params string[] excludeProperty)
         {
             _context.Entry(entity).State = EntityState.Modified;
+            foreach (var prop in excludeProperty)
+            {
+                _context.Entry(entity).Property(prop).IsModified = false;
+            }
             return _context.SaveChanges();
         }
 
@@ -274,12 +279,17 @@ namespace Edo.Repository
         /// 异步更新实体对象
         /// </summary>
         /// <param name="entity">更新后的实体对象</param>
+        /// <param name="excludeProperty">要排除的更新的属性</param>
         /// <returns>操作影响的行数</returns>
-        public virtual async Task<int> UpdateAsync(TEntity entity)
+        public virtual async Task<int> UpdateAsync(TEntity entity, params string[] excludeProperty)
         {
             try
             {
                 _context.Entry(entity).State = EntityState.Modified;
+                foreach (var prop in excludeProperty)
+                {
+                    _context.Entry(entity).Property(prop).IsModified = false;
+                }
                 return await _context.SaveChangesAsync();
             }
             catch (DbEntityValidationException ex)

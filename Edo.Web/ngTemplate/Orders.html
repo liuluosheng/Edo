@@ -52,7 +52,7 @@
                     ><label class="col-sm-2 control-label">ShipAddress</label>
                     <div class="col-sm-10">
                         <input type="text"ng-disabled="vm.item.Id"
-                       autocomplete="off"  class="form-control pull-left"  placeholder="ShipAddress" name="ShipAddress" ng-model="_ShipAddress"   
+                       autocomplete="off"  class="form-control pull-left"  placeholder="ShipAddress" name="ShipAddress" ng-model="vm.item.ShipAddress"   
                        >
                     </div>
                 </div>
@@ -95,13 +95,11 @@
                   <input type="hidden" ng-model="vm.item.OrderDate" required name="OrderDate" />               
                                        <a class="dropdown-toggle" id="OrderDate" role="button" data-toggle="dropdown" data-target="#" href="#">
                         <div class="input-group">
-                           <input type="text"                             
-                                 readonly="readonly"
-                                 class="form-control"
-                                ng-disabled='vm.item.Id'
-                                 ng-value="vm.item.OrderDate  | date:'yyyy-MM-dd HH:mm a'">
+                           <input type="text"  readonly="readonly" class="form-control"  ng-disabled='vm.item.Id'
+                               ng-value="vm.item.OrderDate  | date:'yyyy-MM-dd HH:mm a'">
                                <span  ng-disabled='vm.item.Id'  class="input-group-addon"  >
-                               <i class="glyphicon glyphicon-calendar"></i></span>
+                               <i class="glyphicon glyphicon-calendar"></i>
+                               </span>
                         </div>
                     </a>
                         <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel" ng-if="!vm.item.Id">
@@ -119,13 +117,11 @@
                   <div class="dropdown">
                   <a class="dropdown-toggle" id="RequiredDate" role="button" data-toggle="dropdown" data-target="#" href="#">
                         <div class="input-group">
-                           <input type="text"                             
-                                 readonly="readonly"
-                                 class="form-control"
-                                
-                                 ng-value="vm.item.RequiredDate  | date:'yyyy-MM-dd HH:mm a'">
+                           <input type="text"  readonly="readonly" class="form-control"  
+                               ng-value="vm.item.RequiredDate  | date:'yyyy-MM-dd HH:mm a'">
                                <span    class="input-group-addon"  >
-                               <i class="glyphicon glyphicon-calendar"></i></span>
+                               <i class="glyphicon glyphicon-calendar"></i>
+                               </span>
                         </div>
                     </a>
                         <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel" >
@@ -140,13 +136,11 @@
                   <div class="dropdown">
                   <a class="dropdown-toggle" id="ShippedDate" role="button" data-toggle="dropdown" data-target="#" href="#">
                         <div class="input-group">
-                           <input type="text"                             
-                                 readonly="readonly"
-                                 class="form-control"
-                                
-                                 ng-value="vm.item.ShippedDate  | date:'yyyy-MM-dd HH:mm a'">
+                           <input type="text"  readonly="readonly" class="form-control"  
+                               ng-value="vm.item.ShippedDate  | date:'yyyy-MM-dd HH:mm a'">
                                <span    class="input-group-addon"  >
-                               <i class="glyphicon glyphicon-calendar"></i></span>
+                               <i class="glyphicon glyphicon-calendar"></i>
+                               </span>
                         </div>
                     </a>
                         <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel" >
@@ -163,13 +157,11 @@
                   <input type="hidden" ng-model="vm.item.CustomerID" required name="CustomerID" />               
                                        <a class="dropdown-toggle" id="Customers" role="button" data-toggle="dropdown" data-target="#" href="#">
                         <div class="input-group">
-                           <input type="text"                             
-                                 readonly="readonly"
-                                 class="form-control"
-                                
-                                 ng-value="vm.item.CustomerName">
+                           <input type="text"  readonly="readonly" class="form-control"  
+                               ng-value="vm.item.CustomerName">
                                <span    class="input-group-addon" ng-click="vm.chooseObj('/ngtemplate/grid_Customers.html','CustomerID','CustomerName','CompanyName',$event)" >
-                               <i class="glyphicon glyphicon-plus"></i></span>
+                               <i class="glyphicon glyphicon-plus"></i>
+                               </span>
                         </div>
                     </a>
                </div>
@@ -186,13 +178,11 @@
                   <input type="hidden" ng-model="vm.item.EmployeeID" required name="EmployeeID" />               
                                        <a class="dropdown-toggle" id="Employees" role="button" data-toggle="dropdown" data-target="#" href="#">
                         <div class="input-group">
-                           <input type="text"                             
-                                 readonly="readonly"
-                                 class="form-control"
-                                ng-disabled='vm.item.Id'
-                                 ng-value="vm.item.EmployeesHomePhone">
+                           <input type="text"  readonly="readonly" class="form-control"  ng-disabled='vm.item.Id'
+                               ng-value="vm.item.EmployeesHomePhone">
                                <span  ng-disabled='vm.item.Id'  class="input-group-addon" ng-click="vm.chooseObj('/ngtemplate/grid_Employees.html','EmployeeID','EmployeesHomePhone','HomePhone',$event)" >
-                               <i class="glyphicon glyphicon-plus"></i></span>
+                               <i class="glyphicon glyphicon-plus"></i>
+                               </span>
                         </div>
                     </a>
                </div>
@@ -209,13 +199,11 @@
                   <input type="hidden" ng-model="vm.item.ShipperID" required name="ShipperID" />               
                                        <a class="dropdown-toggle" id="Shippers" role="button" data-toggle="dropdown" data-target="#" href="#">
                         <div class="input-group">
-                           <input type="text"                             
-                                 readonly="readonly"
-                                 class="form-control"
-                                
-                                 ng-value="vm.item.ShippersName">
+                           <input type="text"  readonly="readonly" class="form-control"  
+                               ng-value="vm.item.ShippersName">
                                <span    class="input-group-addon" ng-click="vm.chooseObj('/ngtemplate/grid_Shippers.html','ShipperID','ShippersName','CompanyName',$event)" >
-                               <i class="glyphicon glyphicon-plus"></i></span>
+                               <i class="glyphicon glyphicon-plus"></i>
+                               </span>
                         </div>
                     </a>
                </div>

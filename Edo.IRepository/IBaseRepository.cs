@@ -82,8 +82,9 @@ namespace Edo.IRepository
         /// 更新实体对象
         /// </summary>
         /// <param name="entity">更新后的实体对象</param>
+        /// <param name="excludeProperty">要排除更新的属性</param>
         /// <returns>操作影响的行数</returns>
-        int Update(TEntity entity);
+        int Update(TEntity entity, params string[] excludeProperty);
 
 
         /// <summary>
@@ -171,8 +172,9 @@ namespace Edo.IRepository
         /// 异步更新实体对象
         /// </summary>
         /// <param name="entity">更新后的实体对象</param>
+        /// <param name="excludeProperty">要排除更新的属性</param>
         /// <returns>操作影响的行数</returns>
-        Task<int> UpdateAsync(TEntity entity);
+        Task<int> UpdateAsync(TEntity entity, params string[] excludeProperty);
 
         /// <summary>
         /// 异步检查实体是否存在

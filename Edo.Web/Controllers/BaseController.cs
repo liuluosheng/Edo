@@ -25,16 +25,16 @@ namespace Edo.Web.Controllers
     {
         protected readonly BaseService<T> _service;
         protected readonly IQueryable<T> _dbset;
-
+        protected virtual string[] ExcludeUpdate { get; set; }
         protected BaseController(BaseService<T> service)
         {
             _service = service;
-            _dbset = service.Repository.Entities;
+            _dbset = service.Repository.TrackEntities;
         }
         public virtual async Task<ActionResult> Edit(TK entity)
         {
             T model = Mapper.Map<TK, T>(entity);
-            return Content(GetJsonString(new Result { Success = await _service.Repository.UpdateAsync(model) > 0, Obj = model }));
+            return Content(GetJsonString(new Result { Success = await _service.Repository.UpdateAsync(model, ExcludeUpdate) > 0, Obj = model }));
         }
         public virtual async Task<ActionResult> Create(TK entity)
         {

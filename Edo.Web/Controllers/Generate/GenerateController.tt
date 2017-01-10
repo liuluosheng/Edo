@@ -90,7 +90,14 @@ namespace Edo.Web.Controllers
             foreach(PropertyInfo prop in _type.GetProperties()){
                 var editableAttribute=prop.GetCustomAttribute<EditableAttribute>();
                 if(editableAttribute!=null &&!editableAttribute.AllowEdit){
-                    exclude.Add(prop.Name);
+                    if(prop.PropertyType.BaseType==typeof(EntityBase)){
+                        var fkAttribute=prop.GetCustomAttribute<ForeignKeyAttribute>();
+                        if(fkAttribute!=null) exclude.Add(fkAttribute.Name);
+                    }
+                    else{
+                        exclude.Add(prop.Name);
+                    }
+                  
                 }
                 if(!prop.PropertyType.IsGenericType)continue;
                 Type t=prop.PropertyType.GenericTypeArguments[0];
@@ -126,13 +133,14 @@ namespace Edo.Web.Controllers
             }
             if(exclude.Count!=0){
      #>
-      public override async Task<ActionResult> Edit([Bind(Exclude="<#=                string.Join(",",exclude) #>")] <#=                name #>ViewModel entity)
-        {
-            return await base.Edit(entity);
-        }
-<#+
+      protected override string[] ExcludeUpdate
+           {
+               get {  return new[] {<#=                string.Join(",",exclude.Select(p=>string.Format("\"{0}\"",p))) #> };
+            }
+       }
+     <#+
             }          
-#>}
+     #>}
 }
 <#+
             return this.GenerationEnvironment.ToString();
