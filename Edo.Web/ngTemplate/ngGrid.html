@@ -18,6 +18,7 @@
                                        uib-datepicker-popup ng-model="ctrl.filterObj[op.field].start"
                                        ng-change="ctrl.filter();"
                                        is-open="sO"
+                                       datepicker-append-to-body="true"
                                        datepicker-options="{maxDate:ctrl.filterObj[op.field].end,showWeeks:false}"
                                        ng-click="sO=!sO" />
                                 <span class="split">~</span>
@@ -25,6 +26,7 @@
                                        uib-datepicker-popup ng-model="ctrl.filterObj[op.field].end"
                                        ng-change="ctrl.filter();"
                                        is-open="eO"
+                                       datepicker-append-to-body="true"
                                        datepicker-options="{minDate:ctrl.filterObj[op.field].start,showWeeks:false}"
                                        ng-click="eO=!eO" />
                             </div>

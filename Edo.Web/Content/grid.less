@@ -26,7 +26,7 @@
 
 
 [readonly] {
-    background-color: white!important;
+    background-color: white !important;
 }
 
 [disabled] {
@@ -39,6 +39,7 @@
 
     .modal-header {
         padding: 10px;
+        border-bottom: solid 2px @alert-info-text;
     }
 
     .modal-title {
@@ -193,7 +194,10 @@
     .grid-body {
         width: 100%;
         overflow: auto;
-        position: relative;
+    }
+
+    .mCS_x_hidden {
+      
     }
 
     .grid-page {
@@ -221,8 +225,6 @@
 
     .content-table {
         table-layout: fixed !important;
-        margin-bottom: 10px;
-        min-height: 50px;
 
         .grid-head {
             > th {
@@ -231,6 +233,7 @@
                 border: 0;
                 border-bottom: solid 2px #eee;
                 padding-bottom: 10px;
+                position: relative;
 
                 &.row-number-cell {
                     padding-top: 5px;
@@ -307,6 +310,7 @@
         width: 1%;
         padding: 0;
         text-align: center;
+        text-overflow: unset !important;
     }
 
     .detail-cell {

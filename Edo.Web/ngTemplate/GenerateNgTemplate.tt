@@ -96,8 +96,13 @@
                 if(ps.Count==0) continue;
 #>
           <fieldset id="tolink<#=                ii #>">
-                <legend><i class="fa fa-circle"></i><#=                nav#></legend>       
-<#+                foreach( PropertyInfo prop in ps)
+<#+                if(props.Count>1){ #>
+                <legend><i class="fa fa-circle"></i><#=                    nav#></legend>       
+<#+                } else 
+                {
+                    WriteLine("<br/>");
+                }
+                foreach( PropertyInfo prop in ps)
                 {
                     var gridAttr=  prop.GetCustomAttribute<GridAttribute>() ?? new GridAttribute();   
                     var isGrid=prop.PropertyType.GenericTypeArguments.Length!=0 && prop.PropertyType.GenericTypeArguments[0].BaseType==typeof(EntityBase);

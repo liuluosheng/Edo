@@ -286,9 +286,12 @@ namespace Edo.Repository
             try
             {
                 _context.Entry(entity).State = EntityState.Modified;
-                foreach (var prop in excludeProperty)
+                if (excludeProperty != null)
                 {
-                    _context.Entry(entity).Property(prop).IsModified = false;
+                    foreach (var prop in excludeProperty)
+                    {
+                        _context.Entry(entity).Property(prop).IsModified = false;
+                    }
                 }
                 return await _context.SaveChangesAsync();
             }
