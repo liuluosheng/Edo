@@ -85,12 +85,30 @@
                             </div>
                         </div>
                         <div class="row-btn text-left clearfix" ng-if="ctrl.gridOption.showBtn">
-                            <a class="btn btn-primary" ng-click="ctrl.create(item);" ng-if="ctrl.gridOption.showBtn.edit"> <i class="glyphicon glyphicon-pencil"></i><span>编 辑</span></a>
-                            <a class="btn btn-primary" ng-click="ctrl.delete(item,$index)" ng-if="ctrl.gridOption.showBtn.del">
+                            <a class="btn btn-primary"
+                               ng-click="ctrl.create(item);"
+                               ng-if="ctrl.gridOption.showBtn.edit">
+                                <i class="glyphicon glyphicon-pencil"></i>
+                                <span>编 辑</span>
+                            </a>
+                            <a class="btn btn-primary"
+                               ng-click="ctrl.delete(item,$index)"
+                               ng-if="ctrl.gridOption.showBtn.del">
                                 <i class="glyphicon glyphicon-trash"></i><span>删 除</span>
                             </a>
-                            <a class="btn btn-primary" ng-repeat="btn in ctrl.gridOption.btns" ng-click="btn.onclick(item);"><i ng-class="btn.icon"></i><span>{{btn.name}}</span>  </a>
-                            <a ng-if="!ctrl.gridOption.isDetail" class="btn btn-primary" ng-repeat="btn in ctrl.gridOption.propbtns" ng-click="ctrl.createObj('/ngTemplate/'+btn.template+'.html',btn.pk,item.Id)"><i class="fa fa-plus"></i><span>{{btn.name}}</span>  </a>
+                            <a class="btn btn-primary"
+                               ng-repeat="btn in ctrl.gridOption.btns"
+                               ng-click="btn.onclick(item);">
+                                <i ng-class="btn.icon"></i>
+                                <span>{{btn.name}}</span>
+                            </a>
+                            <a ng-if="!ctrl.gridOption.isDetail"
+                               class="btn btn-primary"
+                               ng-repeat="btn in ctrl.gridOption.propbtns"
+                               ng-click="ctrl.createObj(btn.template,btn.pk,item.Id)">
+                                <i class="fa fa-plus"></i>
+                                <span>{{btn.name}}</span>
+                            </a>
                         </div>
                     </td>
                 </tr>

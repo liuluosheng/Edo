@@ -95,6 +95,7 @@ namespace edo {
                         if (propertyInfo.PropertyType.GenericTypeArguments.Length!=0 && propertyInfo.PropertyType.GenericTypeArguments[0].BaseType==typeof(EntityBase))
                         {                
                             string name =propertyInfo.Name;
+                            var viewAttribute=propertyInfo.GetCustomAttribute<ViewAttribute>();
                             var mtm=Methods.CheckMoreToMore(propertyInfo.PropertyType.GenericTypeArguments[0],type);
                             if(displayName!=null)
                             {
@@ -102,7 +103,7 @@ namespace edo {
                             }
                             btns.Add(new{
                                     name,
-                                    template=mtm?"Grid_"+propertyInfo.PropertyType.GenericTypeArguments[0].Name:propertyInfo.PropertyType.GenericTypeArguments[0].Name,
+                                    template=viewAttribute!=null?viewAttribute.Url:string.Format("/ngTemplate/{0}.html",mtm?"Grid_"+propertyInfo.PropertyType.GenericTypeArguments[0].Name:propertyInfo.PropertyType.GenericTypeArguments[0].Name),
                                     pk=mtm?"Id":Methods.GetGridForeignKey(propertyInfo.PropertyType.GenericTypeArguments[0],type)});                   
                         }
                     }

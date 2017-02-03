@@ -201,7 +201,7 @@ angular.module("app.grid", ['ngSanitize']).directive("grid", [
                 ariaLabelledBy: 'modal-title',
                 ariaDescribedBy: 'modal-body',
                 templateUrl: template,
-                controller: 'editInstanceCtrl',
+                controller: 'editCtrl',
                 backdrop: "static",
                 resolve: {
                     resolveObj() {
@@ -267,7 +267,7 @@ angular.module("app.grid", ['ngSanitize']).directive("grid", [
             }, template)
         };
     }
-]).controller("editInstanceCtrl", [
+]).controller("editCtrl", [
     "$scope", "$http", "$uibModalInstance", "$uibModal", "$common", "$window", ($scope, $http, $uibModalInstance, $uibModal, $common, $window) => {
         $scope.modalHeight = angular.element(window).height() - 230;
         $scope.item = angular.copy($scope.$resolve.resolveObj.item) || {};
@@ -286,7 +286,7 @@ angular.module("app.grid", ['ngSanitize']).directive("grid", [
             $uibModal.open({
                 windowTemplateUrl: "/ngTemplate/modal-template.html",
                 templateUrl: template,
-                controller: 'editInstanceCtrl',
+                controller: 'editCtrl',
                 backdrop: "static",
                 resolve: {
                     resolveObj() {

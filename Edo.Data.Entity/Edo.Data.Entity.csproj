@@ -54,6 +54,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ComponentModel\ViewAttribute.cs" />
     <Compile Include="ComponentModel\NgTemplateAttribute.cs" />
     <Compile Include="ComponentModel\GenerateControllerAttribute.cs" />
     <Compile Include="ComponentModel\GridAttribute.cs" />

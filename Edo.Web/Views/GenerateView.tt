@@ -83,7 +83,7 @@
                // , onRenderRowDetail: function (row) { }
                 };
             }
-        ])
+        ]);
     </script>
 }
 

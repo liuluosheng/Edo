@@ -212,6 +212,7 @@
     <Compile Include="Controllers\OrderDetailsController.cs" />
     <Compile Include="Controllers\OrdersController.cs" />
     <Compile Include="Controllers\RegionController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Extension\CacheHelper.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -1462,6 +1463,7 @@
     <Content Include="Views\UserPermission\Index.cshtml" />
     <Content Include="Views\Employees\Index.cshtml" />
     <Content Include="Views\Shippers\Index.cshtml" />
+    <Content Include="Views\User\Permissions.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -216,7 +216,7 @@ class GridController {
                 ariaLabelledBy: 'modal-title',
                 ariaDescribedBy: 'modal-body',
                 templateUrl: template,
-                controller: 'editInstanceCtrl',
+                controller: 'editCtrl',
                 controllerAs: "vm",
                 backdrop: "static",
                 resolve: {
@@ -322,7 +322,7 @@ class EditGridController {
             $uibModal.open({
                 windowTemplateUrl: "/ngTemplate/modal-template.html",
                 templateUrl: template,
-                controller: 'editInstanceCtrl',
+                controller: 'editCtrl',
                 controllerAs: "vm",
                 backdrop: "static",
                 resolve: {
@@ -382,7 +382,7 @@ function FilterColumn(item, arrays) {
 angular.module("app.grid", ['ngSanitize'])
     .directive("grid", () => new GridDirective())
     .controller("gridController", GridController)
-    .controller("editInstanceCtrl", EditGridController)
+    .controller("editCtrl", EditGridController)
     .filter("filterColumn", () => FilterColumn);
 
 

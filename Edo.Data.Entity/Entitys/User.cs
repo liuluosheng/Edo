@@ -27,7 +27,7 @@ namespace Edo.Data.Entity
         [GridColumn, Editable(false)]
         public UserType UserType { get; set; }
         public virtual ICollection<Role> Roles { get; set; }
-
+        [View("/user/permissions")]
         public virtual ICollection<UserPermission> Permissions { get; set; }
     }
 }
