@@ -1,0 +1,27 @@
+﻿@{
+    Layout = null;
+}
+<div>
+    <div class="modal-header">
+        <h3 class="modal-title" id="modal-title">
+            <b>{{item.Id?"EDIT":"CREATE"}}</b>
+
+            <i class="fa fa-close pull-right" ng-click="vm.cancel()"></i>
+        </h3>
+    </div>
+    <div class="modal-body" id="modal-body">
+        <div class="modal-nav">
+            <a ng-click="vm.scrollTo('#tolink0')">基本信息</a>
+        </div>
+        <form class="form-horizontal  modal-form" role="form" ng-style="{maxHeight:vm.modalHeight}" name="form"
+              ng-scrollbars
+              ng-scrollbars-update="vm.scrolls.updateScrollbar"
+              ng-scrollbars-config="vm.scrolls.config">
+            <span>自定义</span>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary " type="button" ng-click="vm.ok(form,'/userpermission/')">确 定</button>
+        <button class="btn btn-warning " type="button" ng-click="vm.cancel()">取 消</button>
+    </div>
+</div>

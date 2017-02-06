@@ -15,7 +15,7 @@ namespace Edo.Web
                         "~/Scripts/jquery.validate*"));
 
             bundles.Add(new ScriptBundle("~/bundles/angularjs").Include(
-                "~/Scripts/angular.min.js",
+                "~/Scripts/angular.js",
                 "~/Scripts/angular-messages.min.js",
                 "~/Scripts/angular-sanitize.min.js"
                 ));
@@ -28,8 +28,7 @@ namespace Edo.Web
              "~/Scripts/angular-toastr.tpls.min.js",
              "~/Scripts/moment.min.js",
              "~/Scripts/angular-datetimepicker/datetimepicker.js",
-             "~/Scripts/angular-datetimepicker/datetimepicker.templates.js",
-             "~/Scripts/grid/grid.js"
+             "~/Scripts/angular-datetimepicker/datetimepicker.templates.js"
              ));
 
             bundles.Add(new ScriptBundle("~/bundles/common").Include("~/scripts/common/*.js"));
