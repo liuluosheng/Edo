@@ -17,7 +17,8 @@
     },
     shim: {
         'angular': {
-            exports: 'angular'
+            exports: 'angular',
+            deps: ['jquery']
         },
         'angular-datetimepicker': {
             deps: ['moment']
@@ -29,5 +30,5 @@
             deps: ['sweetalert']
         }
     },
-    deps: ['jquery', 'app']
+    deps: ['angular', 'app']
 });

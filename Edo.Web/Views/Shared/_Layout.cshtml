@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html>
+<html xmlns:ng="http://angularjs.org">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
@@ -67,7 +67,7 @@
 
     @*@Scripts.Render("~/bundles/jquery", "~/bundles/bootstrap")
 
-    @Scripts.Render("~/bundles/angularjsui")*@
+        @Scripts.Render("~/bundles/angularjsui")*@
     <script src="~/Scripts/require.js" data-main="scripts/modules/main"></script>
     @Scripts.Render("~/bundles/common")
     @RenderSection("scripts", required: false)

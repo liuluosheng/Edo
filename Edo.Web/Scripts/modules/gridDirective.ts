@@ -10,4 +10,4 @@
         "gridName": "@gridName"
     };
 }
-export = GridDirective;
+export = new GridDirective;

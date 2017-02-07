@@ -10,10 +10,9 @@ function FilterColumn(item, arrays) {
     });
     return obj;
 }
-require(["angular-sanitize"], function () {
-    angular.module("app.grid", ['ngSanitize'])
-        .directive("grid", () => gridDirective)
-        .controller("gridController", gridController)
-        .controller("editCtrl", editController)
-        .filter("filterColumn", () => FilterColumn);
-})
+angular.module("app.grid", ['ngSanitize'])
+    .directive("grid", () => gridDirective)
+    .controller("gridController", gridController)
+    .controller("editCtrl", editController)
+    .filter("filterColumn", () => FilterColumn);
+

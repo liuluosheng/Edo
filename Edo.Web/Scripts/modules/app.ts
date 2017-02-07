@@ -40,7 +40,7 @@ class toastrConfig {
         });
     }
 }
-angular.module("app", ['ui.bootstrap', 'ui.bootstrap.datetimepicker', 'app.grid', 'ngMessages', 'ngScrollbars', 'toastr', 'ng-sweet-alert'])
+angular.module("app", ['ui.bootstrap', 'ui.bootstrap.datetimepicker', 'app.grid', 'ngMessages', 'ngScrollbars', 'toastr', 'ng-sweet-alert','ngSanitize'])
     .controller("appController", appController)
     .service("$common", commonService)
     .config(toastrConfig);
@@ -50,6 +50,8 @@ require([
     "angular-sanitize",
     "angular-messages",
     "angular-scrollbars",
+    "angular-toast",
+    "angular-sweetalert",
     "grid"
 ], function () {
     angular.bootstrap(document, ['app']);
