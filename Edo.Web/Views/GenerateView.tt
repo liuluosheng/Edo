@@ -20,8 +20,7 @@
         {
             string path=string.Format("{0}\\Views\\{1}\\Index.cshtml",projectDir,type.Name);
             ViewTemplate template= new  ViewTemplate(type,attribute.Title,path);
-            template.RenderToFile(path);
-            
+            template.RenderToFile(path);       
         }
     }
 #>
@@ -67,8 +66,10 @@
 </div>
 @section scripts{
     <script type="text/javascript">
-   var app = angular.module("app");
-        app.controller("<#=            _type.Name.ToLower() #>Controller", [
+  setTimeout(function () {
+   require(["app"], function () {
+       var app = angular.module("app");
+         app.controller("<#=            _type.Name.ToLower() #>Controller", [
             "$scope", "$http", "$filter", "$window", "$common", function ($scope, $http, $filter, $window, $common) {
                 $scope.gridOption = {
                     height: 'auto',
@@ -84,9 +85,10 @@
                 };
             }
         ]);
+     });
+   }, 0);
     </script>
 }
-
 <#+
             return this.GenerationEnvironment.ToString();
         }

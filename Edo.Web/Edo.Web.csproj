@@ -1376,6 +1376,7 @@
     <Content Include="Scripts\i18n\vi.js" />
     <Content Include="Scripts\i18n\zh-CN.js" />
     <Content Include="Scripts\i18n\zh-TW.js" />
+    <Content Include="Scripts\modules\main.js" />
     <Content Include="Scripts\sweetalert-angular.js" />
     <Content Include="Scripts\jquery-1.12.4.js" />
     <Content Include="Scripts\jquery-1.12.4.min.js" />
@@ -1482,10 +1483,8 @@
     <TypeScriptCompile Include="Scripts\common\Q.ts" />
     <TypeScriptCompile Include="Scripts\modules\app.ts" />
     <TypeScriptCompile Include="Scripts\modules\editController.ts" />
-    <TypeScriptCompile Include="Scripts\modules\grid.ts" />
     <TypeScriptCompile Include="Scripts\modules\gridController.ts" />
     <TypeScriptCompile Include="Scripts\modules\gridDirective.ts" />
-    <TypeScriptCompile Include="Scripts\modules\main.ts" />
     <TypeScriptCompile Include="Scripts\requireConfig.ts" />
     <TypeScriptCompile Include="Scripts\grid\grid.ts" />
     <TypeScriptCompile Include="Scripts\linq.d.ts" />

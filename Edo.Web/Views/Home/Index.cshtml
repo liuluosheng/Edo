@@ -23,38 +23,39 @@
 </div>
 @section scripts{
     <script type="text/javascript">
-        require(["app"], function () {
-            var app = angular.module("app");
-            app.controller("orderController", [
-                "$scope", "$http", "$filter", "$window", "$common", function ($scope, $http, $filter, $window, $common) {
-                    $scope.gridOption = {
-                        height: 'auto',
-                        rowNumber: true,
-                        pkColumn: "Id",
-                        rowDetail: true,
-                        filterRow: false,
-                        url: "/home/page",
-                        selectUrl: "/home/select2",
-                        editTemplateUrl: "/ngTemplate/orders.html",
-                        btns: [
-                            { name: "detail", icon: "glyphicon glyphicon-th", onclick: function () { $common.$toast.warning("YOU,GOOD!") } },
-                            {
-                                name: "detail",
-                                icon: "glyphicon glyphicon-th",
-                                onclick: function () {
-                                    $common.$alert.confirm("Are you Sure?", { type: "input" }).then(function (isConfirm) {
-                                        setTimeout(function () { $common.$alert.success("You have successfully completed!", { title: "Good job!" }); }, 500);
-                                    });
+        setTimeout(function () {
+            require(["app"], function () {
+                var app = angular.module("app");
+                app.controller("orderController", [
+                    "$scope", "$http", "$filter", "$window", "$common", function ($scope, $http, $filter, $window, $common) {
+                        $scope.gridOption = {
+                            height: 'auto',
+                            rowNumber: true,
+                            pkColumn: "Id",
+                            rowDetail: true,
+                            filterRow: false,
+                            url: "/home/page",
+                            selectUrl: "/home/select2",
+                            editTemplateUrl: "/ngTemplate/orders.html",
+                            btns: [
+                                { name: "detail", icon: "glyphicon glyphicon-th", onclick: function () { $common.$toast.warning("YOU,GOOD!") } },
+                                {
+                                    name: "detail",
+                                    icon: "glyphicon glyphicon-th",
+                                    onclick: function () {
+                                        $common.$alert.confirm("Are you Sure?", { type: "input" }).then(function (isConfirm) {
+                                            setTimeout(function () { $common.$alert.success("You have successfully completed!", { title: "Good job!" }); }, 500);
+                                        });
+                                    }
                                 }
-                            }
-                        ],
-                        onRowSelected: function (row) { }
-                        // ,onRenderRowDetail: function (row) { }
-                    };
-                    var a = 1;
-                }
-            ]);
-        });
+                            ],
+                            onRowSelected: function (row) { }
+                            // ,onRenderRowDetail: function (row) { }
+                        };
+                    }
+                ]);
+            });
+        }, 0);
 
     </script>
 }

@@ -20,8 +20,10 @@
 </div>
 @section scripts{
     <script type="text/javascript">
-   var app = angular.module("app");
-        app.controller("productsController", [
+  setTimeout(function () {
+   require(["app"], function () {
+       var app = angular.module("app");
+         app.controller("productsController", [
             "$scope", "$http", "$filter", "$window", "$common", function ($scope, $http, $filter, $window, $common) {
                 $scope.gridOption = {
                     height: 'auto',
@@ -37,6 +39,7 @@
                 };
             }
         ]);
+     });
+   }, 0);
     </script>
 }
-
