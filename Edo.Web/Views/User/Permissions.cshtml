@@ -17,7 +17,9 @@
               ng-scrollbars
               ng-scrollbars-update="vm.scrolls.updateScrollbar"
               ng-scrollbars-config="vm.scrolls.config">
-            <span>自定义</span>
+            <div ng-controller="userpermissionsCtrl">
+                <span ng-bind="test"></span>
+            </div>
         </form>
     </div>
     <div class="modal-footer">

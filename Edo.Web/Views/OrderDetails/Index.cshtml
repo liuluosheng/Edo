@@ -21,9 +21,9 @@
 @section scripts{
     <script type="text/javascript">
   setTimeout(function () {
-   require(["app"], function () {
-       var app = angular.module("app");
-         app.controller("orderdetailsController", [
+   require(["app"], function (app) {
+       var module = angular.module("app");
+         module.controller("orderdetailsController", [
             "$scope", "$http", "$filter", "$window", "$common", function ($scope, $http, $filter, $window, $common) {
                 $scope.gridOption = {
                     height: 'auto',
@@ -38,7 +38,8 @@
                // , onRenderRowDetail: function (row) { }
                 };
             }
-        ]);
+        ])
+         ;
      });
    }, 0);
     </script>

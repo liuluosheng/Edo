@@ -6,6 +6,8 @@
 <#@ assembly name="System.Core" #>
 <#@ assembly name="System.Web" #>
 <#@ assembly name="System.IO" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.Linq"#>
 <#@ import namespace="Edo.Data.Entity" #>
 <#@ import namespace="System.IO" #>
 <#@ import namespace="Edo.Data.Entity.ComponentModel" #>
@@ -36,13 +38,23 @@
             _path=path;
         }
         public override string TransformText()
-        {        
+        {     
+            List<string> requireNames = new  List<string>();   
+            foreach(PropertyInfo prop in _type.GetProperties()){
+                if(prop.GetCustomAttribute<ViewAttribute>()!=null){
+                    requireNames.Add(_type.Name.ToLower()+prop.Name.ToLower());
+                }
+            }
+            requireNames.Add("app");
+           
             //if(System.IO.File.Exists(_path))
             //{
-              //FileStream fs = new FileStream(_path, FileMode.Open, FileAccess.Read, FileShare.Read);
-              //StreamReader sr = new StreamReader(fs, Encoding.UTF8);
-             //return sr.ReadToEnd();
+            //FileStream fs = new FileStream(_path, FileMode.Open, FileAccess.Read, FileShare.Read);
+            //StreamReader sr = new StreamReader(fs, Encoding.UTF8);
+            //return sr.ReadToEnd();
             //}
+               
+              
 #>
 @{
     ViewBag.Title = "<#=            _title??_type.Name #>";
@@ -60,16 +72,16 @@
     </div>
     <div class="ng-grid panel panel-default" ng-cloak>
         <div class="panel-body" ng-cloak>
-            <div grid grid-option="gridOption" data="data" grid-name="<#=                        _type.Name.Substring(0, 1).ToLower() + _type.Name.TrimStart(_type.Name.Substring(0, 1).ToCharArray())#>"></div>
+            <div grid grid-option="gridOption" data="data" grid-name="<#=            _type.Name.Substring(0, 1).ToLower() + _type.Name.TrimStart(_type.Name.Substring(0, 1).ToCharArray())#>"></div>
         </div>
     </div>  
 </div>
 @section scripts{
     <script type="text/javascript">
   setTimeout(function () {
-   require(["app"], function () {
-       var app = angular.module("app");
-         app.controller("<#=            _type.Name.ToLower() #>Controller", [
+   require([<#=            string.Join(",",requireNames.Select(p=>string.Format("\"{0}\"",p))) #>], function (<#=            string.Join(",",requireNames) #>) {
+       var module = angular.module("app");
+         module.controller("<#=            _type.Name.ToLower() #>Controller", [
             "$scope", "$http", "$filter", "$window", "$common", function ($scope, $http, $filter, $window, $common) {
                 $scope.gridOption = {
                     height: 'auto',
@@ -84,7 +96,8 @@
                // , onRenderRowDetail: function (row) { }
                 };
             }
-        ]);
+        ])
+         <#=            string.Join("",requireNames.Where(p=>p!="app").Select(p=>string.Format(".controller(\"{0}Ctrl\",{0})",p))) #>;
      });
    }, 0);
     </script>

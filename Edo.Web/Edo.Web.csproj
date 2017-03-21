@@ -1377,6 +1377,7 @@
     <Content Include="Scripts\i18n\zh-CN.js" />
     <Content Include="Scripts\i18n\zh-TW.js" />
     <Content Include="Scripts\modules\main.js" />
+    <Content Include="Scripts\modules\plugins\domReady.js" />
     <Content Include="Scripts\sweetalert-angular.js" />
     <Content Include="Scripts\jquery-1.12.4.js" />
     <Content Include="Scripts\jquery-1.12.4.min.js" />
@@ -1482,6 +1483,8 @@
     </TypeScriptCompile>
     <TypeScriptCompile Include="Scripts\common\Q.ts" />
     <TypeScriptCompile Include="Scripts\modules\app.ts" />
+    <TypeScriptCompile Include="Scripts\modules\custom\ICustom.ts" />
+    <TypeScriptCompile Include="Scripts\modules\custom\userpermissions.ts" />
     <TypeScriptCompile Include="Scripts\modules\editController.ts" />
     <TypeScriptCompile Include="Scripts\modules\gridController.ts" />
     <TypeScriptCompile Include="Scripts\modules\gridDirective.ts" />
