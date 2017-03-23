@@ -64,7 +64,7 @@
 <div>
     <div class="modal-header">
         <h3 class="modal-title" id="modal-title">
-            <b>{{item.Id?"EDIT":"CREATE"}}</b>
+            <b>{{vm.item.Id?"EDIT":"CREATE"}}</b>
 
             <i class="fa fa-close pull-right" ng-click="vm.cancel()"></i>
         </h3>
