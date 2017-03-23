@@ -1,6 +1,7 @@
 ﻿@{
     Layout = null;
 }
+<link href="/Content/zTree.theme.metro.min.css" rel="stylesheet" />
 <div>
     <div class="modal-header">
         <h3 class="modal-title" id="modal-title">
@@ -19,6 +20,7 @@
               ng-scrollbars-config="vm.scrolls.config">
             <div ng-controller="userpermissionsCtrl">
                 <span ng-bind="test"></span>
+                <ul ztree class="ztree" setting="setting" nodes="nodes"></ul>
             </div>
         </form>
     </div>

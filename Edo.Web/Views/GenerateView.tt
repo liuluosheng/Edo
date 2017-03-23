@@ -40,13 +40,15 @@
         public override string TransformText()
         {     
             List<string> requireNames = new  List<string>();   
+            List<string> paths = new List<string>();
             foreach(PropertyInfo prop in _type.GetProperties()){
                 if(prop.GetCustomAttribute<ViewAttribute>()!=null){
                     requireNames.Add(_type.Name.ToLower()+prop.Name.ToLower());
                 }
             }
+            paths=requireNames.Select(p=>"custom/"+p).ToList();
             requireNames.Add("app");
-           
+            paths.Add("app");
             //if(System.IO.File.Exists(_path))
             //{
             //FileStream fs = new FileStream(_path, FileMode.Open, FileAccess.Read, FileShare.Read);
@@ -79,7 +81,7 @@
 @section scripts{
     <script type="text/javascript">
   setTimeout(function () {
-   require([<#=            string.Join(",",requireNames.Select(p=>string.Format("\"{0}\"",p))) #>], function (<#=            string.Join(",",requireNames) #>) {
+   require([<#=            string.Join(",",paths.Select(p=>string.Format("\"{0}\"",p))) #>], function (<#=            string.Join(",",requireNames) #>) {
        var module = angular.module("app");
          module.controller("<#=            _type.Name.ToLower() #>Controller", [
             "$scope", "$http", "$filter", "$window", "$common", function ($scope, $http, $filter, $window, $common) {

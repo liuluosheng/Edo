@@ -249,6 +249,23 @@
     <Content Include="Content\grid.min.css">
       <DependentUpon>grid.css</DependentUpon>
     </Content>
+    <Content Include="Content\img\diy\1_close.png" />
+    <Content Include="Content\img\diy\1_open.png" />
+    <Content Include="Content\img\diy\2.png" />
+    <Content Include="Content\img\diy\3.png" />
+    <Content Include="Content\img\diy\4.png" />
+    <Content Include="Content\img\diy\5.png" />
+    <Content Include="Content\img\diy\6.png" />
+    <Content Include="Content\img\diy\7.png" />
+    <Content Include="Content\img\diy\8.png" />
+    <Content Include="Content\img\diy\9.png" />
+    <Content Include="Content\img\line_conn.gif" />
+    <Content Include="Content\img\line_conn.png" />
+    <Content Include="Content\img\loading.gif" />
+    <Content Include="Content\img\metro.gif" />
+    <Content Include="Content\img\metro.png" />
+    <Content Include="Content\img\zTreeStandard.gif" />
+    <Content Include="Content\img\zTreeStandard.png" />
     <Content Include="Content\ng-scrollbars\jquery.mCustomScrollbar.css" />
     <Content Include="Content\ng-scrollbars\mCSB_buttons.png" />
     <Content Include="Content\select.css" />
@@ -260,6 +277,10 @@
       <DependentUpon>Site.css</DependentUpon>
     </Content>
     <Content Include="Content\ui-bootstrap-csp.css" />
+    <Content Include="Content\zTree.css" />
+    <Content Include="Content\zTree.min.css" />
+    <Content Include="Content\zTree.theme.metro.css" />
+    <Content Include="Content\zTree.theme.metro.min.css" />
     <Content Include="Dynamic Expressions.html" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
@@ -1376,6 +1397,9 @@
     <Content Include="Scripts\i18n\vi.js" />
     <Content Include="Scripts\i18n\zh-CN.js" />
     <Content Include="Scripts\i18n\zh-TW.js" />
+    <Content Include="Scripts\jquery.ztree.all-3.5.js" />
+    <Content Include="Scripts\jquery.ztree.all-3.5.min.js" />
+    <Content Include="Scripts\jquery.ztree.dropdown.js" />
     <Content Include="Scripts\modules\main.js" />
     <Content Include="Scripts\modules\plugins\domReady.js" />
     <Content Include="Scripts\sweetalert-angular.js" />
@@ -1488,6 +1512,7 @@
     <TypeScriptCompile Include="Scripts\modules\editController.ts" />
     <TypeScriptCompile Include="Scripts\modules\gridController.ts" />
     <TypeScriptCompile Include="Scripts\modules\gridDirective.ts" />
+    <TypeScriptCompile Include="Scripts\modules\zTreeDirective.ts" />
     <TypeScriptCompile Include="Scripts\requireConfig.ts" />
     <TypeScriptCompile Include="Scripts\grid\grid.ts" />
     <TypeScriptCompile Include="Scripts\linq.d.ts" />

@@ -4,11 +4,11 @@
 @section Styles{
 
 }
-<div  ng-controller="userController">
+<div ng-controller="userController">
     <div class="clearfix grid-btn">
         <ol class="breadcrumb pull-left">
             <li><a href="/">EDO</a></li>
-            <li><a  class="active">系统用户</a></li>
+            <li><a class="active">系统用户</a></li>
         </ol>
         <a class="btn btn-primary " ng-click="gridOption.create();"><i class="fa fa-plus"></i>新 建</a>
     </div>
@@ -16,31 +16,31 @@
         <div class="panel-body" ng-cloak>
             <div grid grid-option="gridOption" data="data" grid-name="user"></div>
         </div>
-    </div>  
+    </div>
 </div>
 @section scripts{
     <script type="text/javascript">
-  setTimeout(function () {
-   require(["userpermissions","app"], function (userpermissions,app) {
-       var module = angular.module("app");
-         module.controller("userController", [
-            "$scope", "$http", "$filter", "$window", "$common", function ($scope, $http, $filter, $window, $common) {
-                $scope.gridOption = {
-                    height: 'auto',
-                    rowNumber: true,
-                    pkColumn: "Id",
-                    rowDetail: true,
-                    filterRow: true,
-                    url: "/user/page",
-                    selectUrl: "/user/select2",
-                    editTemplateUrl: "/ngTemplate/user.html"
-                //, onRowSelected: function (row) { }
-               // , onRenderRowDetail: function (row) { }
-                };
-            }
-        ])
-         .controller("userpermissionsCtrl",userpermissions);
-     });
-   }, 0);
+        setTimeout(function () {
+            require(["custom/userpermissions", "app"], function (userpermissions, app) {
+                var module = angular.module("app");
+                module.controller("userController", [
+                   "$scope", "$http", "$filter", "$window", "$common", function ($scope, $http, $filter, $window, $common) {
+                       $scope.gridOption = {
+                           height: 'auto',
+                           rowNumber: true,
+                           pkColumn: "Id",
+                           rowDetail: true,
+                           filterRow: true,
+                           url: "/user/page",
+                           selectUrl: "/user/select2",
+                           editTemplateUrl: "/ngTemplate/user.html"
+                           //, onRowSelected: function (row) { }
+                           // , onRenderRowDetail: function (row) { }
+                       };
+                   }
+                ])
+                .controller("userpermissionsCtrl", userpermissions);
+            });
+        }, 0);
     </script>
 }

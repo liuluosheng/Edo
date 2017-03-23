@@ -2,6 +2,7 @@
     baseUrl: "/scripts/modules/",
     paths: {
         'jquery': '/scripts/jquery-1.12.4.min',
+        'ztree': '/scripts/jquery.ztree.all-3.5.min',
         'jquery-scrollbars': '/scripts/ng-scrollbars/jquery.mCustomScrollbar.concat.min',
         'angular': '/scripts/angular',
         'bootstrap': '/scripts/bootstrap.min',
@@ -18,17 +19,20 @@
     },
     shim: {
         'jquery': {
-            exports: '$'
+            exports: ['$', 'jQuery']
         },
         'angular': {
             exports: 'angular',
+            deps: ['jquery']
+        },
+        'ztree': {
             deps: ['jquery']
         },
         'angular-datetimepicker-templates': {
             deps: ['moment', 'bootstrap', 'angular-datetimepicker']
         },
         'angular-scrollbars': {
-            deps: ['jquery-scrollbars']
+            deps: ['jquery', 'jquery-scrollbars']
         },
         'angular-sweetalert': {
             deps: ['sweetalert']
