@@ -8,24 +8,12 @@ var edo;
         return GridOption;
     }());
     edo.GridOption = GridOption;
-    var PermissionKeys = (function () {
-        function PermissionKeys() {
+    var TreePermissionKeys = (function () {
+        function TreePermissionKeys() {
         }
-        PermissionKeys.value = [
-            {
-                "name": "Customers", "children": [{ "name": "查看" }, { "name": "更新" }, { "name": "删除" }, {}]
-            },
-            { "name": "Employees", "children": [{ "name": "查看" }, { "name": "更新" }, { "name": "删除" }, {}] },
-            { "name": "OrderDetails", "children": [{ "name": "查看" }, { "name": "更新" }, { "name": "删除" }, {}] },
-            { "name": "Orders", "children": [{ "name": "查看" }, { "name": "更新" }, { "name": "删除" }, {}, { "name": "编辑订单详情" }] },
-            { "name": "Products", "children": [{ "name": "查看" }, { "name": "更新" }, { "name": "删除" }, {}] },
-            { "name": "Region", "children": [{ "name": "查看" }, { "name": "更新" }, { "name": "删除" }, {}] },
-            { "name": "Role", "children": [{ "name": "查看" }, { "name": "更新" }, { "name": "删除" }, {}] },
-            { "name": "Shippers", "children": [{ "name": "查看" }, { "name": "更新" }, { "name": "删除" }, {}] },
-            { "name": "UserPermission", "children": [{ "name": "查看" }, { "name": "更新" }, { "name": "删除" }, {}] },
-            { "name": "User", "children": [{ "name": "查看" }, { "name": "更新" }, { "name": "删除" }, {}] }];
-        return PermissionKeys;
+        TreePermissionKeys.value = [{ "name": "客户信息", "children": [{ "name": "查看" }, { "name": "更新" }, { "name": "删除" }, { "name": "新建" }] }, { "name": "员工信息", "children": [{ "name": "查看" }, { "name": "更新" }, { "name": "删除" }, { "name": "新建" }] }, { "name": "订单详情", "children": [{ "name": "查看" }, { "name": "更新" }, { "name": "删除" }, { "name": "新建" }] }, { "name": "订单信息", "children": [{ "name": "查看" }, { "name": "更新" }, { "name": "删除" }, { "name": "新建" }, { "name": "编辑订单详情" }] }, { "name": "产品信息", "children": [{ "name": "查看" }, { "name": "更新" }, { "name": "删除" }, { "name": "新建" }] }, { "name": "区域信息", "children": [{ "name": "查看" }, { "name": "更新" }, { "name": "删除" }, { "name": "新建" }] }, { "name": "系统角色", "children": [{ "name": "查看" }, { "name": "更新" }, { "name": "删除" }, { "name": "新建" }] }, { "name": "发货人信息", "children": [{ "name": "查看" }, { "name": "更新" }, { "name": "删除" }, { "name": "新建" }] }, { "name": "用户权限", "children": [{ "name": "查看" }, { "name": "更新" }, { "name": "删除" }, { "name": "新建" }] }, { "name": "系统用户", "children": [{ "name": "查看" }, { "name": "更新" }, { "name": "删除" }, { "name": "新建" }] }];
+        return TreePermissionKeys;
     }());
-    edo.PermissionKeys = PermissionKeys;
+    edo.TreePermissionKeys = TreePermissionKeys;
 })(edo || (edo = {}));
-//# sourceMappingURL=GridOptions.js.map
+//# sourceMappingURL=EdoOptions.js.map

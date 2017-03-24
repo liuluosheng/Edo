@@ -7,12 +7,8 @@ class UserPermissions implements ICoustom {
     $inject = ["$scope"];
     constructor($scope) {
         $scope.test = "111";
-        $scope.nodes = [
-            { id: 1, pId: 0, name: "普通的父节点", t: "我很普通，随便点我吧", open: true },
-            { id: 11, pId: 1, name: "叶子节点 - 1", t: "我很普通，随便点我吧" },
-            { id: 12, pId: 1, name: "叶子节点 - 2", t: "我很普通，随便点我吧" }
-        ];
-        $scope.setting = {};
+        $scope.nodes = edo.TreePermissionKeys.value;
+        $scope.setting = {check: {enable:true} };
     }
 }
 export = UserPermissions;

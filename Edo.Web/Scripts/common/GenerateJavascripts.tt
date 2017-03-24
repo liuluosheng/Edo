@@ -13,6 +13,7 @@
 <#@ import namespace="System.ComponentModel.DataAnnotations.Schema" #>
 <#@ import namespace="System.ComponentModel" #>
 <#@ import namespace="Edo.Data.Entity" #>
+<#@ import namespace="Edo.Data.Entity.Enum" #>
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
 <#@import namespace="System.Reflection"#>
@@ -22,9 +23,10 @@
 <#@ output extension=".log" #>
  <#
     GridOptionsTemplate gridOptionTemplate= new GridOptionsTemplate();
-    gridOptionTemplate.RenderToFile("GridOptions.ts");
+    gridOptionTemplate.RenderToFile("EdoOptions.ts");
     WriteLine("Generate File： GridOptions.ts");
  #> 
+
 <#+
     public class GridOptionsTemplate : CSharpTemplate
     {
@@ -36,6 +38,10 @@ namespace edo {
     export class GridOption {
          static value=<#=            Methods.GetScript() #>;
     }
+     export class TreePermissionKeys {
+         static value=<#=            Methods.GetPermissionKeyScripts() #>;
+    }
+
 }
 <#+
             return this.GenerationEnvironment.ToString();
@@ -44,6 +50,34 @@ namespace edo {
 #>
 <#+
     public static  class Methods{
+
+        public static string GetPermissionKeyScripts(){
+            var types = Assembly.GetAssembly(typeof(EntityBase)).GetTypes();
+            var baseType = typeof(EntityBase);
+            List<object> obj = new List<object>();
+            foreach (Type type in types)
+            {
+                if(type.BaseType!=baseType) continue;
+                var attribute=type.GetCustomAttribute<GenerateControllerAttribute>();
+                if( attribute==null){continue;}
+                List<PermissionKey> keys=new List<PermissionKey>();
+                keys.Add(PermissionKey.查看);
+                keys.Add(PermissionKey.更新);
+                keys.Add(PermissionKey.删除);
+                keys.Add(PermissionKey.新建);
+                if( attribute.PermissionKeys !=null){
+                    keys.AddRange(attribute.PermissionKeys.ToList());
+                }
+                obj.Add(new {name=attribute.Title??type.Name, type=type.Name, children=keys.ToList().Select(p=>new{name=p})});
+            }
+            JsonSerializerSettings settings = new JsonSerializerSettings
+                {
+                    ContractResolver = new Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver()
+                    };
+            settings.Converters.Add(new Newtonsoft.Json.Converters.StringEnumConverter());
+            return Newtonsoft.Json.JsonConvert.SerializeObject(  obj , settings);
+        }
+
         public static string GetScript(){
             var types = Assembly.GetAssembly(typeof(EntityBase)).GetTypes();
             var baseType = typeof(EntityBase);

@@ -1452,8 +1452,8 @@
     <Content Include="Scripts\common\GenerateJavascripts.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastOutputs>
+.\EdoOptions.ts
 .\GenerateJavascripts.log
-.\GridOptions.ts
 </LastOutputs>
       <LastGenOutput>GenerateJavascripts.log</LastGenOutput>
     </Content>
@@ -1502,7 +1502,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Scripts\common\app.ts.bak" />
-    <TypeScriptCompile Include="Scripts\common\GridOptions.ts">
+    <TypeScriptCompile Include="Scripts\common\EdoOptions.ts">
       <DependentUpon>GenerateJavascripts.tt</DependentUpon>
     </TypeScriptCompile>
     <TypeScriptCompile Include="Scripts\common\Q.ts" />

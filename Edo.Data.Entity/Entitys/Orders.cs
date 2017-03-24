@@ -2,13 +2,16 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Edo.Data.Entity.ComponentModel;
+using Edo.Data.Entity.Enum;
 
 namespace Edo.Data.Entity
 {
     using System;
     using System.Collections.Generic;
 
-    [NgTemplate, GenerateController(Title = "订单信息")]
+    [NgTemplate, GenerateController(
+        Title = "订单信息",
+        PermissionKeys = new[] { PermissionKey.编辑订单详情 })]
     public partial class Orders : EntityBase
     {
         public Guid CustomerID { get; set; }
